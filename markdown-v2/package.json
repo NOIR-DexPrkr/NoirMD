@@ -48,7 +48,17 @@
     "admonitions",
     "cards"
   ],
+  "author": "NOIR-DexPrkr",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NOIR-DexPrkr/NoirMD.git",
+    "directory": "markdown-v2"
+  },
+  "homepage": "https://github.com/NOIR-DexPrkr/NoirMD#readme",
+  "bugs": {
+    "url": "https://github.com/NOIR-DexPrkr/NoirMD/issues"
+  },
   "peerDependencies": {
     "@base-ui/react": ">=1.0.0",
     "@codemirror/language": ">=6.0.0",
