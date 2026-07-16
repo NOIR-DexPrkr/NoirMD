@@ -1,0 +1,13 @@
+---
+import { NRpreviewer } from '@noirmd/previewer/react';
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<div class="nr-prose">
+  <NRpreviewer client:load content={content} tailwindCDN />
+</div>

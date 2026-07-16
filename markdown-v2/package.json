@@ -1,8 +1,8 @@
 {
   "name": "@noirmd/previewer",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "type": "module",
-  "description": "Custom markdown parser and React renderer with directives, cards, modals, and Tailwind styling",
+  "description": "Framework-agnostic markdown parser with React renderer, directives, cards, modals, and Tailwind styling",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,6 +12,31 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js",
+      "require": "./dist/core.cjs",
+      "default": "./dist/core.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs",
+      "default": "./dist/react.js"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla.d.ts",
+      "import": "./dist/vanilla.js",
+      "require": "./dist/vanilla.cjs",
+      "default": "./dist/vanilla.js"
+    },
+    "./vanilla/vanilla.css": "./dist/vanilla.css",
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.cjs",
+      "default": "./dist/vue.js"
     },
     "./editor": {
       "types": "./dist/NReditor.d.ts",
@@ -39,13 +64,14 @@
     "directives",
     "tailwind",
     "admonitions",
-    "cards"
+    "cards",
+    "vue"
   ],
   "author": "NOIR-DexPrkr",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NOIR-DexPrkr/NoirMD.git",
+    "url": "git+https://github.com/NOIR-DexPrkr/NoirMD.git",
     "directory": "markdown-v2"
   },
   "homepage": "https://github.com/NOIR-DexPrkr/NoirMD#readme",
@@ -60,10 +86,14 @@
     "@lezer/highlight": ">=1.0.0",
     "@uiw/react-codemirror": ">=4.0.0",
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "vue": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "@base-ui/react": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     },
     "@uiw/react-codemirror": {
@@ -94,6 +124,7 @@
     "@types/react": "^18.0.0 || ^19.0.0",
     "@uiw/react-codemirror": "^4.25.11",
     "tsup": "^8.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vue": "^3.5.40"
   }
 }

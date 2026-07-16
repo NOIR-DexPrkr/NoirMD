@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import InteractivePreview from '../components/InteractivePreview.astro';
+
+const heroMarkdown = `# Hello **NoirMD**
+
+A framework-agnostic markdown renderer with custom directives.
+
+:::note {title="Quick Start"}
+Install the package and start rendering markdown in any framework.
+:::`;
+
+const features = [
+  {
+    icon: 'code',
+    title: 'Framework Agnostic',
+    description: 'Use with React, Vue, Vanilla JS, or any framework. Same core parser, different renderers.',
+  },
+  {
+    icon: 'palette',
+    title: 'Custom Directives',
+    description: '16 directive types for admonitions, cards, modals, buttons, and more.',
+  },
+  {
+    icon: 'style',
+    title: 'Tailwind CSS',
+    description: 'Built-in Tailwind v4 CDN integration with JIT compilation.',
+  },
+  {
+    icon: 'terminal',
+    title: 'Syntax Highlighting',
+    description: 'Highlight.js with 20+ languages out of the box.',
+  },
+];
+---
+
+<Layout title="Home">
+  <Header />
+
+  <!-- Hero -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+        <span class="text-[var(--color-accent-primary)]">NoirMD</span>
+        <span class="text-[var(--color-text-primary)]"> Markdown Renderer</span>
+      </h1>
+      <p class="text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-8">
+        A framework-agnostic markdown parser with React, Vue, and Vanilla JS renderers.
+        Custom directives, Tailwind styling, and syntax highlighting.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a
+          href="/playground"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-accent-primary)] text-white font-semibold hover:opacity-90 transition-opacity no-underline"
+        >
+          <span class="material-symbols-rounded">play_arrow</span>
+          Try Playground
+        </a>
+        <a
+          href="/docs/parser"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-semibold hover:bg-[var(--color-background-secondary)] transition-colors no-underline"
+        >
+          <span class="material-symbols-rounded">menu_book</span>
+          Read Docs
+        </a>
+      </div>
+    </div>
+
+    <!-- Interactive Demo -->
+    <InteractivePreview markdown={heroMarkdown} title="Live Demo" />
+  </section>
+
+  <!-- Features -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[var(--color-border)]">
+    <h2 class="text-3xl font-bold text-center mb-12">Why NoirMD?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map(feature => (
+        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background-secondary)]/50">
+          <span class="material-symbols-rounded text-3xl text-[var(--color-accent-primary)] mb-4 block">
+            {feature.icon}
+          </span>
+          <h3 class="text-lg font-bold mb-2">{feature.title}</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[var(--color-border)]">
+    <h2 class="text-3xl font-bold text-center mb-12">Quick Start</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background-secondary)]/50">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+          <span class="material-symbols-rounded text-[var(--color-accent-primary)]">react</span>
+          React
+        </h3>
+        <pre class="p-4 rounded-xl bg-[var(--color-background-primary)] text-sm overflow-x-auto"><code>import {'{'} NRpreviewer {'}'} from '@noirmd/previewer/react';
+import '@noirmd/previewer/markdown.css';
+
+&lt;NRpreviewer content="# Hello **World**" /&gt;</code></pre>
+      </div>
+      <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background-secondary)]/50">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+          <span class="material-symbols-rounded text-[var(--color-accent-primary)]">vue</span>
+          Vue
+        </h3>
+        <pre class="p-4 rounded-xl bg-[var(--color-background-primary)] text-sm overflow-x-auto"><code>import {'{'} NRpreviewer {'}'} from '@noirmd/previewer/vue';
+import '@noirmd/previewer/markdown.css';
+
+&lt;NRpreviewer content="# Hello **World**" /&gt;</code></pre>
+      </div>
+      <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background-secondary)]/50">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+          <span class="material-symbols-rounded text-[var(--color-accent-primary)]">javascript</span>
+          Vanilla
+        </h3>
+        <pre class="p-4 rounded-xl bg-[var(--color-background-primary)] text-sm overflow-x-auto"><code>import {'{'} renderMarkdownString {'}'} from '@noirmd/previewer/vanilla';
+import '@noirmd/previewer/vanilla/vanilla.css';
+
+const el = renderMarkdownString('# Hello **World**');
+document.body.appendChild(el);</code></pre>
+      </div>
+    </div>
+  </section>
+</Layout>

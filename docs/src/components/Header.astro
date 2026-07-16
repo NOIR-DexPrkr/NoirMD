@@ -1,0 +1,54 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/playground', label: 'Playground' },
+  { href: '/examples', label: 'Examples' },
+  { href: '/docs/parser', label: 'Docs' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-background-primary)]/80 backdrop-blur-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 no-underline">
+        <span class="material-symbols-rounded text-[var(--color-accent-primary)]">code</span>
+        <span class="font-bold text-lg text-[var(--color-text-primary)]">NoirMD</span>
+      </a>
+
+      <!-- Nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors no-underline ${
+              currentPath === item.href || currentPath.startsWith(item.href + '/')
+                ? 'bg-[var(--color-accent-primary)]/10 text-[var(--color-accent-primary)]'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-background-secondary)]'
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="p-2 rounded-lg hover:bg-[var(--color-background-secondary)] transition-colors"
+        aria-label="Toggle theme"
+      >
+        <span class="material-symbols-rounded text-[var(--color-text-secondary)]">dark_mode</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+</script>

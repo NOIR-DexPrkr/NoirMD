@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Playground from '../components/Playground.astro';
+---
+
+<Layout title="Playground">
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2">Playground</h1>
+      <p class="text-[var(--color-text-secondary)]">
+        Edit markdown on the left and see the live preview on the right.
+      </p>
+    </div>
+
+    <Playground />
+  </main>
+</Layout>

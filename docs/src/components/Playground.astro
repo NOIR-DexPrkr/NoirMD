@@ -1,0 +1,176 @@
+---
+import CodeEditor from './CodeEditor.tsx';
+import PlaygroundReactPreview from './PlaygroundReactPreview.tsx';
+import PlaygroundVuePreview from './PlaygroundVuePreview.vue';
+import PlaygroundVanillaPreview from './PlaygroundVanillaPreview.tsx';
+
+const DEFAULT_MARKDOWN = `# Welcome to NoirMD
+
+A **framework-agnostic** markdown renderer with custom directives.
+
+## Features
+
+- Custom directives (\`:::note\`, \`:::card\`, etc.)
+- Tailwind CSS styling
+- Syntax highlighting
+- Live preview
+
+> Try editing this markdown to see the preview update!
+
+:::note {title="Getting Started"}
+Install the package and start rendering markdown in any framework.
+:::
+
+\`\`\`javascript
+const markdown = '# Hello **World**';
+const html = renderMarkdown(markdown);
+\`\`\`
+`;
+---
+
+<div class="flex flex-col gap-4 min-h-[600px]">
+  <!-- Toolbar: framework tabs + view mode -->
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-border)] pb-2">
+    <!-- Framework tabs -->
+    <div class="flex gap-1">
+      <button data-pg-framework="react"
+        class="pg-fw-tab active px-3 py-1.5 text-sm font-medium rounded-lg bg-[var(--color-accent-primary)]/10 text-[var(--color-accent-primary)] transition-colors">
+        React
+      </button>
+      <button data-pg-framework="vue"
+        class="pg-fw-tab px-3 py-1.5 text-sm font-medium rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+        Vue
+      </button>
+      <button data-pg-framework="vanilla"
+        class="pg-fw-tab px-3 py-1.5 text-sm font-medium rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+        Vanilla
+      </button>
+    </div>
+
+    <!-- View mode tabs -->
+    <div class="flex gap-1">
+      <button data-pg-view="editor"
+        class="pg-view-tab px-3 py-1.5 text-sm font-medium rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+        title="Editor only">
+        <span class="material-symbols-rounded text-base align-middle">edit</span>
+        <span class="hidden sm:inline ml-1">Editor</span>
+      </button>
+      <button data-pg-view="split"
+        class="pg-view-tab active px-3 py-1.5 text-sm font-medium rounded-lg bg-[var(--color-accent-primary)]/10 text-[var(--color-accent-primary)] transition-colors"
+        title="Split view">
+        <span class="material-symbols-rounded text-base align-middle">vertical_split</span>
+        <span class="hidden sm:inline ml-1">Split</span>
+      </button>
+      <button data-pg-view="preview"
+        class="pg-view-tab px-3 py-1.5 text-sm font-medium rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+        title="Preview only">
+        <span class="material-symbols-rounded text-base align-middle">play_arrow</span>
+        <span class="hidden sm:inline ml-1">Preview</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Panels container -->
+  <div id="pg-panels" class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1">
+    <!-- Editor -->
+    <div id="pg-editor"
+      class="rounded-2xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-background-secondary)]">
+      <div class="flex items-center gap-2 px-4 py-2 border-b border-[var(--color-border)] bg-[var(--color-background-secondary)]/50 text-xs font-mono text-[var(--color-text-secondary)]">
+        <span class="material-symbols-rounded text-base">edit</span>
+        Editor
+        <span class="pg-fw-label ml-auto text-[var(--color-accent-primary)] font-semibold">React</span>
+      </div>
+      <div class="h-[600px] overflow-auto">
+        <CodeEditor client:load initialMarkdown={DEFAULT_MARKDOWN} />
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div id="pg-preview"
+      class="rounded-2xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-background-primary)]">
+      <div class="flex items-center gap-2 px-4 py-2 border-b border-[var(--color-border)] bg-[var(--color-background-secondary)]/50 text-xs text-[var(--color-text-secondary)]">
+        <span class="material-symbols-rounded text-base">play_arrow</span>
+        <span id="pg-preview-label">React</span> Preview
+      </div>
+      <div class="h-[600px] overflow-auto p-6">
+        <div data-pg-panel="react" class="pg-panel">
+          <PlaygroundReactPreview client:load initialContent={DEFAULT_MARKDOWN} />
+        </div>
+        <div data-pg-panel="vue" class="pg-panel hidden">
+          <PlaygroundVuePreview client:only="vue" initialContent={DEFAULT_MARKDOWN} />
+        </div>
+        <div data-pg-panel="vanilla" class="pg-panel hidden">
+          <PlaygroundVanillaPreview client:load initialContent={DEFAULT_MARKDOWN} />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('pg-panels');
+  const editorPanel = document.getElementById('pg-editor');
+  const previewPanel = document.getElementById('pg-preview');
+
+  function setView(mode: string) {
+    if (!container || !editorPanel || !previewPanel) return;
+
+    editorPanel.classList.remove('hidden');
+    previewPanel.classList.remove('hidden');
+
+    if (mode === 'editor') {
+      previewPanel.classList.add('hidden');
+      container.classList.remove('lg:grid-cols-2');
+    } else if (mode === 'preview') {
+      editorPanel.classList.add('hidden');
+      container.classList.remove('lg:grid-cols-2');
+    } else {
+      // split
+      container.classList.add('lg:grid-cols-2');
+    }
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    // ── Framework tab ──
+    const fwBtn = target.closest('[data-pg-framework]') as HTMLElement | null;
+    if (fwBtn) {
+      const fw = fwBtn.dataset.pgFramework;
+      if (!fw) return;
+
+      document.querySelectorAll('.pg-fw-tab').forEach(t => {
+        t.classList.remove('active', 'bg-[var(--color-accent-primary)]/10', 'text-[var(--color-accent-primary)]');
+        t.classList.add('text-[var(--color-text-secondary)]');
+      });
+      fwBtn.classList.add('active', 'bg-[var(--color-accent-primary)]/10', 'text-[var(--color-accent-primary)]');
+      fwBtn.classList.remove('text-[var(--color-text-secondary)]');
+
+      document.querySelectorAll('.pg-panel').forEach(p => p.classList.add('hidden'));
+      const panel = document.querySelector(`[data-pg-panel="${fw}"]`);
+      if (panel) panel.classList.remove('hidden');
+
+      const name = fw.charAt(0).toUpperCase() + fw.slice(1);
+      const label = document.getElementById('pg-preview-label');
+      if (label) label.textContent = name;
+      document.querySelectorAll('.pg-fw-label').forEach(l => l.textContent = name);
+      return;
+    }
+
+    // ── View mode tab ──
+    const viewBtn = target.closest('[data-pg-view]') as HTMLElement | null;
+    if (viewBtn) {
+      const view = viewBtn.dataset.pgView;
+      if (!view) return;
+
+      document.querySelectorAll('.pg-view-tab').forEach(t => {
+        t.classList.remove('active', 'bg-[var(--color-accent-primary)]/10', 'text-[var(--color-accent-primary)]');
+        t.classList.add('text-[var(--color-text-secondary)]');
+      });
+      viewBtn.classList.add('active', 'bg-[var(--color-accent-primary)]/10', 'text-[var(--color-accent-primary)]');
+      viewBtn.classList.remove('text-[var(--color-text-secondary)]');
+
+      setView(view);
+    }
+  });
+</script>

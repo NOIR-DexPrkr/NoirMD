@@ -1,0 +1,100 @@
+---
+import ReactPreview from './ReactPreview.tsx';
+import VuePreview from './VuePreview.vue';
+import VanillaPreview from './VanillaPreview.tsx';
+
+interface Props {
+  markdown: string;
+  title?: string;
+}
+
+const { markdown, title } = Astro.props;
+const id = Math.random().toString(36).slice(2, 8);
+---
+
+<div class="my-8" data-preview-id={id}>
+  {title && (
+    <h3 class="text-lg font-bold mb-4 text-[var(--color-text-primary)]">{title}</h3>
+  )}
+
+  <!-- Code display -->
+  <div class="mb-4 rounded-2xl border border-[var(--color-border)] overflow-hidden bg-[var(--color-background-secondary)]/50">
+    <div class="flex items-center gap-2 px-4 py-2 border-b border-[var(--color-border)] bg-[var(--color-background-secondary)]/50 text-xs font-mono text-[var(--color-text-secondary)]">
+      <span class="material-symbols-rounded text-base">code</span>
+      Markdown Source
+    </div>
+    <pre class="p-4 overflow-x-auto text-sm"><code class="language-markdown">{markdown}</code></pre>
+  </div>
+
+  <!-- Framework tabs -->
+  <div class="flex gap-1 mb-4 border-b border-[var(--color-border)]">
+    <button data-tab="react" data-preview-id={id}
+      class="preview-tab active px-4 py-2 text-sm font-medium border-b-2 border-[var(--color-accent-primary)] text-[var(--color-accent-primary)] transition-colors">
+      React
+    </button>
+    <button data-tab="vue" data-preview-id={id}
+      class="preview-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+      Vue
+    </button>
+    <button data-tab="vanilla" data-preview-id={id}
+      class="preview-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+      Vanilla
+    </button>
+  </div>
+
+  <!-- Preview panels -->
+  <div class="rounded-2xl border border-[var(--color-border)] p-6 bg-[var(--color-background-primary)]">
+    <!-- React -->
+    <div data-panel="react" data-preview-id={id} class="preview-panel">
+      <div class="flex items-center gap-2 mb-4 text-xs text-[var(--color-text-secondary)]">
+        <span class="material-symbols-rounded text-base">play_arrow</span>
+        React Preview
+      </div>
+      <ReactPreview client:load content={markdown} />
+    </div>
+
+    <!-- Vue -->
+    <div data-panel="vue" data-preview-id={id} class="preview-panel hidden">
+      <div class="flex items-center gap-2 mb-4 text-xs text-[var(--color-text-secondary)]">
+        <span class="material-symbols-rounded text-base">play_arrow</span>
+        Vue Preview
+      </div>
+      <VuePreview client:only="vue" content={markdown} />
+    </div>
+
+    <!-- Vanilla -->
+    <div data-panel="vanilla" data-preview-id={id} class="preview-panel hidden">
+      <div class="flex items-center gap-2 mb-4 text-xs text-[var(--color-text-secondary)]">
+        <span class="material-symbols-rounded text-base">play_arrow</span>
+        Vanilla Preview
+      </div>
+      <VanillaPreview client:load content={markdown} />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.preview-tab') as HTMLElement | null;
+    if (!btn) return;
+
+    const previewId = btn.dataset.previewId;
+    const tab = btn.dataset.tab;
+    if (!previewId || !tab) return;
+
+    // Update tab styles
+    document.querySelectorAll(`.preview-tab[data-preview-id="${previewId}"]`).forEach(t => {
+      t.classList.remove('active', 'border-[var(--color-accent-primary)]', 'text-[var(--color-accent-primary)]');
+      t.classList.add('border-transparent', 'text-[var(--color-text-secondary)]');
+    });
+    btn.classList.add('active', 'border-[var(--color-accent-primary)]', 'text-[var(--color-accent-primary)]');
+    btn.classList.remove('border-transparent', 'text-[var(--color-text-secondary)]');
+
+    // Show/hide panels
+    document.querySelectorAll(`.preview-panel[data-preview-id="${previewId}"]`).forEach(p => {
+      p.classList.add('hidden');
+    });
+    const panel = document.querySelector(`.preview-panel[data-panel="${tab}"][data-preview-id="${previewId}"]`);
+    if (panel) panel.classList.remove('hidden');
+  });
+</script>

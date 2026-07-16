@@ -1,8 +1,23 @@
 # NoirMD — LLM Reference
 
-> Quick reference for AI assistants. NoirMD is a markdown renderer + editor for React.
+> Quick reference for AI assistants helping users install, configure, and use NoirMD.
+> NoirMD is a framework-agnostic markdown renderer with React, Vue, and Vanilla JS renderers.
+> npm: `@noirmd/previewer` | GitHub: https://github.com/NOIR-DexPrkr/NoirMD
 
-## Installation
+## Package Overview
+
+| Entry point | Description | Dependencies |
+|-------------|-------------|--------------|
+| `@noirmd/previewer/core` | Parser, types, utilities | None |
+| `@noirmd/previewer/react` | React components + renderer | React ≥18 |
+| `@noirmd/previewer/vanilla` | Vanilla DOM renderer + CSS | None (highlight.js bundled) |
+| `@noirmd/previewer/vue` | Vue 3 components + composables | Vue ≥3 |
+| `@noirmd/previewer` | Backward-compat (core + react) | React ≥18 |
+| `@noirmd/previewer/editor` | CodeMirror 6 editor | React + CodeMirror |
+
+---
+
+## Setup — React
 
 ```bash
 npm install @noirmd/previewer react react-dom
@@ -10,23 +25,99 @@ npm install @noirmd/previewer react react-dom
 npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror/language @lezer/highlight
 ```
 
-## Core Components
-
-### NRpreviewer
 ```tsx
-import { NRpreviewer } from '@noirmd/previewer';
+import { NRpreviewer } from '@noirmd/previewer/react';
 import '@noirmd/previewer/markdown.css';
 
-<NRpreviewer content="# Hello" tailwindCDN />
+function App() {
+  return <NRpreviewer content="# Hello **World**" tailwindCDN />;
+}
 ```
-Props: `content`, `html`, `tailwindCDN`, `className`, `style`
 
-### NReditor
+### NRpreviewer Props (React)
+- `content: string` — Markdown string to render
+- `html: string` — Pre-rendered HTML (skip parsing)
+- `tailwindCDN: boolean` — Inject Tailwind CSS v4 CDN
+- `className: string` — Additional CSS class
+- `style: CSSProperties` — Inline styles
+
+### NReditor Props (React)
 ```tsx
 import NReditor from '@noirmd/previewer/editor';
 <NReditor value={value} onChange={setValue} tailwindCDN />
 ```
-Props: `value`, `onChange`, `className`, `debounceMs`, `tailwindCDN`
+- `value: string` — Markdown content
+- `onChange: (value: string) => void` — Change handler
+- `debounceMs: number` — Debounce for preview (default: 150)
+- `tailwindCDN: boolean` — Inject Tailwind CSS v4 CDN
+
+---
+
+## Setup — Vue 3
+
+```bash
+npm install @noirmd/previewer vue
+```
+
+```vue
+<script setup>
+import { NRpreviewer } from '@noirmd/previewer/vue';
+import '@noirmd/previewer/markdown.css';
+
+const markdown = `# Hello **World**`;
+</script>
+
+<template>
+  <NRpreviewer :content="markdown" :tailwindCDN="true" />
+</template>
+```
+
+### NRpreviewer Props (Vue)
+- `content: string` — Markdown string
+- `tailwindCDN: boolean` — Inject Tailwind CDN
+- `className: string` — Additional CSS class
+
+---
+
+## Setup — Vanilla JS
+
+```bash
+npm install @noirmd/previewer
+```
+
+```ts
+import { renderMarkdownString } from '@noirmd/previewer/vanilla';
+import '@noirmd/previewer/vanilla/vanilla.css';
+
+const el = renderMarkdownString('# Hello **World**');
+document.getElementById('app')!.appendChild(el);
+```
+
+### API (Vanilla)
+- `renderMarkdownString(markdown: string): HTMLElement` — Returns a DOM element
+- `parseMarkdown(markdown: string): Token[]` — Returns raw AST tokens (from `@noirmd/previewer/core`)
+
+### CDN Usage (no build step)
+```html
+<script type="module">
+  import { renderMarkdownString } from 'https://esm.sh/@noirmd/previewer/vanilla';
+  import '@noirmd/previewer/vanilla/vanilla.css';
+  document.body.appendChild(renderMarkdownString('# Hello'));
+</script>
+```
+
+---
+
+## Core Parser (Framework-Agnostic)
+
+```ts
+import { parseMarkdown } from '@noirmd/previewer/core';
+const tokens = parseMarkdown('# Hello **World**');
+```
+
+Zero dependencies. Returns `Token[]` AST.
+
+---
 
 ## Inline Syntax
 
@@ -85,6 +176,8 @@ Markdown **inside** HTML works.
 </div>
 ```
 
+---
+
 ## Directives
 
 General syntax:
@@ -123,6 +216,8 @@ Shorthands: `.class` → `{class}`, `#id` → `{id}`
 - `:::div`, `:::style`, `:::custom`, `:::raw`
 - Generic wrapper, same as native `<div>`
 
+---
+
 ## Styling System
 
 - Tailwind CDN injection via `tailwindCDN` prop
@@ -130,6 +225,47 @@ Shorthands: `.class` → `{class}`, `#id` → `{id}`
 - Theme: light/dark via `.dark` class on root
 - Font families: `font-sans` (Inter), `font-mono` (Roboto Mono), etc.
 
+### Custom Theme
+```css
+:root {
+  --color-background-primary: #ffffff;
+  --color-text-primary: #1a1a2e;
+  --color-accent-primary: #6366f1;
+}
+.dark {
+  --color-background-primary: #0f0f23;
+  --color-text-primary: #e2e8f0;
+  --color-accent-primary: #818cf8;
+}
+```
+
+---
+
 ## Parser Order
 
 1. Headers → 2. Aligned paragraphs → 3. Code blocks → 4. Directives → 5. Images → 6. Tables → 7. Lists → 8. Blockquotes → 9. HR → 10. TOC → 11. HTML blocks → 12. Paragraphs
+
+---
+
+## TypeScript Support
+
+Full type definitions included with every entry point:
+
+```ts
+import type { Token } from '@noirmd/previewer/core';
+import type { RenderContext, DirectiveComponentProps } from '@noirmd/previewer/react';
+```
+
+---
+
+## Troubleshooting
+
+**Styles not loading?** Import the CSS: `import '@noirmd/previewer/markdown.css'`
+
+**Tailwind classes not working?** Add `tailwindCDN` prop to enable JIT CDN compilation.
+
+**Syntax highlighting missing?** Highlight.js is bundled in react/vanilla renderers. Ensure you're importing from the correct entry point.
+
+**Vue SSR error "window is not defined"?** Normal — Tailwind CDN hook accesses `window`. Components work fine client-side with `client:load` (Astro) or in browser.
+
+**Next.js "use client" needed?** Yes — add `'use client'` directive for components using hooks.

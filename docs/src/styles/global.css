@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "@noirmd/previewer/markdown.css";
+
+@theme {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8f9fa;
+  --color-background-secondary-solid: #f1f3f5;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-accent-primary: #6366f1;
+  --color-accent-secondary: #8b5cf6;
+  --color-border: #e5e7eb;
+  --color-info: #3b82f6;
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+}
+
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8f9fa;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-accent-primary: #6366f1;
+  --color-border: #e5e7eb;
+}
+
+.dark {
+  --color-background-primary: #0f0f23;
+  --color-background-secondary: #1a1a2e;
+  --color-background-secondary-solid: #252540;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-accent-primary: #818cf8;
+  --color-border: #334155;
+}
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Code blocks */
+pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}

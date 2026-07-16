@@ -1,31 +1,88 @@
-# CNR-Paste V2 Markdown Renderer
+# @noirmd/previewer — Framework-Agnostic Markdown Renderer
 
-React component library that parses markdown into a typed AST and renders it as React elements. Used as a drop-in markdown preview for CNR-Paste.
+A framework-agnostic markdown parser with an optional React renderer, featuring custom directives, cards, modals, and Tailwind styling. Usable from React, Vue, Svelte, vanilla JS, or any framework.
 
 ## Architecture
 
 ```
-string → parseMarkdown() → Token[] → processAndRenderElements() → React tree
+                        ┌─────────────────────────────┐
+                        │  core/ (framework-agnostic)  │
+                        │  parseMarkdown() → Token[]   │
+                        └──────────────┬──────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+              ┌─────▼─────┐    ┌──────▼──────┐    ┌─────▼─────┐
+              │  react/    │    │  vanilla/   │    │   vue/    │
+              │  React UI  │    │  Pure DOM   │    │  Vue 3    │
+              └────────────┘    └─────────────┘    └───────────┘
 ```
 
-- **Parser**: Line-by-line state machine (`parser.ts`), produces typed `Token[]` AST
-- **Renderer**: `CustomMarkdownRenderer.tsx` orchestrates the full pipeline
-- **Directives**: Custom `:::type {props} ... :::` syntax for interactive components
-- **Inline syntax**: Bold, italic, highlight, color, spoiler, underline, icons, links
+- **Core** (`core/`): Parser, token types, utilities — ZERO framework dependency
+- **React** (`react/`): React components, directives, hooks, UI
+- **Vanilla** (`vanilla/`): Pure DOM rendering + CSS, ZERO framework dependency
+- **Vue** (`vue/`): Vue 3 components, composables, directives — requires Vue ≥3
+- **Entry points**: `@noirmd/previewer/core`, `@noirmd/previewer/react`, `@noirmd/previewer/vanilla`, `@noirmd/previewer/vue`, `@noirmd/previewer` (backward compat)
 
-## Key Files
+## Package Entry Points
 
-| File | Purpose |
-|------|---------|
-| `parser.ts` | Line-by-line parser → Token[] AST |
-| `renderers.tsx` | Inline rendering, table, list, header extraction |
-| `CustomMarkdownRenderer.tsx` | Main orchestrator: parse → render → React |
-| `DirectiveRenderer.tsx` | Routes directive tokens to components |
-| `directives/index.ts` | Directive registry (16 strings → 7 components) |
-| `types.ts` | Token, RenderContext, DirectiveComponentProps interfaces |
-| `context.tsx` | React context for RenderContext |
-| `useTailwindCDN.ts` | Lazy Tailwind v4 CDN injection (ref-counted) |
-| `guide-llm/` | Detailed docs for each feature area |
+| Import path | Description | Dependencies |
+|-------------|-------------|--------------|
+| `@noirmd/previewer/core` | Parser, types, utilities | None |
+| `@noirmd/previewer/react` | React components + renderer | React ≥18 |
+| `@noirmd/previewer/vanilla` | Vanilla DOM renderer + CSS | None (highlight.js bundled) |
+| `@noirmd/previewer/vue` | Vue 3 components + composables | Vue ≥3 |
+| `@noirmd/previewer` | Backward-compatible (core + react) | React ≥18 |
+| `@noirmd/previewer/editor` | CodeMirror 6 editor | React + CodeMirror |
+
+## Directory Structure
+
+```
+markdown-v2/
+├── core/                    # Framework-agnostic core
+│   ├── types.ts             # Token types, CSSProperties
+│   ├── parser.ts            # Line-by-line state machine parser
+│   ├── utils.ts             # parseCssString, generateId, etc.
+│   └── index.ts             # Barrel export
+├── react/                   # React bindings
+│   ├── types.ts             # RenderContext, DirectiveComponentProps
+│   ├── context.tsx          # React context for RenderContext
+│   ├── CustomMarkdownRenderer.tsx  # Main orchestrator
+│   ├── NRpreviewer.tsx      # Drop-in preview component
+│   ├── DirectiveRenderer.tsx # Routes directive tokens to components
+│   ├── RawHtmlRenderer.tsx  # Raw HTML + script execution
+│   ├── renderers.tsx        # Inline, table, list rendering
+│   ├── ui-components.tsx    # Admonition, Details, Modal, etc.
+│   ├── useTailwindCDN.ts    # Lazy Tailwind v4 CDN injection
+│   ├── directives/          # All directive implementations
+│   └── index.ts             # Barrel export
+├── vanilla/                 # Vanilla DOM renderer (no React)
+│   ├── components.ts        # Factory: icon, codeblock, admonition, details, modal, table, list, toc
+│   ├── inline.ts            # renderInline → DocumentFragment
+│   ├── renderer.ts          # renderTokens/renderMarkdownString → HTMLElement
+│   ├── directives/          # Directive renderers (admonition, card, details, modal, button, wrapper, slide)
+│   ├── vanilla.css          # Pure CSS with variables (no Tailwind)
+│   └── index.ts             # Barrel export
+├── vue/                     # Vue 3 bindings (render functions, no SFC)
+│   ├── types.ts             # RenderContext, DirectiveComponentProps
+│   ├── context.ts           # provide/inject for RenderContext
+│   ├── CustomMarkdownRenderer.ts  # Main orchestrator
+│   ├── NRpreviewer.ts       # Drop-in preview component
+│   ├── DirectiveRenderer.ts  # Routes directive tokens to components
+│   ├── RawHtmlRenderer.ts   # Raw HTML + script execution
+│   ├── renderers.ts         # Inline, table, list rendering (h() based)
+│   ├── ui-components.ts     # Admonition, Details, Modal, etc.
+│   ├── useTailwindCDN.ts    # Composable for lazy Tailwind CDN injection
+│   ├── highlightSetup.ts    # highlight.js language registration
+│   ├── directives/          # All directive implementations
+│   └── index.ts             # Barrel export
+├── core.ts                  # @noirmd/previewer/core entry
+├── react.ts                 # @noirmd/previewer/react entry
+├── vanilla.ts               # @noirmd/previewer/vanilla entry
+├── vue.ts                   # @noirmd/previewer/vue entry
+├── index.ts                 # @noirmd/previewer backward-compat entry
+└── tsup.config.ts           # Build config (6 entry points)
+```
 
 ## Directive System
 
@@ -60,7 +117,7 @@ Directives use `#slotname` markers to split content into named regions:
 | `%color%text%%` | Colored text |
 | `!>text<!` | Spoiler (hover to reveal) |
 | `==text==` | Highlight |
-| `||[[icon-name]]||` | Icon renderer |
+| `\|\|[[icon-name]]\|\|` | Icon renderer |
 | `[TOC]` / `[TOC2]` | Table of contents |
 
 ## Styling

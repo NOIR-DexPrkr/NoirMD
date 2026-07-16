@@ -1,0 +1,178 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Toc from '../../components/Toc.astro';
+import { NRpreviewer } from '@noirmd/previewer/react';
+
+// Sidebar sections with ordering
+const SECTIONS = [
+  {
+    title: 'Getting Started',
+    slugs: ['introduction', 'setup-react', 'setup-vue', 'setup-vanilla'],
+  },
+  {
+    title: 'Syntax',
+    slugs: ['parser', 'inline-syntax', 'block-syntax', 'html-raw'],
+  },
+  {
+    title: 'Directives',
+    slugs: ['directives-general', 'directive-admonitions', 'directive-cards', 'directive-details', 'directive-modal', 'directive-button', 'directive-slide'],
+  },
+  {
+    title: 'Styling',
+    slugs: ['styling-system'],
+  },
+  {
+    title: 'Reference',
+    slugs: ['best-practices'],
+  },
+];
+
+const FLAT_ORDER = [
+  'introduction', 'setup-react', 'setup-vue', 'setup-vanilla',
+  'parser', 'inline-syntax', 'block-syntax', 'html-raw',
+  'directives-general', 'directive-admonitions', 'directive-cards', 'directive-details', 'directive-modal', 'directive-button', 'directive-slide',
+  'styling-system', 'best-practices',
+];
+
+// getStaticPaths() runs in its own isolated scope
+export function getStaticPaths() {
+  const guideFiles = import.meta.glob('../../../guide-llm/*.md', { eager: true, query: '?raw' });
+  const order = [
+    'introduction', 'setup-react', 'setup-vue', 'setup-vanilla',
+    'parser', 'inline-syntax', 'block-syntax', 'html-raw',
+    'directives-general', 'directive-admonitions', 'directive-cards', 'directive-details', 'directive-modal', 'directive-button', 'directive-slide',
+    'styling-system', 'best-practices',
+  ];
+
+  const sidebarItems = Object.entries(guideFiles)
+    .map(([path, mod]) => {
+      const filename = path.split('/').pop()?.replace('.md', '') || '';
+      const content = (mod as any).default || '';
+      const titleMatch = content.match(/^#\s+(.+)/m);
+      const title = titleMatch ? titleMatch[1] : filename;
+      return { slug: filename, title, content };
+    })
+    .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+
+  return sidebarItems.map(item => ({
+    params: { slug: item.slug },
+    props: { item, sidebarItems },
+  }));
+}
+
+const { slug } = Astro.params;
+const { item, sidebarItems } = Astro.props as any;
+const currentSlug = slug || 'introduction';
+const currentDoc = item || sidebarItems[0];
+
+// Build sidebar with sections
+const sidebar = SECTIONS.map(section => ({
+  title: section.title,
+  items: section.slugs
+    .map(s => sidebarItems.find((item: any) => item.slug === s))
+    .filter(Boolean),
+}));
+---
+
+<Layout title={currentDoc.title}>
+  <Header />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex gap-8">
+      <!-- Left Sidebar -->
+      <aside class="w-64 shrink-0 hidden lg:block">
+        <nav class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
+          {sidebar.map(section => (
+            <div class="mb-6">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-2 px-3">
+                {section.title}
+              </h3>
+              <ul class="space-y-0.5">
+                {section.items.map((s: any) => (
+                  <li>
+                    <a
+                      href={`/docs/${s.slug}`}
+                      class={`block px-3 py-1.5 rounded-lg text-sm transition-colors no-underline ${
+                        s.slug === currentSlug
+                          ? 'bg-[var(--color-accent-primary)]/10 text-[var(--color-accent-primary)] font-medium'
+                          : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-background-secondary)]'
+                      }`}
+                    >
+                      {s.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <!-- LLM Reference link -->
+          <div class="mt-6 pt-4 border-t border-[var(--color-border)]">
+            <a
+              href="/llms.txt"
+              target="_blank"
+              rel="noopener"
+              class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-background-secondary)] transition-colors no-underline"
+            >
+              <span class="material-symbols-rounded text-base">smart_toy</span>
+              LLM Reference
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 min-w-0">
+        <!-- Mobile doc nav -->
+        <details class="lg:hidden mb-6">
+          <summary class="flex items-center gap-2 px-4 py-3 rounded-xl border border-[var(--color-border)] cursor-pointer text-sm font-medium text-[var(--color-text-primary)] bg-[var(--color-background-secondary)]/50">
+            <span class="material-symbols-rounded text-base">menu</span>
+            Documentation
+            <span class="material-symbols-rounded text-base ml-auto">expand_more</span>
+          </summary>
+          <div class="mt-2 p-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-background-secondary)]/30">
+            {sidebar.map(section => (
+              <div class="mb-4">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-1 px-2">
+                  {section.title}
+                </h4>
+                <ul class="space-y-0.5">
+                  {section.items.map((s: any) => (
+                    <li>
+                      <a
+                        href={`/docs/${s.slug}`}
+                        class={`block px-3 py-1.5 rounded-lg text-sm transition-colors no-underline ${
+                          s.slug === currentSlug
+                            ? 'bg-[var(--color-accent-primary)]/10 text-[var(--color-accent-primary)] font-medium'
+                            : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                        }`}
+                      >
+                        {s.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div class="pt-3 border-t border-[var(--color-border)]">
+              <a href="/llms.txt" target="_blank" rel="noopener"
+                class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors no-underline">
+                <span class="material-symbols-rounded text-base">smart_toy</span>
+                LLM Reference
+              </a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Doc content -->
+        <article class="nr-prose">
+          <NRpreviewer client:load content={currentDoc.content} tailwindCDN />
+        </article>
+      </main>
+
+      <!-- Right TOC -->
+      <Toc content={currentDoc.content} />
+    </div>
+  </div>
+</Layout>

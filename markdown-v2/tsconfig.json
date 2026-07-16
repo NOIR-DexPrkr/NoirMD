@@ -20,6 +20,12 @@
   "include": [
     "*.ts",
     "*.tsx",
+    "core/**/*.ts",
+    "react/**/*.ts",
+    "react/**/*.tsx",
+    "react/*.ts",
+    "vanilla/**/*.ts",
+    "vanilla/*.ts",
     "directives/**/*.ts",
     "directives/**/*.tsx"
   ],
