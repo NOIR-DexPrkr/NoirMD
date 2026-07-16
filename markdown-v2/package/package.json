@@ -1,23 +1,30 @@
 {
   "name": "@noirmd/previewer",
-  "version": "1.0.2",
-  "type": "module",
+  "version": "1.0.0",
   "description": "Custom markdown parser and React renderer with directives, cards, modals, and Tailwind styling",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./editor": {
-      "types": "./dist/NReditor.d.ts",
-      "import": "./dist/NReditor.js",
-      "require": "./dist/NReditor.cjs",
-      "default": "./dist/NReditor.js"
+      "import": {
+        "types": "./dist/NReditor.d.mts",
+        "default": "./dist/NReditor.mjs"
+      },
+      "require": {
+        "types": "./dist/NReditor.d.ts",
+        "default": "./dist/NReditor.js"
+      }
     },
     "./markdown.css": "./markdown.css"
   },
