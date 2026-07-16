@@ -1,0 +1,135 @@
+# NoirMD — LLM Reference
+
+> Quick reference for AI assistants. NoirMD is a markdown renderer + editor for React.
+
+## Installation
+
+```bash
+npm install @noirmd/previewer react react-dom
+# Editor (optional):
+npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror/language @lezer/highlight
+```
+
+## Core Components
+
+### NRpreviewer
+```tsx
+import { NRpreviewer } from '@noirmd/previewer';
+import '@noirmd/previewer/markdown.css';
+
+<NRpreviewer content="# Hello" tailwindCDN />
+```
+Props: `content`, `html`, `tailwindCDN`, `className`, `style`
+
+### NReditor
+```tsx
+import NReditor from '@noirmd/previewer/editor';
+<NReditor value={value} onChange={setValue} tailwindCDN />
+```
+Props: `value`, `onChange`, `className`, `debounceMs`, `tailwindCDN`
+
+## Inline Syntax
+
+| Syntax | Result |
+|--------|--------|
+| `**bold**` | **bold** |
+| `_italic_` | _italic_ |
+| `***bold italic***` | ***bold italic*** |
+| `~~strikethrough~~` | ~~strikethrough~~ |
+| `` `code` `` | `code` |
+| `==highlight==` | ==highlight== |
+| `!>spoiler<!` | hidden text |
+| `%red%text%%` | colored text |
+| `!~underline~!` | underlined |
+| `\|[[icon]]\|` | Material icon |
+| `[text](url)` | link |
+
+## Block Syntax
+
+### Headers
+```markdown
+# H1  ## H2  ### H3  #### H4  ##### H5  ###### H6
+# ->Centered<-  ## ->Right->
+## Title ##{.class #id}
+```
+
+### Code Blocks
+````markdown
+```javascript title="file.js"
+code here
+```
+````
+
+### Lists
+```markdown
+- Unordered item
+1. Ordered item
+```
+
+### Tables
+```markdown
+| Col1 | Col2 |
+|------|------|
+| A    | B    |
+```
+
+### Blockquotes
+```markdown
+> Quoted text with **formatting**
+```
+
+### HTML Blocks
+```html
+<div class="my-class">
+Markdown **inside** HTML works.
+</div>
+```
+
+## Directives
+
+General syntax:
+```markdown
+:::type {key="value"}
+Content
+:::
+```
+
+Short form: `:::note Quick Title` → `{title="Quick Title"}`
+
+Shorthands: `.class` → `{class}`, `#id` → `{id}`
+
+### Admonitions
+- `:::note`, `:::info`, `:::warning`, `:::danger`, `:::greentext`
+- Props: `title`, `icon`, `class`, `style`
+
+### Cards
+- `:::card` (static), `:::card-m` (modal), `:::card-b` (link)
+- Props: `title`, `icon`, `image`, `class`, `style`, `url`, `batch`
+- Slots: `#description`, `#content` (card-m only)
+
+### Details
+- `:::details {title="..." icon="..." defaultOpen="true"}`
+- Collapsible section with custom state management
+
+### Modal
+- `:::modal {title="..." label="Open" icon="open_in_new"}`
+- Opens dialog with markdown content
+
+### Slide
+- `:::slide {class="text-xl" interval="3000"}`
+- Text carousel, one line per slide
+
+### Wrapper
+- `:::div`, `:::style`, `:::custom`, `:::raw`
+- Generic wrapper, same as native `<div>`
+
+## Styling System
+
+- Tailwind CDN injection via `tailwindCDN` prop
+- CSS variables: `--color-background-primary`, `--color-text-primary`, `--color-accent-primary`, etc.
+- Theme: light/dark via `.dark` class on root
+- Font families: `font-sans` (Inter), `font-mono` (Roboto Mono), etc.
+
+## Parser Order
+
+1. Headers → 2. Aligned paragraphs → 3. Code blocks → 4. Directives → 5. Images → 6. Tables → 7. Lists → 8. Blockquotes → 9. HR → 10. TOC → 11. HTML blocks → 12. Paragraphs

@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light theme (default) ── */
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8fafc;
+  --color-background-secondary-solid: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-accent-primary: #0ea5e9;
+  --color-accent-hover: #38bdf8;
+  --color-accent-text: #ffffff;
+  --color-border: #e2e8f0;
+  --color-info: #0ea5e9;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* CodeMirror syntax tokens */
+  --tc-heading: #0f172a;
+  --tc-quote: #64748b;
+  --tc-meta: #94a3b8;
+  --tc-variable: #0ea5e9;
+  --tc-link: #0ea5e9;
+  --tc-comment: #94a3b8;
+  --tc-type: #8b5cf6;
+  --tc-string: #16a34a;
+  --tc-attribute: #ea580c;
+  --tc-selection-bg: rgba(14, 165, 233, 0.15);
+  --tc-highlight-bg: rgba(0, 0, 0, 0.04);
+  --tc-blockquote-color: #64748b;
+  --tc-blockquote-border: #e2e8f0;
+}
+
+/* ── Dark theme ── */
+.dark {
+  --color-background-primary: #0f172a;
+  --color-background-secondary: #1e293b;
+  --color-background-secondary-solid: #1e293b;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-accent-primary: #38bdf8;
+  --color-accent-hover: #7dd3fc;
+  --color-accent-text: #0f172a;
+  --color-border: #334155;
+  --color-info: #38bdf8;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  --tc-heading: #e2e8f0;
+  --tc-quote: #94a3b8;
+  --tc-meta: #64748b;
+  --tc-variable: #38bdf8;
+  --tc-link: #38bdf8;
+  --tc-comment: #64748b;
+  --tc-type: #a78bfa;
+  --tc-string: #4ade80;
+  --tc-attribute: #fb923c;
+  --tc-selection-bg: rgba(56, 189, 248, 0.2);
+  --tc-highlight-bg: rgba(255, 255, 255, 0.05);
+  --tc-blockquote-color: #94a3b8;
+  --tc-blockquote-border: #334155;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Material Symbols */
+.material-symbols-rounded {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
