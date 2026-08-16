@@ -1,0 +1,36 @@
+/* ============================================================
+   NoirMD Vanilla — Table
+   ============================================================ */
+
+.nr-table-wrap {
+  overflow-x: auto;
+}
+
+.nr-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+@media (min-width: 640px) {
+  .nr-table { font-size: 1rem; }
+}
+
+.nr-table__th {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: rgba(30, 41, 59, 0.1);
+  border-bottom: 1px solid var(--nr-border);
+}
+
+.nr-table__td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--nr-border);
+}
+
+.nr-table tbody tr:last-child .nr-table__td {
+  border-bottom: none;
+}

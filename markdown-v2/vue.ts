@@ -3,27 +3,35 @@
 //
 // Usage:
 //   import { NRpreviewer } from '@noirmd/previewer/vue';
-//   import '@noirmd/previewer/markdown.css';
+//   import '@noirmd/previewer/vanilla/vanilla.css';
 //
 // Requires Vue 3 as a peer dependency.
 // ============================================================
 
 export {
   NRpreviewer,
+  type NRpreviewerProps,
   CustomMarkdownRenderer,
+  RawHtmlRenderer,
   parseMarkdown,
-  extractHeaders,
-  IconRenderer,
-  CodeBlock,
-  Admonition,
-  Details,
-  Modal,
   useLazyTailwindCDN,
   scanTailwindCDN,
   preloadTailwindCDN,
   type Token,
-  type RenderContext,
-  type DirectiveComponentProps,
-  type DirectiveComponent,
   type CSSProperties,
+  type HeaderToken,
+  type ParagraphToken,
+  type CodeblockToken,
+  type DirectiveToken,
+  type HtmlToken,
+  type HtmlBlockToken,
+  type ImageToken,
+  type TableToken,
+  type ListToken,
+  type BlockquoteToken,
+  type HrToken,
+  type TocToken,
+  type DirectiveProps,
+  type DirectiveRendererFn,
+  type VanillaRenderContext,
 } from './vue/index';

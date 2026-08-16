@@ -1,0 +1,314 @@
+/* ============================================================
+   NoirMD Vanilla — Global / Reusable Styles
+
+   Base typography, inline elements, generic element resets
+   (for raw HTML content) and the highlight.js theme.
+   Imported by vanilla.css — do not import standalone.
+   ============================================================ */
+
+/* ── Root prose base ─────────────────────────────────────── */
+
+.nr-prose {
+  color: var(--nr-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.625;
+  word-wrap: break-word;
+}
+
+/* ── Alignment utilities ─────────────────────────────────── */
+
+.nr-prose .text-center { text-align: center; }
+.nr-prose .text-right { text-align: right; }
+
+/* ── Heading & paragraph typography ──────────────────────── */
+
+.md-h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin: 1.5rem 0 0.75rem;
+}
+@media (min-width: 640px) {
+  .md-h1 { font-size: 1.875rem; }
+}
+@media (min-width: 768px) {
+  .md-h1 { font-size: 2.25rem; }
+}
+
+.md-h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 1.25rem 0 0.625rem;
+}
+@media (min-width: 640px) {
+  .md-h2 { font-size: 1.5rem; }
+}
+@media (min-width: 768px) {
+  .md-h2 { font-size: 1.875rem; }
+}
+
+.md-h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1rem 0 0.5rem;
+}
+@media (min-width: 640px) {
+  .md-h3 { font-size: 1.25rem; }
+}
+@media (min-width: 768px) {
+  .md-h3 { font-size: 1.5rem; }
+}
+
+.md-h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0.75rem 0 0.375rem;
+}
+@media (min-width: 640px) {
+  .md-h4 { font-size: 1.125rem; }
+}
+@media (min-width: 768px) {
+  .md-h4 { font-size: 1.25rem; }
+}
+
+.md-h5 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.625rem 0 0.25rem;
+}
+@media (min-width: 640px) {
+  .md-h5 { font-size: 1rem; }
+}
+@media (min-width: 768px) {
+  .md-h5 { font-size: 1.125rem; }
+}
+
+.md-h6 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.5rem 0 0.25rem;
+}
+@media (min-width: 640px) {
+  .md-h6 { font-size: 0.875rem; }
+}
+@media (min-width: 768px) {
+  .md-h6 { font-size: 1rem; }
+}
+
+.md-p {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  margin: 0.75rem 0;
+}
+@media (min-width: 640px) {
+  .md-p { font-size: 1rem; }
+}
+
+/* ── Inline elements ─────────────────────────────────────── */
+
+.nr-link {
+  color: var(--nr-accent);
+  text-decoration: none !important;
+  transition: color 0.15s;
+}
+.nr-link:hover {
+  text-decoration: underline !important;
+  color: var(--nr-accent-hover);
+}
+
+.nr-inline-code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  background: var(--nr-bg-secondary);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--nr-radius-sm);
+  color: var(--nr-text);
+}
+
+.nr-highlight {
+  background: rgba(234, 179, 8, 0.2);
+  color: inherit;
+  padding: 0 0.125rem;
+  border-radius: 0.25rem;
+}
+
+.nr-spoiler {
+  background: var(--nr-text);
+  color: var(--nr-text);
+  padding: 0 0.25rem;
+  border-radius: var(--nr-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.nr-spoiler:hover {
+  background: transparent;
+  color: var(--nr-text);
+}
+
+.nr-underline {
+  text-underline-offset: 2px;
+}
+
+.nr-icon {
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: top;
+}
+
+/* ── Generic element resets (raw HTML content) ───────────── */
+
+.nr-prose a {
+  text-decoration: none !important;
+  color: var(--color-accent-primary, #0ea5e9);
+  transition: color 0.15s;
+}
+.nr-prose a:hover:not(.nr-button):not(.nr-card__action-link) {
+  text-decoration: underline !important;
+  color: var(--color-accent-hover, #38bdf8);
+}
+
+.nr-prose strong,
+.nr-prose b {
+  font-weight: 700;
+}
+
+.nr-prose em,
+.nr-prose i {
+  font-style: italic;
+}
+
+.nr-prose del,
+.nr-prose s {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.nr-prose mark {
+  background: rgba(250, 204, 21, 0.2);
+  padding: 0 0.125rem;
+  border-radius: 0.125rem;
+}
+
+.nr-prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border, #e2e8f0);
+  margin: 2rem 0;
+}
+
+.nr-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* ── Generic wrapper / fallbacks ─────────────────────────── */
+
+.nr-raw-html {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.nr-unknown-directive {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: var(--nr-radius);
+  border: 1px solid var(--nr-border);
+  background: color-mix(in srgb, var(--nr-bg) 5%, transparent);
+}
+
+.nr-hr {
+  border: none;
+  border-top: 1px solid var(--nr-border);
+  margin: 2rem 0;
+}
+
+.nr-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* ── Scrollbar (code blocks and tables) ──────────────────── */
+
+.nr-prose pre::-webkit-scrollbar,
+.nr-prose .nr-table-wrap::-webkit-scrollbar {
+  height: 4px;
+}
+.nr-prose pre::-webkit-scrollbar-thumb,
+.nr-prose .nr-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--color-border, #e2e8f0);
+  border-radius: 2px;
+}
+
+/* ── highlight.js theme — NoirMD ─────────────────────────── */
+
+.hljs {
+  color: #e2e8f0;
+  background: transparent;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #c084fc;
+  font-weight: 600;
+}
+.hljs-function .hljs-keyword {
+  color: #c084fc;
+}
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #4ade80;
+}
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #64748b;
+  font-style: italic;
+}
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-built_in {
+  color: #fb923c;
+}
+.hljs-params {
+  color: #e2e8f0;
+}
+.hljs-attr {
+  color: #38bdf8;
+}
+.hljs-property {
+  color: #0ea5e9;
+}
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #fbbf24;
+}
+.hljs-tag {
+  color: #f87171;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 700;
+}

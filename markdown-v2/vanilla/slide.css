@@ -1,0 +1,21 @@
+/* ============================================================
+   NoirMD Vanilla — Slide (Animation)
+   ============================================================ */
+
+.nr-slide {
+  overflow: hidden;
+  position: relative;
+}
+
+.nr-slide__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.nr-slide__item {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}

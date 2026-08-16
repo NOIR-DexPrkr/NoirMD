@@ -1,17 +1,17 @@
 # NoirMD
 
-A **framework-agnostic** markdown renderer with custom directives, interactive components, and Tailwind CSS styling. Use it in React, Vue, Vanilla JS, or any framework — the same core parser, different renderers.
+A **framework-agnostic** markdown renderer with custom directives, interactive components, and pure CSS styling. **One vanilla DOM engine** with thin React/Vue wrappers — use it in React, Vue, Vanilla JS, or any framework.
 
-> **NoirMD** transforms Markdown into a typed AST and renders it as framework-native UI elements — with support for admonitions, cards, modals, slides, and more.
+> **NoirMD** transforms Markdown into a typed AST and renders it with a single vanilla DOM engine (`renderMarkdownString` → `HTMLElement`) — with support for admonitions, cards, modals, slides, and more.
 
 ---
 
 ## ✨ Features
 
-- 🌐 **Framework Agnostic** — React, Vue 3, and Vanilla JS renderers from one core parser
+- 🌐 **Framework Agnostic** — One DOM rendering engine; React and Vue are thin mount-point wrappers
 - 📝 **Custom Parser** — Line-by-line state machine that produces a typed `Token[]` AST
 - 📦 **Directive System** — 16 directive types mapped to 7 rich components (admonitions, cards, modals, etc.)
-- 🎨 **Tailwind CSS** — Optional lazy CDN injection with light/dark theme support
+- 🎨 **Modular CSS** — Pure CSS split into `variables.css`, `base.css`, and one file per component; `--color-*` theme support
 - 🔤 **Rich Inline Syntax** — Bold, italic, highlight, color, spoiler, underline, icons, and more
 - 💻 **Syntax Highlighting** — Code blocks with highlight.js built-in
 - ✍️ **Editor** — CodeMirror 6 powered editor with live preview
@@ -44,11 +44,13 @@ npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror
 | Import path | Description | Dependencies |
 |-------------|-------------|--------------|
 | `@noirmd/previewer/core` | Parser, types, utilities | None |
-| `@noirmd/previewer/react` | React components + renderer | React ≥18 |
-| `@noirmd/previewer/vanilla` | Vanilla DOM renderer + CSS | None |
-| `@noirmd/previewer/vue` | Vue 3 components + composables | Vue ≥3 |
+| `@noirmd/previewer/vanilla` | Vanilla DOM renderer — the single rendering engine | None (highlight.js bundled) |
+| `@noirmd/previewer/react` | Thin React mount-point wrapper | React ≥18 |
+| `@noirmd/previewer/vue` | Thin Vue mount-point wrapper | Vue ≥3 |
 | `@noirmd/previewer` | Backward-compatible (core + react) | React ≥18 |
 | `@noirmd/previewer/editor` | CodeMirror 6 editor | React + CodeMirror |
+| `@noirmd/previewer/editor.css` | Self-contained editor styles (toolbar, layout) | — |
+| `@noirmd/previewer/vanilla/vanilla.css` | Full CSS entry (`@import`s all partials) | — |
 
 ---
 
@@ -58,7 +60,7 @@ npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror
 
 ```tsx
 import { NRpreviewer } from '@noirmd/previewer/react';
-import '@noirmd/previewer/markdown.css';
+import '@noirmd/previewer/vanilla/vanilla.css';
 
 function App() {
   return (
@@ -75,7 +77,7 @@ function App() {
 ```vue
 <script setup>
 import { NRpreviewer } from '@noirmd/previewer/vue';
-import '@noirmd/previewer/markdown.css';
+import '@noirmd/previewer/vanilla/vanilla.css';
 
 const markdown = `# Hello **world**`;
 </script>
@@ -100,7 +102,8 @@ document.getElementById('app')!.appendChild(element);
 ```tsx
 import { useState } from 'react';
 import NReditor from '@noirmd/previewer/editor';
-import '@noirmd/previewer/markdown.css';
+import '@noirmd/previewer/editor.css';
+import '@noirmd/previewer/vanilla/vanilla.css';
 
 function Editor() {
   const [value, setValue] = useState('# Start writing...');
@@ -119,15 +122,19 @@ function Editor() {
 
 ## ⚠️ Required: Import the CSS
 
-**Every framework requires importing a CSS file for NoirMD to display correctly.** Without it, markdown renders as unstyled HTML.
+**Every framework requires importing the same CSS file for NoirMD to display correctly.** Without it, markdown renders as unstyled HTML.
 
 | Framework | CSS Import |
 |-----------|-----------|
-| React / Next.js | `import '@noirmd/previewer/markdown.css';` |
-| Vue / Nuxt | `import '@noirmd/previewer/markdown.css';` |
+| React / Next.js | `import '@noirmd/previewer/vanilla/vanilla.css';` |
+| Vue / Nuxt | `import '@noirmd/previewer/vanilla/vanilla.css';` |
 | Vanilla JS | `import '@noirmd/previewer/vanilla/vanilla.css';` |
 
 Import it **once** in your root component or global CSS file.
+
+> The CSS is modular: `variables.css` (design tokens), `base.css` (global/reusable
+> styles) and one file per component (codeblock, admonition, card, modal, ...).
+> `vanilla.css` is the entry point that `@import`s everything.
 
 ---
 
@@ -246,7 +253,7 @@ Modal body with **markdown** support.
 :::
 ```
 
-Powered by Base UI `Dialog.Root` — portal, focus trap, accessibility built-in.
+Powered by the native `<dialog>` element — portal to `<body>` on open, backdrop click and Escape to close, cleanup on close.
 
 ### Button (Link)
 
@@ -296,9 +303,22 @@ Footer slot content.
 
 ## 🎨 Styling System
 
-### Tailwind Integration
+### Modular CSS
 
-NoirMD injects the **Tailwind Play CDN** at runtime when `tailwindCDN` is enabled. All Tailwind classes work in dynamic content.
+NoirMD ships pure CSS (no framework, no Tailwind required). `vanilla.css` is the
+single entry point and `@import`s:
+- `variables.css` — design tokens (`--nr-*` with `--color-*` host fallbacks)
+- `base.css` — global/reusable styles (typography, inline elements, hljs theme)
+- one file per component: `codeblock.css`, `admonition.css`, `details.css`,
+  `modal.css`, `card.css`, `button.css`, `table.css`, `list.css`,
+  `blockquote.css`, `toc.css`, `slide.css`
+
+Edit the partials directly — `vanilla.css` only imports.
+
+### Tailwind (optional)
+
+`tailwindCDN` injects the Tailwind CSS v4 browser CDN at runtime (ref-counted,
+preflight disabled) — only needed for Tailwind classes authored inside markdown.
 
 ### Theme Color Tokens
 
@@ -341,23 +361,27 @@ This note is styled red instead of blue.
 ## 🏗️ Architecture
 
 ```text
-                    ┌─────────────────────────────┐
-                    │  core/ (framework-agnostic)  │
-                    │  parseMarkdown() → Token[]   │
-                    └──────────────┬──────────────┘
-                                   │
-                ┌──────────────────┼──────────────────┐
-                │                  │                  │
-          ┌─────▼─────┐    ┌──────▼──────┐    ┌─────▼─────┐
-          │  react/    │    │  vanilla/   │    │   vue/    │
-          │  React UI  │    │  Pure DOM   │    │  Vue 3    │
-          └────────────┘    └─────────────┘    └───────────┘
+                        ┌─────────────────────────────┐
+                        │  core/ (framework-agnostic)  │
+                        │  parseMarkdown() → Token[]   │
+                        └──────────────┬──────────────┘
+                                       │
+                                 ┌─────▼─────┐
+                                 │ vanilla/   │  ← THE engine: Token[] → HTMLElement
+                                 │  DOM + CSS │    directives, events, styling
+                                 └─────┬─────┘
+                                       │
+                       ┌───────────────┼───────────────┐
+                       │               │               │
+                 ┌─────▼─────┐  ┌──────▼──────┐  ┌─────▼─────┐
+                 │  react/    │  │   vue/      │  │  any JS   │
+                 │  mount pt  │  │  mount pt   │  │  framework │
+                 └────────────┘  └─────────────┘  └───────────┘
 ```
 
 - **Parser** (`core/parser.ts`): State machine that tokenizes Markdown line-by-line into typed tokens
-- **Renderer**: Framework-specific orchestrators that consume the same AST
-- **Directive Renderer**: Maps directive type strings to framework components
-- **Context**: Shared `RenderContext` for themes, slots, and state
+- **Vanilla engine** (`vanilla/`): Renders the AST into a real `HTMLElement` — all tokens, directives, and events (dialog, details, copy, slide) use native DOM
+- **React / Vue wrappers**: Thin mount-points (`useEffect`/`onMounted` + `appendChild(renderMarkdownString())`) that re-render when content changes
 
 ---
 
@@ -368,23 +392,24 @@ NoirMD/
 ├── markdown-v2/              # Core library (@noirmd/previewer)
 │   ├── core/                 # Framework-agnostic parser + types
 │   │   ├── parser.ts         # Line-by-line Markdown parser → Token[] AST
-│   │   ├── types.ts          # Token, RenderContext, DirectiveComponentProps
+│   │   ├── types.ts          # Token types
 │   │   └── utils.ts          # Shared utilities
-│   ├── react/                # React renderer
+│   ├── vanilla/              # THE rendering engine (pure DOM, no framework)
+│   │   ├── renderer.ts       # renderMarkdownString / renderHtmlString → HTMLElement
+│   │   ├── inline.ts         # Inline formatting → DocumentFragment
+│   │   ├── components.ts     # Icon, codeblock, admonition, details, modal, table, list, TOC
+│   │   ├── directives/       # 16 directive implementations (DOM API)
+│   │   ├── vanilla.css       # CSS entry (@imports all partials)
+│   │   ├── variables.css     # Design tokens
+│   │   ├── base.css          # Global/reusable styles + hljs theme
+│   │   └── *.css             # One file per component (card, modal, toc, ...)
+│   ├── react/                # Thin React mount-point wrapper
 │   │   ├── NRpreviewer.tsx   # Drop-in preview component
 │   │   ├── NReditor.tsx      # CodeMirror 6 editor with live preview
-│   │   ├── CustomMarkdownRenderer.tsx
-│   │   ├── DirectiveRenderer.tsx
-│   │   ├── renderers.tsx     # Inline rendering, tables, lists
-│   │   └── directives/       # 7 directive implementations
-│   ├── vanilla/              # Vanilla JS renderer
-│   │   ├── renderer.ts       # DOM-based rendering
-│   │   ├── vanilla.css       # Self-contained styles
-│   │   └── directives/       # Directive implementations
-│   ├── vue/                  # Vue 3 renderer
-│   │   ├── NRpreviewer.ts    # Vue component
-│   │   └── directives/       # Directive implementations
-│   └── markdown.css          # Base styles (React + Vue)
+│   │   └── CustomMarkdownRenderer.tsx  # Mount-point for the vanilla engine
+│   └── vue/                  # Thin Vue 3 mount-point wrapper
+│       ├── NRpreviewer.ts    # Drop-in preview component
+│       └── CustomMarkdownRenderer.ts  # Mount-point for the vanilla engine
 │
 ├── docs/                     # Documentation site (Astro)
 │   ├── src/
@@ -434,11 +459,10 @@ MIT
 ## 🙏 Acknowledgments
 
 Built with:
-- [React](https://react.dev/) — UI framework
-- [Vue 3](https://vuejs.org/) — UI framework
+- [React](https://react.dev/) — Mount-point wrapper
+- [Vue 3](https://vuejs.org/) — Mount-point wrapper
 - [CodeMirror 6](https://codemirror.net/) — Editor engine
-- [Tailwind CSS](https://tailwindcss.com/) — Styling (optional CDN)
+- [Tailwind CSS](https://tailwindcss.com/) — Optional CDN for user-authored classes
 - [highlight.js](https://highlightjs.org/) — Syntax highlighting
-- [Base UI](https://base-ui.com/) — Accessible modal/dialog components
 - [Vite](https://vitejs.dev/) — Build tool
 - [Astro](https://astro.build/) — Documentation site framework

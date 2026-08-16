@@ -19,7 +19,8 @@ const modalDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   btn.className = `nr-button nr-button--default`;
   if (customClass) btn.classList.add(...customClass.split(/\s+/).filter(Boolean));
 
-  if (props.icon) btn.appendChild(createIcon(props.icon));
+  const icon = props.icon || 'open_in_new';
+  if (icon) btn.appendChild(createIcon(icon));
   btn.appendChild(document.createTextNode(label));
 
   // Create the native dialog

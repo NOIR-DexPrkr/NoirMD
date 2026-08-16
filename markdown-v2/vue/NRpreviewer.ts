@@ -2,10 +2,23 @@
 // Vue NRpreviewer — drop-in markdown/HTML preview component
 // ============================================================
 
-import { defineComponent, h, onMounted, onUnmounted, ref, type PropType } from 'vue';
+import { defineComponent, h, ref, type PropType } from 'vue';
 import CustomMarkdownRenderer from './CustomMarkdownRenderer';
 import RawHtmlRenderer from './RawHtmlRenderer';
 import { useLazyTailwindCDN } from './useTailwindCDN';
+
+export interface NRpreviewerProps {
+  /** Markdown string to render */
+  content?: string;
+  /** Raw HTML string to render (used when content is not provided) */
+  html?: string;
+  /** Inject Tailwind v4 browser CDN at runtime for user-authored Tailwind classes. Default: false */
+  tailwindCDN?: boolean;
+  /** Additional CSS class on the wrapper element */
+  className?: string;
+  /** Inline styles on the wrapper element */
+  style?: Record<string, string>;
+}
 
 const NRpreviewer = defineComponent({
   name: 'NRpreviewer',
@@ -35,10 +48,7 @@ const NRpreviewer = defineComponent({
 
       if (props.html) {
         return h('div', { class: wrapperClass, style: props.style }, [
-          h(RawHtmlRenderer, {
-            content: props.html,
-            wrapperClassName: 'nr-preview-html',
-          }),
+          h(RawHtmlRenderer, { content: props.html }),
         ]);
       }
 

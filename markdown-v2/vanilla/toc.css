@@ -1,0 +1,45 @@
+/* ============================================================
+   NoirMD Vanilla — TOC (Table of Contents)
+   ============================================================ */
+
+.nr-toc {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: var(--nr-radius);
+  border: 1px solid var(--nr-border);
+  background: color-mix(in srgb, var(--nr-bg) 5%, transparent);
+}
+
+.nr-toc__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.nr-toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nr-toc__item {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+}
+@media (min-width: 640px) {
+  .nr-toc__item { font-size: 1rem; }
+}
+
+.nr-toc__item--h3 { padding-left: 1rem; }
+.nr-toc__item--h4 { padding-left: 2rem; }
+.nr-toc__item--h5 { padding-left: 3rem; }
+
+.nr-toc__link {
+  color: var(--nr-accent);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nr-toc__link:hover {
+  color: var(--nr-accent-hover);
+  text-decoration: underline;
+}

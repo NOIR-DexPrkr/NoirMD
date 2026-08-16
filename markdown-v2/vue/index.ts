@@ -1,32 +1,42 @@
 // ============================================================
 // @noirmd/previewer/vue — Vue bindings
 //
-// All Vue-specific rendering components, directives, composables, and UI.
+// Thin mount-point wrappers around the framework-agnostic
+// vanilla renderer. All rendering, directives and events live
+// in the vanilla engine; Vue only owns the DOM mount point.
 // ============================================================
 
 // ── Main component ──
 export { default as NRpreviewer } from './NRpreviewer';
+export type { NRpreviewerProps } from './NRpreviewer';
 
 // ── Core renderer (advanced usage) ──
 export { default as CustomMarkdownRenderer } from './CustomMarkdownRenderer';
+export { default as RawHtmlRenderer } from './RawHtmlRenderer';
 
 // ── Parser (re-exported from core for convenience) ──
 export { parseMarkdown } from '../core/parser';
 
-// ── Utilities (re-exported from core for convenience) ──
-export { extractHeaders } from './renderers';
-
-// ── UI components (for custom directive implementations) ──
-export { IconRenderer, CodeBlock, Admonition, Details, Modal } from './ui-components';
-
-// ── Tailwind CDN helpers ──
+// ── Utilities ──
 export { useLazyTailwindCDN, scanTailwindCDN, preloadTailwindCDN } from './useTailwindCDN';
 
-// ── Types ──
+// ── Core types ──
 export type {
   Token,
-  RenderContext,
-  DirectiveComponentProps,
-  DirectiveComponent,
   CSSProperties,
-} from './types';
+  HeaderToken,
+  ParagraphToken,
+  CodeblockToken,
+  DirectiveToken,
+  HtmlToken,
+  HtmlBlockToken,
+  ImageToken,
+  TableToken,
+  ListToken,
+  BlockquoteToken,
+  HrToken,
+  TocToken,
+} from '../core/types';
+
+// ── Vanilla directive types (custom directives use the DOM API) ──
+export type { DirectiveProps, DirectiveRendererFn, VanillaRenderContext } from '../vanilla/directives';

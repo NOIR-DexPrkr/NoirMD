@@ -2,7 +2,7 @@
 // Vanilla Inline Renderer
 //
 // Parses inline markdown formatting into DOM nodes.
-// Same regex logic as React renderers.tsx, but returns DocumentFragment.
+// Returns a DocumentFragment.
 // ============================================================
 
 import { createIcon } from './components';

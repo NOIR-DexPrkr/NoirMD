@@ -1,0 +1,32 @@
+/* ============================================================
+   NoirMD Vanilla — Button
+   ============================================================ */
+
+.nr-button-wrap {
+  margin: 0.25rem 0;
+}
+
+.nr-button {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  gap: 0.5rem;
+  transition: all 0.15s;
+  border: 1px solid var(--nr-border);
+  background: color-mix(in srgb, var(--nr-bg) 5%, transparent);
+  color: var(--nr-text);
+  cursor: pointer;
+}
+.nr-button:hover {
+  transform: scale(1.05);
+  background: color-mix(in srgb, var(--nr-bg) 10%, transparent);
+  color: var(--nr-text);
+}
+.nr-button:active {
+  transform: scale(0.95);
+}

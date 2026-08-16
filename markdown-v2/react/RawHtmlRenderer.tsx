@@ -1,64 +1,32 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { renderHtmlString } from '../vanilla/renderer';
 import { scanTailwindCDN } from './useTailwindCDN';
 
 interface RawHtmlRendererProps {
   content: string;
-  globalStyles?: string;
-  wrapperClassName: string;
+  wrapperClassName?: string;
 }
 
 /**
- * Renders raw HTML content with global CSS injection.
- * - `globalStyles`: unscoped CSS injected into <head> (cleans up on unmount)
- * Forces <script> execution by replacing script nodes after mount.
- * Triggers a Tailwind CDN re-scan after mount so that any Tailwind classes
- * present in the injected HTML are resolved (works with the Play CDN loaded
- * by useTailwindCDN in CustomMarkdownRenderer).
+ * RawHtmlRenderer — thin React wrapper around the vanilla raw-HTML renderer.
+ * Injects <style> blocks globally and force-executes <script> tags.
  */
 const RawHtmlRenderer: React.FC<RawHtmlRendererProps> = ({
   content,
-  globalStyles,
-  wrapperClassName,
+  wrapperClassName = 'nr-raw-html',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Force-execute injected scripts by replacing them
   useEffect(() => {
-    if (!containerRef.current) return;
-    const scripts = containerRef.current.querySelectorAll('script');
-    scripts.forEach(oldScript => {
-      const newScript = document.createElement('script');
-      Array.from(oldScript.attributes).forEach(attr =>
-        newScript.setAttribute(attr.name, attr.value)
-      );
-      newScript.textContent = oldScript.textContent;
-      oldScript.parentNode?.replaceChild(newScript, oldScript);
-    });
+    const container = containerRef.current;
+    if (!container) return;
 
-    // ── Tailwind CDN re-scan ──
-    // After the HTML is injected, trigger the CDN to pick up any new
-    // Tailwind classes present in the dynamically-rendered content.
+    container.replaceChildren();
+    container.appendChild(renderHtmlString(content));
     scanTailwindCDN();
   }, [content]);
 
-  // Inject <style global> into <head> and clean up on unmount
-  useEffect(() => {
-    if (!globalStyles) return;
-    const styleEl = document.createElement('style');
-    styleEl.setAttribute('data-global', '');
-    styleEl.textContent = globalStyles;
-    document.head.appendChild(styleEl);
-    return () => {
-      if (styleEl.parentNode) document.head.removeChild(styleEl);
-    };
-  }, [globalStyles]);
-
-  return (
-    <div className={wrapperClassName} ref={containerRef}>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-    </div>
-  );
+  return <div ref={containerRef} className={wrapperClassName} />;
 };
 
 export default RawHtmlRenderer;
-

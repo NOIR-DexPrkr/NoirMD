@@ -1,0 +1,55 @@
+/* ============================================================
+   NoirMD Vanilla — Admonition
+   ============================================================ */
+
+.nr-admonition {
+  border-radius: var(--nr-radius);
+  margin-bottom: 1.5rem;
+  border: 1px solid;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.nr-admonition--note {
+  border-color: rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.05);
+  color: var(--nr-info);
+}
+.nr-admonition--info {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--nr-info);
+}
+.nr-admonition--warning {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--nr-warning);
+}
+.nr-admonition--danger {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--nr-danger);
+}
+.nr-admonition--greentext {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--nr-success);
+}
+
+.nr-admonition__title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nr-admonition__icon {
+  flex-shrink: 0;
+}
+
+.nr-admonition__body {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  opacity: 0.9;
+}

@@ -3,7 +3,7 @@
 //
 // Usage:
 //   import { NRpreviewer } from '@noirmd/previewer/react';
-//   import '@noirmd/previewer/markdown.css';
+//   import '@noirmd/previewer/vanilla/vanilla.css';
 //
 // Requires React as a peer dependency.
 // ============================================================
@@ -12,20 +12,27 @@ export {
   NRpreviewer,
   type NRpreviewerProps,
   CustomMarkdownRenderer,
+  RawHtmlRenderer,
   parseMarkdown,
-  extractHeaders,
   useDebounce,
-  IconRenderer,
-  CodeBlock,
-  Admonition,
-  Details,
-  Modal,
   useLazyTailwindCDN,
   scanTailwindCDN,
   preloadTailwindCDN,
   type Token,
-  type RenderContext,
-  type DirectiveComponentProps,
-  type DirectiveComponent,
   type CSSProperties,
+  type HeaderToken,
+  type ParagraphToken,
+  type CodeblockToken,
+  type DirectiveToken,
+  type HtmlToken,
+  type HtmlBlockToken,
+  type ImageToken,
+  type TableToken,
+  type ListToken,
+  type BlockquoteToken,
+  type HrToken,
+  type TocToken,
+  type DirectiveProps,
+  type DirectiveRendererFn,
+  type VanillaRenderContext,
 } from './react/index';

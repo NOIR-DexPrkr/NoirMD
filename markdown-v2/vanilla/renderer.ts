@@ -48,6 +48,44 @@ export function renderMarkdownString(markdown: string): HTMLElement {
 }
 
 /**
+ * Render a raw HTML string into a wrapper element.
+ * Extracts <style> blocks (injected globally into <head>) and
+ * force-executes any <script> tags.
+ */
+export function renderHtmlString(html: string): HTMLElement {
+  let processedContent = html;
+
+  // Extract <style> blocks and inject globally
+  processedContent = processedContent.replace(
+    /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
+    (_match: string, cssContent: string) => {
+      const styleEl = document.createElement('style');
+      styleEl.setAttribute('data-nr-global', '');
+      styleEl.textContent = cssContent;
+      document.head.appendChild(styleEl);
+      return '';
+    }
+  );
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nr-raw-html';
+  wrapper.innerHTML = processedContent;
+
+  // Force-execute injected scripts
+  const scripts = wrapper.querySelectorAll('script');
+  scripts.forEach(oldScript => {
+    const newScript = document.createElement('script');
+    Array.from(oldScript.attributes).forEach(attr =>
+      newScript.setAttribute(attr.name, attr.value)
+    );
+    newScript.textContent = oldScript.textContent;
+    oldScript.parentNode?.replaceChild(newScript, oldScript);
+  });
+
+  return wrapper;
+}
+
+/**
  * Render tokens into an HTMLElement (internal, creates a container).
  */
 function renderTokensInner(tokens: Token[], ctx: VanillaRenderContext): HTMLElement {
@@ -169,36 +207,7 @@ function renderElement(
 
     case 'html': {
       const el = element as HtmlToken;
-      let processedContent = el.content;
-
-      // Extract <style> blocks and inject globally
-      processedContent = processedContent.replace(
-        /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
-        (_match: string, cssContent: string) => {
-          const styleEl = document.createElement('style');
-          styleEl.setAttribute('data-nr-global', '');
-          styleEl.textContent = cssContent;
-          document.head.appendChild(styleEl);
-          return '';
-        }
-      );
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'nr-raw-html';
-      wrapper.innerHTML = processedContent;
-
-      // Force-execute injected scripts
-      const scripts = wrapper.querySelectorAll('script');
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement('script');
-        Array.from(oldScript.attributes).forEach(attr =>
-          newScript.setAttribute(attr.name, attr.value)
-        );
-        newScript.textContent = oldScript.textContent;
-        oldScript.parentNode?.replaceChild(newScript, oldScript);
-      });
-
-      return wrapper;
+      return renderHtmlString(el.content);
     }
 
     case 'html-block': {

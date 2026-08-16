@@ -26,8 +26,8 @@
     "react/*.ts",
     "vanilla/**/*.ts",
     "vanilla/*.ts",
-    "directives/**/*.ts",
-    "directives/**/*.tsx"
+    "vue/**/*.ts",
+    "vue/*.ts"
   ],
   "exclude": [
     "node_modules",

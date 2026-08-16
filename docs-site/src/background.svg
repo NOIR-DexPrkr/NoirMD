@@ -1,0 +1,515 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(5, 5, 5, 0.75)"/>
+      <stop offset="100%" stop-color="rgba(5, 5, 5, 0)"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(50 50)">
+    <circle r="30" fill="url(#coreGlow)"/>
+    <line class="particle" x1="22" y1="0" x2="22" y2="-2.5" stroke="#e8edf5" stroke-width="0.43" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="240;760" dur="12s" begin="-5.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="22;1.2" dur="12s" begin="-5.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.36;0.12;0" keyTimes="0;0.12;0.88;1" dur="12s" begin="-5.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.5;0" dur="12s" begin="-5.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.43;0.04" dur="12s" begin="-5.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="41" y1="0" x2="41" y2="-2.9" stroke="#00e6a8" stroke-width="0.34" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="62;582" dur="16s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="41;1.2" dur="16s" begin="-6.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.26;0.12;0" keyTimes="0;0.12;0.88;1" dur="16s" begin="-6.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.9;0" dur="16s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.34;0.04" dur="16s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="19" y1="0" x2="19" y2="-5.2" stroke="#8f9bb3" stroke-width="0.45" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="186;706" dur="14.7s" begin="-3.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="19;1.2" dur="14.7s" begin="-3.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.17;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.7s" begin="-3.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.2;0" dur="14.7s" begin="-3.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.45;0.04" dur="14.7s" begin="-3.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="34" y1="0" x2="34" y2="-2.1" stroke="#e8edf5" stroke-width="0.49" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="293;813" dur="11.7s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="34;1.2" dur="11.7s" begin="-19s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.35;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.7s" begin="-19s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.1;0" dur="11.7s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.49;0.04" dur="11.7s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="19" y1="0" x2="19" y2="-3.2" stroke="#8f9bb3" stroke-width="0.45" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="67;587" dur="19.8s" begin="0s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="19;1.2" dur="19.8s" begin="0s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.31;0.12;0" keyTimes="0;0.12;0.88;1" dur="19.8s" begin="0s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.2;0" dur="19.8s" begin="0s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.45;0.04" dur="19.8s" begin="0s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="29" y1="0" x2="29" y2="-2.5" stroke="#00ccff" stroke-width="0.25" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="269;789" dur="10.6s" begin="-16.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="29;1.2" dur="10.6s" begin="-16.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.33;0.12;0" keyTimes="0;0.12;0.88;1" dur="10.6s" begin="-16.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.5;0" dur="10.6s" begin="-16.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.25;0.04" dur="10.6s" begin="-16.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="41" y1="0" x2="41" y2="-3.1" stroke="#e8edf5" stroke-width="0.47" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="89;609" dur="11.7s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="41;1.2" dur="11.7s" begin="-0.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.33;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.7s" begin="-0.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.1;0" dur="11.7s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.47;0.04" dur="11.7s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="31" y1="0" x2="31" y2="-4.8" stroke="#00e6a8" stroke-width="0.46" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="18;538" dur="12.6s" begin="-0.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="31;1.2" dur="12.6s" begin="-0.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.25;0.12;0" keyTimes="0;0.12;0.88;1" dur="12.6s" begin="-0.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.8;0" dur="12.6s" begin="-0.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.46;0.04" dur="12.6s" begin="-0.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="40" y1="0" x2="40" y2="-2.2" stroke="#e8edf5" stroke-width="0.41" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="24;544" dur="10.1s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="40;1.2" dur="10.1s" begin="-16.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.28;0.12;0" keyTimes="0;0.12;0.88;1" dur="10.1s" begin="-16.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.2;0" dur="10.1s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.41;0.04" dur="10.1s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="18" y1="0" x2="18" y2="-5.3" stroke="#00ccff" stroke-width="0.25" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="179;699" dur="10s" begin="-1.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="18;1.2" dur="10s" begin="-1.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.34;0.12;0" keyTimes="0;0.12;0.88;1" dur="10s" begin="-1.3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.3;0" dur="10s" begin="-1.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.25;0.04" dur="10s" begin="-1.3s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="46" y1="0" x2="46" y2="-3.8" stroke="#00ccff" stroke-width="0.38" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="328;848" dur="17.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="46;1.2" dur="17.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.26;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.3s" begin="-0.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.8;0" dur="17.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.38;0.04" dur="17.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="42" y1="0" x2="42" y2="-4.1" stroke="#8f9bb3" stroke-width="0.39" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="157;677" dur="13.5s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="42;1.2" dur="13.5s" begin="-19s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.32;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.5s" begin="-19s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.1;0" dur="13.5s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.39;0.04" dur="13.5s" begin="-19s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="45" y1="0" x2="45" y2="-5.8" stroke="#00b8e0" stroke-width="0.36" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="6;526" dur="18.5s" begin="-3.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="45;1.2" dur="18.5s" begin="-3.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="18.5s" begin="-3.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.8;0" dur="18.5s" begin="-3.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.36;0.04" dur="18.5s" begin="-3.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="42" y1="0" x2="42" y2="-2.5" stroke="#00d68f" stroke-width="0.29" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="119;639" dur="12.5s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="42;1.2" dur="12.5s" begin="-12.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.3;0.12;0" keyTimes="0;0.12;0.88;1" dur="12.5s" begin="-12.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.5;0" dur="12.5s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.29;0.04" dur="12.5s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="38" y1="0" x2="38" y2="-4.8" stroke="#00ccff" stroke-width="0.35" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="275;795" dur="16.6s" begin="-20.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="38;1.2" dur="16.6s" begin="-20.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.34;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.6s" begin="-20.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.8;0" dur="16.6s" begin="-20.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.35;0.04" dur="16.6s" begin="-20.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="46" y1="0" x2="46" y2="-2.1" stroke="#e8edf5" stroke-width="0.32" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="124;644" dur="13.1s" begin="-0.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="46;1.2" dur="13.1s" begin="-0.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.21;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.1s" begin="-0.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.1;0" dur="13.1s" begin="-0.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.32;0.04" dur="13.1s" begin="-0.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="20" y1="0" x2="20" y2="-5.9" stroke="#8f9bb3" stroke-width="0.29" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="151;671" dur="11.2s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="20;1.2" dur="11.2s" begin="-6.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.24;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.2s" begin="-6.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.9;0" dur="11.2s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.29;0.04" dur="11.2s" begin="-6.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="18" y1="0" x2="18" y2="-2.1" stroke="#00d68f" stroke-width="0.54" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="297;817" dur="20.7s" begin="-4.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="18;1.2" dur="20.7s" begin="-4.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.42;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.7s" begin="-4.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.1;0" dur="20.7s" begin="-4.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.54;0.04" dur="20.7s" begin="-4.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="34" y1="0" x2="34" y2="-4.5" stroke="#00ccff" stroke-width="0.46" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="100;620" dur="12.3s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="34;1.2" dur="12.3s" begin="-6.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.2;0.12;0" keyTimes="0;0.12;0.88;1" dur="12.3s" begin="-6.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.5;0" dur="12.3s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.46;0.04" dur="12.3s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="46" y1="0" x2="46" y2="-5.9" stroke="#00e6a8" stroke-width="0.52" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="83;603" dur="11.6s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="46;1.2" dur="11.6s" begin="-18.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.2;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.6s" begin="-18.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.9;0" dur="11.6s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.52;0.04" dur="11.6s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="35" y1="0" x2="35" y2="-4.8" stroke="#00b8e0" stroke-width="0.29" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="201;721" dur="17.1s" begin="-8.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="35;1.2" dur="17.1s" begin="-8.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.41;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.1s" begin="-8.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.8;0" dur="17.1s" begin="-8.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.29;0.04" dur="17.1s" begin="-8.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="47" y1="0" x2="47" y2="-3.8" stroke="#00ccff" stroke-width="0.44" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="125;645" dur="21.3s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="47;1.2" dur="21.3s" begin="-17s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="21.3s" begin="-17s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.8;0" dur="21.3s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.44;0.04" dur="21.3s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="23" y1="0" x2="23" y2="-5.7" stroke="#00ccff" stroke-width="0.5" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="1;521" dur="14.8s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="23;1.2" dur="14.8s" begin="-12.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.27;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.8s" begin="-12.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.7;0" dur="14.8s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.5;0.04" dur="14.8s" begin="-12.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="47" y1="0" x2="47" y2="-5.5" stroke="#00d68f" stroke-width="0.31" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="327;847" dur="14s" begin="-11.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="47;1.2" dur="14s" begin="-11.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.33;0.12;0" keyTimes="0;0.12;0.88;1" dur="14s" begin="-11.3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.5;0" dur="14s" begin="-11.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.31;0.04" dur="14s" begin="-11.3s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="41" y1="0" x2="41" y2="-3.1" stroke="#00d68f" stroke-width="0.36" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="296;816" dur="16.3s" begin="-16.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="41;1.2" dur="16.3s" begin="-16.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.22;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.3s" begin="-16.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.1;0" dur="16.3s" begin="-16.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.36;0.04" dur="16.3s" begin="-16.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="23" y1="0" x2="23" y2="-3.1" stroke="#00b8e0" stroke-width="0.32" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="239;759" dur="20s" begin="-13.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="23;1.2" dur="20s" begin="-13.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.17;0.12;0" keyTimes="0;0.12;0.88;1" dur="20s" begin="-13.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.1;0" dur="20s" begin="-13.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.32;0.04" dur="20s" begin="-13.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="45" y1="0" x2="45" y2="-5.1" stroke="#00d68f" stroke-width="0.58" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="289;809" dur="21.3s" begin="-9.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="45;1.2" dur="21.3s" begin="-9.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.41;0.12;0" keyTimes="0;0.12;0.88;1" dur="21.3s" begin="-9.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.1;0" dur="21.3s" begin="-9.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.58;0.04" dur="21.3s" begin="-9.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="36" y1="0" x2="36" y2="-2.8" stroke="#8f9bb3" stroke-width="0.47" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="56;576" dur="16s" begin="-14.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="36;1.2" dur="16s" begin="-14.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="16s" begin="-14.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.8;0" dur="16s" begin="-14.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.47;0.04" dur="16s" begin="-14.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="34" y1="0" x2="34" y2="-4.8" stroke="#00e6a8" stroke-width="0.32" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="125;645" dur="16.3s" begin="-16.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="34;1.2" dur="16.3s" begin="-16.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.32;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.3s" begin="-16.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.8;0" dur="16.3s" begin="-16.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.32;0.04" dur="16.3s" begin="-16.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="19" y1="0" x2="19" y2="-2.2" stroke="#00e6a8" stroke-width="0.32" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="336;856" dur="13.7s" begin="-3.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="19;1.2" dur="13.7s" begin="-3.6s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.23;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.7s" begin="-3.6s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.2;0" dur="13.7s" begin="-3.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.32;0.04" dur="13.7s" begin="-3.6s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="32" y1="0" x2="32" y2="-3.4" stroke="#00b8e0" stroke-width="0.4" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="317;837" dur="19.1s" begin="-13.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="32;1.2" dur="19.1s" begin="-13.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.44;0.12;0" keyTimes="0;0.12;0.88;1" dur="19.1s" begin="-13.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.4;0" dur="19.1s" begin="-13.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.4;0.04" dur="19.1s" begin="-13.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="27" y1="0" x2="27" y2="-2.7" stroke="#00d68f" stroke-width="0.57" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="308;828" dur="17.1s" begin="-12.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="27;1.2" dur="17.1s" begin="-12.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.26;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.1s" begin="-12.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.7;0" dur="17.1s" begin="-12.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.57;0.04" dur="17.1s" begin="-12.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="32" y1="0" x2="32" y2="-5.5" stroke="#00ccff" stroke-width="0.35" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="28;548" dur="21s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="32;1.2" dur="21s" begin="-18.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.41;0.12;0" keyTimes="0;0.12;0.88;1" dur="21s" begin="-18.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.5;0" dur="21s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.35;0.04" dur="21s" begin="-18.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="35" y1="0" x2="35" y2="-2" stroke="#00d68f" stroke-width="0.56" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="107;627" dur="14.9s" begin="-14.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="35;1.2" dur="14.9s" begin="-14.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.34;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.9s" begin="-14.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2;0" dur="14.9s" begin="-14.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.56;0.04" dur="14.9s" begin="-14.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="47" y1="0" x2="47" y2="-5" stroke="#8f9bb3" stroke-width="0.26" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="106;626" dur="14s" begin="-13.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="47;1.2" dur="14s" begin="-13.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.16;0.12;0" keyTimes="0;0.12;0.88;1" dur="14s" begin="-13.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5;0" dur="14s" begin="-13.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.26;0.04" dur="14s" begin="-13.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="29" y1="0" x2="29" y2="-3.3" stroke="#00e6a8" stroke-width="0.32" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="187;707" dur="17.2s" begin="-13.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="29;1.2" dur="17.2s" begin="-13.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.33;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.2s" begin="-13.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.3;0" dur="17.2s" begin="-13.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.32;0.04" dur="17.2s" begin="-13.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="21" y1="0" x2="21" y2="-2.5" stroke="#00ccff" stroke-width="0.54" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="239;759" dur="13.4s" begin="-20.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="21;1.2" dur="13.4s" begin="-20.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.25;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.4s" begin="-20.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.5;0" dur="13.4s" begin="-20.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.54;0.04" dur="13.4s" begin="-20.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="28" y1="0" x2="28" y2="-2.6" stroke="#00e6a8" stroke-width="0.31" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="208;728" dur="17.7s" begin="-2.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="28;1.2" dur="17.7s" begin="-2.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.43;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.7s" begin="-2.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.6;0" dur="17.7s" begin="-2.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.31;0.04" dur="17.7s" begin="-2.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="24" y1="0" x2="24" y2="-4.5" stroke="#00b8e0" stroke-width="0.47" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="236;756" dur="20.3s" begin="-7.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="24;1.2" dur="20.3s" begin="-7.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.33;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.3s" begin="-7.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.5;0" dur="20.3s" begin="-7.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.47;0.04" dur="20.3s" begin="-7.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="24" y1="0" x2="24" y2="-5.1" stroke="#e8edf5" stroke-width="0.44" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="154;674" dur="16.4s" begin="-14.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="24;1.2" dur="16.4s" begin="-14.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.27;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.4s" begin="-14.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.1;0" dur="16.4s" begin="-14.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.44;0.04" dur="16.4s" begin="-14.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="39" y1="0" x2="39" y2="-2.9" stroke="#00e6a8" stroke-width="0.35" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="350;870" dur="16.4s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="39;1.2" dur="16.4s" begin="-17s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.35;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.4s" begin="-17s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.9;0" dur="16.4s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.35;0.04" dur="16.4s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="41" y1="0" x2="41" y2="-3.8" stroke="#00b8e0" stroke-width="0.59" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="212;732" dur="16s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="41;1.2" dur="16s" begin="-18s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.16;0.12;0" keyTimes="0;0.12;0.88;1" dur="16s" begin="-18s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.8;0" dur="16s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.59;0.04" dur="16s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="23" y1="0" x2="23" y2="-4.2" stroke="#00e6a8" stroke-width="0.39" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="151;671" dur="10s" begin="-20s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="23;1.2" dur="10s" begin="-20s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.28;0.12;0" keyTimes="0;0.12;0.88;1" dur="10s" begin="-20s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.2;0" dur="10s" begin="-20s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.39;0.04" dur="10s" begin="-20s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="40" y1="0" x2="40" y2="-3.6" stroke="#00d68f" stroke-width="0.28" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="174;694" dur="12.2s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="40;1.2" dur="12.2s" begin="-16.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.28;0.12;0" keyTimes="0;0.12;0.88;1" dur="12.2s" begin="-16.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.6;0" dur="12.2s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.28;0.04" dur="12.2s" begin="-16.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="33" y1="0" x2="33" y2="-2.8" stroke="#00d68f" stroke-width="0.58" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="338;858" dur="20.5s" begin="-13.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="33;1.2" dur="20.5s" begin="-13.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.34;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.5s" begin="-13.3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.8;0" dur="20.5s" begin="-13.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.58;0.04" dur="20.5s" begin="-13.3s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="28" y1="0" x2="28" y2="-2.2" stroke="#e8edf5" stroke-width="0.28" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="181;701" dur="20.8s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="28;1.2" dur="20.8s" begin="-13.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.42;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.8s" begin="-13.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.2;0" dur="20.8s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.28;0.04" dur="20.8s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="29" y1="0" x2="29" y2="-2.5" stroke="#00ccff" stroke-width="0.38" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="55;575" dur="11.3s" begin="-0.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="29;1.2" dur="11.3s" begin="-0.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.34;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.3s" begin="-0.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.5;0" dur="11.3s" begin="-0.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.38;0.04" dur="11.3s" begin="-0.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="46" y1="0" x2="46" y2="-5.3" stroke="#8f9bb3" stroke-width="0.53" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="84;604" dur="14.7s" begin="-12.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="46;1.2" dur="14.7s" begin="-12.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.7s" begin="-12.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.3;0" dur="14.7s" begin="-12.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.53;0.04" dur="14.7s" begin="-12.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="34" y1="0" x2="34" y2="-2.2" stroke="#8f9bb3" stroke-width="0.25" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="103;623" dur="17.8s" begin="-1.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="34;1.2" dur="17.8s" begin="-1.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.3;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.8s" begin="-1.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.2;0" dur="17.8s" begin="-1.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.25;0.04" dur="17.8s" begin="-1.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="40" y1="0" x2="40" y2="-5.6" stroke="#00d68f" stroke-width="0.48" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="188;708" dur="20.6s" begin="-7.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="40;1.2" dur="20.6s" begin="-7.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.27;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.6s" begin="-7.3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.6;0" dur="20.6s" begin="-7.3s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.48;0.04" dur="20.6s" begin="-7.3s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="44" y1="0" x2="44" y2="-5.7" stroke="#00d68f" stroke-width="0.53" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="286;806" dur="17.9s" begin="-1.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="44;1.2" dur="17.9s" begin="-1.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.38;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.9s" begin="-1.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.7;0" dur="17.9s" begin="-1.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.53;0.04" dur="17.9s" begin="-1.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="23" y1="0" x2="23" y2="-4.8" stroke="#00d68f" stroke-width="0.58" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="305;825" dur="19.6s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="23;1.2" dur="19.6s" begin="-17s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.28;0.12;0" keyTimes="0;0.12;0.88;1" dur="19.6s" begin="-17s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.8;0" dur="19.6s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.58;0.04" dur="19.6s" begin="-17s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="26" y1="0" x2="26" y2="-5.2" stroke="#00ccff" stroke-width="0.37" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="70;590" dur="16.9s" begin="-19.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="26;1.2" dur="16.9s" begin="-19.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.42;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.9s" begin="-19.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.2;0" dur="16.9s" begin="-19.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.37;0.04" dur="16.9s" begin="-19.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="28" y1="0" x2="28" y2="-5.4" stroke="#00d68f" stroke-width="0.38" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="304;824" dur="11.2s" begin="-20.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="28;1.2" dur="11.2s" begin="-20.4s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.2s" begin="-20.4s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.4;0" dur="11.2s" begin="-20.4s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.38;0.04" dur="11.2s" begin="-20.4s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="48" y1="0" x2="48" y2="-2.1" stroke="#00e6a8" stroke-width="0.44" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="184;704" dur="17.8s" begin="-6.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="48;1.2" dur="17.8s" begin="-6.6s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.8s" begin="-6.6s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.1;0" dur="17.8s" begin="-6.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.44;0.04" dur="17.8s" begin="-6.6s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="21" y1="0" x2="21" y2="-2.6" stroke="#8f9bb3" stroke-width="0.41" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="268;788" dur="14.5s" begin="-11.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="21;1.2" dur="14.5s" begin="-11.8s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.44;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.5s" begin="-11.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.6;0" dur="14.5s" begin="-11.8s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.41;0.04" dur="14.5s" begin="-11.8s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="48" y1="0" x2="48" y2="-3.9" stroke="#00d68f" stroke-width="0.46" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="99;619" dur="16.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="48;1.2" dur="16.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.23;0.12;0" keyTimes="0;0.12;0.88;1" dur="16.3s" begin="-0.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.9;0" dur="16.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.46;0.04" dur="16.3s" begin="-0.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="45" y1="0" x2="45" y2="-5.8" stroke="#00d68f" stroke-width="0.36" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="333;853" dur="12.8s" begin="-8.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="45;1.2" dur="12.8s" begin="-8.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.39;0.12;0" keyTimes="0;0.12;0.88;1" dur="12.8s" begin="-8.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.8;0" dur="12.8s" begin="-8.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.36;0.04" dur="12.8s" begin="-8.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="43" y1="0" x2="43" y2="-3.8" stroke="#00d68f" stroke-width="0.54" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="19;539" dur="19.4s" begin="-18.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="43;1.2" dur="19.4s" begin="-18.6s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.22;0.12;0" keyTimes="0;0.12;0.88;1" dur="19.4s" begin="-18.6s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.8;0" dur="19.4s" begin="-18.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.54;0.04" dur="19.4s" begin="-18.6s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="37" y1="0" x2="37" y2="-4.4" stroke="#00e6a8" stroke-width="0.41" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="50;570" dur="19.1s" begin="-9.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="37;1.2" dur="19.1s" begin="-9.5s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.35;0.12;0" keyTimes="0;0.12;0.88;1" dur="19.1s" begin="-9.5s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.4;0" dur="19.1s" begin="-9.5s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.41;0.04" dur="19.1s" begin="-9.5s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="22" y1="0" x2="22" y2="-2.4" stroke="#00b8e0" stroke-width="0.28" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="132;652" dur="15.9s" begin="-10.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="22;1.2" dur="15.9s" begin="-10.7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.25;0.12;0" keyTimes="0;0.12;0.88;1" dur="15.9s" begin="-10.7s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.4;0" dur="15.9s" begin="-10.7s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.28;0.04" dur="15.9s" begin="-10.7s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="22" y1="0" x2="22" y2="-4.5" stroke="#00b8e0" stroke-width="0.52" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="246;766" dur="14.2s" begin="-17.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="22;1.2" dur="14.2s" begin="-17.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.43;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.2s" begin="-17.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.5;0" dur="14.2s" begin="-17.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.52;0.04" dur="14.2s" begin="-17.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="26" y1="0" x2="26" y2="-3.6" stroke="#00b8e0" stroke-width="0.44" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="102;622" dur="11.3s" begin="-2.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="26;1.2" dur="11.3s" begin="-2.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.42;0.12;0" keyTimes="0;0.12;0.88;1" dur="11.3s" begin="-2.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.6;0" dur="11.3s" begin="-2.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.44;0.04" dur="11.3s" begin="-2.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="36" y1="0" x2="36" y2="-3.9" stroke="#00b8e0" stroke-width="0.56" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="267;787" dur="15.1s" begin="-17.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="36;1.2" dur="15.1s" begin="-17.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="15.1s" begin="-17.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.9;0" dur="15.1s" begin="-17.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.56;0.04" dur="15.1s" begin="-17.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="39" y1="0" x2="39" y2="-5.7" stroke="#e8edf5" stroke-width="0.28" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="73;593" dur="13.5s" begin="-15.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="39;1.2" dur="13.5s" begin="-15.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.26;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.5s" begin="-15.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.7;0" dur="13.5s" begin="-15.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.28;0.04" dur="13.5s" begin="-15.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="48" y1="0" x2="48" y2="-2.6" stroke="#00e6a8" stroke-width="0.47" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="171;691" dur="13.1s" begin="-9.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="48;1.2" dur="13.1s" begin="-9.9s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.3;0.12;0" keyTimes="0;0.12;0.88;1" dur="13.1s" begin="-9.9s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.6;0" dur="13.1s" begin="-9.9s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.47;0.04" dur="13.1s" begin="-9.9s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="26" y1="0" x2="26" y2="-2.6" stroke="#00e6a8" stroke-width="0.41" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="238;758" dur="10.5s" begin="-2.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="26;1.2" dur="10.5s" begin="-2.6s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.2;0.12;0" keyTimes="0;0.12;0.88;1" dur="10.5s" begin="-2.6s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.6;0" dur="10.5s" begin="-2.6s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.41;0.04" dur="10.5s" begin="-2.6s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="40" y1="0" x2="40" y2="-3.4" stroke="#00d68f" stroke-width="0.56" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="77;597" dur="10.4s" begin="-9.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="40;1.2" dur="10.4s" begin="-9.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.16;0.12;0" keyTimes="0;0.12;0.88;1" dur="10.4s" begin="-9.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-3.4;0" dur="10.4s" begin="-9.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.56;0.04" dur="10.4s" begin="-9.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="22" y1="0" x2="22" y2="-4.2" stroke="#e8edf5" stroke-width="0.48" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="15;535" dur="20.3s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="22;1.2" dur="20.3s" begin="-18s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.16;0.12;0" keyTimes="0;0.12;0.88;1" dur="20.3s" begin="-18s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-4.2;0" dur="20.3s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.48;0.04" dur="20.3s" begin="-18s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="44" y1="0" x2="44" y2="-2.3" stroke="#00e6a8" stroke-width="0.29" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="325;845" dur="21.8s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="44;1.2" dur="21.8s" begin="-6.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.18;0.12;0" keyTimes="0;0.12;0.88;1" dur="21.8s" begin="-6.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.3;0" dur="21.8s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.29;0.04" dur="21.8s" begin="-6.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="22" y1="0" x2="22" y2="-2.9" stroke="#00ccff" stroke-width="0.3" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="28;548" dur="17.7s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="22;1.2" dur="17.7s" begin="-13.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.27;0.12;0" keyTimes="0;0.12;0.88;1" dur="17.7s" begin="-13.1s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-2.9;0" dur="17.7s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.3;0.04" dur="17.7s" begin="-13.1s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+    <line class="particle" x1="40" y1="0" x2="40" y2="-5.5" stroke="#00ccff" stroke-width="0.44" stroke-linecap="round" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="183;703" dur="14.2s" begin="-10.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="40;1.2" dur="14.2s" begin="-10.2s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      <animate attributeName="opacity" values="0;0.3;0.12;0" keyTimes="0;0.12;0.88;1" dur="14.2s" begin="-10.2s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="-5.5;0" dur="14.2s" begin="-10.2s" repeatCount="indefinite" calcMode="linear"/>
+      <animate attributeName="stroke-width" values="0.44;0.04" dur="14.2s" begin="-10.2s" repeatCount="indefinite" calcMode="linear"/>
+    </line>
+  </g>
+</svg>

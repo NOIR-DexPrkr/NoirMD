@@ -8,6 +8,7 @@ export function parseMarkdown(markdown: string): Token[] {
   if (!markdown) return [];
   const lines = markdown.replace(/\r\n/g, '\n').replace(/\r/g, '').split('\n');
   const result: Token[] = [];
+  const usedIds = new Set<string>();
   let i = 0;
 
   while (i < lines.length) {
@@ -20,7 +21,14 @@ export function parseMarkdown(markdown: string): Token[] {
       const level = match[1].length;
       const rawText = match[2];
       const { text, classes, id: customId } = extractAttributes(rawText);
-      const id = customId || generateId(text.replace(/->|<-/g, ''));
+      const baseId = customId || generateId(text.replace(/->|<-/g, ''));
+      let id = baseId;
+      let n = 1;
+      while (usedIds.has(id)) {
+        n++;
+        id = `${baseId}-${n}`;
+      }
+      usedIds.add(id);
       result.push({ type: 'header', level, text, id, classes: classes || undefined });
       i++;
       continue;

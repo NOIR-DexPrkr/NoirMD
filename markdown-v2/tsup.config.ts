@@ -1,9 +1,21 @@
 import { defineConfig } from 'tsup';
-import { copyFileSync, rmSync } from 'fs';
+import { copyFileSync, cpSync, rmSync, statSync } from 'fs';
 import { join } from 'path';
 
 // Clean dist before the first build
 try { rmSync(join(__dirname, 'dist'), { recursive: true, force: true }); } catch {}
+
+// Copy all vanilla CSS files (entry + partials + fonts) into dist so the
+// @import chain inside vanilla.css resolves relative to the package.
+async function copyVanillaCss() {
+  cpSync('vanilla', 'dist', {
+    recursive: true,
+    filter: (src: string) =>
+      statSync(src).isDirectory() ||
+      src.endsWith('.css') ||
+      src.endsWith('.woff2'),
+  });
+}
 
 export default defineConfig([
   // ── Main entry (backward compat: core + react) ──
@@ -13,11 +25,8 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     target: 'es2020',
-    external: ['react', 'react-dom', '@base-ui/react'],
+    external: ['react', 'react-dom'],
     noExternal: ['highlight.js'],
-    onSuccess: async () => {
-      copyFileSync('markdown.css', 'dist/markdown.css');
-    },
   },
   // ── Core entry (framework-agnostic) ──
   {
@@ -38,7 +47,7 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     target: 'es2020',
-    external: ['react', 'react-dom', '@base-ui/react'],
+    external: ['react', 'react-dom'],
     noExternal: ['highlight.js'],
   },
   // ── Vanilla entry (framework-agnostic) ──
@@ -51,9 +60,7 @@ export default defineConfig([
     target: 'es2020',
     external: [],
     noExternal: ['highlight.js'],
-    onSuccess: async () => {
-      copyFileSync('vanilla/vanilla.css', 'dist/vanilla.css');
-    },
+    onSuccess: copyVanillaCss,
   },
   // ── Vue entry ──
   {
@@ -85,5 +92,8 @@ export default defineConfig([
       '@lezer/highlight',
     ],
     noExternal: [],
+    onSuccess: async () => {
+      copyFileSync('editor.css', 'dist/editor.css');
+    },
   },
 ]);

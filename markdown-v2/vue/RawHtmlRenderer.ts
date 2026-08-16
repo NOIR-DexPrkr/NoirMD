@@ -1,44 +1,34 @@
 // ============================================================
-// Vue RawHtmlRenderer — renders raw HTML with script execution
+// Vue RawHtmlRenderer — thin wrapper around the vanilla raw-HTML
+// renderer. Injects <style> blocks globally and force-executes
+// <script> tags.
 // ============================================================
 
-import { defineComponent, h, ref, onMounted, type PropType } from 'vue';
+import { defineComponent, h, onMounted, ref, watch } from 'vue';
+import { renderHtmlString } from '../vanilla/renderer';
 import { scanTailwindCDN } from './useTailwindCDN';
 
 const RawHtmlRenderer = defineComponent({
   name: 'RawHtmlRenderer',
   props: {
     content: { type: String, required: true },
-    globalStyles: { type: String, default: undefined },
-    wrapperClassName: { type: String, required: true },
+    wrapperClassName: { type: String, default: 'nr-raw-html' },
   },
   setup(props) {
-    const containerRef = ref<HTMLElement | null>(null);
+    const container = ref<HTMLElement | null>(null);
 
-    onMounted(() => {
-      if (!containerRef.value) return;
-
-      // Force-execute injected scripts
-      const scripts = containerRef.value.querySelectorAll('script');
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement('script');
-        Array.from(oldScript.attributes).forEach(attr =>
-          newScript.setAttribute(attr.name, attr.value)
-        );
-        newScript.textContent = oldScript.textContent;
-        oldScript.parentNode?.replaceChild(newScript, oldScript);
-      });
-
+    const render = () => {
+      const el = container.value;
+      if (!el) return;
+      el.replaceChildren();
+      el.appendChild(renderHtmlString(props.content));
       scanTailwindCDN();
-    });
-
-    return () => {
-      const children: any[] = [
-        h('div', { innerHTML: props.content }),
-      ];
-
-      return h('div', { ref: containerRef, class: props.wrapperClassName }, children);
     };
+
+    onMounted(render);
+    watch(() => props.content, render);
+
+    return () => h('div', { ref: container, class: props.wrapperClassName });
   },
 });
 

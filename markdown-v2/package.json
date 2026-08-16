@@ -1,8 +1,8 @@
 {
   "name": "@noirmd/previewer",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "type": "module",
-  "description": "Framework-agnostic markdown parser with React renderer, directives, cards, modals, and Tailwind styling",
+  "description": "Framework-agnostic markdown renderer: one vanilla DOM engine with thin React/Vue wrappers, directives, cards, modals, and pure CSS styling",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -44,16 +44,17 @@
       "require": "./dist/NReditor.cjs",
       "default": "./dist/NReditor.js"
     },
-    "./markdown.css": "./markdown.css"
+    "./editor.css": "./dist/editor.css"
   },
   "files": [
     "dist",
-    "markdown.css"
+    "editor.css"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:editor": "node test/build.mjs"
   },
   "keywords": [
     "markdown",
@@ -79,7 +80,6 @@
     "url": "https://github.com/NOIR-DexPrkr/NoirMD/issues"
   },
   "peerDependencies": {
-    "@base-ui/react": ">=1.0.0",
     "@codemirror/language": ">=6.0.0",
     "@codemirror/state": ">=6.0.0",
     "@codemirror/view": ">=6.0.0",
@@ -90,9 +90,6 @@
     "vue": ">=3.0.0"
   },
   "peerDependenciesMeta": {
-    "@base-ui/react": {
-      "optional": true
-    },
     "vue": {
       "optional": true
     },

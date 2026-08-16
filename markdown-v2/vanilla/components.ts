@@ -10,11 +10,11 @@ import hljs from './highlightSetup';
 // ── Icon ──────────────────────────────────────────────────
 
 /**
- * Create a Material Symbols icon element.
+ * Create a Material Icons Round icon element.
  */
 export function createIcon(iconName: string, extraClasses?: string): HTMLElement {
   const span = document.createElement('span');
-  const cls = `nr-icon material-symbols-rounded${extraClasses ? ` ${extraClasses}` : ''}`;
+  const cls = `nr-icon material-icons-round${extraClasses ? ` ${extraClasses}` : ''}`;
   span.className = cls;
   span.setAttribute('aria-hidden', 'true');
 
@@ -95,7 +95,7 @@ const DEFAULT_ADMONITION_ICONS: Record<string, string> = {
   info: 'lightbulb',
   warning: 'warning',
   danger: 'report',
-  greentext: 'subdirectory_play_arrow',
+  greentext: 'subdirectory_arrow_right',
 };
 
 /**

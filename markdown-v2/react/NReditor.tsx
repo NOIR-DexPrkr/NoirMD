@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import CodeMirror, { ReactCodeMirrorProps } from '@uiw/react-codemirror';
-import { EditorView, Decoration, ViewPlugin, ViewUpdate, lineNumbers, scrollPastEnd, keymap } from '@codemirror/view';
+import { EditorView, Decoration, ViewPlugin, ViewUpdate, lineNumbers, keymap } from '@codemirror/view';
 import { customStreamParserV2 } from './custom-syntax';
 import { RangeSetBuilder } from '@codemirror/state';
 import { syntaxHighlighting, HighlightStyle, foldService, foldGutter, foldAll, unfoldAll } from '@codemirror/language';
 import { tags as t } from '@lezer/highlight';
 import { useDebounce } from './useDebounce';
+import { useLazyTailwindCDN } from './useTailwindCDN';
 import CustomMarkdownRenderer from './CustomMarkdownRenderer';
 
 export type EditorMode = 'editor' | 'split' | 'preview';
@@ -18,6 +19,10 @@ interface NReditorProps extends ReactCodeMirrorProps {
   debounceMs?: number;
   /** Inject Tailwind v4 browser CDN for preview. Default: false */
   tailwindCDN?: boolean;
+  /** Called when user clicks Guía */
+  onGuide?: () => void;
+  /** Called when user clicks Configurar */
+  onConfig?: () => void;
 }
 
 const customSyntaxHighlighting = HighlightStyle.define([
@@ -498,7 +503,8 @@ const colorTextPlugin = ViewPlugin.fromClass(
  * @example
  * ```tsx
  * import NReditor from '@noirmd/previewer/editor';
- * import '@noirmd/previewer/markdown.css';
+ * import '@noirmd/previewer/editor.css';
+ * import '@noirmd/previewer/vanilla/vanilla.css';
  *
  * <NReditor value={md} onChange={setMd} />
  * <NReditor value={md} onChange={setMd} tailwindCDN />
@@ -510,11 +516,15 @@ const NReditor: React.FC<NReditorProps> = ({
   className,
   debounceMs = 300,
   tailwindCDN = false,
+  onGuide,
+  onConfig,
 }) => {
   const editorRef = useRef<EditorView | null>(null);
   const [isAllFolded, setIsAllFolded] = useState(false);
-  const [editorMode, setEditorMode] = useState<EditorMode>('editor');
+  const [editorMode, setEditorMode] = useState<EditorMode>('split');
   const debouncedContent = useDebounce(value, debounceMs);
+
+  useLazyTailwindCDN(tailwindCDN);
 
   const handleToggleFold = () => {
     if (!editorRef.current) return;
@@ -547,7 +557,6 @@ const NReditor: React.FC<NReditorProps> = ({
       customEditorTheme,
       syntaxHighlighting(customSyntaxHighlighting),
       EditorView.lineWrapping,
-      scrollPastEnd(),
       keymap.of([
         { key: 'Ctrl-Shift-[', run: foldAll },
         { key: 'Ctrl-Shift-]', run: unfoldAll },
@@ -567,49 +576,79 @@ const NReditor: React.FC<NReditorProps> = ({
   ];
 
   return (
-    <div className={`relative flex-1 flex flex-col min-h-0 ${className || ''}`}>
-      {/* Mode toolbar */}
-      <div className="flex items-center justify-between px-2 py-1.5 border-b border-border/30 bg-background-secondary-solid/50 rounded-t-2xl shrink-0">
-        <button
-          onClick={handleToggleFold}
-          className="p-1 px-2 text-xs font-bold bg-background-secondary-solid border border-border rounded hover:bg-border text-accent-primary transition-colors"
-          title={isAllFolded ? 'Expand all' : 'Collapse all'}
-        >
-          {isAllFolded ? '╩' : '╦'}
-        </button>
+    <div className={`nr-editor ${className || ''}`}>
+      {/* Toolbar */}
+      <div className="nr-editor-toolbar">
+        {/* Left: Fold + mode switcher */}
+        <div className="nr-editor-toolbar-left">
+          <button
+            onClick={handleToggleFold}
+            className="nr-toolbar-btn nr-toolbar-btn-fold"
+            title={isAllFolded ? 'Expandir todo' : 'Colapsar todo'}
+            aria-label={isAllFolded ? 'Expandir todo' : 'Colapsar todo'}
+          >
+            <span className="material-icons-round">
+              {isAllFolded ? 'unfold_more' : 'unfold_less'}
+            </span>
+          </button>
 
-        <div className="flex items-center gap-0.5 bg-black/10 dark:bg-white/5 rounded-lg p-0.5">
-          {modeButtons.map(btn => (
+          <div className="nr-toolbar-divider" />
+
+          <div className="nr-toolbar-mode-group">
+            {modeButtons.map(btn => (
+              <button
+                key={btn.key}
+                onClick={() => setEditorMode(btn.key)}
+                className={`nr-toolbar-btn nr-toolbar-btn-mode ${
+                  editorMode === btn.key ? 'nr-toolbar-btn-mode--active' : ''
+                } ${btn.key === 'split' ? 'nr-toolbar-btn-split' : ''}`}
+                title={btn.label}
+              >
+                <span className="material-icons-round">{btn.icon}</span>
+                <span className="nr-toolbar-label">{btn.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: Guía · Configurar (optional) */}
+        <div className="nr-editor-toolbar-right">
+          {onGuide && (
             <button
-              key={btn.key}
-              onClick={() => setEditorMode(btn.key)}
-              className={`flex items-center gap-1 px-2.5 py-1 text-xs rounded-md transition-colors ${
-                editorMode === btn.key
-                  ? 'bg-accent-primary/20 text-accent-primary font-semibold'
-                  : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
-              }`}
-              title={btn.label}
+              onClick={onGuide}
+              className="nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-guide"
+              title="Guía de sintaxis"
             >
-              <span className="material-symbols-rounded text-sm">{btn.icon}</span>
-              <span className="hidden sm:inline">{btn.label}</span>
+              <span className="material-icons-round">menu_book</span>
+              <span className="nr-toolbar-label">Guía</span>
             </button>
-          ))}
+          )}
+          {onGuide && onConfig && <div className="nr-toolbar-divider" />}
+          {onConfig && (
+            <button
+              onClick={onConfig}
+              className="nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-config"
+              title="Configurar tema y metadata"
+            >
+              <span className="material-icons-round">tune</span>
+              <span className="nr-toolbar-label">Configurar</span>
+            </button>
+          )}
         </div>
       </div>
 
       {/* Content area — editor / split / preview */}
-      <div className="flex-1 min-h-0 flex">
+      <div className="nr-editor-body">
         {(editorMode === 'editor' || editorMode === 'split') && (
           <div
-            className={`${
-              editorMode === 'split' ? 'w-1/2 border-r border-border/30' : 'w-full'
-            } flex-1 flex flex-col min-h-0 min-w-0`}
+            className={`nr-editor-pane ${
+              editorMode === 'split' ? 'nr-editor-pane--half' : ''
+            }`}
           >
             <CodeMirror
               value={value}
               onChange={onChange}
-              className="flex-1 min-h-0 min-w-0"
-              height="100%"
+              height="auto"
               onCreateEditor={view => {
                 editorRef.current = view as any;
               }}
@@ -624,12 +663,14 @@ const NReditor: React.FC<NReditorProps> = ({
 
         {(editorMode === 'preview' || editorMode === 'split') && (
           <div
-            className={`${
-              editorMode === 'split' ? 'w-1/2' : 'w-full'
-            } flex-1 min-h-0 overflow-auto min-w-0`}
+            className={`nr-editor-preview ${
+              editorMode === 'split' ? 'nr-editor-preview--half' : ''
+            }`}
           >
-            <div className="nr-prose h-full shadow-xs overflow-auto p-4">
-              <CustomMarkdownRenderer content={debouncedContent} />
+            <div className="nr-editor-prose">
+              <div className="nr-prose">
+                <CustomMarkdownRenderer content={debouncedContent} />
+              </div>
             </div>
           </div>
         )}

@@ -1,0 +1,53 @@
+/* ============================================================
+   NoirMD Vanilla — CSS Variables
+
+   Override-friendly design tokens. Host themes can win by
+   defining --color-* variables; fallbacks are used otherwise.
+   ============================================================ */
+
+/* ── Material Icons Round (self-hosted) ────────────────────
+   All directives (admonitions, buttons, modals, cards, ...)
+   render icons via the `material-icons-round` ligature
+   font. Self-hosted so icons work offline and without host
+   dependencies. */
+
+@font-face {
+  font-family: 'Material Icons Round';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('./fonts/material-icons-round.woff2') format('woff2');
+}
+
+.material-icons-round {
+  font-family: 'Material Icons Round';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.nr-prose {
+  --nr-bg: var(--color-background-primary, #0f172a);
+  --nr-bg-secondary: var(--color-background-secondary-solid, #1e293b);
+  --nr-text: var(--color-text-primary, #e2e8f0);
+  --nr-text-secondary: var(--color-text-secondary, #94a3b8);
+  --nr-border: var(--color-border, #334155);
+  --nr-accent: var(--color-accent-primary, #0ea5e9);
+  --nr-accent-hover: var(--color-accent-hover, #38bdf8);
+  --nr-info: #3b82f6;
+  --nr-warning: #f59e0b;
+  --nr-danger: #ef4444;
+  --nr-success: #22c55e;
+  --nr-radius: 1rem;
+  --nr-radius-sm: 0.5rem;
+  --nr-radius-lg: 1.5rem;
+}

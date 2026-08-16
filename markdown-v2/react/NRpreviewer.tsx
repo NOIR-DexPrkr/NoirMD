@@ -8,7 +8,7 @@ export interface NRpreviewerProps {
   content?: string;
   /** Raw HTML string to render (used when content is not provided) */
   html?: string;
-  /** Inject Tailwind v4 browser CDN at runtime for directive styling. Default: false */
+  /** Inject Tailwind v4 browser CDN at runtime for user-authored Tailwind classes. Default: false */
   tailwindCDN?: boolean;
   /** Additional CSS class on the wrapper element */
   className?: string;
@@ -21,8 +21,8 @@ export interface NRpreviewerProps {
  *
  * @example
  * ```tsx
- * import { NRpreviewer } from '@noirmd/previewer';
- * import '@noirmd/previewer/markdown.css';
+ * import { NRpreviewer } from '@noirmd/previewer/react';
+ * import '@noirmd/previewer/vanilla/vanilla.css';
  *
  * <NRpreviewer content="# Hello **world**" />
  * <NRpreviewer content=":::note Title\nContent\n:::" tailwindCDN />
@@ -38,9 +38,11 @@ const NRpreviewer: React.FC<NRpreviewerProps> = ({
 }) => {
   useLazyTailwindCDN(tailwindCDN);
 
+  const wrapperClass = `nr-prose${className ? ` ${className}` : ''}`;
+
   if (content) {
     return (
-      <div className={`nr-prose${className ? ` ${className}` : ''}`} style={style}>
+      <div className={wrapperClass} style={style}>
         <CustomMarkdownRenderer content={content} />
       </div>
     );
@@ -48,8 +50,8 @@ const NRpreviewer: React.FC<NRpreviewerProps> = ({
 
   if (html) {
     return (
-      <div className={`nr-prose${className ? ` ${className}` : ''}`} style={style}>
-        <RawHtmlRenderer content={html} wrapperClassName="nr-preview-html" />
+      <div className={wrapperClass} style={style}>
+        <RawHtmlRenderer content={html} />
       </div>
     );
   }
