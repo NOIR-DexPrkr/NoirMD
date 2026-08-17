@@ -27,7 +27,6 @@ body {
    ───────────────────────────────────────────── */
 .nr-glass,
 .nr-glass-soft {
-  position: relative;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
     rgba(10, 10, 14, 0.92);

@@ -16,7 +16,7 @@ interface DocShellProps {
 }
 
 const panelClass =
-  'nr-glass fixed top-6 w-64 overflow-hidden z-20 rounded-3xl border-white/5 shadow-2xl';
+  'nr-glass fixed top-6 w-64 z-20 rounded-3xl border-white/5 shadow-2xl';
 
 const DocShell: React.FC<DocShellProps> = ({ slug, title, content, groupTitle, isLoading }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,7 +32,7 @@ const DocShell: React.FC<DocShellProps> = ({ slug, title, content, groupTitle, i
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ opacity: { duration: 0.5 }, x: { duration: 0.5 } }}
-        className={clsx(panelClass, 'nr-float hidden lg:block left-4 lg:left-6 h-[calc(100vh-3rem)]')}
+        className={clsx(panelClass, 'nr-float hidden lg:block left-4 lg:left-6 h-[calc(100vh-3rem)] overflow-hidden')}
         style={{ '--float-duration': '5s' } as React.CSSProperties}
       >
         <Sidebar activeSlug={slug} />
