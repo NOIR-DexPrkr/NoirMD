@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Background from './components/Background';
 import Home from './pages/Home';
+import PlaygroundPage from './pages/PlaygroundPage';
 import DocPage from './pages/DocPage';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <main className="w-full flex-1 flex flex-col mx-auto relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/playground" element={<PlaygroundPage />} />
           <Route path="/docs/:slug" element={<DocPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

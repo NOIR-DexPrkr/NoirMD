@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, List, ArrowLeft, ChevronRight, Home } from 'lucide-react';
+import { Menu, List, Home, Zap } from 'lucide-react';
 import { NRpreviewer } from '@noirmd/previewer/react';
 import Sidebar from './Sidebar';
 import TableOfContents from './TableOfContents';
@@ -109,6 +109,11 @@ const DocShell: React.FC<DocShellProps> = ({ slug, title, content, groupTitle, i
             <Link to="/" className="btn btn-ghost btn-circle btn-xs text-white/50 hover:text-white hover:bg-white/10 shrink-0"
               title="Inicio">
               <Home size={14} />
+            </Link>
+
+            <Link to="/playground" className="btn btn-ghost btn-circle btn-xs text-white/50 hover:text-primary hover:bg-primary/10 shrink-0"
+              title="Playground">
+              <Zap size={14} />
             </Link>
 
             <span className="text-white/20">›</span>
