@@ -1,0 +1,127 @@
+# NoirMD — Documentation
+
+> NoirMD is a **framework-agnostic markdown renderer**: one vanilla DOM rendering engine with thin React/Vue wrappers. It ships a custom parser, a 16-type directive system (admonitions, cards, modals, details, buttons, slides), rich inline syntax, built-in syntax highlighting (highlight.js) and modular pure CSS theming. This file indexes the official documentation. All links are relative to the site root.
+
+## What is NoirMD?
+
+NoirMD transforms Markdown into a typed AST and renders it with a single vanilla DOM engine (`renderMarkdownString(markdown) → HTMLElement`). React and Vue bindings are thin mount-point wrappers around that engine, so behavior is identical across frameworks.
+
+Pipeline: `parseMarkdown(markdown)` → typed `Token[]` AST → vanilla DOM renderer → `HTMLElement` appended by the framework wrapper.
+
+- **Framework-agnostic**: one engine for React, Vue, vanilla JS or any framework
+- **Custom parser**: line-by-line state machine producing a typed `Token[]` AST
+- **Directive system**: 16 directive strings mapped to 7 rich components (admonitions, cards, modals, details, buttons, wrappers, slides)
+- **Modular CSS**: pure CSS split into `variables.css`, `base.css` and one file per component; `--color-*` host-variable theming
+- **Rich inline syntax**: bold, italic, highlight, color, spoiler, underline, icons, centered/right-aligned text and more
+- **Syntax highlighting**: code blocks with highlight.js built-in
+- **Optional editor**: CodeMirror 6 powered markdown editor with live preview
+
+## Installation
+
+```bash
+# Core + React
+npm install @noirmd/previewer react react-dom
+
+# Core + Vue 3
+npm install @noirmd/previewer vue
+
+# Core only (Vanilla JS)
+npm install @noirmd/previewer
+```
+
+Optional editor dependencies:
+
+```bash
+npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror/language @lezer/highlight
+```
+
+## Package Entry Points
+
+| Import path | Description | Dependencies |
+|-------------|-------------|--------------|
+| `@noirmd/previewer/core` | Parser, types, utilities | None |
+| `@noirmd/previewer/vanilla` | Vanilla DOM renderer — the single rendering engine | None (highlight.js bundled) |
+| `@noirmd/previewer/react` | Thin React mount-point wrapper | React ≥18 |
+| `@noirmd/previewer/vue` | Thin Vue mount-point wrapper | Vue ≥3 |
+| `@noirmd/previewer` | Backward-compatible (core + react) | React ≥18 |
+| `@noirmd/previewer/editor` | CodeMirror 6 editor | React + CodeMirror |
+| `@noirmd/previewer/editor.css` | Self-contained editor styles (toolbar, layout) | — |
+| `@noirmd/previewer/vanilla/vanilla.css` | Full CSS entry (`@import`s all partials) | — |
+
+## Configuration
+
+- **CSS is required.** Import `@noirmd/previewer/vanilla/vanilla.css` once at the top level of your app. Without it, content renders but has no visual styling (no heading sizes, no table borders, no code block backgrounds).
+- The CSS is modular: `variables.css` (design tokens), `base.css` (global/reusable styles) and one file per component. Importing `vanilla.css` pulls in everything via `@import`.
+- **Theming**: CSS custom properties (`--nr-*`) with `--color-*` host-variable fallbacks (`--color-background-primary`, `--color-text-primary`, `--color-accent-primary`, ...).
+- **Tailwind**: works alongside NoirMD — its class names don't conflict. The `tailwindCDN` prop is only needed for Tailwind classes authored inside markdown content; `scanTailwindCDN()` must be called after DOM mutations that add new Tailwind classes.
+- **SSR caveat**: React/Vue wrappers render on the client only (`useEffect`/`onMounted`) — server render is an empty placeholder.
+- **Editor styles**: `@noirmd/previewer/editor.css` is self-contained and uses `var(--color-*, fallback)` so the host theme wins when defined.
+- **Gotchas**: unclosed directives (`:::type` without closing `:::`) render as plain text; `<style>` blocks inject globally into `<head>`; directives have their own padding/borders — avoid nesting them inside flex/grid containers; consecutive `card`/`card-m`/`card-b` auto-batch into a flex-wrap row (use `batch="off"` to disable).
+
+## Quick Usage
+
+### React
+
+```tsx
+import { NRpreviewer } from '@noirmd/previewer/react';
+import '@noirmd/previewer/vanilla/vanilla.css';
+
+function App() {
+  return <NRpreviewer content="# Hello **world**" tailwindCDN />;
+}
+```
+
+### Vue 3
+
+```vue
+<script setup>
+import { NRpreviewer } from '@noirmd/previewer/vue';
+import '@noirmd/previewer/vanilla/vanilla.css';
+
+const markdown = '# Hello **world**';
+</script>
+
+<template>
+  <NRpreviewer :content="markdown" />
+</template>
+```
+
+### Vanilla JS
+
+```ts
+import { renderMarkdownString } from '@noirmd/previewer/vanilla';
+import '@noirmd/previewer/vanilla/vanilla.css';
+
+const el = renderMarkdownString('# Hello **world**');
+document.getElementById('app')!.appendChild(el);
+```
+
+## Documentation
+
+### Getting Started
+- [Introduction](/docs/introduction): What NoirMD is, architecture and entry points.
+- [Setup — React](/docs/setup-react): Installation and usage in React projects.
+- [Setup — Vue 3](/docs/setup-vue): Installation and usage in Vue 3 projects.
+- [Setup — Vanilla JS](/docs/setup-vanilla): Usage in plain JS or any framework, plus CDN via esm.sh.
+
+### Syntax
+- [Markdown Guide](/docs/markdown-guide): Standard markdown supported by NoirMD.
+- [Inline Syntax](/docs/inline-syntax): Complete reference for inline formatting (bold, highlight, color, spoiler, icons, centering, images with float).
+- [Block Syntax](/docs/block-syntax): Headers, code blocks, tables, lists.
+- [Parser](/docs/parser): Detection order and AST (`Token[]`) structure.
+
+### Directives
+- [Directive System](/docs/directives-general): `:::type` syntax, props, slots, nesting.
+- [Admonitions](/docs/directive-admonitions): note / info / warning / danger / greentext.
+- [Cards](/docs/directive-cards): card / card-m / card-b with auto-batching.
+- [Details](/docs/directive-details): Collapsible sections.
+- [Modal](/docs/directive-modal): Dialog popups.
+- [Button](/docs/directive-button): Styled link buttons.
+- [Slide](/docs/directive-slide): Text carousel.
+
+### Styling
+- [Styling System](/docs/styling-system): CSS variables, Tailwind and override patterns.
+
+### Advanced
+- [HTML Raw](/docs/html-raw): Native HTML, `<style>` and `<script>` inside markdown.
+- [Best Practices](/docs/best-practices): Rules, restrictions and pitfalls.

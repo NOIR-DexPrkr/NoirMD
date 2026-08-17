@@ -116,9 +116,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSlug, onSelect }) => {
         ))}
       </div>
 
-      <div className="px-4 py-3 border-t border-white/5">
-        <div className="flex items-center gap-2 text-[10px] font-bold text-white/30">
+      <div className="px-4 py-3 border-t border-white/5 flex flex-col gap-1.5">
+        <a
+          href="/llms.txt"
+          title="LLM-readable site index"
+          className="flex items-center gap-2 text-[10px] font-bold text-white/40 hover:text-primary transition-colors"
+        >
           <FileText size={11} className="text-primary/60" />
+          llms.txt
+        </a>
+        <div className="flex items-center gap-2 text-[10px] font-bold text-white/30">
           MIT License · Framework-agnostic
         </div>
       </div>

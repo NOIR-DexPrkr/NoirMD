@@ -120,7 +120,7 @@ function Editor() {
 
 ---
 
-## ⚠️ Required: Import the CSS
+## Required: Import the CSS
 
 **Every framework requires importing the same CSS file for NoirMD to display correctly.** Without it, markdown renders as unstyled HTML.
 
