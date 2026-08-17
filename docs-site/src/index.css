@@ -96,6 +96,48 @@ body {
   animation: nr-fade-in 0.4s ease-out both;
 }
 
+/* Cometas orbitales del fondo (SVG inline en Background.tsx).
+   Solo transform + opacity → compositor GPU, sin layout por frame. */
+.orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nr-orbit var(--dur, 12s) linear var(--delay, 0s) infinite;
+}
+
+.comet {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nr-comet var(--dur, 12s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes nr-orbit {
+  from { transform: rotate(var(--a0, 0deg)); }
+  to { transform: rotate(var(--a1, 360deg)); }
+}
+
+@keyframes nr-comet {
+  from { transform: translate(var(--r0, 22px), 0) scaleY(1); opacity: 0; }
+  12% { opacity: var(--peak, 0.3); }
+  88% { opacity: 0.12; }
+  to { transform: translate(var(--r1, 1.2px), 0) scaleY(0.08); opacity: 0; }
+}
+
+/* Glow pulse para el núcleo del agujero negro */
+@keyframes nr-core-pulse {
+  0%, 100% { opacity: 0.6; r: 30; }
+  50% { opacity: 0.85; r: 32; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .comet {
+    animation: none;
+  }
+  .comet {
+    opacity: 0.4;
+  }
+}
+
 /* ─────────────────────────────────────────────
    Detalles (dexnr-theme §9)
    ───────────────────────────────────────────── */
