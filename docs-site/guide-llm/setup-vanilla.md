@@ -87,7 +87,7 @@ import { parseMarkdown } from '@noirmd/previewer/core';
 
 const tokens = parseMarkdown('# Hello **World**');
 console.log(tokens);
-// [{ type: 'header', level: 1, content: 'Hello **World**', ... }]
+// [{ type: 'header', level: 1, text: 'Hello **World**', id: 'hello-world' }, ...]
 ```
 
 ## Custom Directives

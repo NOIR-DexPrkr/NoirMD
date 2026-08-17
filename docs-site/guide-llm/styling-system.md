@@ -4,7 +4,7 @@
 
 ## Tailwind Integration
 
-El renderer inyecta el **Tailwind Play CDN** en runtime. Cualquier clase de Tailwind funciona en contenido dinámico sin safelist.
+Las clases de Tailwind dentro del markdown requieren la prop `tailwindCDN` — inyecta el **CDN de Tailwind CSS v4** en runtime (ref-counted, preflight desactivado). Sin la prop, solo funcionan las clases CSS propias de NoirMD (`.nr-*`).
 
 ### Tokens de Color Disponibles
 
@@ -71,23 +71,6 @@ Ejemplo de resultado: `rounded-2xl mb-6 border shadow-sm p-4 border-info/20 bg-i
 
 Las clases rojas sobreescriben las default info porque aparecen después.
 
-## Smart Detection (Button & Modal)
-
-| Qué | Regex | Default |
-|-----|-------|---------|
-| Tamaño | `/\btext-(xs\|sm\|base\|lg\|xl\|[2-9]xl)\b/` | `text-sm` |
-| Display | `/\b(flex\|inline-flex\|block\|grid\|hidden)\b/` | `inline-flex` |
-
-Si el usuario proporciona una clase que matchea, el default se **omite**.
-
-### Position Shorthands
-
-| Shorthand | Button | Modal |
-|-----------|--------|-------|
-| `#left` | `flex justify-start` | `text-left` |
-| `#center` | `flex justify-center` | `text-center` |
-| `#right` | `flex justify-end` | `text-right` |
-
 ## Style Prop (CSS Inline)
 
 El prop `style` acepta un string CSS que se parsea en un objeto de estilos vía `parseCssString()`:
@@ -119,11 +102,8 @@ article.nr-prose
 3. **Usa prop `class`** para customización de directivas
 4. **Usa prop `style`** para estilos inline one-off
 5. **Usa `<style>`** para CSS complejo (animaciones, keyframes) — inyectado globalmente
-6. **Deja que la smart detection** maneje defaults de Button/Modal
-7. **No dupliques** clases default en tus overrides
 
 ## ⚠️ Errores Comunes
 
 - **`.className` shorthand no soporta bracket syntax** — usa `class="w-[100px]"` en vez de `.w-[100px]` (requiere `tailwindCDN` para resolverse)
 - **`rgba(var(--nr-bg), ...)` no funciona** — las variables contienen colores completos, no componentes RGB numéricos. Usa `color-mix(in srgb, var(--nr-bg) 5%, transparent)` (todos los componentes del módulo ya lo usan)
-- **Position shorthands difieren entre Button y Modal** — Button usa `flex justify-*`, Modal usa `text-*` para el mismo `#left`/`#center`/`#right`

@@ -17,7 +17,7 @@ Hidden content here
 | `title` | `string` | `'Details'` | Título del summary |
 | `icon` | `string` | `'play_arrow'` | Material icon |
 | `defaultOpen` | `string` | `'false'` | Solo `"true"` (minúsculas) abre por defecto — `"1"`, `"yes"`, `"True"` NO funcionan |
-| `class` | `string` | — | Clases Tailwind adicionales |
+| `class` | `string` | — | Clases custom (se anexan a los defaults) |
 | `style` | `string` | — | CSS inline |
 
 ## Rendering
@@ -26,7 +26,7 @@ Hidden content here
 - Icono rota 90° cuando está abierto (`transition-transform rotate-90`)
 - Summary con `list-none`, hide webkit marker
 - Border-top divider en el área de contenido
-- **NO usa `<details>` nativo** — tiene state management custom
+- **Usa el `<details>` nativo** — el icono rota via evento `toggle`
 
 ## Limitaciones
 

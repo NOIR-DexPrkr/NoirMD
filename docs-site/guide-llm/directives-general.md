@@ -57,24 +57,15 @@ Todas las directivas soportan props `class` y `style` para customización.
 
 El prop `style` acepta un string CSS que se parsea en un objeto de estilos vía `parseCssString()`.
 
-## Smart Detection (Button & Modal)
+## Estilado de Button & Modal
 
-Button y Modal tienen **detección inteligente de clases** para evitar defaults conflictivos:
+Button y Modal se estilizan con clases CSS propias (`button.css`, `modal.css`), no con clases Tailwind:
 
-| Detección | Regex | Default omitido |
-|-----------|-------|-----------------|
-| Tamaño | `/\btext-(xs\|sm\|base\|lg\|xl\|[2-9]xl)\b/` | `text-sm` |
-| Display | `/\b(flex\|inline-flex\|block\|grid\|hidden)\b/` | `inline-flex` |
+```
+nr-button nr-button--default
+```
 
-Si el usuario proporciona una clase que matchea, el default se **omite** (no solo se sobreescribe).
-
-### Position Shorthands
-
-| Shorthand | Button | Modal |
-|-----------|--------|-------|
-| `#left` | `flex justify-start` | `text-left` |
-| `#center` | `flex justify-center` | `text-center` |
-| `#right` | `flex justify-end` | `text-right` |
+El prop `class` se **anexa** después de los defaults — la última clase gana para propiedades conflictivas.
 
 ## Data Attributes
 
@@ -90,7 +81,7 @@ Cuando múltiples `card`, `card-m`, o `card-b` aparecen consecutivos, se agrupan
 
 **Desactivar batching:** `batch="off"` en la primera card.
 
-**Justificación:** Extraer `justify-*` del prop `class` de la primera card.
+**Justificación:** El batching envuelve las cards consecutivas en un contenedor `.nr-card-grid` (flex-wrap). Usa `batch="off"` en la primera card si necesitas tu propio layout.
 
 ## Registry de Directivas
 
@@ -106,10 +97,10 @@ Cuando múltiples `card`, `card-m`, o `card-b` aparecen consecutivos, se agrupan
 
 ## Directivas Desconocidas
 
-Si un tipo no está en el registry, se renderiza como un `<div>` con el contenido del slot default:
+Si un tipo no está en el registry, se renderiza como un `<div>` con la clase `nr-unknown-directive` y el contenido del slot default:
 
 ```html
-<div class="my-4 p-4 rounded-2xl border border-border bg-background-primary/5">
+<div class="nr-unknown-directive">
   {contenido del slot default}
 </div>
 ```

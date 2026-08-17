@@ -216,7 +216,7 @@ Positive outcome.
 | `info` | Blue (info) | `lightbulb` |
 | `warning` | Amber | `warning` |
 | `danger` | Red | `report` |
-| `greentext` | Green | `subdirectory_play_arrow` |
+| `greentext` | Green | `subdirectory_arrow_right` |
 
 ### Cards
 
@@ -411,12 +411,11 @@ NoirMD/
 │       ├── NRpreviewer.ts    # Drop-in preview component
 │       └── CustomMarkdownRenderer.ts  # Mount-point for the vanilla engine
 │
-├── docs/                     # Documentation site (Astro)
+├── docs-site/                # Documentation site (Vite + React)
 │   ├── src/
-│   │   ├── components/       # Interactive components
-│   │   ├── layouts/
-│   │   ├── pages/
-│   │   └── styles/
+│   │   ├── components/       # Interactive components (Playground, Cheatsheet, docs shell)
+│   │   ├── pages/            # Home, Playground, Doc pages
+│   │   └── data/             # Docs index + sample data
 │   └── guide-llm/            # Detailed feature documentation
 │
 └── README.md
@@ -426,11 +425,12 @@ NoirMD/
 
 ## 📚 Documentation
 
-Detailed guides are available in `docs/guide-llm/`:
+Detailed guides are available in `docs-site/guide-llm/`:
 
 | Guide | Description |
 |-------|-------------|
 | `introduction.md` | Overview, architecture, entry points |
+| `markdown-guide.md` | Standard markdown syntax reference |
 | `setup-react.md` | React installation & usage |
 | `setup-vue.md` | Vue 3 installation & usage |
 | `setup-vanilla.md` | Vanilla JS installation & usage |

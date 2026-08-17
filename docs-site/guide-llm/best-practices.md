@@ -19,12 +19,11 @@
 2. ❌ Pongas `#slot` dentro de directivas anidadas
 3. ❌ Mezcles sintaxis V1 (args posicionales) con V2 (props)
 4. ❌ Uses `:::div` cuando `<div>` nativo funciona (prefiere HTML en V2)
-5. ❌ Dupliques clases default en Button/Modal
-6. ❌ Uses `<style>` para estilos de componentes (todo `<style>` es global)
-7. ❌ Pongas información crítica SOLO en modales o details
-8. ❌ Uses `!important` salvo que sea absolutamente necesario
-9. ❌ Uses grid/flex en un contenedor que contiene `:::card` — las cards ya tienen su propio flex-wrap. Solo usa tu propio grid si desactivas el wrapper con `batch="off"`
-10. ❌ Pongas directivas dentro de `<div class="flex-1">` o hijos de flex/grid — las directivas tienen su propio padding, bordes y rounded corners que pueden quebrar el layout del contenedor padre
+5. ❌ Uses `<style>` para estilos de componentes (todo `<style>` es global)
+6. ❌ Pongas información crítica SOLO en modales o details
+7. ❌ Uses `!important` salvo que sea absolutamente necesario
+8. ❌ Uses grid/flex en un contenedor que contiene `:::card` — las cards ya tienen su propio flex-wrap. Solo usa tu propio grid si desactivas el wrapper con `batch="off"`
+9. ❌ Pongas directivas dentro de `<div class="flex-1">` o hijos de flex/grid — las directivas tienen su propio padding, bordes y rounded corners que pueden quebrar el layout del contenedor padre
 
 ## Uso de Directivas
 
@@ -50,9 +49,7 @@
 
 - Usa `label` para botones individuales
 - Usa slot para múltiples links
-- `#center` para botones centrados
 - `icon` para contexto visual
-- Deja que la smart detection maneje defaults de tamaño/display
 
 ### Slide
 
@@ -115,7 +112,6 @@ Mantén una jerarquía clara: H1 → H2 → H3. Usa admoniciones para callouts, 
 - [ ] Props en formato `key="value"`
 - [ ] Slots `#name` al nivel superior
 - [ ] HTML tiene líneas en blanco para markdown
-- [ ] Button/Modal no duplican clases por defecto
 - [ ] Cards consecutivas para auto-flex-wrap
 - [ ] Jerarquía visual clara
 - [ ] Inline formatting correctamente anidado

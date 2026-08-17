@@ -65,7 +65,7 @@ Fenced con triple backtick. Syntax highlighting via **highlight.js**.
 - Copy button auto-added, checkmark por 1.8s
 - Title bar opcional con icono de archivo
 - Overflow: `overflow-auto` para líneas largas
-- Fallback: si el language falla, intenta `'text'`
+- Fallback: si el language no se reconoce, se usa `highlightAuto`
 
 ## Tables
 
@@ -134,8 +134,6 @@ Una imagen en una línea con texto alrededor se separa en tokens independientes:
 | `#left` | `float: left; margin: 0 1em 1em 0` |
 | `#right` | `float: right; margin: 0 0 1em 1em` |
 | `#center` | `display: block; margin: 0 auto` |
-| `#inline` | Agrupado en flex-wrap |
-| `#3d` | Efecto hover 3D |
 
 **Formato de tamaño:** `{width:height}` — ambos opcionales. Soporta `px` y `%`.
 

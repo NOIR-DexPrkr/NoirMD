@@ -19,7 +19,7 @@ El renderer verifica patrones inline en este orden:
 | 9 | `~~text~~` | Strikethrough |
 | 10 | `` `code` `` | Inline code |
 | 11 | `[text](url)` | Link (siempre `target="_blank"`) |
-| 12 | `<html>` | HTML inline (dangerouslySetInnerHTML) |
+| 12 | `<html>` | HTML inline (innerHTML en vanilla) |
 
 ## Iconos ° `|[[icon-name]]|`
 

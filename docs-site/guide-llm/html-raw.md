@@ -14,26 +14,26 @@ El parser V2 detecta bloques HTML y parsea recursivamente el contenido interno c
 
 ## `<style>` Injection
 
-Todo bloque `<style>` se inyecta como **CSS global en `<head>`**, independientemente de si usa `scoped`, `paste`, `global`, o ningún atributo. El CSS se limpia automáticamente al desmontar el componente.
+Todo bloque `<style>` se inyecta como **CSS global en `<head>`** (marcado con `data-nr-global`), independientemente de si usa `scoped`, `paste`, `global`, o ningún atributo. **No hay cleanup automático** — el CSS persiste hasta que el host lo elimine.
 
 **No hay reescritura de selectores** — tu CSS se aplica tal cual.
 
 ## `<script>` Execution
 
-Los scripts se re-ejecutan tras cada renderizado porque `RawHtmlRenderer` **reemplaza** los nodos `<script>` después de montar el DOM.
+Los scripts se re-ejecutan tras cada renderizado porque el renderer **reemplaza** los nodos `<script>` después de montar el DOM.
 
 ## Tailwind Re-scan
 
-Después de renderizar contenido HTML dinámico, `window.tailwind.scan()` se llama para detectar nuevas clases de Tailwind en el HTML dinámicamente añadido.
+Con `tailwindCDN` activado, los wrappers React/Vue (`RawHtmlRenderer`) llaman `scanTailwindCDN()` tras renderizar contenido HTML dinámico. En vanilla, llama `scanTailwindCDN()` manualmente después de mutar el DOM.
 
 ## Tailwind CDN
 
-El renderer auto-inyecta el **Tailwind Play CDN** en runtime.
+El CDN de Tailwind **no se auto-inyecta** — se carga solo con la prop `tailwindCDN` (opt-in).
 
 **Configuración:**
-- `darkMode: 'class'`
+- Tailwind CSS v4 Browser CDN (`@tailwindcss/browser@4`, jsdelivr)
 - `corePlugins: { preflight: false }` — no sobreescribe estilos base de la app
-- Colores extendidos del tema: `bg-background-primary`, `text-accent-primary`, `border-border`, etc.
+- El tema se lee de los bloques `@theme` ya presentes en la página (no se duplican colores/fuentes)
 
 **Limitaciones:**
 - Preflight deshabilitado intencionalmente

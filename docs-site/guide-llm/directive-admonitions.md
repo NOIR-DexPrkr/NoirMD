@@ -22,7 +22,7 @@ Content here
 | `info` | info (azul) | `lightbulb` | `border-info/30` | `bg-info/10` |
 | `warning` | ámbar | `warning` | `border-amber-500/30` | `bg-amber-500/10` |
 | `danger` | rojo | `report` | `border-danger/30` | `bg-danger/10` |
-| `greentext` | verde | `subdirectory_play_arrow` | `border-success/30` | `bg-success/10` |
+| `greentext` | verde | `subdirectory_arrow_right` | `border-success/30` | `bg-success/10` |
 
 ## Props
 

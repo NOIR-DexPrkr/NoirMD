@@ -19,9 +19,8 @@
 | `title` | `string` | — | Título del header |
 | `image` | `string` | — | URL de imagen para banner |
 | `icon` | `string` | — | Material icon para header |
-| `class` | `string` | — | Clases Tailwind custom |
+| `class` | `string` | — | Clases custom (se anexan a los defaults) |
 | `style` | `string` | — | CSS inline |
-| `id` | `string` | — | ID para tracking de estado modal |
 | `url` | `string` | — | URL del link (requerido para `card-b`) |
 | `target` | `string` | `_blank` | Target del link |
 | `batch` | `string` | — | `"off"` para desactivar grid batching |
@@ -38,7 +37,7 @@
 
 Cards consecutivas se agrupan automáticamente en `flex-wrap`. Desactivar con `batch="off"` en la **primera card** — si `batch="off"` está en la segunda o tercera card, se ignora.
 
-**Justificación:** Las clases `justify-*` se extraen **solo del `class` de la primera card**. Si solo la segunda card tiene `justify-center`, se ignora.
+**Justificación:** El batching envuelve las cards consecutivas en un contenedor `.nr-card-grid` (flex-wrap). Si necesitas tu propio layout, desactiva el batching primero.
 
 **Ancho fijo:** Todas las cards miden 18rem de ancho. No hay prop para cambiarlo.
 
@@ -54,7 +53,7 @@ Si necesitas un layout grid personalizado, **primero desactiva el batching** con
 
 ## Interacciones
 
-- `card-m` usa Base UI `Dialog.Root` para el modal (portal, focus trap, a11y)
-- `card-b` renderiza toda la card como un `<a>` click
+- `card-m` usa el `<dialog>` nativo — se monta en `<body>` al abrirse y se elimina al cerrarse
+- `card-b` renderiza toda la card clickeable (div con listener que abre `url` con `window.open`)
 - `#content` solo se renderiza dentro del modal de `card-m`, no en la card misma
 - `#content` puede contener markdown completo, listas, tablas, y directivas anidadas
