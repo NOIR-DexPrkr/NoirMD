@@ -51,9 +51,12 @@
     "editor.css"
   ],
   "scripts": {
+    "guide:build": "node guide/build.mjs",
+    "prebuild": "node guide/build.mjs",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
+    "pretest:editor": "node guide/build.mjs",
     "test:editor": "node test/build.mjs"
   },
   "keywords": [

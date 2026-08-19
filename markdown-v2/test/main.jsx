@@ -210,14 +210,16 @@ You were supposed to destroy the Sith, not join them!
 
 ### Lista enriquecida (anidado)
 
+Haz clic en los altavoces: todos ejecutan la misma función global y suenan.
+
 :::richlist
-:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="play_arrow" icon2="favorite"}
+:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth.
 :::
-:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="play_arrow"}
+:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics.
 :::
-:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="play_arrow" icon2="favorite"}
+:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Cappuccino" quickly gained attention for its smooth melody and relatable themes.
 :::
 :::
@@ -232,35 +234,6 @@ You were supposed to destroy the Sith, not join them!
 :::
 `;
 
-const CHEATSHEET = [
-  ['**negrita**', 'Bold'],
-  ['*italic*', 'Italic'],
-  ['==mark==', 'Highlight'],
-  ['%color%text%%', 'Texto de color'],
-  ['!>spoiler<!', 'Spoiler'],
-  ['->centrado<-', 'Párrafo centrado'],
-  ['![alt](src#left){300x200}', 'Imagen flotante'],
-  ['[TOC]', 'Tabla de contenidos'],
-  [':::note/warning/danger/info/greentext', 'Admonición'],
-  [':::card / card-m / card-b', 'Card'],
-  [':::details {title="..."}', 'Colapsable'],
-  [':::modal {title="..." label="..."}', 'Modal'],
-  [':::button {label="..." url="..."}', 'Botón'],
-  [':::slide {interval="2000"}', 'Carrusel'],
-  [':::div .cls #id', 'Wrapper'],
-  [':::style / :::raw / :::custom', 'HTML crudo'],
-  [':::keys', 'Teclas (kbd)'],
-  [':::accordion + :::accordion-item', 'Acordeón'],
-  [':::carousel', 'Carrusel de imágenes'],
-  [':::countdown {target="..."}', 'Cuenta regresiva'],
-  [':::diff {before="..." after="..."}', 'Comparador antes/después'],
-  [':::hover-3d', 'Imagen 3D al hover'],
-  [':::hover-gallery', 'Galería hover'],
-  [':::chat + :::chat-item', 'Chat de burbujas'],
-  [':::richlist + :::richlist-item', 'Lista enriquecida'],
-  [':::stat', 'Estadísticas (auto-batch)'],
-];
-
 function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -269,9 +242,28 @@ function toast(msg) {
   el._t = setTimeout(() => el.classList.remove('show'), 1800);
 }
 
+window.playClickSound = function () {
+  try {
+    const w = window;
+    w.__noirmdAudioCtx = w.__noirmdAudioCtx || new (w.AudioContext || w.webkitAudioContext)();
+    const ctx = w.__noirmdAudioCtx;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.16);
+  } catch {
+    // audio no disponible — no hacer nada
+  }
+};
+
 function App() {
   const [md, setMd] = useState(SAMPLE);
-  const [helpOpen, setHelpOpen] = useState(false);
 
   const toggleTheme = () => {
     const root = document.documentElement;
@@ -308,7 +300,7 @@ function App() {
         <NReditor
           value={md}
           onChange={setMd}
-          onGuide={() => setHelpOpen(o => !o)}
+          guide
           onConfig={() => toast('Configurar: pendiente en el test')}
         />
       </main>
@@ -316,23 +308,6 @@ function App() {
       <footer className="test-footer">
         Bundle local: <code>test/bundle.js</code> · regenerar con <code>npm run test:editor</code>
       </footer>
-
-      <div className="test-help" data-open={helpOpen}>
-        <div className="test-help-head">
-          <span className="material-icons-round">menu_book</span> Guía rápida
-          <button className="test-help-close" onClick={() => setHelpOpen(false)}>×</button>
-        </div>
-        <table className="test-help-table">
-          <tbody>
-            {CHEATSHEET.map(([syntax, desc]) => (
-              <tr key={syntax}>
-                <td><code>{syntax}</code></td>
-                <td>{desc}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
 
       <div id="toast" className="test-toast" />
     </>

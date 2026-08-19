@@ -1330,7 +1330,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React5 = require_react(), Internals = {
+        var React6 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1348,7 +1348,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2883,7 +2883,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React5.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React6.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -18515,14 +18515,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler2 = require_scheduler(), React5 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler2 = require_scheduler(), React6 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21310,7 +21310,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React5.version;
+          var isomorphicReactPackageVersion = React6.version;
           if ("19.2.7" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.7\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21664,18 +21664,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React5 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React6 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React5 = {
+        React6 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React5.react_stack_bottom_frame.bind(
-          React5,
+        var unknownOwnerDebugStack = React6.react_stack_bottom_frame.bind(
+          React6,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -23258,11 +23258,11 @@
   });
 
   // test/main.jsx
-  var import_react7 = __toESM(require_react(), 1);
+  var import_react8 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // react/NReditor.tsx
-  var import_react6 = __toESM(require_react(), 1);
+  var import_react7 = __toESM(require_react(), 1);
 
   // node_modules/@babel/runtime/helpers/esm/extends.js
   function _extends() {
@@ -57798,6 +57798,32 @@ window.tailwind.config = {
   };
   var chat_default = chatDirective;
 
+  // vanilla/directives/events.ts
+  function parseEventProp(eventProp) {
+    if (!eventProp) return [];
+    const bindings = [];
+    for (const part of eventProp.split(";")) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
+      const idx = trimmed.indexOf(":");
+      if (idx === -1) continue;
+      const eventName = trimmed.slice(0, idx).trim().replace(/^on/i, "");
+      const fnName = trimmed.slice(idx + 1).trim();
+      if (eventName && fnName) bindings.push({ eventName, fnName });
+    }
+    return bindings;
+  }
+  function bindEventProp(el, eventProp) {
+    for (const { eventName, fnName } of parseEventProp(eventProp)) {
+      el.addEventListener(eventName, (e) => {
+        const fn = window[fnName];
+        if (typeof fn === "function") {
+          fn.call(el, e);
+        }
+      });
+    }
+  }
+
   // vanilla/directives/richlist.ts
   var richlistItemDirective = ({ props, renderSlot }) => {
     const li = document.createElement("li");
@@ -57838,19 +57864,27 @@ window.tailwind.config = {
       desc.appendChild(descFrag);
       li.appendChild(desc);
     }
-    const icons = [props.icon, props.icon2].filter(Boolean);
-    if (icons.length > 0) {
-      const actions = document.createElement("div");
-      actions.className = "nr-richlist__actions";
-      for (const icon of icons) {
+    const actions = [
+      { icon: props.icon, url: props.url, event: props.event },
+      { icon: props.icon2, url: props.url2, event: props.event2 }
+    ].filter((a) => !!a.icon);
+    if (actions.length > 0) {
+      const actionsDiv = document.createElement("div");
+      actionsDiv.className = "nr-richlist__actions";
+      for (const { icon, url, event } of actions) {
         const btn = document.createElement("button");
         btn.className = "nr-richlist__action";
         btn.type = "button";
         btn.setAttribute("aria-label", icon);
         btn.appendChild(createIcon(icon));
-        actions.appendChild(btn);
+        if (event) {
+          bindEventProp(btn, event);
+        } else if (url) {
+          btn.addEventListener("click", () => window.open(url, "_blank"));
+        }
+        actionsDiv.appendChild(btn);
       }
-      li.appendChild(actions);
+      li.appendChild(actionsDiv);
     }
     return li;
   };
@@ -58183,8 +58217,393 @@ window.tailwind.config = {
   };
   var CustomMarkdownRenderer_default = CustomMarkdownRenderer;
 
-  // react/NReditor.tsx
+  // react/Guide.tsx
+  var import_react6 = __toESM(require_react(), 1);
+
+  // guide/index.ts
+  var guideData = [
+    {
+      "id": "introduccion",
+      "category": "Introducci\xF3n",
+      "title": "Introducci\xF3n",
+      "icon": "menu_book",
+      "order": 1,
+      "md": '# Introducci\xF3n a NoirMD\n\n**NoirMD** es un editor y motor de renderizado Markdown con extensiones propias: **admoniciones**, **componentes**, **directivas interactivas** y **markdown enriquecido**.\n\nEsta gu\xEDa est\xE1 escrita con el propio motor: cada directiva que ves aqu\xED es una muestra **viva** y funcional, no una captura.\n\n## C\xF3mo usar el editor\n\n| Elemento | Descripci\xF3n |\n| --- | --- |\n| Toolbar superior | Modo (editor / split / preview), guardar, copiar, imprimir, tema, gu\xEDa y configurar |\n| Panel izquierdo | Editor de c\xF3digo con resaltado de sintaxis |\n| Panel derecho | Preview en vivo (en modo split o preview) |\n| Atajo | `Ctrl+S` guarda el contenido |\n\n## Sintaxis de una directiva\n\nLas directivas se escriben con tres dos puntos `:::` y un nombre, opcionalmente con atributos entre llaves:\n\n```\n:::card {title="Mi tarjeta" icon="star"}\n\nContenido **markdown** aqu\xED dentro.\n\n:::\n```\n\nTodo lo que est\xE1 entre la apertura y el cierre `:::` se renderiza con el mismo motor, as\xED que puedes **anidar** directivas.\n\n## Cheatsheet r\xE1pido\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `# T\xEDtulo` \u2192 `###### T\xEDtulo` | Encabezados |\n| `**negrita**` \xB7 `*cursiva*` \xB7 `~~tachado~~` | \xC9nfasis |\n| `` `c\xF3digo` `` | C\xF3digo inline |\n| `` ```js `` | Bloque de c\xF3digo con resaltado |\n| `[texto](url)` | Enlace |\n| `![alt](url)` | Imagen |\n| `![alt](url#left)` | Imagen flotante a la izquierda |\n| `==resaltado==` | Resaltado |\n| `%color%texto%%` | Texto de color |\n| `->centrado<-` | Texto centrado |\n| `!>spoiler<!` | Spoiler oculto |\n| `|[[icono]]|` | Icono Material |\n| `[TOC]` | \xCDndice de contenidos |\n| `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |\n| `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |\n| `:::details` `:::modal` `:::button` `:::slide` | Interactivos |\n| `:::div` `:::style` `:::raw` | Layout |\n\n## Organizaci\xF3n de la gu\xEDa\n\n- **Markdown** \u2014 sintaxis base y enriquecida (t\xEDtulos, \xE9nfasis, tablas, c\xF3digo, im\xE1genes, inline).\n- **Admoniciones** \u2014 cajas de aviso: nota, warning, danger, info y greentext.\n- **Componentes** \u2014 los 10 componentes de tarjeta, teclas, acorde\xF3n, carrusel, etc.\n- **Interactivos** \u2014 details, modal, botones y slides.\n- **Layout** \u2014 contenedores `div`, estilos `style` y HTML `raw`.\n\nCada p\xE1gina incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el c\xF3digo fuente para copiar.'
+    },
+    {
+      "id": "titulos",
+      "category": "Markdown",
+      "title": "T\xEDtulos y encabezados",
+      "icon": "title",
+      "order": 1,
+      "md": "# T\xEDtulos y encabezados\n\nLos t\xEDtulos se escriben con almohadillas `#`. Hay **seis niveles**, de `#` (mayor) a `######` (menor).\n\n## Sintaxis\n\n```md\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n```\n\n## Resultado\n\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n\n## Notas\n\n- Cada t\xEDtulo genera un **ancla** autom\xE1tica: al pulsar sobre \xE9l se copia el enlace directo a la secci\xF3n.\n- El prefijo `[TOC]` (\xEDndice de contenidos) genera un \xEDndice con todos los t\xEDtulos del documento (ver la p\xE1gina de **Sintaxis inline**).\n- Los t\xEDtulos pueden llevar atributos personalizados con la directiva `:::div` o envolverlos en `:::style` para darles clases o estilos propios.\n\n## Anclas\n\nCualquier t\xEDtulo se puede enlazar con su id autom\xE1tico:\n\n```md\n[Ir a los t\xEDtulos](#t\xEDtulos-y-encabezados)\n```\n\n> El id se genera a partir del texto del t\xEDtulo, en min\xFAsculas y con guiones."
+    },
+    {
+      "id": "enfasis",
+      "category": "Markdown",
+      "title": "\xC9nfasis, c\xF3digo y enlaces",
+      "icon": "format_bold",
+      "order": 2,
+      "md": '# \xC9nfasis, c\xF3digo y enlaces\n\n## \xC9nfasis b\xE1sico\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `**negrita**` | **negrita** |\n| `*cursiva*` o `_cursiva_` | *cursiva* |\n| `~~tachado~~` | ~~tachado~~ |\n| `***negrita y cursiva***` | ***negrita y cursiva*** |\n\n## C\xF3digo inline\n\nEl c\xF3digo en l\xEDnea se escribe entre comillas invertidas:\n\n```md\nUsa la funci\xF3n `renderMarkdownString()` para renderizar.\n```\n\nUsa la funci\xF3n `renderMarkdownString()` para renderizar.\n\n## Enlaces\n\n### Externos\n\n```md\n[Ir a la documentaci\xF3n](https://example.com)\n```\n\n[Ir a la documentaci\xF3n](https://example.com)\n\n### Anclas internas\n\n```md\n[Volver al inicio](#introducci\xF3n-a-noirmd)\n```\n\n[Volver al inicio](#introducci\xF3n-a-noirmd)\n\n### Enlace con t\xEDtulo\n\n```md\n[Pasa el rat\xF3n aqu\xED](https://example.com "T\xEDtulo del enlace")\n```\n\n[Pasa el rat\xF3n aqu\xED](https://example.com "T\xEDtulo del enlace")\n\n## P\xE1rrafos y saltos de l\xEDnea\n\n- Un salto de l\xEDnea simple **no** separa p\xE1rrafos; se necesita una l\xEDnea en blanco.\n- Para un salto de l\xEDnea forzado, termina la l\xEDnea con dos espacios o usa `\\`.\n\n```md\nPrimer p\xE1rrafo.\n\nSegundo p\xE1rrafo con salto forzado  \ny esta l\xEDnea debajo.\n```\n\n> Los p\xE1rrafos vac\xEDos entre bloques se eliminan autom\xE1ticamente para no dejar huecos.'
+    },
+    {
+      "id": "listas",
+      "category": "Markdown",
+      "title": "Listas",
+      "icon": "format_list_bulleted",
+      "order": 3,
+      "md": "# Listas\n\n## Lista desordenada\n\n```md\n- Elemento uno\n- Elemento dos\n- Elemento tres\n```\n\n- Elemento uno\n- Elemento dos\n- Elemento tres\n\n## Lista ordenada\n\n```md\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n```\n\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n\n## Listas anidadas\n\n```md\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n```\n\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n\n## Listas mixtas\n\n```md\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n```\n\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n\n## Notas\n\n- La anidaci\xF3n se hace con **4 espacios** (o un tabulador).\n- Los elementos de lista admiten todo el markdown: `**negrita**`, `[enlaces](#listas)`, c\xF3digo `` `inline` `` e incluso admoniciones y directivas anidadas.\n- Si un elemento contiene un p\xE1rrafo completo, a\xF1ade una l\xEDnea en blanco dentro del elemento."
+    },
+    {
+      "id": "tablas",
+      "category": "Markdown",
+      "title": "Tablas",
+      "icon": "table_chart",
+      "order": 4,
+      "md": "# Tablas\n\nLas tablas usan la sintaxis de tuber\xEDas `|`. La segunda fila define la alineaci\xF3n.\n\n## Sintaxis\n\n```md\n| Columna A | Columna B | Columna C |\n| --- | --- | --- |\n| a1 | b1 | c1 |\n| a2 | b2 | c2 |\n```\n\n| Columna A | Columna B | Columna C |\n| --- | --- | --- |\n| a1 | b1 | c1 |\n| a2 | b2 | c2 |\n\n## Alineaci\xF3n\n\nUsa dos puntos en la fila de separaci\xF3n para alinear columnas:\n\n```md\n| Izquierda | Centro | Derecha |\n| :--- | :---: | ---: |\n| texto | texto | texto |\n```\n\n| Izquierda | Centro | Derecha |\n| :--- | :---: | ---: |\n| texto | texto | texto |\n\n## Contenido enriquecido\n\nLas celdas admiten **negrita**, *cursiva*, `` `c\xF3digo` `` y enlaces:\n\n| Directiva | Props | Descripci\xF3n |\n| :--- | :--- | :--- |\n| `:::card` | `title`, `icon` | Tarjeta de contenido |\n| `:::chat` | `side`, `name` | Burbuja de chat |\n| `:::stat` | `value`, `color` | Estad\xEDstica |\n\n## Escapar la tuber\xEDa\n\nSi un valor contiene una `|`, esc\xE1pala con barra invertida:\n\n```md\n| Prop | Valores |\n| --- | --- |\n| float | `left` \\| `right` \\| `center` |\n```\n\n| Prop | Valores |\n| --- | --- |\n| float | `left` \\| `right` \\| `center` |\n\n> Las tablas con muchas columnas se vuelven horizontales en pantallas peque\xF1as."
+    },
+    {
+      "id": "codigo",
+      "category": "Markdown",
+      "title": "Bloques de c\xF3digo",
+      "icon": "code",
+      "order": 5,
+      "md": "# Bloques de c\xF3digo\n\nLos bloques de c\xF3digo se escriben con **tres comillas invertidas** (o tres tildes `~~~`). El lenguaje opcional activa el resaltado de sintaxis.\n\n## Sintaxis\n\n````md\n```js\nconst saludo = (nombre) => `Hola, ${nombre}!`;\nconsole.log(saludo('mundo'));\n```\n````\n\n```js\nconst saludo = (nombre) => `Hola, ${nombre}!`;\nconsole.log(saludo('mundo'));\n```\n\n## Lenguajes soportados\n\nEl resaltado funciona con los lenguajes de **highlight.js**: `js`, `ts`, `json`, `html`, `css`, `python`, `bash`, `md`, `sql`, `java`, `c`, `cpp`, `rust`, `go`, etc.\n\n```python\ndef factorial(n):\n    return 1 if n <= 1 else n * factorial(n - 1)\n\nprint(factorial(5))\n```\n\n```css\n.nr-guide__panel {\n  display: flex;\n  border-radius: 14px;\n  overflow: hidden;\n}\n```\n\n## Notas\n\n- Los bloques de c\xF3digo **no** procesan directivas: lo que escribas dentro se muestra literal.\n- El bot\xF3n de copiar (esquina superior derecha) copia el contenido al portapapeles.\n- Los bloques largos se desplazan verticalmente; no rompen el layout.\n\n## Mostrar la sintaxis de directivas\n\nPara ense\xF1ar directivas dentro de la propia gu\xEDa se usa un bloque con lenguaje `md`:\n\n```md\n:::card {title=\"Ejemplo\"}\n\nContenido de la tarjeta.\n\n:::\n```\n\n> El lenguaje `md` (o `markdown`) resalta la sintaxis de directivas de NoirMD."
+    },
+    {
+      "id": "imagenes",
+      "category": "Markdown",
+      "title": "Im\xE1genes",
+      "icon": "image",
+      "order": 6,
+      "md": "# Im\xE1genes\n\n## B\xE1sica\n\n```md\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n```\n\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n\n## Con tama\xF1o\n\nA\xF1ade el tama\xF1o entre llaves despu\xE9s de la URL en formato `ancho:alto` (px):\n\n```md\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp){300:200}\n```\n\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp){300:200}\n\n## Flotante\n\nEl sufijo `#left`, `#right` o `#center` despu\xE9s de la URL hace la imagen flotante (el texto la rodea):\n\n```md\n![R\xEDo](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp#left){220:150}\n\nTexto que fluye alrededor de la imagen flotante...\n```\n\n![R\xEDo](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp#left){220:150}\n\nTexto que fluye alrededor de la imagen flotante a la izquierda: el p\xE1rrafo siguiente acompa\xF1a la imagen sin romper la l\xEDnea. Puedes usar `#right` para colocarla a la derecha y `#center` para centrarla (en ese caso conviene definir tama\xF1o).\n\n### Derecha\n\n```md\n![Bosque](https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp#right){200:130}\n```\n\n![Bosque](https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp#right){200:130}\n\n### Centrada\n\n```md\n![Paisaje](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp#center){400:220}\n```\n\n![Paisaje](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp#center){400:220}\n\n## Notas\n\n- Sin `{w:h}`, la imagen respeta su tama\xF1o natural (m\xE1ximo el ancho del contenedor).\n- Las im\xE1genes flotantes sin tama\xF1o usan un ancho m\xE1ximo del 50%.\n- Para comparar dos im\xE1genes con un slider, usa la directiva `:::diff` (ver **Componentes**)."
+    },
+    {
+      "id": "inline",
+      "category": "Markdown",
+      "title": "Sintaxis inline",
+      "icon": "text_fields",
+      "order": 7,
+      "md": "# Sintaxis inline\n\nAdem\xE1s del markdown cl\xE1sico, NoirMD a\xF1ade estilos inline propios.\n\n## Resaltado\n\n```md\n==Este texto est\xE1 resaltado==\n```\n\n==Este texto est\xE1 resaltado==\n\n## Texto de color\n\nSe usa `%color%texto%%`:\n\n```md\n%red%texto rojo%% %green%texto verde%% %blue%texto azul%%\n```\n\n%red%texto rojo%% %green%texto verde%% %blue%texto azul%%\n\n| Color | Ejemplo |\n| --- | --- |\n| `%red%` | %red%rojo%% |\n| `%green%` | %green%verde%% |\n| `%blue%` | %blue%azul%% |\n| `%yellow%` | %yellow%amarillo%% |\n| `%orange%` | %orange%naranja%% |\n| `%purple%` | %purple%morado%% |\n| `%cyan%` | %cyan%cian%% |\n| `%pink%` | %pink%rosa%% |\n\n## Subrayado\n\n```md\n!~subrayado~!\n```\n\n!~subrayado~!\n\n## Spoiler\n\n```md\n!>El final de la pel\xEDcula era un sue\xF1o<!\n```\n\n!>El final de la pel\xEDcula era un sue\xF1o<!\n\n> Pasa el rat\xF3n (o pulsa) sobre el texto oculto para revelarlo.\n\n## Centrado y derecha\n\n```md\n->texto centrado<-\n->texto a la derecha->\n```\n\n->texto centrado<-\n\n->texto a la derecha->\n\n## Iconos Material\n\nLos iconos se insertan con el nombre entre `|[[ ]]|`:\n\n```md\n|[[favorite]]| Me gusta  |[[send]]| Enviar  |[[star]]| Destacar\n```\n\n|[[favorite]]| Me gusta  |[[send]]| Enviar  |[[star]]| Destacar\n\n> Usa cualquier nombre de la colecci\xF3n [Material Symbols](https://fonts.google.com/icons). Tambi\xE9n funcionan en props como `icon` de las directivas.\n\n## \xCDndice de contenidos\n\n```md\n[TOC]\n```\n\n[TOC]\n\n> El `[TOC]` genera un \xEDndice clicable con todos los t\xEDtulos del documento. Tambi\xE9n existe como prop `toc` del editor."
+    },
+    {
+      "id": "nota",
+      "category": "Admoniciones",
+      "title": "Nota",
+      "icon": "sticky_note_2",
+      "order": 1,
+      "md": '# Admonici\xF3n: Nota\n\nLa directiva `:::note` crea una caja de aviso neutra, \xFAtil para informaci\xF3n complementaria.\n\n## Sintaxis\n\n```md\n:::note\nTexto de la nota.\n:::\n```\n\n:::note\nTexto de la nota.\n:::\n\n## Con t\xEDtulo\n\n```md\n:::note Recuerda\nGuarda tu trabajo con `Ctrl+S` antes de salir.\n:::\n```\n\n:::note Recuerda\nGuarda tu trabajo con `Ctrl+S` antes de salir.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del bloque (sin `:` en el nombre, es el texto tras `note`) |\n| `icon` | nombre Material | Icono personalizado del bloque |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Anidando directivas\n\nLas admoniciones admiten markdown completo dentro:\n\n```md\n:::note Propina\nPuedes anidar **directivas** dentro de una nota:\n- `:::keys` para atajos\n- Tablas, c\xF3digo, enlaces...\n:::\n```\n\n:::note Propina\nPuedes anidar **directivas** dentro de una nota:\n\n:::keys {size="sm"}\nCTRL + S\n:::\n\n- Tablas, c\xF3digo, enlaces...\n:::'
+    },
+    {
+      "id": "warning",
+      "category": "Admoniciones",
+      "title": "Warning",
+      "icon": "warning_amber",
+      "order": 2,
+      "md": '# Admonici\xF3n: Warning\n\nLa directiva `:::warning` crea una caja de aviso \xE1mbar, para precauciones o advertencias moderadas.\n\n## Sintaxis\n\n```md\n:::warning\nCuidado con esto.\n:::\n```\n\n:::warning\nCuidado con esto.\n:::\n\n## Con t\xEDtulo e icono\n\n```md\n:::warning {title="Precauci\xF3n" icon="warning"}\nEl bloque `:::` debe cerrarse correctamente.\n:::\n```\n\n:::warning {title="Precauci\xF3n" icon="warning"}\nEl bloque `:::` debe cerrarse correctamente.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del bloque |\n| `icon` | nombre Material | Icono personalizado |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Combinando admoniciones\n\n```md\n:::warning Contenido sensible\nEsta parte **se borra** al vaciar el editor:\n- No guardes aqu\xED contrase\xF1as\n- Usa `:::danger` para lo cr\xEDtico\n:::\n```\n\n:::warning Contenido sensible\nEsta parte **se borra** al vaciar el editor:\n\n- No guardes aqu\xED contrase\xF1as\n- Usa `:::danger` para lo cr\xEDtico\n:::'
+    },
+    {
+      "id": "danger",
+      "category": "Admoniciones",
+      "title": "Danger",
+      "icon": "error",
+      "order": 3,
+      "md": '# Admonici\xF3n: Danger\n\nLa directiva `:::danger` crea una caja roja de error o peligro, para lo m\xE1s cr\xEDtico.\n\n## Sintaxis\n\n```md\n:::danger\n\xA1Esto puede romper tu documento!\n:::\n```\n\n:::danger\n\xA1Esto puede romper tu documento!\n:::\n\n## Con t\xEDtulo\n\n```md\n:::danger {title="Error irrecuperable" icon="error"}\nLa variable `{{title}}` no existe.\n:::\n```\n\n:::danger {title="Error irrecuperable" icon="error"}\nLa variable `{{title}}` no existe.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del bloque |\n| `icon` | nombre Material | Icono personalizado |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Uso combinado con c\xF3digo\n\n````md\n:::danger Tiempo agotado\nLa sesi\xF3n expir\xF3. Vuelve a iniciar sesi\xF3n:\n\n```md\n[Iniciar sesi\xF3n](/login)\n```\n:::\n````\n\n:::danger Tiempo agotado\nLa sesi\xF3n expir\xF3. Vuelve a iniciar sesi\xF3n:\n\n[Iniciar sesi\xF3n](/login)\n:::'
+    },
+    {
+      "id": "info",
+      "category": "Admoniciones",
+      "title": "Info",
+      "icon": "info",
+      "order": 4,
+      "md": '# Admonici\xF3n: Info\n\nLa directiva `:::info` crea una caja azul de informaci\xF3n t\xE9cnica o contextual.\n\n## Sintaxis\n\n```md\n:::info\nDato t\xE9cnico o contextual.\n:::\n```\n\n:::info\nDato t\xE9cnico o contextual.\n:::\n\n## Con t\xEDtulo\n\n```md\n:::info {title="API" icon="api"}\nEl endpoint devuelve `application/json`.\n:::\n```\n\n:::info {title="API" icon="api"}\nEl endpoint devuelve `application/json`.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del bloque |\n| `icon` | nombre Material | Icono personalizado |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Ejemplo con tablas\n\n```md\n:::info Versiones\n| Versi\xF3n | Estado |\n| --- | --- |\n| v2.0 | Estable |\n| v3.0 | Beta |\n:::\n```\n\n:::info Versiones\n| Versi\xF3n | Estado |\n| --- | --- |\n| v2.0 | Estable |\n| v3.0 | Beta |\n:::'
+    },
+    {
+      "id": "greentext",
+      "category": "Admoniciones",
+      "title": "Greentext",
+      "icon": "chat",
+      "order": 5,
+      "md": '# Admonici\xF3n: Greentext\n\nLa directiva `:::greentext` crea un bloque verde tipo foro, para citas informales, humor o contexto narrativo.\n\n## Sintaxis\n\n```md\n:::greentext\n> el usuario que usa markdown simple\n> no conoce el poder de las directivas\n:::\n```\n\n:::greentext\n> el usuario que usa markdown simple\n> no conoce el poder de las directivas\n:::\n\n## Con t\xEDtulo\n\n```md\n:::greentext {title="Feedback del usuario"}\n> la gu\xEDa escribe sola\n> 10/10\n:::\n```\n\n:::greentext {title="Feedback del usuario"}\n> la gu\xEDa escribe sola\n> 10/10\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del bloque |\n| `icon` | nombre Material | Icono personalizado |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Combinando estilos\n\n```md\n:::greentext\n> **%green%alguien%%**: \xBFy si anidamos una nota?\n> **%green%otro%%**: `:::note` funciona dentro\n:::\n```\n\n:::greentext\n> **%green%alguien%%**: \xBFy si anidamos una nota?\n> **%green%otro%%**: `:::note` funciona dentro\n:::'
+    },
+    {
+      "id": "card",
+      "category": "Componentes",
+      "title": "Card",
+      "icon": "dashboard",
+      "order": 1,
+      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis\n\n```md\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n```\n\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n\n## Con t\xEDtulo largo y contenido enriquecido\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::'
+    },
+    {
+      "id": "keys",
+      "category": "Componentes",
+      "title": "Keys (teclas)",
+      "icon": "keyboard",
+      "order": 2,
+      "md": '# Keys (teclas)\n\nLa directiva `:::keys` muestra combinaciones de teclado con apariencia de teclas f\xEDsicas.\n\n## Sintaxis\n\n```md\n:::keys\nCTRL + C\n:::\n```\n\n:::keys\nCTRL + C\n:::\n\n## Varias combinaciones\n\n```md\n:::keys\nCTRL + SHIFT + P\n:::\n```\n\n:::keys\nCTRL + SHIFT + P\n:::\n\n:::keys\nALT + F4\n:::\n\n:::keys\nESC\n:::\n\n## Tama\xF1os\n\n| Tama\xF1o | Sintaxis |\n| --- | --- |\n| `xs` | `:::keys {size="xs"}` |\n| `sm` | `:::keys {size="sm"}` |\n| `md` | sin prop (default) |\n| `lg` | `:::keys {size="lg"}` |\n| `xl` | `:::keys {size="xl"}` |\n\n:::keys {size="xs"}\nCTRL + A\n:::\n\n:::keys {size="sm"}\nCTRL + A\n:::\n\n:::keys {size="md"}\nCTRL + A\n:::\n\n:::keys {size="lg"}\nCTRL + A\n:::\n\n:::keys {size="xl"}\nCTRL + A\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `size` | `xs` \\| `sm` \\| `md` \\| `lg` \\| `xl` | Tama\xF1o de las teclas (default `md`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Ejemplo combinado\n\n```md\n:::keys {size="lg"}\nSHIFT + CTRL + G\n:::\n```\n\n:::keys {size="lg"}\nSHIFT + CTRL + G\n:::\n\n> Las teclas se separan autom\xE1ticamente por el signo `+`.'
+    },
+    {
+      "id": "accordion",
+      "category": "Componentes",
+      "title": "Accordion",
+      "icon": "unfold_more",
+      "order": 3,
+      "md": '# Accordion\n\nLa directiva `:::accordion` agrupa items desplegables (`:::accordion-item`). Por defecto solo un item puede estar abierto (modo `radio`).\n\n## Sintaxis\n\n```md\n:::accordion\n:::accordion-item {title="Primera secci\xF3n"}\nContenido de la primera secci\xF3n.\n:::\n:::accordion-item {title="Segunda secci\xF3n"}\nContenido de la segunda secci\xF3n.\n:::\n:::\n```\n\n:::accordion\n:::accordion-item {title="Primera secci\xF3n"}\nContenido de la primera secci\xF3n.\n:::\n:::accordion-item {title="Segunda secci\xF3n"}\nContenido de la segunda secci\xF3n.\n:::\n:::\n\n## Abierto por defecto\n\nCon `checked` el item nace abierto:\n\n```md\n:::accordion\n:::accordion-item {title="FAQ: \xBFQu\xE9 es NoirMD?" checked}\nUn editor markdown con directivas propias.\n:::\n:::accordion-item {title="FAQ: \xBFC\xF3mo anido directivas?"}\nDentro del contenido de cualquier item puedes usar `:::`.\n:::\n:::\n```\n\n:::accordion\n:::accordion-item {title="FAQ: \xBFQu\xE9 es NoirMD?" checked}\nUn editor markdown con directivas propias.\n:::\n:::accordion-item {title="FAQ: \xBFC\xF3mo anido directivas?"}\nDentro del contenido de cualquier item puedes usar `:::`.\n:::\n:::\n\n## Modo checkbox (multiples abiertos)\n\n```md\n:::accordion {mode="checkbox"}\n:::accordion-item {title="Paso 1" checked}\nPreparar los ingredientes.\n:::\n:::accordion-item {title="Paso 2"}\nMezclar y hornear.\n:::\n:::\n```\n\n:::accordion {mode="checkbox"}\n:::accordion-item {title="Paso 1" checked}\nPreparar los ingredientes.\n:::\n:::accordion-item {title="Paso 2"}\nMezclar y hornear.\n:::\n:::\n\n## Props\n\n### `:::accordion`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `mode` | `radio` \\| `checkbox` | `radio` (default): solo uno abierto; `checkbox`: varios |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n### `:::accordion-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del item (requerido) |\n| `checked` | flag | Item abierto por defecto |\n| `value` | texto | Valor asociado al input |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |'
+    },
+    {
+      "id": "carousel",
+      "category": "Componentes",
+      "title": "Carousel",
+      "icon": "view_carousel",
+      "order": 4,
+      "md": '# Carousel\n\nLa directiva `:::carousel` muestra un carrusel de im\xE1genes con flechas, puntos de navegaci\xF3n y **loop infinito**.\n\n## Sintaxis\n\nLas im\xE1genes se ponen como markdown dentro del bloque:\n\n```md\n:::carousel {height="320px"}\n![Foto 1](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n![Foto 2](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp)\n![Foto 3](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp)\n![Foto 4](https://img.daisyui.com/images/stock/photo-1500530855697-b586d89ba3ee.webp)\n:::\n```\n\n:::carousel {height="320px"}\n![Foto 1](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n![Foto 2](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp)\n![Foto 3](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp)\n![Foto 4](https://img.daisyui.com/images/stock/photo-1500530855697-b586d89ba3ee.webp)\n:::\n\n## Tama\xF1o y proporci\xF3n\n\n- Sin props, el viewport usa `16/9` de aspecto.\n- `height` fija la altura del viewport (las im\xE1genes lo rellenan).\n- `aspect` fija la proporci\xF3n (`4/3`, `1/1`, `21/9`...).\n\n```md\n:::carousel {aspect="4/3" width="420px" float="right"}\n![A](https://img.daisyui.com/images/stock/photo-1529626455594-4ff0802cfb7e.webp)\n![B](https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp)\n:::\n```\n\n:::carousel {aspect="4/3" width="420px" float="right"}\n![A](https://img.daisyui.com/images/stock/photo-1529626455594-4ff0802cfb7e.webp)\n![B](https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp)\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `height` | CSS (px) | Altura fija del viewport |\n| `aspect` | ratio | Proporci\xF3n del viewport (default `16/9`) |\n| `width` | CSS (px, %) | Ancho del carrusel |\n| `float` | `left` \\| `right` \\| `center` | Flotaci\xF3n (sin `width`, el flotante usa `max-width: 50%`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Interacci\xF3n\n\n- **Flechas** (izquierda/derecha): navegar.\n- **Puntos** inferiores: ir a una imagen.\n- **Teclado**: `\u2190` y `\u2192` cuando el carrusel est\xE1 enfocado.\n- El carrusel **da la vuelta** al llegar al final (loop infinito).\n\n> Las im\xE1genes se recortan (`object-fit: cover`) para rellenar el viewport sin deformarse.'
+    },
+    {
+      "id": "countdown",
+      "category": "Componentes",
+      "title": "Countdown",
+      "icon": "timer",
+      "order": 5,
+      "md": '# Countdown\n\nLa directiva `:::countdown` muestra una cuenta atr\xE1s en tiempo real.\n\n## Cuenta atr\xE1s fija\n\nCon `days`, `hours`, `min` y `sec` se define una duraci\xF3n que se va agotando:\n\n```md\n:::countdown {days="0" hours="0" min="2" sec="30"}\n:::\n```\n\n:::countdown {days="0" hours="0" min="2" sec="30"}\n:::\n\n## Cuenta atr\xE1s a una fecha (live)\n\nCon `target` el contador cuenta hasta una fecha concreta (`YYYY-MM-DDTHH:mm:ss`):\n\n```md\n:::countdown {target="2027-01-01T00:00:00"}\n:::\n```\n\n:::countdown {target="2027-01-01T00:00:00"}\n:::\n\n## Con etiquetas personalizadas\n\n```md\n:::countdown {days="1" hours="4" min="12" sec="45" labels="D\xEDas|Horas|Min|Seg"}\n:::\n```\n\n:::countdown {days="1" hours="4" min="12" sec="45" labels="D\xEDas|Horas|Min|Seg"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `days` | n\xFAmero | D\xEDas de duraci\xF3n |\n| `hours` | n\xFAmero | Horas de duraci\xF3n |\n| `min` | n\xFAmero | Minutos de duraci\xF3n |\n| `sec` | n\xFAmero | Segundos de duraci\xF3n |\n| `target` | fecha ISO | Fecha objetivo (cuenta hacia ella) |\n| `labels` | texto `\\|` | Etiquetas bajo los d\xEDgitos, separadas por `\\|` |\n| `digits` | n\xFAmero | D\xEDgitos por bloque (default `2`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n> Puedes combinar `target` con `labels` para una cuenta atr\xE1s de evento completa. Al llegar a cero se muestra `00:00:00:00`.'
+    },
+    {
+      "id": "diff",
+      "category": "Componentes",
+      "title": "Diff (comparar im\xE1genes)",
+      "icon": "compare",
+      "order": 6,
+      "md": '# Diff (comparar im\xE1genes)\n\nLa directiva `:::diff` muestra **antes y despu\xE9s** con un slider arrastrable.\n\n## Sintaxis\n\nSe indican las dos im\xE1genes con las props `before` y `after`:\n\n```md\n:::diff {before="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" after="https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp"}\n:::\n```\n\n:::diff {before="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" after="https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp"}\n:::\n\n## Con dos im\xE1genes markdown\n\nAlternativa: dos im\xE1genes en el cuerpo del bloque (la primera es el \xABantes\xBB):\n\n```md\n:::diff {height="320px"}\n![Antes](https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp)\n![Despu\xE9s](https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp)\n:::\n```\n\n:::diff {height="320px"}\n![Antes](https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp)\n![Despu\xE9s](https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp)\n:::\n\n## Tama\xF1o y flotaci\xF3n\n\n```md\n:::diff {width="440px" aspect="4/3" float="left" before="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" after="https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp"}\n:::\n```\n\n:::diff {width="440px" aspect="4/3" float="left" before="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" after="https://img.daisyui.com/images/stock/photo-1572635196237-14b3f281503f.webp"}\n:::\n\nTexto que fluye junto al diff flotante: la comparaci\xF3n queda integrada en el p\xE1rrafo como una imagen flotante m\xE1s.\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `before` | URL | Imagen \xABantes\xBB (descartada si hay dos im\xE1genes markdown) |\n| `after` | URL | Imagen \xABdespu\xE9s\xBB |\n| `height` | CSS (px) | Altura del comparador (default `16/9` de aspecto) |\n| `aspect` | ratio | Proporci\xF3n (`4/3`, `1/1`, ...) |\n| `width` | CSS (px, %) | Ancho del comparador |\n| `float` | `left` \\| `right` \\| `center` | Flotaci\xF3n (sin `width`, `max-width: 50%`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Interacci\xF3n\n\n- **Arrastra** el mango vertical para mover la l\xEDnea de corte.\n- **Haz clic** en cualquier punto para saltar el slider all\xED.\n- **Teclado**: `\u2190` y `\u2192` ajustan \xB15% (enfoca el comparador con Tab).'
+    },
+    {
+      "id": "hover-3d",
+      "category": "Componentes",
+      "title": "Hover 3D",
+      "icon": "view_in_ar",
+      "order": 7,
+      "md": "# Hover 3D\n\nLa directiva `:::hover-3d` convierte su contenido en una tarjeta con **efecto 3D** que sigue al rat\xF3n.\n\n## Sintaxis\n\n```md\n:::hover-3d\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp){400:260}\n:::\n```\n\n:::hover-3d\n![Monta\xF1as](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp){400:260}\n:::\n\n## Con texto\n\n```md\n:::hover-3d\n## El efecto es autom\xE1tico\nMueve el rat\xF3n sobre la tarjeta: el contenido rota en 3D siguiendo el cursor.\n:::\n```\n\n:::hover-3d\n## El efecto es autom\xE1tico\nMueve el rat\xF3n sobre la tarjeta: el contenido rota en 3D siguiendo el cursor.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- El contenedor genera 8 reflejos de luz (luces de borde) que reaccionan al movimiento.\n- Cuanto m\xE1s cerca del borde est\xE1 el cursor, m\xE1s rota la tarjeta.\n- En pantallas t\xE1ctiles el efecto se desactiva (no hay hover).\n- Se recomienda un solo hijo (imagen o bloque de texto) para el mejor resultado."
+    },
+    {
+      "id": "hover-gallery",
+      "category": "Componentes",
+      "title": "Hover Gallery",
+      "icon": "photo_library",
+      "order": 8,
+      "md": '# Hover Gallery\n\nLa directiva `:::hover-gallery` muestra una galer\xEDa donde las im\xE1genes se **expanden al pasar el rat\xF3n**, estilo dock.\n\n## Sintaxis\n\nLas im\xE1genes se ponen como markdown dentro del bloque:\n\n```md\n:::hover-gallery {aspect="16/9"}\n![1](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n![2](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp)\n![3](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp)\n![4](https://img.daisyui.com/images/stock/photo-1500530855697-b586d89ba3ee.webp)\n![5](https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp)\n![6](https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp)\n:::\n```\n\n:::hover-gallery {aspect="16/9"}\n![1](https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp)\n![2](https://img.daisyui.com/images/stock/photo-1470252649378-9c29740c9fa8.webp)\n![3](https://img.daisyui.com/images/stock/photo-1441974231531-c6227db76b6e.webp)\n![4](https://img.daisyui.com/images/stock/photo-1500530855697-b586d89ba3ee.webp)\n![5](https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp)\n![6](https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp)\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `aspect` | ratio | Proporci\xF3n de la galer\xEDa (default `16/9`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- La imagen activa (hover) crece y las vecinas se apartan para darle espacio.\n- Las im\xE1genes se recortan (`object-fit: cover`) para mantener la altura uniforme.\n- Funciona con 3 o m\xE1s im\xE1genes; con menos, se reparten el ancho.'
+    },
+    {
+      "id": "chat",
+      "category": "Componentes",
+      "title": "Chat",
+      "icon": "chat_bubble",
+      "order": 9,
+      "md": '# Chat\n\nLa directiva `:::chat` muestra **burbujas de conversaci\xF3n** (`:::chat-item`) estilo app de mensajer\xEDa.\n\n## Sintaxis\n\n```md\n:::chat\n:::chat-item {side="start" name="Ana" time="10:04"}\nHola, \xBFterminaste la documentaci\xF3n?\n:::\n:::chat-item {side="end" name="T\xFA" time="10:05"}\n\xA1S\xED! La gu\xEDa renderiza hasta directivas dentro del chat.\n:::\n:::chat-item {side="start" name="Ana" time="10:06"}\nIncre\xEDble. El motor escribe solo.\n:::\n:::\n```\n\n:::chat\n:::chat-item {side="start" name="Ana" time="10:04"}\nHola, \xBFterminaste la documentaci\xF3n?\n:::\n:::chat-item {side="end" name="T\xFA" time="10:05"}\n\xA1S\xED! La gu\xEDa renderiza hasta directivas dentro del chat.\n:::\n:::chat-item {side="start" name="Ana" time="10:06"}\nIncre\xEDble. El motor escribe solo.\n:::\n:::\n\n## Con avatar y color\n\n```md\n:::chat\n:::chat-item {side="start" name="Soporte" time="11:00" avatar="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" color="info" footer="Atendido"}\n\xBFEn qu\xE9 podemos ayudarte?\n:::\n:::chat-item {side="end" name="T\xFA" time="11:02" color="secondary" footer="Enviado"}\n\xBFC\xF3mo a\xF1ado un avatar personalizado?\n:::\n:::\n```\n\n:::chat\n:::chat-item {side="start" name="Soporte" time="11:00" avatar="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" color="info" footer="Atendido"}\n\xBFEn qu\xE9 podemos ayudarte?\n:::\n:::chat-item {side="end" name="T\xFA" time="11:02" color="secondary" footer="Enviado"}\n\xBFC\xF3mo a\xF1ado un avatar personalizado?\n:::\n:::\n\n## Props\n\n### `:::chat-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `side` | `start` \\| `end` | Burbuja a la izquierda o derecha (default `start`) |\n| `name` | texto | Nombre del autor |\n| `time` | texto | Hora mostrada bajo el nombre |\n| `avatar` | URL | Imagen del avatar |\n| `color` | `neutral` \\| `primary` \\| `secondary` \\| `accent` \\| `info` \\| `success` \\| `warning` \\| `error` | Color de la burbuja |\n| `footer` | texto | Pie del mensaje |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- El contenido de cada `chat-item` admite **markdown completo** (c\xF3digo, tablas, enlaces...).\n- Puedes poner varios `:::chat` en el documento; cada uno es un grupo independiente.'
+    },
+    {
+      "id": "richlist",
+      "category": "Componentes",
+      "title": "Richlist",
+      "icon": "playlist_play",
+      "order": 10,
+      "md": '# Richlist\n\nLa directiva `:::richlist` muestra una **lista enriquecida** (`:::richlist-item`) con imagen, t\xEDtulos, subt\xEDtulo e iconos.\n\n## Sintaxis\n\n```md\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n```\n\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n\n## Con iconos en ambos lados\n\n```md\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n```\n\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n\n## Props\n\n### `:::richlist-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del elemento |\n| `subtitle` | texto | Subt\xEDtulo (segunda l\xEDnea) |\n| `image` | URL | Imagen a la izquierda (sustituye a `icon`) |\n| `icon` | nombre Material | Icono a la izquierda |\n| `icon2` | nombre Material | Icono a la derecha |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n### `:::richlist`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |'
+    },
+    {
+      "id": "stat",
+      "category": "Componentes",
+      "title": "Stat",
+      "icon": "insights",
+      "order": 11,
+      "md": '# Stat\n\nLa directiva `:::stat` muestra una **estad\xEDstica** con icono, valor y descripci\xF3n. Las estad\xEDsticas **consecutivas** se agrupan en una fila.\n\n## Sintaxis\n\n```md\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n```\n\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n\n## Con descripci\xF3n\n\n```md\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n```\n\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n\n## Prop individual (sin agrupar)\n\n```md\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n```\n\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | Etiqueta superior |\n| `value` | texto | Valor principal (grande) |\n| `desc` | texto | Descripci\xF3n bajo el valor |\n| `icon` | nombre Material | Icono lateral |\n| `color` | `primary` \\| `secondary` \\| `info` \\| `success` \\| `warning` \\| `error` | Color del icono y valor (default `primary`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n> Cada `:::stat` debe cerrarse con su `:::`. Las stats contiguas se agrupan en fila autom\xE1ticamente; para separarlas deja texto entre medias.'
+    },
+    {
+      "id": "details",
+      "category": "Interactivos",
+      "title": "Details",
+      "icon": "expand_more",
+      "order": 1,
+      "md": '# Details\n\nLa directiva `:::details` crea un bloque **plegable** nativo (`<details>`), \xFAtil para respuestas largas o contenido oculto.\n\n## Sintaxis\n\n```md\n:::details {title="\xBFQu\xE9 es NoirMD?"}\nEditor y motor de markdown con directivas propias.\n:::\n```\n\n:::details {title="\xBFQu\xE9 es NoirMD?"}\nEditor y motor de markdown con directivas propias.\n:::\n\n## Abierto por defecto\n\n```md\n:::details {title="Atajos del editor" defaultOpen="true"}\n| Atajo | Acci\xF3n |\n| --- | --- |\n| `Ctrl+S` | Guardar |\n| `Ctrl+K` | Alternar preview |\n| `Ctrl+F` | Buscar |\n:::\n```\n\n:::details {title="Atajos del editor" defaultOpen="true"}\n| Atajo | Acci\xF3n |\n| --- | --- |\n| `Ctrl+S` | Guardar |\n| `Ctrl+K` | Alternar preview |\n| `Ctrl+F` | Buscar |\n:::\n\n## Con icono\n\n```md\n:::details {title="Soluci\xF3n del ejercicio" icon="lightbulb"}\nEl c\xF3digo resultante:\n\n```js\nconsole.log(\'\xA1Resuelto!\');\n```\n:::\n```\n\n:::details {title="Soluci\xF3n del ejercicio" icon="lightbulb"}\nEl c\xF3digo resultante:\n\n```js\nconsole.log(\'\xA1Resuelto!\');\n```\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del desplegable |\n| `icon` | nombre Material | Icono junto al t\xEDtulo |\n| `defaultOpen` | `true` | Abierto al cargar |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n> El contenido admite markdown completo y directivas anidadas.'
+    },
+    {
+      "id": "modal",
+      "category": "Interactivos",
+      "title": "Modal",
+      "icon": "open_in_full",
+      "order": 2,
+      "md": '# Modal\n\nLa directiva `:::modal` crea un **di\xE1logo modal** con su bot\xF3n de apertura.\n\n## Sintaxis\n\n```md\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n```\n\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n\n## Contenido enriquecido\n\n```md\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n```\n\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del modal |\n| `label` | texto | Texto del bot\xF3n de apertura (default: `title` o \xABOpen\xBB) |\n| `icon` | nombre Material | Icono del bot\xF3n (default `open_in_new`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Interacci\xF3n\n\n- **Bot\xF3n**: abre el modal (focus se mueve dentro).\n- **Overlay** o bot\xF3n **\xD7**: cierra.\n- **Esc**: cierra (en desktop).\n- `dialog` nativo \u2192 accesible por defecto, focus trapped y `inert` al fondo.'
+    },
+    {
+      "id": "button",
+      "category": "Interactivos",
+      "title": "Button",
+      "icon": "touch_app",
+      "order": 3,
+      "md": '# Button\n\nLa directiva `:::button` crea un **bot\xF3n con enlace** (se abre en pesta\xF1a nueva por defecto).\n\n## Sintaxis\n\n```md\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n```\n\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n\n## Variante con enlace interno\n\n```md\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n```\n\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n\n## Con contenido markdown\n\nSi el bloque contiene texto/enlaces, se renderizan dentro del bot\xF3n:\n\n```md\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n```\n\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `label` | texto | Texto del bot\xF3n |\n| `url` (o `href`) | URL | Destino del enlace (default `#`) |\n| `icon` | nombre Material | Icono (default `near_me`) |\n| `target` | `_blank` \\| `_self` \\| ... | Destino del enlace (default `_blank`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |'
+    },
+    {
+      "id": "slide",
+      "category": "Interactivos",
+      "title": "Slide",
+      "icon": "slideshow",
+      "order": 4,
+      "md": '# Slide\n\nLa directiva `:::slide` convierte su contenido en un **slider autom\xE1tico** (diapositivas con fade).\n\n## Sintaxis\n\nLas secciones se separan con `---`:\n\n```md\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n```\n\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n\n## Con contenido variado\n\n```md\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n```\n\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `interval` | ms | Tiempo por diapositiva (default `3000`) |\n| `speed` | ms | Duraci\xF3n de la transici\xF3n (default `500`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- Los puntos inferiores permiten saltar a una diapositiva.\n- Al llegar a la \xFAltima, vuelve a la primera autom\xE1ticamente (loop).\n- La barra de progreso superior muestra el avance del ciclo.'
+    },
+    {
+      "id": "div",
+      "category": "Layout",
+      "title": "Div (contenedor)",
+      "icon": "square_foot",
+      "order": 1,
+      "md": '# Div (contenedor)\n\nLa directiva `:::div` envuelve su contenido en un `<div>` con **clases, id o estilos** propios.\n\n## Sintaxis\n\n```md\n:::div {.mi-clase #mi-id}\nContenido dentro del div.\n:::\n```\n\n:::div {.mi-clase #mi-id}\nContenido dentro del div.\n:::\n\n## Aplicando clases\n\n```md\n:::div {.test-container}\nTarjeta con estilo personalizado.\n:::\n```\n\n:::div {.test-container}\nTarjeta con estilo personalizado.\n:::\n\n## Con estilos inline\n\n```md\n:::div {style="border: 1px dashed var(--color-accent-primary, #0ea5e9); padding: 1rem; border-radius: 10px;"}\nCaja con borde discontinuo y padding.\n:::\n```\n\n:::div {style="border: 1px dashed var(--color-accent-primary, #0ea5e9); padding: 1rem; border-radius: 10px;"}\nCaja con borde discontinuo y padding.\n:::\n\n## Contenido enriquecido\n\n```md\n:::div {.test-container}\n## T\xEDtulo dentro del div\n\n:::note\nLas directivas funcionan anidadas dentro del div.\n:::\n:::\n```\n\n:::div {.test-container}\n## T\xEDtulo dentro del div\n\n:::note\nLas directivas funcionan anidadas dentro del div.\n:::\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `.clase` | texto | Clases CSS (prefijo `.`, varias separadas por espacio) |\n| `#id` | texto | Id del contenedor (prefijo `#`) |\n| `style` | CSS | Estilos inline |\n\n## Usos t\xEDpicos\n\n- Agrupar varios componentes para darles un fondo o borde com\xFAn.\n- Contenedor centrado: `:::div {style="max-width: 600px; margin: 0 auto;"}`.\n- Combinar con `:::style` para CSS reutilizable por clase.'
+    },
+    {
+      "id": "style",
+      "category": "Layout",
+      "title": "Style (CSS)",
+      "icon": "palette",
+      "order": 2,
+      "md": "# Style (CSS)\n\nLa directiva `:::style` inyecta **CSS global** al documento renderizado.\n\n## Sintaxis\n\n```md\n:::style\n.mi-clase {\n  background: #f1f5f9;\n  border-radius: 10px;\n  padding: 1rem;\n}\n:::\n```\n\n## Ejemplo combinado con div\n\n```md\n:::style\n.box-demo {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n  padding: 1rem;\n  border-radius: 12px;\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\n}\n.box-demo > div {\n  padding: 1rem;\n  border-radius: 8px;\n  background: var(--color-background-secondary-solid, #1e293b);\n}\n:::\n\n:::div {.box-demo}\n**A**\n\n---\n**B**\n:::\n```\n\n:::style\n.box-demo {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n  padding: 1rem;\n  border-radius: 12px;\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\n}\n.box-demo > div {\n  padding: 1rem;\n  border-radius: 8px;\n  background: var(--color-background-secondary-solid, #1e293b);\n}\n:::\n\n:::div {.box-demo}\n**A**\n\n---\n**B**\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- El CSS se aplica al **documento renderizado completo**, no solo al bloque.\n- Define clases una vez al principio y \xFAsalas despu\xE9s con `:::div` o props `class`.\n- Dispones de las variables de tema del editor: `--color-background-primary`, `--color-text-primary`, `--color-accent-primary`, `--color-border`, etc."
+    },
+    {
+      "id": "raw",
+      "category": "Layout",
+      "title": "Raw (HTML)",
+      "icon": "code_off",
+      "order": 3,
+      "md": '# Raw (HTML)\n\nLa directiva `:::raw` (o su alias `:::custom`) inserta **HTML puro** sin procesar en el documento.\n\n## Sintaxis\n\n```md\n:::raw\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\n  HTML escrito a mano funciona tal cual.\n</div>\n:::\n```\n\n:::raw\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\n  HTML escrito a mano funciona tal cual.\n</div>\n:::\n\n## Elementos interactivos\n\n```md\n:::raw\n<details class="nr-details">\n  <summary>Detalle nativo con <b>HTML</b></summary>\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\n</details>\n:::\n```\n\n:::raw\n<details class="nr-details">\n  <summary>Detalle nativo con <b>HTML</b></summary>\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\n</details>\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Cu\xE1ndo usar `raw`\n\n- Insertar embeds (`iframe`, `video`, widgets).\n- Marcar up estructuras que el markdown no cubre.\n- Prototipar HTML antes de convertirlo a directiva.\n\n> \u26A0\uFE0F Al ser HTML sin filtrar, \xFAsalo solo con contenido de confianza.'
+    }
+  ];
+
+  // react/Guide.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+  var Guide = ({
+    open,
+    onClose,
+    initialDirective,
+    search = true
+  }) => {
+    const [query, setQuery] = (0, import_react6.useState)("");
+    const [selectedId, setSelectedId] = (0, import_react6.useState)(null);
+    const [collapsed, setCollapsed] = (0, import_react6.useState)({});
+    const contentRef = (0, import_react6.useRef)(null);
+    const groups = (0, import_react6.useMemo)(() => {
+      const map = /* @__PURE__ */ new Map();
+      for (const e of guideData) {
+        const arr = map.get(e.category) ?? [];
+        arr.push(e);
+        map.set(e.category, arr);
+      }
+      return [...map.entries()];
+    }, []);
+    const filtered = (0, import_react6.useMemo)(() => {
+      const q = query.trim().toLowerCase();
+      if (!q) return groups;
+      return groups.map(([cat, entries]) => [
+        cat,
+        entries.filter(
+          (e) => e.title.toLowerCase().includes(q) || e.id.toLowerCase().includes(q) || e.category.toLowerCase().includes(q) || e.md.slice(0, 400).toLowerCase().includes(q)
+        )
+      ]).filter(([, entries]) => entries.length > 0);
+    }, [groups, query]);
+    const selected = (0, import_react6.useMemo)(
+      () => guideData.find((e) => e.id === selectedId) ?? null,
+      [selectedId]
+    );
+    (0, import_react6.useEffect)(() => {
+      if (!open) return;
+      setQuery("");
+      if (!selectedId) {
+        const initial = guideData.find((e) => e.id === initialDirective) ?? guideData.find((e) => e.id === "introduccion") ?? guideData[0];
+        setSelectedId(initial?.id ?? null);
+      }
+    }, [open]);
+    (0, import_react6.useEffect)(() => {
+      if (!open) return;
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }, [open]);
+    (0, import_react6.useEffect)(() => {
+      if (!open) return;
+      contentRef.current?.scrollTo({ top: 0 });
+    }, [selectedId, open]);
+    (0, import_react6.useEffect)(() => {
+      if (!open) return;
+      const onKey = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [open, onClose]);
+    if (!open) return null;
+    const toggleCategory = (cat) => setCollapsed((prev) => ({ ...prev, [cat]: !prev[cat] }));
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide", role: "dialog", "aria-modal": "true", "aria-label": "Gu\xEDa de sintaxis", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__overlay", onClick: onClose }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__panel", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "nr-guide__head", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Gu\xEDa de sintaxis" }),
+          search && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "input",
+            {
+              className: "nr-guide__search",
+              type: "search",
+              placeholder: "Buscar directiva\u2026",
+              value: query,
+              onChange: (e) => setQuery(e.target.value)
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "button",
+            {
+              className: "nr-guide__close",
+              onClick: onClose,
+              "aria-label": "Cerrar gu\xEDa",
+              children: "\xD7"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__body", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "nr-guide__nav", children: [
+            filtered.map(([cat, entries]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__cat", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                "button",
+                {
+                  className: "nr-guide__cat-head",
+                  onClick: () => toggleCategory(cat),
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__cat-chevron", children: collapsed[cat] ? "chevron_right" : "expand_more" }),
+                    cat
+                  ]
+                }
+              ),
+              !collapsed[cat] && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { className: "nr-guide__items", children: entries.map((e) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                "button",
+                {
+                  className: `nr-guide__item${selectedId === e.id ? " nr-guide__item--active" : ""}`,
+                  onClick: () => setSelectedId(e.id),
+                  children: [
+                    e.icon && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__item-icon", children: e.icon }),
+                    e.title
+                  ]
+                }
+              ) }, e.id)) })
+            ] }, cat)),
+            filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__empty", children: [
+              "Sin resultados para \xAB",
+              query,
+              "\xBB."
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__content", ref: contentRef, children: selected ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CustomMarkdownRenderer_default, { content: selected.md }, selected.id) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__empty", children: "Selecciona una directiva de la lista." }) })
+        ] })
+      ] })
+    ] });
+  };
+  var Guide_default = Guide;
+
+  // react/NReditor.tsx
+  var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
   var customSyntaxHighlighting = HighlightStyle.define([
     { tag: tags.heading, fontWeight: "bold", color: "var(--tc-heading, #e2e8f0)" },
     { tag: tags.quote, color: "var(--tc-quote, #94a3b8)", fontStyle: "italic" },
@@ -58635,13 +59054,33 @@ window.tailwind.config = {
     debounceMs = 300,
     tailwindCDN = false,
     onGuide,
-    onConfig
+    onConfig,
+    guide = false
   }) => {
-    const editorRef = (0, import_react6.useRef)(null);
-    const [isAllFolded, setIsAllFolded] = (0, import_react6.useState)(false);
-    const [editorMode, setEditorMode] = (0, import_react6.useState)("split");
+    const editorRef = (0, import_react7.useRef)(null);
+    const [isAllFolded, setIsAllFolded] = (0, import_react7.useState)(false);
+    const [editorMode, setEditorMode] = (0, import_react7.useState)("split");
+    const [guideOpen, setGuideOpen] = (0, import_react7.useState)(false);
     const debouncedContent = useDebounce(value, debounceMs);
     useLazyTailwindCDN(tailwindCDN);
+    (0, import_react7.useEffect)(() => {
+      const mq = window.matchMedia("(max-width: 639px)");
+      const apply = () => {
+        if (mq.matches && editorMode === "split") setEditorMode("editor");
+      };
+      apply();
+      mq.addEventListener("change", apply);
+      return () => mq.removeEventListener("change", apply);
+    }, [editorMode]);
+    (0, import_react7.useEffect)(() => {
+      const mq = window.matchMedia("(max-width: 639px)");
+      const handle = () => {
+        if (mq.matches) setEditorMode((m) => m === "split" ? "editor" : m);
+      };
+      handle();
+      mq.addEventListener("change", handle);
+      return () => mq.removeEventListener("change", handle);
+    }, []);
     const handleToggleFold = () => {
       if (!editorRef.current) return;
       if (isAllFolded) {
@@ -58652,7 +59091,7 @@ window.tailwind.config = {
         setIsAllFolded(true);
       }
     };
-    const extensions = import_react6.default.useMemo(
+    const extensions = import_react7.default.useMemo(
       () => [
         customStreamParserV2,
         lineNumbers(),
@@ -58688,99 +59127,106 @@ window.tailwind.config = {
       { key: "split", icon: "vertical_split", label: "Split" },
       { key: "preview", icon: "visibility", label: "Preview" }
     ];
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `nr-editor ${className || ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-editor-toolbar", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-editor-toolbar-left", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "button",
-            {
-              onClick: handleToggleFold,
-              className: "nr-toolbar-btn nr-toolbar-btn-fold",
-              title: isAllFolded ? "Expandir todo" : "Colapsar todo",
-              "aria-label": isAllFolded ? "Expandir todo" : "Colapsar todo",
-              children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: isAllFolded ? "unfold_more" : "unfold_less" })
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-toolbar-divider" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-toolbar-mode-group", children: modeButtons.map((btn) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              onClick: () => setEditorMode(btn.key),
-              className: `nr-toolbar-btn nr-toolbar-btn-mode ${editorMode === btn.key ? "nr-toolbar-btn-mode--active" : ""} ${btn.key === "split" ? "nr-toolbar-btn-split" : ""}`,
-              title: btn.label,
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: btn.icon }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "nr-toolbar-label", children: btn.label })
-              ]
-            },
-            btn.key
-          )) })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-editor-toolbar-right", children: [
-          onGuide && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              onClick: onGuide,
-              className: "nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-guide",
-              title: "Gu\xEDa de sintaxis",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "nr-toolbar-label", children: "Gu\xEDa" })
-              ]
-            }
-          ),
-          onGuide && onConfig && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-toolbar-divider" }),
-          onConfig && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              onClick: onConfig,
-              className: "nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-config",
-              title: "Configurar tema y metadata",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "tune" }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "nr-toolbar-label", children: "Configurar" })
-              ]
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-editor-body", children: [
-        (editorMode === "editor" || editorMode === "split") && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-          "div",
-          {
-            className: `nr-editor-pane ${editorMode === "split" ? "nr-editor-pane--half" : ""}`,
-            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-              esm_default,
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      "div",
+      {
+        className: `nr-editor ${editorMode === "split" ? "nr-editor--split" : ""} ${className || ""}`,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "nr-editor-toolbar", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "nr-editor-toolbar-left", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                "button",
+                {
+                  onClick: handleToggleFold,
+                  className: "nr-toolbar-btn nr-toolbar-btn-fold",
+                  title: isAllFolded ? "Expandir todo" : "Colapsar todo",
+                  "aria-label": isAllFolded ? "Expandir todo" : "Colapsar todo",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: isAllFolded ? "unfold_more" : "unfold_less" })
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-toolbar-divider" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-toolbar-mode-group", children: modeButtons.map((btn) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                "button",
+                {
+                  onClick: () => setEditorMode(btn.key),
+                  className: `nr-toolbar-btn nr-toolbar-btn-mode ${editorMode === btn.key ? "nr-toolbar-btn-mode--active" : ""} ${btn.key === "split" ? "nr-toolbar-btn-split" : ""}`,
+                  title: btn.label,
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: btn.icon }),
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: btn.label })
+                  ]
+                },
+                btn.key
+              )) })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "nr-editor-toolbar-right", children: [
+              (guide || onGuide) && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                "button",
+                {
+                  onClick: () => guide ? setGuideOpen(true) : onGuide?.(),
+                  className: "nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-guide",
+                  title: "Gu\xEDa de sintaxis",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: "Gu\xEDa" })
+                  ]
+                }
+              ),
+              (guide || onGuide) && onConfig && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-toolbar-divider" }),
+              onConfig && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                "button",
+                {
+                  onClick: onConfig,
+                  className: "nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-config",
+                  title: "Configurar tema y metadata",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "tune" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: "Configurar" })
+                  ]
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "nr-editor-body", children: [
+            (editorMode === "editor" || editorMode === "split") && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "div",
               {
-                value,
-                onChange,
-                height: "auto",
-                onCreateEditor: (view) => {
-                  editorRef.current = view;
-                },
-                basicSetup: {
-                  lineNumbers: false,
-                  foldGutter: false
-                },
-                extensions
+                className: `nr-editor-pane ${editorMode === "split" ? "nr-editor-pane--half" : ""}`,
+                children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  esm_default,
+                  {
+                    value,
+                    onChange,
+                    height: "auto",
+                    onCreateEditor: (view) => {
+                      editorRef.current = view;
+                    },
+                    basicSetup: {
+                      lineNumbers: false,
+                      foldGutter: false
+                    },
+                    extensions
+                  }
+                )
+              }
+            ),
+            (editorMode === "preview" || editorMode === "split") && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "div",
+              {
+                className: `nr-editor-preview ${editorMode === "split" ? "nr-editor-preview--half" : ""}`,
+                children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-editor-prose", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-prose", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CustomMarkdownRenderer_default, { content: debouncedContent }) }) })
               }
             )
-          }
-        ),
-        (editorMode === "preview" || editorMode === "split") && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-          "div",
-          {
-            className: `nr-editor-preview ${editorMode === "split" ? "nr-editor-preview--half" : ""}`,
-            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-editor-prose", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-prose", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CustomMarkdownRenderer_default, { content: debouncedContent }) }) })
-          }
-        )
-      ] })
-    ] });
+          ] }),
+          guide && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Guide_default, { open: guideOpen, onClose: () => setGuideOpen(false) })
+        ]
+      }
+    );
   };
   var NReditor_default = NReditor;
 
   // test/main.jsx
-  var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+  var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
   var SAMPLE = `# NReditor \u2014 Test r\xE1pido
 
 **Bold**, *italic*, ==highlight==, %orange%texto naranja%%, !>spoiler<!, ~~tachado~~, \`inline code\` y un [link](https://example.com).
@@ -58989,14 +59435,16 @@ You were supposed to destroy the Sith, not join them!
 
 ### Lista enriquecida (anidado)
 
+Haz clic en los altavoces: todos ejecutan la misma funci\xF3n global y suenan.
+
 :::richlist
-:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="play_arrow" icon2="favorite"}
+:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth.
 :::
-:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="play_arrow"}
+:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics.
 :::
-:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="play_arrow" icon2="favorite"}
+:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
 "Cappuccino" quickly gained attention for its smooth melody and relatable themes.
 :::
 :::
@@ -59010,34 +59458,6 @@ You were supposed to destroy the Sith, not join them!
 :::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
 :::
 `;
-  var CHEATSHEET = [
-    ["**negrita**", "Bold"],
-    ["*italic*", "Italic"],
-    ["==mark==", "Highlight"],
-    ["%color%text%%", "Texto de color"],
-    ["!>spoiler<!", "Spoiler"],
-    ["->centrado<-", "P\xE1rrafo centrado"],
-    ["![alt](src#left){300x200}", "Imagen flotante"],
-    ["[TOC]", "Tabla de contenidos"],
-    [":::note/warning/danger/info/greentext", "Admonici\xF3n"],
-    [":::card / card-m / card-b", "Card"],
-    [':::details {title="..."}', "Colapsable"],
-    [':::modal {title="..." label="..."}', "Modal"],
-    [':::button {label="..." url="..."}', "Bot\xF3n"],
-    [':::slide {interval="2000"}', "Carrusel"],
-    [":::div .cls #id", "Wrapper"],
-    [":::style / :::raw / :::custom", "HTML crudo"],
-    [":::keys", "Teclas (kbd)"],
-    [":::accordion + :::accordion-item", "Acorde\xF3n"],
-    [":::carousel", "Carrusel de im\xE1genes"],
-    [':::countdown {target="..."}', "Cuenta regresiva"],
-    [':::diff {before="..." after="..."}', "Comparador antes/despu\xE9s"],
-    [":::hover-3d", "Imagen 3D al hover"],
-    [":::hover-gallery", "Galer\xEDa hover"],
-    [":::chat + :::chat-item", "Chat de burbujas"],
-    [":::richlist + :::richlist-item", "Lista enriquecida"],
-    [":::stat", "Estad\xEDsticas (auto-batch)"]
-  ];
   function toast(msg) {
     const el = document.getElementById("toast");
     el.textContent = msg;
@@ -59045,9 +59465,26 @@ You were supposed to destroy the Sith, not join them!
     clearTimeout(el._t);
     el._t = setTimeout(() => el.classList.remove("show"), 1800);
   }
+  window.playClickSound = function() {
+    try {
+      const w = window;
+      w.__noirmdAudioCtx = w.__noirmdAudioCtx || new (w.AudioContext || w.webkitAudioContext)();
+      const ctx = w.__noirmdAudioCtx;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = "sine";
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(1e-3, ctx.currentTime + 0.15);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.16);
+    } catch {
+    }
+  };
   function App() {
-    const [md, setMd] = (0, import_react7.useState)(SAMPLE);
-    const [helpOpen, setHelpOpen] = (0, import_react7.useState)(false);
+    const [md, setMd] = (0, import_react8.useState)(SAMPLE);
     const toggleTheme = () => {
       const root = document.documentElement;
       const next = root.dataset.theme === "dark" ? "light" : "dark";
@@ -59055,70 +59492,59 @@ You were supposed to destroy the Sith, not join them!
       localStorage.setItem("noirmd-test-theme", next);
       toast("Tema: " + next);
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("header", { className: "test-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "test-brand", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round test-logo", children: "code" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { children: "@noirmd/previewer" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("header", { className: "test-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "test-brand", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round test-logo", children: "code" }),
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h1", { children: "@noirmd/previewer" }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("p", { children: [
               "Test del editor ",
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("code", { children: "NReditor" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "NReditor" }),
               " (CodeMirror 6 + preview vanilla)"
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "test-actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("button", { className: "test-btn", onClick: () => {
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "test-actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: () => {
             setMd(SAMPLE);
             toast("Ejemplo cargado");
           }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "description" }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "description" }),
             " Ejemplo"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("button", { className: "test-btn", onClick: () => {
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: () => {
             setMd("");
             toast("Editor vac\xEDo");
           }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "delete_sweep" }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "delete_sweep" }),
             " Limpiar"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("button", { className: "test-btn", onClick: toggleTheme, title: "Cambiar tema", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "contrast" }),
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: toggleTheme, title: "Cambiar tema", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "contrast" }),
             " Tema"
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("main", { className: "test-main", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("main", { className: "test-main", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
         NReditor_default,
         {
           value: md,
           onChange: setMd,
-          onGuide: () => setHelpOpen((o) => !o),
+          guide: true,
           onConfig: () => toast("Configurar: pendiente en el test")
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("footer", { className: "test-footer", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("footer", { className: "test-footer", children: [
         "Bundle local: ",
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("code", { children: "test/bundle.js" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "test/bundle.js" }),
         " \xB7 regenerar con ",
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("code", { children: "npm run test:editor" })
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "npm run test:editor" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "test-help", "data-open": helpOpen, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "test-help-head", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
-          " Gu\xEDa r\xE1pida",
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { className: "test-help-close", onClick: () => setHelpOpen(false), children: "\xD7" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("table", { className: "test-help-table", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("tbody", { children: CHEATSHEET.map(([syntax, desc]) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("tr", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("td", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("code", { children: syntax }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("td", { children: desc })
-        ] }, syntax)) }) })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { id: "toast", className: "test-toast" })
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { id: "toast", className: "test-toast" })
     ] });
   }
-  (0, import_client.createRoot)(document.getElementById("editor")).render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(App, {}));
+  (0, import_client.createRoot)(document.getElementById("editor")).render(/* @__PURE__ */ (0, import_jsx_runtime5.jsx)(App, {}));
 })();
 /*! Bundled license information:
 

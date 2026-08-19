@@ -10,6 +10,11 @@
 export { default as NRpreviewer } from './NRpreviewer';
 export type { NRpreviewerProps } from './NRpreviewer';
 
+// ── Syntax guide (markdown-driven, generated at build time) ──
+export { default as Guide } from './Guide';
+export type { GuideProps } from './Guide';
+export { guideData, type GuideEntry } from '../guide/index';
+
 // ── Core renderer (advanced usage) ──
 export { default as CustomMarkdownRenderer } from './CustomMarkdownRenderer';
 export { default as RawHtmlRenderer } from './RawHtmlRenderer';

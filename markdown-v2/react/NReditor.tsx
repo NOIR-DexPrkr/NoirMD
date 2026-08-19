@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CodeMirror, { ReactCodeMirrorProps } from '@uiw/react-codemirror';
 import { EditorView, Decoration, ViewPlugin, ViewUpdate, lineNumbers, keymap } from '@codemirror/view';
 import { customStreamParserV2 } from './custom-syntax';
@@ -8,6 +8,7 @@ import { tags as t } from '@lezer/highlight';
 import { useDebounce } from './useDebounce';
 import { useLazyTailwindCDN } from './useTailwindCDN';
 import CustomMarkdownRenderer from './CustomMarkdownRenderer';
+import Guide from './Guide';
 
 export type EditorMode = 'editor' | 'split' | 'preview';
 
@@ -19,10 +20,12 @@ interface NReditorProps extends ReactCodeMirrorProps {
   debounceMs?: number;
   /** Inject Tailwind v4 browser CDN for preview. Default: false */
   tailwindCDN?: boolean;
-  /** Called when user clicks Guía */
+  /** Called when user clicks Guía (only when `guide` is not enabled) */
   onGuide?: () => void;
   /** Called when user clicks Configurar */
   onConfig?: () => void;
+  /** Show the built-in syntax guide (opened from the toolbar) */
+  guide?: boolean;
 }
 
 const customSyntaxHighlighting = HighlightStyle.define([
@@ -518,13 +521,38 @@ const NReditor: React.FC<NReditorProps> = ({
   tailwindCDN = false,
   onGuide,
   onConfig,
+  guide = false,
 }) => {
   const editorRef = useRef<EditorView | null>(null);
   const [isAllFolded, setIsAllFolded] = useState(false);
   const [editorMode, setEditorMode] = useState<EditorMode>('split');
+  const [guideOpen, setGuideOpen] = useState(false);
   const debouncedContent = useDebounce(value, debounceMs);
 
   useLazyTailwindCDN(tailwindCDN);
+
+  // Split is not available on mobile: fall back to editor mode
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const apply = () => {
+      if (mq.matches && editorMode === 'split') setEditorMode('editor');
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, [editorMode]);
+
+  // On mobile the split button is hidden; if the mode is 'split', fall
+  // back to 'editor' automatically (on load and on resize below 640px).
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const handle = () => {
+      if (mq.matches) setEditorMode((m) => (m === 'split' ? 'editor' : m));
+    };
+    handle();
+    mq.addEventListener('change', handle);
+    return () => mq.removeEventListener('change', handle);
+  }, []);
 
   const handleToggleFold = () => {
     if (!editorRef.current) return;
@@ -576,7 +604,11 @@ const NReditor: React.FC<NReditorProps> = ({
   ];
 
   return (
-    <div className={`nr-editor ${className || ''}`}>
+    <div
+      className={`nr-editor ${editorMode === 'split' ? 'nr-editor--split' : ''} ${
+        className || ''
+      }`}
+    >
       {/* Toolbar */}
       <div className="nr-editor-toolbar">
         {/* Left: Fold + mode switcher */}
@@ -613,9 +645,9 @@ const NReditor: React.FC<NReditorProps> = ({
 
         {/* Right: Guía · Configurar (optional) */}
         <div className="nr-editor-toolbar-right">
-          {onGuide && (
+          {(guide || onGuide) && (
             <button
-              onClick={onGuide}
+              onClick={() => (guide ? setGuideOpen(true) : onGuide?.())}
               className="nr-toolbar-btn nr-toolbar-btn-sm nr-toolbar-btn-guide"
               title="Guía de sintaxis"
             >
@@ -623,7 +655,7 @@ const NReditor: React.FC<NReditorProps> = ({
               <span className="nr-toolbar-label">Guía</span>
             </button>
           )}
-          {onGuide && onConfig && <div className="nr-toolbar-divider" />}
+          {(guide || onGuide) && onConfig && <div className="nr-toolbar-divider" />}
           {onConfig && (
             <button
               onClick={onConfig}
@@ -675,6 +707,8 @@ const NReditor: React.FC<NReditorProps> = ({
           </div>
         )}
       </div>
+
+      {guide && <Guide open={guideOpen} onClose={() => setGuideOpen(false)} />}
     </div>
   );
 };

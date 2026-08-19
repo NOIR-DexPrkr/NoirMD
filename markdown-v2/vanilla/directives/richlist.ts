@@ -10,10 +10,16 @@
 //   Description text with **markdown** support.
 //   :::
 //   :::
+//
+// Action buttons accept:
+//   url / url2   → open a new tab when the icon / icon2 button is clicked
+//   event / event2 → bind a global function to the icon / icon2 button,
+//                    e.g. event="click: playSound" (see events.ts)
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
 import { createIcon } from '../components';
+import { bindEventProp } from './events';
 
 export const richlistItemDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const li = document.createElement('li');
@@ -59,19 +65,28 @@ export const richlistItemDirective: DirectiveRendererFn = ({ props, renderSlot }
     li.appendChild(desc);
   }
 
-  const icons = [props.icon, props.icon2].filter(Boolean);
-  if (icons.length > 0) {
-    const actions = document.createElement('div');
-    actions.className = 'nr-richlist__actions';
-    for (const icon of icons) {
+  const actions = [
+    { icon: props.icon, url: props.url, event: props.event },
+    { icon: props.icon2, url: props.url2, event: props.event2 },
+  ].filter((a) => !!a.icon);
+
+  if (actions.length > 0) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'nr-richlist__actions';
+    for (const { icon, url, event } of actions) {
       const btn = document.createElement('button');
       btn.className = 'nr-richlist__action';
       btn.type = 'button';
       btn.setAttribute('aria-label', icon as string);
       btn.appendChild(createIcon(icon as string));
-      actions.appendChild(btn);
+      if (event) {
+        bindEventProp(btn, event);
+      } else if (url) {
+        btn.addEventListener('click', () => window.open(url as string, '_blank'));
+      }
+      actionsDiv.appendChild(btn);
     }
-    li.appendChild(actions);
+    li.appendChild(actionsDiv);
   }
 
   return li;

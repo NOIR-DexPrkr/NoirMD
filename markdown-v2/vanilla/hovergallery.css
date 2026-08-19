@@ -7,10 +7,12 @@
   display: inline-grid;
   grid-template-columns: repeat(var(--items), 1fr);
   width: 100%;
+  max-width: 100%;
   gap: 1px;
   overflow: hidden;
   border-radius: var(--nr-radius-sm);
   background: var(--nr-bg-secondary);
+  margin: 1rem 0;
 }
 
 .nr-hover-gallery:has(> :nth-child(3)) {

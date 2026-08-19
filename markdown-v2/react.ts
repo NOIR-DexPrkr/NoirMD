@@ -11,6 +11,10 @@
 export {
   NRpreviewer,
   type NRpreviewerProps,
+  Guide,
+  type GuideProps,
+  guideData,
+  type GuideEntry,
   CustomMarkdownRenderer,
   RawHtmlRenderer,
   parseMarkdown,
