@@ -33,22 +33,10 @@ export const DOC_GROUPS: DocGroup[] = [
     ],
   },
   {
-    id: 'directives',
-    title: 'Directivas',
+    id: 'config',
+    title: 'Configuración',
     docs: [
-      { slug: 'directives-general', title: 'Sistema General', file: 'directives-general.md', description: 'Sintaxis `:::type`, props, slots, anidación.' },
-      { slug: 'directive-admonitions', title: 'Admonitions', file: 'directive-admonitions.md', description: 'note / info / warning / danger / greentext.' },
-      { slug: 'directive-cards', title: 'Cards', file: 'directive-cards.md', description: 'card / card-m / card-b.' },
-      { slug: 'directive-details', title: 'Details', file: 'directive-details.md', description: 'Secciones colapsables.' },
-      { slug: 'directive-modal', title: 'Modal', file: 'directive-modal.md', description: 'Dialog popups.' },
-      { slug: 'directive-button', title: 'Button', file: 'directive-button.md', description: 'Botones link estilizados.' },
-      { slug: 'directive-slide', title: 'Slide', file: 'directive-slide.md', description: 'Carrusel de texto.' },
-    ],
-  },
-  {
-    id: 'styling',
-    title: 'Estilos',
-    docs: [
+      { slug: 'configuracion', title: 'Configuración', file: 'configuracion.md', description: 'Props del editor y preview, modos, guía integrada, API vanilla y theming.' },
       { slug: 'styling-system', title: 'Styling System', file: 'styling-system.md', description: 'CSS variables, Tailwind y override pattern.' },
     ],
   },
@@ -57,6 +45,7 @@ export const DOC_GROUPS: DocGroup[] = [
     title: 'Avanzado',
     docs: [
       { slug: 'html-raw', title: 'HTML Raw', file: 'html-raw.md', description: 'HTML nativo, <style> y <script>.' },
+      { slug: 'limitaciones', title: 'Limitaciones', file: 'limitaciones.md', description: 'Restricciones de plataforma, seguridad y edge cases.' },
       { slug: 'best-practices', title: 'Best Practices', file: 'best-practices.md', description: 'Reglas, restricciones y pitfalls.' },
     ],
   },

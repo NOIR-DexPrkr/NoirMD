@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, BookOpen, Code2, Puzzle, Palette, Sparkles, FileText, Zap } from 'lucide-react';
+import { ChevronRight, BookOpen, Code2, Settings2, Sparkles, FileText, Zap } from 'lucide-react';
 import { DOC_GROUPS } from '../../data/docsIndex';
 import type { DocGroup } from '../../data/docsIndex';
 import clsx from 'clsx';
@@ -8,8 +8,7 @@ import clsx from 'clsx';
 const GROUP_ICONS: Record<string, React.ReactNode> = {
   start: <BookOpen size={14} />,
   syntax: <Code2 size={14} />,
-  directives: <Puzzle size={14} />,
-  styling: <Palette size={14} />,
+  config: <Settings2 size={14} />,
   advanced: <Sparkles size={14} />,
 };
 

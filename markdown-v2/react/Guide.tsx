@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { guideData, type GuideEntry } from '../guide/index';
 import CustomMarkdownRenderer from './CustomMarkdownRenderer';
 
@@ -103,7 +104,7 @@ const Guide: React.FC<GuideProps> = ({
   const toggleCategory = (cat: string) =>
     setCollapsed((prev) => ({ ...prev, [cat]: !prev[cat] }));
 
-  return (
+  return createPortal(
     <div className="nr-guide" role="dialog" aria-modal="true" aria-label="Guía de sintaxis">
       <div className="nr-guide__overlay" onClick={onClose} />
       <div className="nr-guide__panel">
@@ -178,7 +179,8 @@ const Guide: React.FC<GuideProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

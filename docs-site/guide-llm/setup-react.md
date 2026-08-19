@@ -100,8 +100,12 @@ so it looks the same in any host — even without Tailwind.
 | `debounceMs` | `number` | `300` | Debounce for preview updates |
 | `tailwindCDN` | `boolean` | `false` | Inject Tailwind CSS v4 CDN |
 | `className` | `string` | `''` | Additional CSS class |
-| `onGuide` | `() => void` | — | Show "Guía" button (syntax guide) |
-| `onConfig` | `() => void` | — | Show "Configurar" button (theme/metadata) |
+| `guide` | `boolean` | — | Built-in syntax guide (opened from the toolbar) |
+| `onGuide` | `() => void` | — | Called when user clicks "Guía" (only when `guide` is disabled) |
+| `onConfig` | `() => void` | — | Called when user clicks "Configurar" (theme/metadata) |
+
+> Ver [Configuración](/docs/configuracion) para la referencia completa de props,
+> modos de edición (Editor / Split / Preview) y la guía integrada.
 
 ## TypeScript
 

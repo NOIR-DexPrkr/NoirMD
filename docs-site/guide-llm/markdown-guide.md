@@ -99,7 +99,8 @@ Pie de la card.
 | Parser y AST | [parser.md](/docs/parser) |
 | Inline completo | [inline-syntax.md](/docs/inline-syntax) |
 | Bloques | [block-syntax.md](/docs/block-syntax) |
-| Directivas en detalle | [directives-general.md](/docs/directives-general) |
 | HTML crudo | [html-raw.md](/docs/html-raw) |
 | Styling | [styling-system.md](/docs/styling-system) |
+| Configuración | [configuracion.md](/docs/configuracion) |
+| Limitaciones | [limitaciones.md](/docs/limitaciones) |
 | Buenas prácticas | [best-practices.md](/docs/best-practices) |

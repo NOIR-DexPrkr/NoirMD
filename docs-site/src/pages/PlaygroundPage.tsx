@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Trash2, Wand2 } from 'lucide-react';
+import { ArrowRight, Trash2, Wand2 } from 'lucide-react';
 import NReditor from '@noirmd/previewer/editor';
 import clsx from 'clsx';
-import CheatsheetModal from '../components/CheatsheetModal';
 import { SAMPLE } from '../data/sample';
 
 const toolBtn =
@@ -11,7 +10,6 @@ const toolBtn =
 
 const PlaygroundPage: React.FC = () => {
   const [md, setMd] = useState(SAMPLE);
-  const [helpOpen, setHelpOpen] = useState(false);
 
   return (
     <div className="relative w-full flex justify-center p-4 lg:p-6">
@@ -58,15 +56,9 @@ const PlaygroundPage: React.FC = () => {
             >
               <Trash2 size={12} /> Limpiar
             </button>
-            <button
-              onClick={() => setHelpOpen(true)}
-              className={clsx(toolBtn, 'border-white/10 text-white/50 hover:bg-info/10 hover:text-info hover:border-info/30')}
-            >
-              <BookOpen size={12} /> Guía rápida
-            </button>
           </div>
 
-          <NReditor value={md} onChange={setMd} onGuide={() => setHelpOpen(true)} />
+          <NReditor value={md} onChange={setMd} guide />
         </div>
 
         {/* Footer */}
@@ -83,8 +75,6 @@ const PlaygroundPage: React.FC = () => {
           </Link>
         </footer>
       </div>
-
-      <CheatsheetModal open={helpOpen} onClose={() => setHelpOpen(false)} />
     </div>
   );
 };

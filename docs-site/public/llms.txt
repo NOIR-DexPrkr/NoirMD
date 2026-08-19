@@ -110,18 +110,11 @@ document.getElementById('app')!.appendChild(el);
 - [Block Syntax](/docs/block-syntax): Headers, code blocks, tables, lists.
 - [Parser](/docs/parser): Detection order and AST (`Token[]`) structure.
 
-### Directives
-- [Directive System](/docs/directives-general): `:::type` syntax, props, slots, nesting.
-- [Admonitions](/docs/directive-admonitions): note / info / warning / danger / greentext.
-- [Cards](/docs/directive-cards): card / card-m / card-b with auto-batching.
-- [Details](/docs/directive-details): Collapsible sections.
-- [Modal](/docs/directive-modal): Dialog popups.
-- [Button](/docs/directive-button): Styled link buttons.
-- [Slide](/docs/directive-slide): Text carousel.
-
-### Styling
+### Configuration
+- [Configuración](/docs/configuracion): Editor and preview props, modes (Editor / Split / Preview), built-in syntax guide, vanilla API and theming.
 - [Styling System](/docs/styling-system): CSS variables, Tailwind and override patterns.
 
 ### Advanced
 - [HTML Raw](/docs/html-raw): Native HTML, `<style>` and `<script>` inside markdown.
+- [Limitaciones](/docs/limitaciones): Platform restrictions, security/trust model and edge cases.
 - [Best Practices](/docs/best-practices): Rules, restrictions and pitfalls.

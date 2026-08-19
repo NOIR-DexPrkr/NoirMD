@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "typecheck": "tsc --noEmit",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,7 +14,7 @@
     "@codemirror/state": "^6.7.1",
     "@codemirror/view": "^6.43.6",
     "@lezer/highlight": "^1.2.3",
-    "@noirmd/previewer": "^2.0.0",
+    "@noirmd/previewer": "^2.0.3",
     "@uiw/react-codemirror": "^4.25.11",
     "clsx": "^2.1.1",
     "daisyui": "^4.12.24",
