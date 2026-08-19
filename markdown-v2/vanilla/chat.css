@@ -1,0 +1,182 @@
+/* ============================================================
+   NoirMD Vanilla — Chat
+   ============================================================ */
+
+.nr-chat {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 0 0.75rem;
+  padding: 0.25rem 0;
+  --nr-mask-chat: url("data:image/svg+xml,%3csvg width='13' height='13' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill='black' d='M0 11.5004C0 13.0004 2 13.0004 2 13.0004H12H13V0.00036329L12.5 0C12.5 0 11.977 2.09572 11.8581 2.50033C11.6075 3.35237 10.9149 4.22374 9 5.50036C6 7.50036 0 10.0004 0 11.5004Z'/%3e%3c/svg%3e");
+}
+
+.nr-chat__header {
+  grid-row-start: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  color: var(--nr-text-secondary);
+}
+
+.nr-chat__name {
+  font-weight: 600;
+  color: var(--nr-text);
+}
+
+.nr-chat__time {
+  opacity: 0.6;
+  font-size: 0.625rem;
+}
+
+.nr-chat__avatar {
+  grid-row: span 2;
+  align-self: end;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.nr-chat .nr-chat__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nr-chat__bubble {
+  position: relative;
+  grid-row-end: 3;
+  display: block;
+  width: fit-content;
+  max-width: 90%;
+  min-height: 2rem;
+  min-width: 2.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--nr-radius);
+  background: var(--nr-bg-secondary);
+  color: var(--nr-text);
+  font-size: 0.9rem;
+}
+
+.nr-chat__bubble::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: inherit;
+  mask-repeat: no-repeat;
+  mask-image: var(--nr-mask-chat);
+  mask-position: 0px -1px;
+  mask-size: 0.8125rem;
+}
+
+.nr-chat__footer {
+  grid-row-start: 3;
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  opacity: 0.55;
+}
+
+/* ── Start side ── */
+
+.nr-chat--start {
+  place-items: start;
+  grid-template-columns: auto 1fr;
+}
+
+.nr-chat--start .nr-chat__header {
+  grid-column: 2;
+}
+
+.nr-chat--start .nr-chat__footer {
+  grid-column: 2;
+}
+
+.nr-chat--start .nr-chat__avatar {
+  grid-column: 1;
+}
+
+.nr-chat--start .nr-chat__bubble {
+  grid-column: 2;
+  border-bottom-left-radius: 0;
+}
+
+.nr-chat--start .nr-chat__bubble::before {
+  transform: rotateY(0deg);
+  inset-inline-start: -0.75rem;
+}
+
+/* ── End side ── */
+
+.nr-chat--end {
+  place-items: end;
+  grid-template-columns: 1fr auto;
+}
+
+.nr-chat--end .nr-chat__header {
+  grid-column: 1;
+}
+
+.nr-chat--end .nr-chat__footer {
+  grid-column: 1;
+}
+
+.nr-chat--end .nr-chat__avatar {
+  grid-column: 2;
+}
+
+.nr-chat--end .nr-chat__bubble {
+  grid-column: 1;
+  border-bottom-right-radius: 0;
+}
+
+.nr-chat--end .nr-chat__bubble::before {
+  transform: rotateY(180deg);
+  inset-inline-start: 100%;
+}
+
+/* ── Bubble colors ── */
+
+.nr-chat__bubble--primary {
+  background: var(--nr-accent);
+  color: var(--color-primary-content, white);
+}
+
+.nr-chat__bubble--secondary {
+  background: var(--nr-secondary);
+  color: var(--color-secondary-content, white);
+}
+
+.nr-chat__bubble--accent {
+  background: var(--nr-accent);
+  color: var(--color-accent-content, white);
+}
+
+.nr-chat__bubble--neutral {
+  background: var(--nr-bg-secondary);
+  color: var(--nr-text);
+}
+
+.nr-chat__bubble--info {
+  background: var(--nr-info);
+  color: var(--color-info-content, white);
+}
+
+.nr-chat__bubble--success {
+  background: var(--nr-success);
+  color: var(--color-success-content, white);
+}
+
+.nr-chat__bubble--warning {
+  background: var(--nr-warning);
+  color: var(--color-warning-content, oklch(0.3 0.06 80));
+}
+
+.nr-chat__bubble--error {
+  background: var(--nr-danger);
+  color: var(--color-error-content, white);
+}

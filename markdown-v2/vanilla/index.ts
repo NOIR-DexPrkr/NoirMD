@@ -27,3 +27,6 @@ export {
 // ── Directive registry ──
 export { default as directiveRegistry } from './directives';
 export type { DirectiveRendererFn, DirectiveProps, VanillaRenderContext } from './directives';
+
+// ── Tailwind CDN theme ──
+export { injectNRTailwindTheme, removeNRTailwindTheme, hasHostTheme } from './tailwindTheme';

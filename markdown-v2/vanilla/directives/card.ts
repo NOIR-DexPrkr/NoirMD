@@ -120,8 +120,12 @@ const cardDirective: DirectiveRendererFn = ({
     const dialog = createModal(title || 'Detalles');
     const modalBody = dialog.querySelector('.nr-modal__body');
     if (modalBody) {
-      const contentSlot = renderSlot('content') || renderSlot('default');
-      modalBody.appendChild(contentSlot);
+      // Wrap in .nr-prose so the teleported content keeps module
+      // typography and tokens once the dialog moves to <body>.
+      const prose = document.createElement('div');
+      prose.className = 'nr-prose';
+      prose.appendChild(renderSlot('content') || renderSlot('default'));
+      modalBody.appendChild(prose);
     }
 
     card.addEventListener('click', () => {

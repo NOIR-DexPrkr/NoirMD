@@ -1,0 +1,110 @@
+/* ============================================================
+   NoirMD Vanilla — Rich List
+   ============================================================ */
+
+.nr-richlist {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0;
+  border: 1px solid var(--nr-border);
+  border-radius: var(--nr-radius);
+  background: color-mix(in oklab, var(--nr-bg-secondary) 30%, transparent);
+}
+
+.nr-richlist__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--nr-text) 8%, transparent);
+  transition: background-color 0.15s ease;
+}
+
+.nr-richlist__item:last-child {
+  border-bottom: none;
+}
+
+.nr-richlist__item:hover {
+  background: color-mix(in oklab, var(--nr-bg-secondary) 45%, transparent);
+}
+
+.nr-richlist__thumb {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.nr-richlist .nr-richlist__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nr-richlist__main {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.nr-richlist__title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--nr-text);
+}
+
+.nr-richlist__subtitle {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--nr-text-secondary);
+}
+
+.nr-richlist__desc {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--nr-text-secondary);
+}
+
+.nr-richlist__actions {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nr-richlist__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--nr-text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.nr-richlist__action:hover {
+  background: color-mix(in oklab, var(--nr-text) 10%, transparent);
+  color: var(--nr-text);
+}
+
+.nr-richlist__action .nr-icon {
+  font-size: 1.1rem;
+}

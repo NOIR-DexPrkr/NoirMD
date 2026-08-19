@@ -3,6 +3,9 @@
    ============================================================ */
 
 .nr-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
   padding: 0;
   border: none;
   border-radius: var(--nr-radius-lg);

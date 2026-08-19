@@ -105,17 +105,26 @@ function processElements(
   const fragment = document.createDocumentFragment();
   let i = 0;
 
+  // Directives that auto-batch consecutive instances into a grid
+  const BATCHED_DIRECTIVES: Record<string, string> = {
+    card: 'nr-card-grid',
+    'card-m': 'nr-card-grid',
+    'card-b': 'nr-card-grid',
+    stat: 'nr-stat-grid',
+  };
+
+  const isBatched = (directive: Token | null): directive is DirectiveToken =>
+    !!directive &&
+    directive.type === 'directive' &&
+    Object.prototype.hasOwnProperty.call(BATCHED_DIRECTIVES, directive.directiveType);
+
   while (i < elements.length) {
     const el = elements[i];
 
-    // Batch consecutive cards into a grid
-    if (el.type === 'directive' && ['card', 'card-m', 'card-b'].includes(el.directiveType)) {
+    // Batch consecutive batched directives into a grid
+    if (isBatched(el)) {
       const cards: Token[] = [];
-      while (
-        i < elements.length &&
-        elements[i].type === 'directive' &&
-        ['card', 'card-m', 'card-b'].includes((elements[i] as DirectiveToken).directiveType)
-      ) {
+      while (i < elements.length && isBatched(elements[i])) {
         cards.push(elements[i]);
         i++;
       }
@@ -127,7 +136,7 @@ function processElements(
         }
       } else {
         const grid = document.createElement('div');
-        grid.className = 'nr-card-grid';
+        grid.className = BATCHED_DIRECTIVES[(cards[0] as DirectiveToken).directiveType];
         for (const card of cards) {
           const rendered = renderElement(card, ctx, allElements);
           if (rendered) grid.appendChild(rendered);

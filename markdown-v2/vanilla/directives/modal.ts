@@ -27,7 +27,12 @@ const modalDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const dialog = createModal(modalTitle);
   const body = dialog.querySelector('.nr-modal__body');
   if (body) {
-    body.appendChild(renderSlot('default'));
+    // Wrap in .nr-prose so the teleported content keeps module
+    // typography and tokens once the dialog moves to <body>.
+    const prose = document.createElement('div');
+    prose.className = 'nr-prose';
+    prose.appendChild(renderSlot('default'));
+    body.appendChild(prose);
   }
 
   btn.addEventListener('click', () => {

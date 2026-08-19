@@ -1,0 +1,92 @@
+/* ============================================================
+   NoirMD Vanilla — Diff (before/after comparison)
+   ============================================================ */
+
+.nr-diff {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  direction: ltr;
+  container-type: inline-size;
+  border-radius: var(--nr-radius-sm);
+  --nr-diff-pos: 50%;
+}
+
+.nr-diff:focus-visible,
+.nr-diff:has(.nr-diff__item--before:focus-visible) {
+  outline: 2px solid var(--nr-text);
+  outline-offset: 2px;
+}
+
+.nr-diff__item--before:focus-visible {
+  outline: none;
+}
+
+.nr-diff__item--after,
+.nr-diff__item--before {
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.nr-diff .nr-diff__item--after > *,
+.nr-diff .nr-diff__item--before > * {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100cqi;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.nr-diff__item--before {
+  z-index: 1;
+  width: var(--nr-diff-pos);
+  overflow: hidden;
+  border-right: 2px solid var(--nr-bg);
+  box-shadow: 0 0 0 2px #0000002a;
+}
+
+.nr-diff__resizer {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: var(--nr-diff-pos);
+  width: 2.5rem;
+  translate: -50% 0;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.nr-diff__resizer::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.2rem;
+  height: 1.8rem;
+  border: 2px solid var(--nr-bg);
+  border-radius: 9999px;
+  background: var(--nr-bg);
+  box-shadow: 0 0 0 2px #0000002a;
+  translate: -50% -50%;
+  pointer-events: none;
+  transition: height 0.3s linear(0, 0.931 13.8%, 1.196 21.4%, 1.343 29.8%, 1.378 36%, 1.365 43.2%, 1.059 78%, 1);
+}
+
+.nr-diff:hover .nr-diff__resizer::after {
+  height: 2.4rem;
+}

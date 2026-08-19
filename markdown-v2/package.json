@@ -1,6 +1,6 @@
 {
   "name": "@noirmd/previewer",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "type": "module",
   "description": "Framework-agnostic markdown renderer: one vanilla DOM engine with thin React/Vue wrappers, directives, cards, modals, and pure CSS styling",
   "main": "./dist/index.cjs",

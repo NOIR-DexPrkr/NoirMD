@@ -3,6 +3,7 @@
 // ============================================================
 
 import { onMounted, onUnmounted, watch, type Ref } from 'vue';
+import { injectNRTailwindTheme, removeNRTailwindTheme } from '../vanilla/tailwindTheme';
 
 const CDN_URL = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
 const SCRIPT_ID = 'tailwind-cdn-v4-runtime';
@@ -42,6 +43,8 @@ export function useLazyTailwindCDN(enabled: Ref<boolean> | boolean) {
       document.head.appendChild(configScript);
     }
 
+    injectNRTailwindTheme();
+
     if (!document.getElementById(SCRIPT_ID)) {
       const script = document.createElement('script');
       script.id = SCRIPT_ID;
@@ -56,6 +59,7 @@ export function useLazyTailwindCDN(enabled: Ref<boolean> | boolean) {
     if ((window.__twCDNRefs ?? 0) <= 0) {
       document.getElementById(SCRIPT_ID)?.remove();
       document.getElementById(CONFIG_ID)?.remove();
+      removeNRTailwindTheme();
       window.__twCDNRefs = 0;
     }
   };
@@ -106,6 +110,8 @@ export function preloadTailwindCDN() {
       configScript.textContent = TAILWIND_CDN_CONFIG;
       document.head.appendChild(configScript);
     }
+
+    injectNRTailwindTheme();
 
     const script = document.createElement('script');
     script.id = SCRIPT_ID;

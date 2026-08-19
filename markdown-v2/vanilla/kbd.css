@@ -1,0 +1,63 @@
+/* ============================================================
+   NoirMD Vanilla — Kbd (keys)
+   ============================================================ */
+
+.nr-keys {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.nr-keys + .nr-keys {
+  margin-block-start: 0.75rem;
+}
+
+.nr-keys__sep {
+  color: var(--nr-text-secondary);
+  font-size: 0.75rem;
+}
+
+.nr-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.5em;
+  height: calc(0.25rem * 6);
+  min-width: calc(0.25rem * 6);
+  border: 1px solid color-mix(in srgb, var(--nr-text) 20%, transparent);
+  border-bottom: 2px solid color-mix(in srgb, var(--nr-text) 20%, transparent);
+  border-radius: 0.375rem;
+  background: var(--nr-bg-secondary);
+  color: var(--nr-text);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.nr-kbd--xs {
+  height: calc(0.25rem * 4);
+  font-size: 0.625rem;
+}
+
+.nr-kbd--sm {
+  height: calc(0.25rem * 5);
+  font-size: 0.75rem;
+}
+
+.nr-kbd--md {
+  height: calc(0.25rem * 6);
+  font-size: 0.875rem;
+}
+
+.nr-kbd--lg {
+  height: calc(0.25rem * 7);
+  font-size: 1rem;
+}
+
+.nr-kbd--xl {
+  height: calc(0.25rem * 8);
+  font-size: 1.125rem;
+}

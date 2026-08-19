@@ -1,0 +1,107 @@
+/* ============================================================
+   NoirMD Vanilla — Stat
+   ============================================================ */
+
+.nr-stat-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  overflow-x: auto;
+  border: 1px solid var(--nr-border);
+  border-radius: var(--nr-radius);
+  background: var(--nr-bg);
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.08),
+    0 8px 24px -12px rgb(0 0 0 / 0.15);
+}
+
+.nr-stat {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 0 1rem;
+  padding: 1rem 1.5rem;
+  min-width: 10rem;
+}
+
+.nr-stat + .nr-stat {
+  border-inline-start: 1px dashed color-mix(in oklab, currentColor 12%, transparent);
+}
+
+.nr-stat__title {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 0.75rem;
+  color: var(--nr-text-secondary);
+  white-space: nowrap;
+}
+
+.nr-stat__value {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--nr-text);
+  white-space: nowrap;
+}
+
+.nr-stat__desc {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 0.75rem;
+  color: var(--nr-text-secondary);
+  white-space: nowrap;
+}
+
+.nr-stat__figure {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  place-self: center;
+  justify-self: end;
+  color: var(--nr-accent);
+}
+
+.nr-stat__figure .nr-icon {
+  font-size: 2rem;
+}
+
+/* ── Color variants ── */
+
+.nr-stat--secondary .nr-stat__figure,
+.nr-stat--secondary .nr-stat__value {
+  color: var(--nr-secondary);
+}
+
+.nr-stat--info .nr-stat__figure,
+.nr-stat--info .nr-stat__value {
+  color: var(--nr-info);
+}
+
+.nr-stat--success .nr-stat__figure,
+.nr-stat--success .nr-stat__value {
+  color: var(--nr-success);
+}
+
+.nr-stat--warning .nr-stat__figure,
+.nr-stat--warning .nr-stat__value {
+  color: var(--nr-warning);
+}
+
+.nr-stat--error .nr-stat__figure,
+.nr-stat--error .nr-stat__value {
+  color: var(--nr-danger);
+}
+
+/* ── Stack on small screens ── */
+
+@media (max-width: 640px) {
+  .nr-stat-grid {
+    grid-auto-flow: row;
+  }
+
+  .nr-stat + .nr-stat {
+    border-inline-start: none;
+    border-block-start: 1px dashed color-mix(in oklab, currentColor 12%, transparent);
+  }
+}

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { injectNRTailwindTheme, removeNRTailwindTheme } from '../vanilla/tailwindTheme';
 
 /**
  * useLazyTailwindCDN — Lazily injects the Tailwind CSS v4 Browser CDN
@@ -50,6 +51,7 @@ export function useLazyTailwindCDN(enabled: boolean) {
       if ((window.__twCDNRefs ?? 0) <= 0) {
         document.getElementById(SCRIPT_ID)?.remove();
         document.getElementById(CONFIG_ID)?.remove();
+        removeNRTailwindTheme();
         window.__twCDNRefs = 0;
         loadedRef.current = false;
       }
@@ -67,6 +69,10 @@ export function useLazyTailwindCDN(enabled: boolean) {
       document.head.appendChild(configScript);
     }
 
+    // Inject the NoirMD @theme (primary, base-100, ...) so color
+    // classes resolve — must precede the CDN script.
+    injectNRTailwindTheme();
+
     // Inject the Tailwind v4 Browser CDN script
     if (!document.getElementById(SCRIPT_ID)) {
       const script = document.createElement('script');
@@ -81,6 +87,7 @@ export function useLazyTailwindCDN(enabled: boolean) {
       if ((window.__twCDNRefs ?? 0) <= 0) {
         document.getElementById(SCRIPT_ID)?.remove();
         document.getElementById(CONFIG_ID)?.remove();
+        removeNRTailwindTheme();
         window.__twCDNRefs = 0;
         loadedRef.current = false;
       }
@@ -115,6 +122,9 @@ export function preloadTailwindCDN() {
       configScript.textContent = TAILWIND_CDN_CONFIG;
       document.head.appendChild(configScript);
     }
+
+    // Inject the NoirMD @theme before the CDN script
+    injectNRTailwindTheme();
 
     // Inject CDN script
     const script = document.createElement('script');

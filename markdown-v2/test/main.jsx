@@ -110,6 +110,126 @@ Wrapper con clase e id.
 :::style
 <p>HTML puro dentro de <code>:::style</code>.</p>
 :::
+
+## Nuevos componentes (daisyUI)
+
+### Teclas
+
+:::keys {size="md"}
+CTRL + SHIFT + DEL
+:::
+
+:::keys {size="sm"}
+ALT + F4
+:::
+
+### Acordeón (anidado)
+
+:::accordion {mode="radio"}
+:::accordion-item {title="How do I create an account?" checked="true"}
+Click the "Sign Up" button in the top right corner and follow the registration process.
+
+:::note Tip
+Puedes anidar **otros directives** dentro de un item del acordeón.
+:::
+:::
+:::accordion-item {title="I forgot my password. What should I do?"}
+Click on "Forgot Password" on the login page and follow the instructions sent to your email.
+:::
+:::accordion-item {title="How do I update my profile information?"}
+Go to "My Account" settings and select "Edit Profile" to make changes.
+:::
+:::
+
+### Carrusel
+
+:::carousel {height="320px"}
+![Slide 1](https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp)
+![Slide 2](https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp)
+![Slide 3](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
+:::
+
+Carrusel flotante con ancho y aspect personalizado:
+
+:::carousel {aspect="4/3" width="420px" float="right"}
+![A](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
+![B](https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp)
+:::
+
+### Cuenta regresiva
+
+Estática:
+
+:::countdown {days="15" hours="10" min="24" sec="59"}
+:::
+
+Live hasta fin de año:
+
+:::countdown {target="2026-12-31T23:59:59" labels="días|horas|min|seg"}
+:::
+
+### Comparador de imágenes
+
+Arrastra el control del centro (o usa las flechas del teclado) para comparar. Acepta URLs en las props o dos imágenes markdown:
+
+:::diff {width="440px" aspect="4/3" float="left"}
+![Antes](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a.webp)
+![Después](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a-blur.webp)
+:::
+
+### Imagen 3D
+
+:::hover-3d
+<figure>
+  <img src="https://img.daisyui.com/images/stock/creditcard.webp" alt="Tarjeta 3D" />
+</figure>
+:::
+
+### Galería hover
+
+:::hover-gallery {aspect="16/9"}
+![Gorra 1](https://img.daisyui.com/images/stock/daisyui-hat-1.webp)
+![Gorra 2](https://img.daisyui.com/images/stock/daisyui-hat-2.webp)
+![Gorra 3](https://img.daisyui.com/images/stock/daisyui-hat-3.webp)
+![Gorra 4](https://img.daisyui.com/images/stock/daisyui-hat-4.webp)
+:::
+
+### Chat (anidado)
+
+:::chat
+:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:45" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" footer="Delivered"}
+You were the **Chosen One**!
+:::
+:::chat-item {side="end" name="Anakin" time="12:46" avatar="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" color="primary" footer="Seen at 12:46"}
+I hate you!
+:::
+:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:47" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" color="error"}
+You were supposed to destroy the Sith, not join them!
+:::
+:::
+
+### Lista enriquecida (anidado)
+
+:::richlist
+:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="play_arrow" icon2="favorite"}
+"Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth.
+:::
+:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="play_arrow"}
+"Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics.
+:::
+:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="play_arrow" icon2="favorite"}
+"Cappuccino" quickly gained attention for its smooth melody and relatable themes.
+:::
+:::
+
+### Estadísticas (auto-batch)
+
+:::stat {title="Total Likes" value="25.6K" desc="21% more than last month" icon="favorite" color="primary"}
+:::
+:::stat {title="Page Views" value="2.6M" desc="21% more than last month" icon="bolt" color="secondary"}
+:::
+:::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
+:::
 `;
 
 const CHEATSHEET = [
@@ -129,6 +249,16 @@ const CHEATSHEET = [
   [':::slide {interval="2000"}', 'Carrusel'],
   [':::div .cls #id', 'Wrapper'],
   [':::style / :::raw / :::custom', 'HTML crudo'],
+  [':::keys', 'Teclas (kbd)'],
+  [':::accordion + :::accordion-item', 'Acordeón'],
+  [':::carousel', 'Carrusel de imágenes'],
+  [':::countdown {target="..."}', 'Cuenta regresiva'],
+  [':::diff {before="..." after="..."}', 'Comparador antes/después'],
+  [':::hover-3d', 'Imagen 3D al hover'],
+  [':::hover-gallery', 'Galería hover'],
+  [':::chat + :::chat-item', 'Chat de burbujas'],
+  [':::richlist + :::richlist-item', 'Lista enriquecida'],
+  [':::stat', 'Estadísticas (auto-batch)'],
 ];
 
 function toast(msg) {

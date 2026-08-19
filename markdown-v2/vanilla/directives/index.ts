@@ -53,6 +53,16 @@ import buttonDirective from './button';
 import cardDirective from './card';
 import wrapperDirective from './wrapper';
 import slideDirective from './slide';
+import keysDirective from './keys';
+import accordionDirective, { accordionItemDirective } from './accordion';
+import carouselDirective from './carousel';
+import countdownDirective from './countdown';
+import diffDirective from './diff';
+import hover3dDirective from './hover3d';
+import hovergalleryDirective from './hovergallery';
+import chatDirective, { chatItemDirective } from './chat';
+import richlistDirective, { richlistItemDirective } from './richlist';
+import statDirective from './stat';
 
 // ── Registry ──
 
@@ -78,6 +88,20 @@ const directiveRegistry: Record<string, DirectiveRendererFn> = {
   raw: wrapperDirective,
   // Animation
   slide: slideDirective,
+  // New components
+  keys: keysDirective,
+  accordion: accordionDirective,
+  'accordion-item': accordionItemDirective,
+  carousel: carouselDirective,
+  countdown: countdownDirective,
+  diff: diffDirective,
+  'hover-3d': hover3dDirective,
+  'hover-gallery': hovergalleryDirective,
+  chat: chatDirective,
+  'chat-item': chatItemDirective,
+  richlist: richlistDirective,
+  'richlist-item': richlistItemDirective,
+  stat: statDirective,
 };
 
 export default directiveRegistry;

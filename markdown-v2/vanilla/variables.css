@@ -3,6 +3,24 @@
 
    Override-friendly design tokens. Host themes can win by
    defining --color-* variables; fallbacks are used otherwise.
+
+   Fallback chain per token:
+     1. daisyUI v5 / Tailwind v4 theme var  (--color-primary, ...)
+     2. App-specific --color-* var          (--color-accent-primary, ...)
+     3. daisyUI v4 theme var                (--p, --b1, --bc, ... — raw
+        components wrapped in oklch(); v4 normalizes every input
+        format to oklch, so this is safe)
+     4. NoirMD default
+
+   Tokens are defined on BOTH :root and .nr-prose:
+   - :root makes them resolve everywhere, including elements
+     teleported to <body> (modals/card dialogs render outside
+     .nr-prose), on any host page regardless of how the host
+     scopes .nr-prose.
+   - .nr-prose re-declares them redundantly so tokens always
+     resolve inside prose even if the host overrides :root.
+   The module never defines --color-* itself, so host themes
+   always win.
    ============================================================ */
 
 /* ── Material Icons Round (self-hosted) ────────────────────
@@ -35,18 +53,39 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── Design tokens ───────────────────────────────────────── */
+
+:root {
+  --nr-bg: var(--color-base-100, var(--color-background-primary, oklch(var(--b1, 15% 0.01 260) / 1)));
+  --nr-bg-secondary: var(--color-base-200, var(--color-background-secondary-solid, oklch(var(--b2, 20% 0.02 260) / 1)));
+  --nr-text: var(--color-base-content, var(--color-text-primary, oklch(var(--bc, 92% 0.02 260) / 1)));
+  --nr-text-secondary: color-mix(in oklab, var(--color-base-content, var(--color-text-secondary, oklch(var(--bc, 92% 0.02 260) / 1))) 72%, transparent);
+  --nr-border: var(--color-base-300, var(--color-border, oklch(var(--b3, 25% 0.03 260) / 1)));
+  --nr-accent: var(--color-primary, var(--color-accent, var(--color-accent-primary, oklch(var(--p, 55% 0.3 240) / 1))));
+  --nr-accent-hover: color-mix(in oklab, var(--nr-accent) 85%, white);
+  --nr-secondary: var(--color-secondary, oklch(65% 0.2 280) / 1);
+  --nr-info: var(--color-info, oklch(var(--in, 70% 0.2 220) / 1));
+  --nr-warning: var(--color-warning, oklch(var(--wa, 80% 0.25 80) / 1));
+  --nr-danger: var(--color-error, oklch(var(--er, 65% 0.3 30) / 1));
+  --nr-success: var(--color-success, oklch(var(--su, 65% 0.25 140) / 1));
+  --nr-radius: 1rem;
+  --nr-radius-sm: 0.5rem;
+  --nr-radius-lg: 1.5rem;
+}
+
 .nr-prose {
-  --nr-bg: var(--color-background-primary, #0f172a);
-  --nr-bg-secondary: var(--color-background-secondary-solid, #1e293b);
-  --nr-text: var(--color-text-primary, #e2e8f0);
-  --nr-text-secondary: var(--color-text-secondary, #94a3b8);
-  --nr-border: var(--color-border, #334155);
-  --nr-accent: var(--color-accent-primary, #0ea5e9);
-  --nr-accent-hover: var(--color-accent-hover, #38bdf8);
-  --nr-info: #3b82f6;
-  --nr-warning: #f59e0b;
-  --nr-danger: #ef4444;
-  --nr-success: #22c55e;
+  --nr-bg: var(--color-base-100, var(--color-background-primary, oklch(var(--b1, 15% 0.01 260) / 1)));
+  --nr-bg-secondary: var(--color-base-200, var(--color-background-secondary-solid, oklch(var(--b2, 20% 0.02 260) / 1)));
+  --nr-text: var(--color-base-content, var(--color-text-primary, oklch(var(--bc, 92% 0.02 260) / 1)));
+  --nr-text-secondary: color-mix(in oklab, var(--color-base-content, var(--color-text-secondary, oklch(var(--bc, 92% 0.02 260) / 1))) 72%, transparent);
+  --nr-border: var(--color-base-300, var(--color-border, oklch(var(--b3, 25% 0.03 260) / 1)));
+  --nr-accent: var(--color-primary, var(--color-accent, var(--color-accent-primary, oklch(var(--p, 55% 0.3 240) / 1))));
+  --nr-accent-hover: color-mix(in oklab, var(--nr-accent) 85%, white);
+  --nr-secondary: var(--color-secondary, oklch(65% 0.2 280) / 1);
+  --nr-info: var(--color-info, oklch(var(--in, 70% 0.2 220) / 1));
+  --nr-warning: var(--color-warning, oklch(var(--wa, 80% 0.25 80) / 1));
+  --nr-danger: var(--color-error, oklch(var(--er, 65% 0.3 30) / 1));
+  --nr-success: var(--color-success, oklch(var(--su, 65% 0.25 140) / 1));
   --nr-radius: 1rem;
   --nr-radius-sm: 0.5rem;
   --nr-radius-lg: 1.5rem;

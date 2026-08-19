@@ -47233,6 +47233,75 @@
 
   // react/useTailwindCDN.ts
   var import_react4 = __toESM(require_react(), 1);
+
+  // vanilla/tailwindTheme.ts
+  var THEME_STYLE_ID = "nr-tailwind-theme";
+  var NR_THEME_CSS = `
+@theme {
+  --color-primary: var(--color-accent-primary, oklch(var(--p, 55% 0.3 240) / 1));
+  --color-primary-content: #ffffff;
+  --color-secondary: oklch(var(--s, 55% 0.25 200) / 1);
+  --color-secondary-content: #ffffff;
+  --color-accent: var(--color-accent-primary, oklch(var(--a, 65% 0.25 160) / 1));
+  --color-accent-content: #ffffff;
+  --color-neutral: oklch(var(--n, 50% 0.05 240) / 1);
+  --color-neutral-content: var(--color-text-primary, oklch(var(--nc, 92% 0.02 240) / 1));
+  --color-base-100: var(--color-background-primary, oklch(var(--b1, 15% 0.01 260) / 1));
+  --color-base-200: var(--color-background-secondary-solid, oklch(var(--b2, 20% 0.02 260) / 1));
+  --color-base-300: var(--color-border, oklch(var(--b3, 25% 0.03 260) / 1));
+  --color-base-content: var(--color-text-primary, oklch(var(--bc, 92% 0.02 260) / 1));
+  --color-info: oklch(var(--in, 70% 0.2 220) / 1);
+  --color-info-content: #ffffff;
+  --color-success: oklch(var(--su, 65% 0.25 140) / 1);
+  --color-success-content: #ffffff;
+  --color-warning: oklch(var(--wa, 80% 0.25 80) / 1);
+  --color-warning-content: #1f2937;
+  --color-error: oklch(var(--er, 65% 0.3 30) / 1);
+  --color-error-content: #ffffff;
+}
+`;
+  function getVar(root, name2) {
+    return getComputedStyle(root).getPropertyValue(name2).trim();
+  }
+  function stylesheetHasTheme() {
+    for (const sheet of Array.from(document.styleSheets)) {
+      let rules = null;
+      try {
+        rules = sheet.cssRules;
+      } catch {
+        continue;
+      }
+      if (!rules) continue;
+      for (const rule of Array.from(rules)) {
+        const css2 = rule.cssText || "";
+        if (css2.includes("@theme") || css2.includes('@plugin "daisyui"')) return true;
+      }
+    }
+    return false;
+  }
+  function hasHostTheme() {
+    if (typeof window === "undefined" || typeof document === "undefined") return true;
+    if (getVar(document.documentElement, "--color-primary")) return true;
+    if (getVar(document.documentElement, "--color-base-100")) return true;
+    if (document.body && (getVar(document.body, "--color-primary") || getVar(document.body, "--color-base-100"))) return true;
+    return stylesheetHasTheme();
+  }
+  function injectNRTailwindTheme() {
+    if (typeof document === "undefined") return;
+    if (document.getElementById(THEME_STYLE_ID)) return;
+    if (hasHostTheme()) return;
+    const style = document.createElement("style");
+    style.id = THEME_STYLE_ID;
+    style.setAttribute("type", "text/tailwindcss");
+    style.textContent = NR_THEME_CSS;
+    document.head.appendChild(style);
+  }
+  function removeNRTailwindTheme() {
+    if (typeof document === "undefined") return;
+    document.getElementById(THEME_STYLE_ID)?.remove();
+  }
+
+  // react/useTailwindCDN.ts
   var CDN_URL = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4";
   var SCRIPT_ID = "tailwind-cdn-v4-runtime";
   var CONFIG_ID = "tailwind-cdn-v4-config";
@@ -47252,6 +47321,7 @@ window.tailwind.config = {
         if ((window.__twCDNRefs ?? 0) <= 0) {
           document.getElementById(SCRIPT_ID)?.remove();
           document.getElementById(CONFIG_ID)?.remove();
+          removeNRTailwindTheme();
           window.__twCDNRefs = 0;
           loadedRef.current = false;
         }
@@ -47264,6 +47334,7 @@ window.tailwind.config = {
         configScript.textContent = TAILWIND_CDN_CONFIG;
         document.head.appendChild(configScript);
       }
+      injectNRTailwindTheme();
       if (!document.getElementById(SCRIPT_ID)) {
         const script = document.createElement("script");
         script.id = SCRIPT_ID;
@@ -47276,6 +47347,7 @@ window.tailwind.config = {
         if ((window.__twCDNRefs ?? 0) <= 0) {
           document.getElementById(SCRIPT_ID)?.remove();
           document.getElementById(CONFIG_ID)?.remove();
+          removeNRTailwindTheme();
           window.__twCDNRefs = 0;
           loadedRef.current = false;
         }
@@ -57037,7 +57109,10 @@ window.tailwind.config = {
     const dialog = createModal(modalTitle);
     const body = dialog.querySelector(".nr-modal__body");
     if (body) {
-      body.appendChild(renderSlot("default"));
+      const prose = document.createElement("div");
+      prose.className = "nr-prose";
+      prose.appendChild(renderSlot("default"));
+      body.appendChild(prose);
     }
     btn.addEventListener("click", () => {
       if (!dialog.open) {
@@ -57191,8 +57266,10 @@ window.tailwind.config = {
       const dialog = createModal(title || "Detalles");
       const modalBody = dialog.querySelector(".nr-modal__body");
       if (modalBody) {
-        const contentSlot = renderSlot("content") || renderSlot("default");
-        modalBody.appendChild(contentSlot);
+        const prose = document.createElement("div");
+        prose.className = "nr-prose";
+        prose.appendChild(renderSlot("content") || renderSlot("default"));
+        modalBody.appendChild(prose);
       }
       card.addEventListener("click", () => {
         if (!dialog.open) {
@@ -57309,6 +57386,519 @@ window.tailwind.config = {
   };
   var slide_default = slideDirective;
 
+  // vanilla/directives/keys.ts
+  var keysDirective = ({ props, slots }) => {
+    const wrap = document.createElement("div");
+    wrap.className = "nr-keys";
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    const sizeClass = props.size ? ` nr-kbd--${props.size}` : "";
+    const parts = (slots.default || "").split("+").map((p) => p.trim()).filter(Boolean);
+    parts.forEach((part, i) => {
+      if (i > 0) {
+        const sep = document.createElement("span");
+        sep.className = "nr-keys__sep";
+        sep.textContent = "+";
+        wrap.appendChild(sep);
+      }
+      const kbd = document.createElement("kbd");
+      kbd.className = `nr-kbd${sizeClass}`;
+      kbd.textContent = part;
+      wrap.appendChild(kbd);
+    });
+    return wrap;
+  };
+  var keys_default = keysDirective;
+
+  // vanilla/directives/accordion.ts
+  var accordionCounter = 0;
+  var accordionItemDirective = ({ props, renderSlot }) => {
+    const item = document.createElement("div");
+    item.className = "nr-accordion__item";
+    if (props.class) item.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) item.setAttribute("style", props.style);
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.className = "nr-accordion__input";
+    if (props.checked === "true" || props.checked === "") input.checked = true;
+    if (props.value) input.value = props.value;
+    input.setAttribute("aria-label", props.title || "Accordion item");
+    const title = document.createElement("div");
+    title.className = "nr-accordion__title";
+    title.textContent = props.title || "";
+    const content2 = document.createElement("div");
+    content2.className = "nr-accordion__content";
+    content2.appendChild(renderSlot("default"));
+    item.append(input, title, content2);
+    return item;
+  };
+  var accordionDirective = ({ props, renderSlot }) => {
+    const wrap = document.createElement("div");
+    wrap.className = "nr-accordion";
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    wrap.appendChild(renderSlot("default"));
+    const mode = props.mode === "checkbox" ? "checkbox" : "radio";
+    const group = `nr-acc-${++accordionCounter}`;
+    wrap.querySelectorAll(".nr-accordion__input").forEach((input) => {
+      input.type = mode;
+      if (mode === "radio") input.name = group;
+    });
+    return wrap;
+  };
+  var accordion_default = accordionDirective;
+
+  // vanilla/directives/carousel.ts
+  var IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  var carouselDirective = ({ props, slots }) => {
+    const images = [];
+    const raw = slots.default || "";
+    let m;
+    IMG_RE.lastIndex = 0;
+    while ((m = IMG_RE.exec(raw)) !== null) {
+      images.push({ src: m[2].split("#")[0].trim(), alt: m[1].trim() || "carousel image" });
+    }
+    if (images.length === 0) {
+      return document.createDocumentFragment();
+    }
+    const wrap = document.createElement("div");
+    wrap.className = "nr-carousel";
+    wrap.tabIndex = 0;
+    wrap.setAttribute("aria-label", "Image carousel");
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    if (props.width) wrap.style.width = props.width;
+    if (props.float) {
+      if (props.float === "left" || props.float === "right") {
+        wrap.style.float = props.float;
+        if (!props.width) wrap.style.maxWidth = "50%";
+        wrap.style.marginInlineStart = props.float === "right" ? "1rem" : "";
+        wrap.style.marginInlineEnd = props.float === "left" ? "1rem" : "";
+      } else if (props.float === "center") {
+        wrap.style.marginInline = "auto";
+      }
+    }
+    const viewport = document.createElement("div");
+    viewport.className = "nr-carousel__viewport";
+    if (props.height) viewport.style.height = props.height;
+    if (props.aspect) viewport.style.aspectRatio = props.aspect;
+    const track = document.createElement("div");
+    track.className = "nr-carousel__track";
+    const items = [];
+    for (const img of images) {
+      const item = document.createElement("div");
+      item.className = "nr-carousel__item";
+      const el = document.createElement("img");
+      el.src = img.src;
+      el.alt = img.alt;
+      el.loading = "lazy";
+      item.appendChild(el);
+      track.appendChild(item);
+      items.push(item);
+    }
+    viewport.appendChild(track);
+    wrap.appendChild(viewport);
+    const total = items.length;
+    let index = 0;
+    const goTo = (i) => {
+      index = (i % total + total) % total;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      items.forEach((it, j) => it.classList.toggle("nr-carousel__item--active", j === index));
+      dots.forEach((d, j) => d.classList.toggle("nr-carousel__dot--active", j === index));
+    };
+    const prev = document.createElement("button");
+    prev.className = "nr-carousel__nav nr-carousel__nav--prev";
+    prev.setAttribute("aria-label", "Previous slide");
+    prev.textContent = "\u276E";
+    prev.addEventListener("click", () => goTo(index - 1));
+    const next = document.createElement("button");
+    next.className = "nr-carousel__nav nr-carousel__nav--next";
+    next.setAttribute("aria-label", "Next slide");
+    next.textContent = "\u276F";
+    next.addEventListener("click", () => goTo(index + 1));
+    const dots = [];
+    const dotsBox = document.createElement("div");
+    dotsBox.className = "nr-carousel__dots";
+    images.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = "nr-carousel__dot";
+      dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      dot.addEventListener("click", () => goTo(i));
+      dotsBox.appendChild(dot);
+      dots.push(dot);
+    });
+    wrap.append(prev, next, dotsBox);
+    wrap.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goTo(index - 1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        goTo(index + 1);
+      }
+    });
+    goTo(0);
+    return wrap;
+  };
+  var carousel_default = carouselDirective;
+
+  // vanilla/directives/countdown.ts
+  var DEFAULT_LABELS = ["days", "hours", "min", "sec"];
+  var countdownDirective = ({ props }) => {
+    const wrap = document.createElement("div");
+    wrap.className = "nr-countdown";
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    const labelParts = (props.labels || "").split("|").map((s) => s.trim());
+    const labels = DEFAULT_LABELS.map((label, i) => labelParts[i] || label);
+    const digits = parseInt(props.digits || "2", 10);
+    const targetTime = props.target ? new Date(props.target).getTime() : NaN;
+    const hasTarget = !Number.isNaN(targetTime);
+    const blocks = [];
+    const compute = () => {
+      if (hasTarget) {
+        const diff2 = Math.max(0, targetTime - Date.now());
+        return [
+          Math.floor(diff2 / 864e5),
+          Math.floor(diff2 / 36e5) % 24,
+          Math.floor(diff2 / 6e4) % 60,
+          Math.floor(diff2 / 1e3) % 60
+        ];
+      }
+      return [
+        parseInt(props.days || "0", 10),
+        parseInt(props.hours || "0", 10),
+        parseInt(props.min || "0", 10),
+        parseInt(props.sec || "0", 10)
+      ];
+    };
+    const render = () => {
+      const values = compute();
+      blocks.forEach((block, i) => {
+        const v = String(values[i]);
+        block.value.style.setProperty("--value", v);
+        block.value.setAttribute("aria-label", v);
+        block.value.textContent = v;
+      });
+    };
+    labels.forEach((label) => {
+      const block = document.createElement("div");
+      block.className = "nr-countdown__block";
+      const value = document.createElement("span");
+      value.className = "nr-countdown__value";
+      value.style.setProperty("--digits", String(digits));
+      value.setAttribute("aria-live", "polite");
+      value.setAttribute("aria-label", "0");
+      value.textContent = "0";
+      const labelEl = document.createElement("span");
+      labelEl.className = "nr-countdown__label";
+      labelEl.textContent = label;
+      block.append(value, labelEl);
+      wrap.appendChild(block);
+      blocks.push({ value });
+    });
+    render();
+    if (hasTarget) setInterval(render, 1e3);
+    return wrap;
+  };
+  var countdown_default = countdownDirective;
+
+  // vanilla/directives/diff.ts
+  var IMG_RE2 = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  var diffDirective = ({ props, slots }) => {
+    let before = (props.before || "").split("#")[0].trim();
+    let after = (props.after || "").split("#")[0].trim();
+    if (!before || !after) {
+      const urls = [];
+      const raw = slots.default || "";
+      let m;
+      IMG_RE2.lastIndex = 0;
+      while ((m = IMG_RE2.exec(raw)) !== null) {
+        urls.push(m[2].split("#")[0].trim());
+      }
+      if (!before && urls.length > 0) before = urls[0];
+      if (!after && urls.length > 1) after = urls[1];
+    }
+    if (!before || !after) {
+      return document.createDocumentFragment();
+    }
+    const figure = document.createElement("figure");
+    figure.className = "nr-diff";
+    figure.tabIndex = 0;
+    figure.setAttribute("aria-label", "Image comparison slider");
+    if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) figure.setAttribute("style", props.style);
+    if (props.aspect) figure.style.aspectRatio = props.aspect;
+    if (props.height) figure.style.height = props.height;
+    if (props.width) figure.style.width = props.width;
+    if (props.float) {
+      if (props.float === "left" || props.float === "right") {
+        figure.style.float = props.float;
+        if (!props.width) figure.style.maxWidth = "50%";
+        figure.style.marginInlineStart = props.float === "right" ? "1rem" : "";
+        figure.style.marginInlineEnd = props.float === "left" ? "1rem" : "";
+      } else if (props.float === "center") {
+        figure.style.marginInline = "auto";
+      }
+    }
+    const beforeItem = document.createElement("div");
+    beforeItem.className = "nr-diff__item nr-diff__item--before";
+    beforeItem.setAttribute("role", "img");
+    beforeItem.tabIndex = 0;
+    const beforeImg = document.createElement("img");
+    beforeImg.src = before;
+    beforeImg.alt = "before";
+    beforeItem.appendChild(beforeImg);
+    const afterItem = document.createElement("div");
+    afterItem.className = "nr-diff__item nr-diff__item--after";
+    afterItem.setAttribute("role", "img");
+    const afterImg = document.createElement("img");
+    afterImg.src = after;
+    afterImg.alt = "after";
+    afterItem.appendChild(afterImg);
+    const resizer = document.createElement("div");
+    resizer.className = "nr-diff__resizer";
+    resizer.setAttribute("aria-label", "Drag to compare");
+    resizer.title = "Drag to compare";
+    figure.append(beforeItem, afterItem, resizer);
+    let pos = 50;
+    const applyPos = () => {
+      figure.style.setProperty("--nr-diff-pos", `${pos}%`);
+    };
+    const setPosFromClientX = (clientX) => {
+      const rect = figure.getBoundingClientRect();
+      if (rect.width === 0) return;
+      pos = Math.min(100, Math.max(0, (clientX - rect.left) / rect.width * 100));
+      applyPos();
+    };
+    resizer.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      resizer.setPointerCapture(e.pointerId);
+      setPosFromClientX(e.clientX);
+    });
+    resizer.addEventListener("pointermove", (e) => {
+      if (e.buttons & 1) setPosFromClientX(e.clientX);
+    });
+    resizer.addEventListener("pointerup", (e) => {
+      if (resizer.hasPointerCapture(e.pointerId)) {
+        resizer.releasePointerCapture(e.pointerId);
+      }
+    });
+    figure.addEventListener("click", (e) => {
+      if (e.target === resizer) return;
+      setPosFromClientX(e.clientX);
+    });
+    figure.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      pos = Math.min(100, Math.max(0, pos + (e.key === "ArrowRight" ? 5 : -5)));
+      applyPos();
+    });
+    applyPos();
+    return figure;
+  };
+  var diff_default = diffDirective;
+
+  // vanilla/directives/hover3d.ts
+  var hover3dDirective = ({ props, renderSlot }) => {
+    const container = document.createElement("div");
+    container.className = "nr-hover-3d";
+    if (props.class) container.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) container.setAttribute("style", props.style);
+    const stage = document.createElement("div");
+    stage.className = "nr-hover-3d__stage";
+    stage.appendChild(renderSlot("default"));
+    container.appendChild(stage);
+    for (let i = 0; i < 8; i++) {
+      container.appendChild(document.createElement("div"));
+    }
+    return container;
+  };
+  var hover3d_default = hover3dDirective;
+
+  // vanilla/directives/hovergallery.ts
+  var IMG_RE3 = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  var hovergalleryDirective = ({ props, slots }) => {
+    const images = [];
+    const raw = slots.default || "";
+    let m;
+    IMG_RE3.lastIndex = 0;
+    while ((m = IMG_RE3.exec(raw)) !== null) {
+      images.push({ src: m[2].split("#")[0].trim(), alt: m[1].trim() || "gallery image" });
+    }
+    if (images.length === 0) {
+      return document.createDocumentFragment();
+    }
+    const figure = document.createElement("figure");
+    figure.className = "nr-hover-gallery";
+    if (props.aspect) figure.style.aspectRatio = props.aspect;
+    if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) figure.setAttribute("style", props.style);
+    for (const img of images) {
+      const el = document.createElement("img");
+      el.src = img.src;
+      el.alt = img.alt;
+      el.loading = "lazy";
+      figure.appendChild(el);
+    }
+    return figure;
+  };
+  var hovergallery_default = hovergalleryDirective;
+
+  // vanilla/directives/chat.ts
+  var chatItemDirective = ({ props, renderSlot }) => {
+    const side = props.side === "end" ? "end" : "start";
+    const wrap = document.createElement("div");
+    wrap.className = `nr-chat nr-chat--${side}`;
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    const header = document.createElement("div");
+    header.className = "nr-chat__header";
+    if (props.name) {
+      const name2 = document.createElement("span");
+      name2.className = "nr-chat__name";
+      name2.textContent = props.name;
+      header.appendChild(name2);
+    }
+    if (props.time) {
+      const time = document.createElement("time");
+      time.className = "nr-chat__time";
+      time.textContent = props.time;
+      header.appendChild(time);
+    }
+    if (header.childNodes.length > 0) wrap.appendChild(header);
+    if (props.avatar) {
+      const avatar = document.createElement("div");
+      avatar.className = "nr-chat__avatar";
+      const img = document.createElement("img");
+      img.src = props.avatar;
+      img.alt = props.name || "avatar";
+      avatar.appendChild(img);
+      wrap.appendChild(avatar);
+    }
+    const bubble = document.createElement("div");
+    bubble.className = `nr-chat__bubble${props.color ? ` nr-chat__bubble--${props.color}` : ""}`;
+    bubble.appendChild(renderSlot("default"));
+    wrap.appendChild(bubble);
+    if (props.footer) {
+      const footer = document.createElement("div");
+      footer.className = "nr-chat__footer";
+      footer.textContent = props.footer;
+      wrap.appendChild(footer);
+    }
+    return wrap;
+  };
+  var chatDirective = ({ props, renderSlot }) => {
+    const wrap = document.createElement("div");
+    wrap.className = "nr-chat";
+    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) wrap.setAttribute("style", props.style);
+    wrap.appendChild(renderSlot("default"));
+    return wrap;
+  };
+  var chat_default = chatDirective;
+
+  // vanilla/directives/richlist.ts
+  var richlistItemDirective = ({ props, renderSlot }) => {
+    const li = document.createElement("li");
+    li.className = "nr-richlist__item";
+    if (props.class) li.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) li.setAttribute("style", props.style);
+    if (props.image) {
+      const thumb = document.createElement("div");
+      thumb.className = "nr-richlist__thumb";
+      const img = document.createElement("img");
+      img.src = props.image;
+      img.alt = props.title || "list item";
+      img.loading = "lazy";
+      thumb.appendChild(img);
+      li.appendChild(thumb);
+    }
+    if (props.title || props.subtitle) {
+      const main = document.createElement("div");
+      main.className = "nr-richlist__main";
+      if (props.title) {
+        const title = document.createElement("div");
+        title.className = "nr-richlist__title";
+        title.textContent = props.title;
+        main.appendChild(title);
+      }
+      if (props.subtitle) {
+        const subtitle = document.createElement("div");
+        subtitle.className = "nr-richlist__subtitle";
+        subtitle.textContent = props.subtitle;
+        main.appendChild(subtitle);
+      }
+      li.appendChild(main);
+    }
+    const descFrag = renderSlot("default");
+    if (descFrag.childNodes.length > 0) {
+      const desc = document.createElement("p");
+      desc.className = "nr-richlist__desc";
+      desc.appendChild(descFrag);
+      li.appendChild(desc);
+    }
+    const icons = [props.icon, props.icon2].filter(Boolean);
+    if (icons.length > 0) {
+      const actions = document.createElement("div");
+      actions.className = "nr-richlist__actions";
+      for (const icon of icons) {
+        const btn = document.createElement("button");
+        btn.className = "nr-richlist__action";
+        btn.type = "button";
+        btn.setAttribute("aria-label", icon);
+        btn.appendChild(createIcon(icon));
+        actions.appendChild(btn);
+      }
+      li.appendChild(actions);
+    }
+    return li;
+  };
+  var richlistDirective = ({ props, renderSlot }) => {
+    const ul = document.createElement("ul");
+    ul.className = "nr-richlist";
+    if (props.class) ul.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) ul.setAttribute("style", props.style);
+    ul.appendChild(renderSlot("default"));
+    return ul;
+  };
+  var richlist_default = richlistDirective;
+
+  // vanilla/directives/stat.ts
+  var statDirective = ({ props }) => {
+    const colorClass = props.color ? ` nr-stat--${props.color}` : "";
+    const stat = document.createElement("div");
+    stat.className = `nr-stat${colorClass}`;
+    if (props.class) stat.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    if (props.style) stat.setAttribute("style", props.style);
+    if (props.icon) {
+      const figure = document.createElement("div");
+      figure.className = "nr-stat__figure";
+      figure.appendChild(createIcon(props.icon));
+      stat.appendChild(figure);
+    }
+    if (props.title) {
+      const title = document.createElement("div");
+      title.className = "nr-stat__title";
+      title.textContent = props.title;
+      stat.appendChild(title);
+    }
+    if (props.value) {
+      const value = document.createElement("div");
+      value.className = "nr-stat__value";
+      value.textContent = props.value;
+      stat.appendChild(value);
+    }
+    if (props.desc) {
+      const desc = document.createElement("div");
+      desc.className = "nr-stat__desc";
+      desc.textContent = props.desc;
+      stat.appendChild(desc);
+    }
+    return stat;
+  };
+  var stat_default = statDirective;
+
   // vanilla/directives/index.ts
   var directiveRegistry = {
     // Admonitions
@@ -57331,7 +57921,21 @@ window.tailwind.config = {
     custom: wrapper_default,
     raw: wrapper_default,
     // Animation
-    slide: slide_default
+    slide: slide_default,
+    // New components
+    keys: keys_default,
+    accordion: accordion_default,
+    "accordion-item": accordionItemDirective,
+    carousel: carousel_default,
+    countdown: countdown_default,
+    diff: diff_default,
+    "hover-3d": hover3d_default,
+    "hover-gallery": hovergallery_default,
+    chat: chat_default,
+    "chat-item": chatItemDirective,
+    richlist: richlist_default,
+    "richlist-item": richlistItemDirective,
+    stat: stat_default
   };
   var directives_default = directiveRegistry;
 
@@ -57386,11 +57990,18 @@ window.tailwind.config = {
   function processElements(elements, ctx, allElements) {
     const fragment = document.createDocumentFragment();
     let i = 0;
+    const BATCHED_DIRECTIVES = {
+      card: "nr-card-grid",
+      "card-m": "nr-card-grid",
+      "card-b": "nr-card-grid",
+      stat: "nr-stat-grid"
+    };
+    const isBatched = (directive) => !!directive && directive.type === "directive" && Object.prototype.hasOwnProperty.call(BATCHED_DIRECTIVES, directive.directiveType);
     while (i < elements.length) {
       const el = elements[i];
-      if (el.type === "directive" && ["card", "card-m", "card-b"].includes(el.directiveType)) {
+      if (isBatched(el)) {
         const cards = [];
-        while (i < elements.length && elements[i].type === "directive" && ["card", "card-m", "card-b"].includes(elements[i].directiveType)) {
+        while (i < elements.length && isBatched(elements[i])) {
           cards.push(elements[i]);
           i++;
         }
@@ -57401,7 +58012,7 @@ window.tailwind.config = {
           }
         } else {
           const grid = document.createElement("div");
-          grid.className = "nr-card-grid";
+          grid.className = BATCHED_DIRECTIVES[cards[0].directiveType];
           for (const card of cards) {
             const rendered = renderElement(card, ctx, allElements);
             if (rendered) grid.appendChild(rendered);
@@ -58278,6 +58889,126 @@ Wrapper con clase e id.
 :::style
 <p>HTML puro dentro de <code>:::style</code>.</p>
 :::
+
+## Nuevos componentes (daisyUI)
+
+### Teclas
+
+:::keys {size="md"}
+CTRL + SHIFT + DEL
+:::
+
+:::keys {size="sm"}
+ALT + F4
+:::
+
+### Acorde\xF3n (anidado)
+
+:::accordion {mode="radio"}
+:::accordion-item {title="How do I create an account?" checked="true"}
+Click the "Sign Up" button in the top right corner and follow the registration process.
+
+:::note Tip
+Puedes anidar **otros directives** dentro de un item del acorde\xF3n.
+:::
+:::
+:::accordion-item {title="I forgot my password. What should I do?"}
+Click on "Forgot Password" on the login page and follow the instructions sent to your email.
+:::
+:::accordion-item {title="How do I update my profile information?"}
+Go to "My Account" settings and select "Edit Profile" to make changes.
+:::
+:::
+
+### Carrusel
+
+:::carousel {height="320px"}
+![Slide 1](https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp)
+![Slide 2](https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp)
+![Slide 3](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
+:::
+
+Carrusel flotante con ancho y aspect personalizado:
+
+:::carousel {aspect="4/3" width="420px" float="right"}
+![A](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
+![B](https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp)
+:::
+
+### Cuenta regresiva
+
+Est\xE1tica:
+
+:::countdown {days="15" hours="10" min="24" sec="59"}
+:::
+
+Live hasta fin de a\xF1o:
+
+:::countdown {target="2026-12-31T23:59:59" labels="d\xEDas|horas|min|seg"}
+:::
+
+### Comparador de im\xE1genes
+
+Arrastra el control del centro (o usa las flechas del teclado) para comparar. Acepta URLs en las props o dos im\xE1genes markdown:
+
+:::diff {width="440px" aspect="4/3" float="left"}
+![Antes](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a.webp)
+![Despu\xE9s](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a-blur.webp)
+:::
+
+### Imagen 3D
+
+:::hover-3d
+<figure>
+  <img src="https://img.daisyui.com/images/stock/creditcard.webp" alt="Tarjeta 3D" />
+</figure>
+:::
+
+### Galer\xEDa hover
+
+:::hover-gallery {aspect="16/9"}
+![Gorra 1](https://img.daisyui.com/images/stock/daisyui-hat-1.webp)
+![Gorra 2](https://img.daisyui.com/images/stock/daisyui-hat-2.webp)
+![Gorra 3](https://img.daisyui.com/images/stock/daisyui-hat-3.webp)
+![Gorra 4](https://img.daisyui.com/images/stock/daisyui-hat-4.webp)
+:::
+
+### Chat (anidado)
+
+:::chat
+:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:45" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" footer="Delivered"}
+You were the **Chosen One**!
+:::
+:::chat-item {side="end" name="Anakin" time="12:46" avatar="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" color="primary" footer="Seen at 12:46"}
+I hate you!
+:::
+:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:47" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" color="error"}
+You were supposed to destroy the Sith, not join them!
+:::
+:::
+
+### Lista enriquecida (anidado)
+
+:::richlist
+:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="play_arrow" icon2="favorite"}
+"Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth.
+:::
+:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="play_arrow"}
+"Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics.
+:::
+:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="play_arrow" icon2="favorite"}
+"Cappuccino" quickly gained attention for its smooth melody and relatable themes.
+:::
+:::
+
+### Estad\xEDsticas (auto-batch)
+
+:::stat {title="Total Likes" value="25.6K" desc="21% more than last month" icon="favorite" color="primary"}
+:::
+:::stat {title="Page Views" value="2.6M" desc="21% more than last month" icon="bolt" color="secondary"}
+:::
+:::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
+:::
 `;
   var CHEATSHEET = [
     ["**negrita**", "Bold"],
@@ -58295,7 +59026,17 @@ Wrapper con clase e id.
     [':::button {label="..." url="..."}', "Bot\xF3n"],
     [':::slide {interval="2000"}', "Carrusel"],
     [":::div .cls #id", "Wrapper"],
-    [":::style / :::raw / :::custom", "HTML crudo"]
+    [":::style / :::raw / :::custom", "HTML crudo"],
+    [":::keys", "Teclas (kbd)"],
+    [":::accordion + :::accordion-item", "Acorde\xF3n"],
+    [":::carousel", "Carrusel de im\xE1genes"],
+    [':::countdown {target="..."}', "Cuenta regresiva"],
+    [':::diff {before="..." after="..."}', "Comparador antes/despu\xE9s"],
+    [":::hover-3d", "Imagen 3D al hover"],
+    [":::hover-gallery", "Galer\xEDa hover"],
+    [":::chat + :::chat-item", "Chat de burbujas"],
+    [":::richlist + :::richlist-item", "Lista enriquecida"],
+    [":::stat", "Estad\xEDsticas (auto-batch)"]
   ];
   function toast(msg) {
     const el = document.getElementById("toast");
