@@ -57718,6 +57718,7 @@ window.tailwind.config = {
 
   // vanilla/directives/hovergallery.ts
   var IMG_RE3 = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  var MAX_IMAGES = 10;
   var hovergalleryDirective = ({ props, slots }) => {
     const images = [];
     const raw = slots.default || "";
@@ -57729,23 +57730,77 @@ window.tailwind.config = {
     if (images.length === 0) {
       return document.createDocumentFragment();
     }
+    const count = Math.min(images.length, MAX_IMAGES);
     const figure = document.createElement("figure");
     figure.className = "nr-hover-gallery";
     if (props.aspect) figure.style.aspectRatio = props.aspect;
     if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) figure.setAttribute("style", props.style);
-    for (const img of images) {
+    if (props.style) figure.setAttribute("style", (figure.getAttribute("style") || "") + ";" + props.style);
+    const imgEls = [];
+    for (let i = 0; i < count; i++) {
       const el = document.createElement("img");
-      el.src = img.src;
-      el.alt = img.alt;
+      el.src = images[i].src;
+      el.alt = images[i].alt;
       el.loading = "lazy";
+      el.draggable = false;
+      if (i === 0) el.classList.add("nr-hg-active");
+      imgEls.push(el);
       figure.appendChild(el);
     }
+    for (let i = 0; i < count; i++) {
+      const strip = document.createElement("div");
+      strip.className = "nr-hg-trigger";
+      strip.style.left = `${i / count * 100}%`;
+      strip.style.width = `${1 / count * 100}%`;
+      strip.addEventListener("mouseenter", () => {
+        for (let j = 0; j < imgEls.length; j++) {
+          imgEls[j].classList.toggle("nr-hg-active", j === i);
+        }
+        for (let j = 0; j < dotEls.length; j++) {
+          dotEls[j].classList.toggle("nr-hg-dot-active", j === i);
+        }
+      });
+      figure.appendChild(strip);
+    }
+    figure.addEventListener("mouseleave", () => {
+      for (let j = 0; j < imgEls.length; j++) {
+        imgEls[j].classList.toggle("nr-hg-active", j === 0);
+      }
+      for (let j = 0; j < dotEls.length; j++) {
+        dotEls[j].classList.toggle("nr-hg-dot-active", j === 0);
+      }
+    });
+    const dotContainer = document.createElement("div");
+    dotContainer.className = "nr-hg-dots";
+    const dotEls = [];
+    for (let i = 0; i < count; i++) {
+      const dot = document.createElement("span");
+      if (i === 0) dot.classList.add("nr-hg-dot-active");
+      dotEls.push(dot);
+      dotContainer.appendChild(dot);
+    }
+    figure.appendChild(dotContainer);
     return figure;
   };
   var hovergallery_default = hovergalleryDirective;
 
   // vanilla/directives/chat.ts
+  var CHAT_THEME_TOKENS = /* @__PURE__ */ new Set([
+    "primary",
+    "secondary",
+    "accent",
+    "neutral",
+    "info",
+    "success",
+    "warning",
+    "error"
+  ]);
+  function isArbitraryColor(value) {
+    if (CHAT_THEME_TOKENS.has(value)) return false;
+    if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
+    if (/^[a-zA-Z]+$/.test(value)) return true;
+    return false;
+  }
   var chatItemDirective = ({ props, renderSlot }) => {
     const side = props.side === "end" ? "end" : "start";
     const wrap = document.createElement("div");
@@ -57776,8 +57831,14 @@ window.tailwind.config = {
       avatar.appendChild(img);
       wrap.appendChild(avatar);
     }
+    const isThemeToken = CHAT_THEME_TOKENS.has(props.color || "");
+    const colorClass = isThemeToken ? ` nr-chat__bubble--${props.color}` : "";
     const bubble = document.createElement("div");
-    bubble.className = `nr-chat__bubble${props.color ? ` nr-chat__bubble--${props.color}` : ""}`;
+    bubble.className = `nr-chat__bubble${colorClass}`;
+    if (props.color && isArbitraryColor(props.color) && !isThemeToken) {
+      bubble.style.background = props.color;
+      bubble.style.color = "white";
+    }
     bubble.appendChild(renderSlot("default"));
     wrap.appendChild(bubble);
     if (props.footer) {
@@ -57899,15 +57960,32 @@ window.tailwind.config = {
   var richlist_default = richlistDirective;
 
   // vanilla/directives/stat.ts
+  var STAT_THEME_TOKENS = /* @__PURE__ */ new Set([
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error"
+  ]);
+  function isArbitraryColor2(value) {
+    if (STAT_THEME_TOKENS.has(value)) return false;
+    if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
+    if (/^[a-zA-Z]+$/.test(value)) return true;
+    return false;
+  }
   var statDirective = ({ props }) => {
-    const colorClass = props.color ? ` nr-stat--${props.color}` : "";
+    const isThemeToken = STAT_THEME_TOKENS.has(props.color || "");
+    const colorClass = isThemeToken ? ` nr-stat--${props.color}` : "";
     const stat = document.createElement("div");
     stat.className = `nr-stat${colorClass}`;
     if (props.class) stat.classList.add(...props.class.split(/\s+/).filter(Boolean));
     if (props.style) stat.setAttribute("style", props.style);
+    const useInlineColor = props.color && isArbitraryColor2(props.color) && !isThemeToken;
     if (props.icon) {
       const figure = document.createElement("div");
       figure.className = "nr-stat__figure";
+      if (useInlineColor) figure.style.color = props.color;
       figure.appendChild(createIcon(props.icon));
       stat.appendChild(figure);
     }
@@ -57920,6 +57998,7 @@ window.tailwind.config = {
     if (props.value) {
       const value = document.createElement("div");
       value.className = "nr-stat__value";
+      if (useInlineColor) value.style.color = props.color;
       value.textContent = props.value;
       stat.appendChild(value);
     }
@@ -58046,7 +58125,9 @@ window.tailwind.config = {
           }
         } else {
           const grid = document.createElement("div");
-          grid.className = BATCHED_DIRECTIVES[cards[0].directiveType];
+          const gridClass = BATCHED_DIRECTIVES[cards[0].directiveType];
+          const align = cards[0].props?.align;
+          grid.className = align === "center" || align === "right" ? `${gridClass} ${gridClass}--${align}` : gridClass;
           for (const card of cards) {
             const rendered = renderElement(card, ctx, allElements);
             if (rendered) grid.appendChild(rendered);
@@ -58219,6 +58300,7 @@ window.tailwind.config = {
 
   // react/Guide.tsx
   var import_react6 = __toESM(require_react(), 1);
+  var import_react_dom = __toESM(require_react_dom(), 1);
 
   // guide/index.ts
   var guideData = [
@@ -58228,7 +58310,7 @@ window.tailwind.config = {
       "title": "Introducci\xF3n",
       "icon": "menu_book",
       "order": 1,
-      "md": '# Introducci\xF3n a NoirMD\n\n**NoirMD** es un editor y motor de renderizado Markdown con extensiones propias: **admoniciones**, **componentes**, **directivas interactivas** y **markdown enriquecido**.\n\nEsta gu\xEDa est\xE1 escrita con el propio motor: cada directiva que ves aqu\xED es una muestra **viva** y funcional, no una captura.\n\n## C\xF3mo usar el editor\n\n| Elemento | Descripci\xF3n |\n| --- | --- |\n| Toolbar superior | Modo (editor / split / preview), guardar, copiar, imprimir, tema, gu\xEDa y configurar |\n| Panel izquierdo | Editor de c\xF3digo con resaltado de sintaxis |\n| Panel derecho | Preview en vivo (en modo split o preview) |\n| Atajo | `Ctrl+S` guarda el contenido |\n\n## Sintaxis de una directiva\n\nLas directivas se escriben con tres dos puntos `:::` y un nombre, opcionalmente con atributos entre llaves:\n\n```\n:::card {title="Mi tarjeta" icon="star"}\n\nContenido **markdown** aqu\xED dentro.\n\n:::\n```\n\nTodo lo que est\xE1 entre la apertura y el cierre `:::` se renderiza con el mismo motor, as\xED que puedes **anidar** directivas.\n\n## Cheatsheet r\xE1pido\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `# T\xEDtulo` \u2192 `###### T\xEDtulo` | Encabezados |\n| `**negrita**` \xB7 `*cursiva*` \xB7 `~~tachado~~` | \xC9nfasis |\n| `` `c\xF3digo` `` | C\xF3digo inline |\n| `` ```js `` | Bloque de c\xF3digo con resaltado |\n| `[texto](url)` | Enlace |\n| `![alt](url)` | Imagen |\n| `![alt](url#left)` | Imagen flotante a la izquierda |\n| `==resaltado==` | Resaltado |\n| `%color%texto%%` | Texto de color |\n| `->centrado<-` | Texto centrado |\n| `!>spoiler<!` | Spoiler oculto |\n| `|[[icono]]|` | Icono Material |\n| `[TOC]` | \xCDndice de contenidos |\n| `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |\n| `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |\n| `:::details` `:::modal` `:::button` `:::slide` | Interactivos |\n| `:::div` `:::style` `:::raw` | Layout |\n\n## Organizaci\xF3n de la gu\xEDa\n\n- **Markdown** \u2014 sintaxis base y enriquecida (t\xEDtulos, \xE9nfasis, tablas, c\xF3digo, im\xE1genes, inline).\n- **Admoniciones** \u2014 cajas de aviso: nota, warning, danger, info y greentext.\n- **Componentes** \u2014 los 10 componentes de tarjeta, teclas, acorde\xF3n, carrusel, etc.\n- **Interactivos** \u2014 details, modal, botones y slides.\n- **Layout** \u2014 contenedores `div`, estilos `style` y HTML `raw`.\n\nCada p\xE1gina incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el c\xF3digo fuente para copiar.'
+      "md": '# Introducci\xF3n a NoirMD\n\n**NoirMD** es un editor y motor de renderizado Markdown con extensiones propias: **admoniciones**, **componentes**, **directivas interactivas** y **markdown enriquecido**.\n\nEsta gu\xEDa est\xE1 escrita con el propio motor: cada directiva que ves aqu\xED es una muestra **viva** y funcional, no una captura.\n\n## C\xF3mo usar el editor\n\n| Elemento | Descripci\xF3n |\n| --- | --- |\n| Toolbar superior | Modo (editor / split / preview), guardar, copiar, imprimir, tema, gu\xEDa y configurar |\n| Panel izquierdo | Editor de c\xF3digo con resaltado de sintaxis |\n| Panel derecho | Preview en vivo (en modo split o preview) |\n| Atajo | `Ctrl+S` guarda el contenido |\n\n## Sintaxis de una directiva\n\nLas directivas se escriben con tres dos puntos `:::` y un nombre, opcionalmente con atributos entre llaves:\n\n```\n:::card {title="Mi tarjeta" icon="star"}\n\nContenido **markdown** aqu\xED dentro.\n\n:::\n```\n\nTodo lo que est\xE1 entre la apertura y el cierre `:::` se renderiza con el mismo motor, as\xED que puedes **anidar** directivas.\n\n## Cheatsheet r\xE1pido\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `# T\xEDtulo` \u2192 `###### T\xEDtulo` | Encabezados |\n| `**negrita**` \xB7 `*cursiva*` \xB7 `~~tachado~~` | \xC9nfasis |\n| `` `c\xF3digo` `` | C\xF3digo inline |\n| `` ```js `` | Bloque de c\xF3digo con resaltado |\n| `[texto](url)` | Enlace |\n| `![alt](url)` | Imagen |\n| `![alt](url#left)` | Imagen flotante a la izquierda |\n| `==resaltado==` | Resaltado |\n| `%color%texto%%` | Texto de color |\n| `->centrado<-` | Texto centrado |\n| `!>spoiler<!` | Spoiler oculto |\n| `|[[icono]]|` | Icono Material |\n| `[TOC]` | \xCDndice de contenidos |\n| `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |\n| `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |\n| `:::details` `:::modal` `:::button` `:::slide` | Interactivos |\n| `<style>` HTML inline | Bloques HTML (CSS global, HTML crudo) |\n\n## Organizaci\xF3n de la gu\xEDa\n\n- **Markdown** \u2014 sintaxis base y enriquecida (t\xEDtulos, \xE9nfasis, tablas, c\xF3digo, im\xE1genes, inline).\n- **Admoniciones** \u2014 cajas de aviso: nota, warning, danger, info y greentext.\n- **Componentes** \u2014 los 10 componentes de tarjeta, teclas, acorde\xF3n, carrusel, etc.\n- **Interactivos** \u2014 details, modal, botones y slides.\n- **Layout** \u2014 bloques HTML crudo: CSS global con `<style>` e HTML inline.\n\nCada p\xE1gina incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el c\xF3digo fuente para copiar.'
     },
     {
       "id": "titulos",
@@ -58236,7 +58318,7 @@ window.tailwind.config = {
       "title": "T\xEDtulos y encabezados",
       "icon": "title",
       "order": 1,
-      "md": "# T\xEDtulos y encabezados\n\nLos t\xEDtulos se escriben con almohadillas `#`. Hay **seis niveles**, de `#` (mayor) a `######` (menor).\n\n## Sintaxis\n\n```md\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n```\n\n## Resultado\n\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n\n## Notas\n\n- Cada t\xEDtulo genera un **ancla** autom\xE1tica: al pulsar sobre \xE9l se copia el enlace directo a la secci\xF3n.\n- El prefijo `[TOC]` (\xEDndice de contenidos) genera un \xEDndice con todos los t\xEDtulos del documento (ver la p\xE1gina de **Sintaxis inline**).\n- Los t\xEDtulos pueden llevar atributos personalizados con la directiva `:::div` o envolverlos en `:::style` para darles clases o estilos propios.\n\n## Anclas\n\nCualquier t\xEDtulo se puede enlazar con su id autom\xE1tico:\n\n```md\n[Ir a los t\xEDtulos](#t\xEDtulos-y-encabezados)\n```\n\n> El id se genera a partir del texto del t\xEDtulo, en min\xFAsculas y con guiones."
+      "md": "# T\xEDtulos y encabezados\n\nLos t\xEDtulos se escriben con almohadillas `#`. Hay **seis niveles**, de `#` (mayor) a `######` (menor).\n\n## Sintaxis\n\n```md\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n```\n\n## Resultado\n\n# T\xEDtulo 1\n## T\xEDtulo 2\n### T\xEDtulo 3\n#### T\xEDtulo 4\n##### T\xEDtulo 5\n###### T\xEDtulo 6\n\n## Notas\n\n- Cada t\xEDtulo genera un **ancla** autom\xE1tica: al pulsar sobre \xE9l se copia el enlace directo a la secci\xF3n.\n- El prefijo `[TOC]` (\xEDndice de contenidos) genera un \xEDndice con todos los t\xEDtulos del documento (ver la p\xE1gina de **Sintaxis inline**).\n- Los t\xEDtulos pueden llevar atributos personalizados con el sufijo `##{.clase #id}`.\n\n## Anclas\n\nCualquier t\xEDtulo se puede enlazar con su id autom\xE1tico:\n\n```md\n[Ir a los t\xEDtulos](#t\xEDtulos-y-encabezados)\n```\n\n> El id se genera a partir del texto del t\xEDtulo, en min\xFAsculas y con guiones."
     },
     {
       "id": "enfasis",
@@ -58332,7 +58414,15 @@ window.tailwind.config = {
       "title": "Card",
       "icon": "dashboard",
       "order": 1,
-      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis\n\n```md\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n```\n\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n\n## Con t\xEDtulo largo y contenido enriquecido\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::'
+      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis\n\n```md\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n```\n\n:::card {title="Tarjeta simple" icon="star"}\nContenido de la tarjeta en **markdown**.\n:::\n\n## Con t\xEDtulo largo y contenido enriquecido\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\nInteracci\xF3n y eventos.\n:::\n\n## Con slot `#description`\n\n```md\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\nContenido principal de la tarjeta con **markdown**.\n:::\n```\n\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\nContenido principal de la tarjeta con **markdown**.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `image` | URL | Imagen de banner superior |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Slots\n\n| Slot | Descripci\xF3n |\n| --- | --- |\n| `default` | Contenido principal de la tarjeta |\n| `#description` | Texto descriptivo secundario (aparece debajo del t\xEDtulo) |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\nUna admonici\xF3n dentro de la tarjeta:\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n\n## Variantes\n\nExisten dos variantes de la tarjeta con comportamiento interactivo:\n\n| Directiva | Comportamiento al hacer click |\n| --- | --- |\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\n| `:::card-m` | Abre un modal con el contenido del slot `#content` |\n| `:::card-b` | Navega a la URL indicada en la prop `url` |\n\nLas tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan autom\xE1ticamente en grid. Consulta las p\xE1ginas de **Card Modal** y **Card Link** para m\xE1s detalles.'
+    },
+    {
+      "id": "card-m",
+      "category": "Componentes",
+      "title": "Card Modal",
+      "icon": "open_in_new",
+      "order": 2,
+      "md": '# Card Modal\r\n\r\nLa directiva `:::card-m` crea una tarjeta interactiva que al hacer click abre un **modal** con contenido detallado.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#default\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#default\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#default\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#default\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n\r\n## Con slot `#description`\r\n\r\n```md\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#default\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#description\r\nDatos del \xFAltimo trimestre.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#default\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#description\r\nDatos del \xFAltimo trimestre.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-m` se agrupan en grid con `:::card` y `:::card-b`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n```\r\n\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | URL opcional (no se usa como link, solo metadata) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `default` | Contenido breve visible en la tarjeta |\r\n| `#description` | Texto descriptivo secundario |\r\n| `#content` | Contenido detallado que se muestra en el modal |\r\n\r\n## Diferencia con `:::card` y `:::card-b`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
     },
     {
       "id": "keys",
@@ -58349,6 +58439,14 @@ window.tailwind.config = {
       "icon": "unfold_more",
       "order": 3,
       "md": '# Accordion\n\nLa directiva `:::accordion` agrupa items desplegables (`:::accordion-item`). Por defecto solo un item puede estar abierto (modo `radio`).\n\n## Sintaxis\n\n```md\n:::accordion\n:::accordion-item {title="Primera secci\xF3n"}\nContenido de la primera secci\xF3n.\n:::\n:::accordion-item {title="Segunda secci\xF3n"}\nContenido de la segunda secci\xF3n.\n:::\n:::\n```\n\n:::accordion\n:::accordion-item {title="Primera secci\xF3n"}\nContenido de la primera secci\xF3n.\n:::\n:::accordion-item {title="Segunda secci\xF3n"}\nContenido de la segunda secci\xF3n.\n:::\n:::\n\n## Abierto por defecto\n\nCon `checked` el item nace abierto:\n\n```md\n:::accordion\n:::accordion-item {title="FAQ: \xBFQu\xE9 es NoirMD?" checked}\nUn editor markdown con directivas propias.\n:::\n:::accordion-item {title="FAQ: \xBFC\xF3mo anido directivas?"}\nDentro del contenido de cualquier item puedes usar `:::`.\n:::\n:::\n```\n\n:::accordion\n:::accordion-item {title="FAQ: \xBFQu\xE9 es NoirMD?" checked}\nUn editor markdown con directivas propias.\n:::\n:::accordion-item {title="FAQ: \xBFC\xF3mo anido directivas?"}\nDentro del contenido de cualquier item puedes usar `:::`.\n:::\n:::\n\n## Modo checkbox (multiples abiertos)\n\n```md\n:::accordion {mode="checkbox"}\n:::accordion-item {title="Paso 1" checked}\nPreparar los ingredientes.\n:::\n:::accordion-item {title="Paso 2"}\nMezclar y hornear.\n:::\n:::\n```\n\n:::accordion {mode="checkbox"}\n:::accordion-item {title="Paso 1" checked}\nPreparar los ingredientes.\n:::\n:::accordion-item {title="Paso 2"}\nMezclar y hornear.\n:::\n:::\n\n## Props\n\n### `:::accordion`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `mode` | `radio` \\| `checkbox` | `radio` (default): solo uno abierto; `checkbox`: varios |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n### `:::accordion-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del item (requerido) |\n| `checked` | flag | Item abierto por defecto |\n| `value` | texto | Valor asociado al input |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |'
+    },
+    {
+      "id": "card-b",
+      "category": "Componentes",
+      "title": "Card Link",
+      "icon": "link",
+      "order": 3,
+      "md": '# Card Link\r\n\r\nLa directiva `:::card-b` crea una tarjeta interactiva que al hacer click **navega a una URL** en una nueva pesta\xF1a.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#default\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#default\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#default\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#default\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n\r\n## Con slot `#description`\r\n\r\n```md\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\n\r\n#default\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n#description\r\nPaquete disponible en npm.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\n\r\n#default\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n#description\r\nPaquete disponible en npm.\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-b` se agrupan en grid con `:::card` y `:::card-m`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card-b {title="Docs" icon="menu_book" url="https://docs.example.com"}\r\nDocumentaci\xF3n oficial.\r\n:::\r\n:::card-b {title="GitHub" icon="code" url="https://github.com"}\r\nC\xF3digo fuente.\r\n:::\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\nPaquete npm.\r\n:::\r\n```\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | **Requerido.** URL de destino al hacer click |\r\n| `target` | texto | Target del enlace (por defecto `_blank`) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `default` | Contenido visible en la tarjeta |\r\n| `#description` | Texto descriptivo secundario |\r\n\r\n## Diferencia con `:::card` y `:::card-m`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
     },
     {
       "id": "carousel",
@@ -58404,7 +58502,7 @@ window.tailwind.config = {
       "title": "Richlist",
       "icon": "playlist_play",
       "order": 10,
-      "md": '# Richlist\n\nLa directiva `:::richlist` muestra una **lista enriquecida** (`:::richlist-item`) con imagen, t\xEDtulos, subt\xEDtulo e iconos.\n\n## Sintaxis\n\n```md\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n```\n\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n\n## Con iconos en ambos lados\n\n```md\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n```\n\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n\n## Props\n\n### `:::richlist-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del elemento |\n| `subtitle` | texto | Subt\xEDtulo (segunda l\xEDnea) |\n| `image` | URL | Imagen a la izquierda (sustituye a `icon`) |\n| `icon` | nombre Material | Icono a la izquierda |\n| `icon2` | nombre Material | Icono a la derecha |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n### `:::richlist`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |'
+      "md": '# Richlist\n\nLa directiva `:::richlist` muestra una **lista enriquecida** (`:::richlist-item`) con imagen, t\xEDtulos, subt\xEDtulo e iconos.\n\n## Sintaxis\n\n```md\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n:::\n```\n\n:::richlist\n:::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}\n:::\n:::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}\n:::\n:::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}\n:::\n:::\n\n## Con iconos en ambos lados\n\n```md\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n:::\n```\n\n:::richlist\n:::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}\n:::\n:::richlist-item {title="Atajos" subtitle="M\xE1s velocidad" icon="keyboard" icon2="chevron_right"}\n:::\n:::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}\n:::\n:::\n\n## Props\n\n### `:::richlist-item`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del elemento |\n| `subtitle` | texto | Subt\xEDtulo (segunda l\xEDnea) |\n| `image` | URL | Imagen a la izquierda (sustituye a `icon`) |\n| `icon` | nombre Material | Icono a la izquierda |\n| `icon2` | nombre Material | Icono a la derecha |\n| `url` | URL | El bot\xF3n del `icon` abre el enlace en una pesta\xF1a nueva |\n| `url2` | URL | El bot\xF3n del `icon2` abre el enlace en una pesta\xF1a nueva |\n| `event` | `evento: fn` | Handler del bot\xF3n `icon` (funci\xF3n global, ver abajo) |\n| `event2` | `evento: fn` | Handler del bot\xF3n `icon2` (funci\xF3n global, ver abajo) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n### `:::richlist`\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Botones con acci\xF3n\n\nCada bot\xF3n de icono puede navegar (`url`/`url2`) o llamar a una funci\xF3n global (`event`/`event2`). `event` tiene prioridad sobre `url` en el mismo bot\xF3n:\n\n```md\n:::richlist\n:::richlist-item {title="Reproductor" subtitle="Demo de botones" icon="open_in_new" url="https://example.com" icon2="volume_up" event="click: reproducirSonido"}\nEl primer bot\xF3n abre una pesta\xF1a nueva; el segundo ejecuta una funci\xF3n global al hacer clic.\n:::\n:::\n```\n\n:::richlist\n:::richlist-item {title="Reproductor" subtitle="Demo de botones" icon="open_in_new" url="https://example.com" icon2="volume_up" event="click: reproducirSonido"}\nEl primer bot\xF3n abre una pesta\xF1a nueva; el segundo ejecuta una funci\xF3n global al hacer clic.\n:::\n:::\n\n### Sintaxis de `event`\n\n```md\nevent="click: miFuncion"                 <!-- un solo evento -->\nevent="click: fn1; mouseover: fn2"       <!-- varios, separados por ; -->\nevent="onclick: miFuncion"               <!-- el prefijo "on" es opcional -->\n```\n\nLa funci\xF3n se resuelve desde el **scope global** en el momento del evento y se invoca con el elemento como `this` y el evento como argumento:\n\n```js\nwindow.reproducirSonido = function (event) {\n  console.log(\'Click en:\', this);\n};\n```\n\n:::note\nSi la funci\xF3n no existe, el bot\xF3n simplemente no hace nada (sin errores). El `event` es contenido propio del autor, con el mismo modelo de confianza que los bloques HTML crudo.\n:::'
     },
     {
       "id": "stat",
@@ -58412,7 +58510,7 @@ window.tailwind.config = {
       "title": "Stat",
       "icon": "insights",
       "order": 11,
-      "md": '# Stat\n\nLa directiva `:::stat` muestra una **estad\xEDstica** con icono, valor y descripci\xF3n. Las estad\xEDsticas **consecutivas** se agrupan en una fila.\n\n## Sintaxis\n\n```md\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n```\n\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n\n## Con descripci\xF3n\n\n```md\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n```\n\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n\n## Prop individual (sin agrupar)\n\n```md\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n```\n\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | Etiqueta superior |\n| `value` | texto | Valor principal (grande) |\n| `desc` | texto | Descripci\xF3n bajo el valor |\n| `icon` | nombre Material | Icono lateral |\n| `color` | `primary` \\| `secondary` \\| `info` \\| `success` \\| `warning` \\| `error` | Color del icono y valor (default `primary`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n> Cada `:::stat` debe cerrarse con su `:::`. Las stats contiguas se agrupan en fila autom\xE1ticamente; para separarlas deja texto entre medias.'
+      "md": '# Stat\n\nLa directiva `:::stat` muestra una **estad\xEDstica** con icono, valor y descripci\xF3n. Las estad\xEDsticas **consecutivas** se agrupan en una fila.\n\n## Sintaxis\n\n```md\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n```\n\n:::stat {title="Descargas" value="31K" icon="download" color="success"}\n:::\n:::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}\n:::\n:::stat {title="Retenci\xF3n" value="82%" icon="trending_up" color="info"}\n:::\n\n## Con descripci\xF3n\n\n```md\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n```\n\n:::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}\n:::\n:::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}\n:::\n\n## Prop individual (sin agrupar)\n\n```md\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n:::\n```\n\n:::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | Etiqueta superior |\n| `value` | texto | Valor principal (grande) |\n| `desc` | texto | Descripci\xF3n bajo el valor |\n| `icon` | nombre Material | Icono lateral |\n| `color` | `primary` \\| `secondary` \\| `info` \\| `success` \\| `warning` \\| `error` | Color del icono y valor (default `primary`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n> Cada `:::stat` debe cerrarse con su `:::`. Las stats contiguas se agrupan en fila autom\xE1ticamente; para separarlas deja texto entre medias.'
     },
     {
       "id": "details",
@@ -58447,28 +58545,12 @@ window.tailwind.config = {
       "md": '# Slide\n\nLa directiva `:::slide` convierte su contenido en un **slider autom\xE1tico** (diapositivas con fade).\n\n## Sintaxis\n\nLas secciones se separan con `---`:\n\n```md\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n```\n\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n\n## Con contenido variado\n\n```md\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n```\n\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `interval` | ms | Tiempo por diapositiva (default `3000`) |\n| `speed` | ms | Duraci\xF3n de la transici\xF3n (default `500`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- Los puntos inferiores permiten saltar a una diapositiva.\n- Al llegar a la \xFAltima, vuelve a la primera autom\xE1ticamente (loop).\n- La barra de progreso superior muestra el avance del ciclo.'
     },
     {
-      "id": "div",
+      "id": "html-blocks",
       "category": "Layout",
-      "title": "Div (contenedor)",
-      "icon": "square_foot",
-      "order": 1,
-      "md": '# Div (contenedor)\n\nLa directiva `:::div` envuelve su contenido en un `<div>` con **clases, id o estilos** propios.\n\n## Sintaxis\n\n```md\n:::div {.mi-clase #mi-id}\nContenido dentro del div.\n:::\n```\n\n:::div {.mi-clase #mi-id}\nContenido dentro del div.\n:::\n\n## Aplicando clases\n\n```md\n:::div {.test-container}\nTarjeta con estilo personalizado.\n:::\n```\n\n:::div {.test-container}\nTarjeta con estilo personalizado.\n:::\n\n## Con estilos inline\n\n```md\n:::div {style="border: 1px dashed var(--color-accent-primary, #0ea5e9); padding: 1rem; border-radius: 10px;"}\nCaja con borde discontinuo y padding.\n:::\n```\n\n:::div {style="border: 1px dashed var(--color-accent-primary, #0ea5e9); padding: 1rem; border-radius: 10px;"}\nCaja con borde discontinuo y padding.\n:::\n\n## Contenido enriquecido\n\n```md\n:::div {.test-container}\n## T\xEDtulo dentro del div\n\n:::note\nLas directivas funcionan anidadas dentro del div.\n:::\n:::\n```\n\n:::div {.test-container}\n## T\xEDtulo dentro del div\n\n:::note\nLas directivas funcionan anidadas dentro del div.\n:::\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `.clase` | texto | Clases CSS (prefijo `.`, varias separadas por espacio) |\n| `#id` | texto | Id del contenedor (prefijo `#`) |\n| `style` | CSS | Estilos inline |\n\n## Usos t\xEDpicos\n\n- Agrupar varios componentes para darles un fondo o borde com\xFAn.\n- Contenedor centrado: `:::div {style="max-width: 600px; margin: 0 auto;"}`.\n- Combinar con `:::style` para CSS reutilizable por clase.'
-    },
-    {
-      "id": "style",
-      "category": "Layout",
-      "title": "Style (CSS)",
-      "icon": "palette",
-      "order": 2,
-      "md": "# Style (CSS)\n\nLa directiva `:::style` inyecta **CSS global** al documento renderizado.\n\n## Sintaxis\n\n```md\n:::style\n.mi-clase {\n  background: #f1f5f9;\n  border-radius: 10px;\n  padding: 1rem;\n}\n:::\n```\n\n## Ejemplo combinado con div\n\n```md\n:::style\n.box-demo {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n  padding: 1rem;\n  border-radius: 12px;\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\n}\n.box-demo > div {\n  padding: 1rem;\n  border-radius: 8px;\n  background: var(--color-background-secondary-solid, #1e293b);\n}\n:::\n\n:::div {.box-demo}\n**A**\n\n---\n**B**\n:::\n```\n\n:::style\n.box-demo {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n  padding: 1rem;\n  border-radius: 12px;\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\n}\n.box-demo > div {\n  padding: 1rem;\n  border-radius: 8px;\n  background: var(--color-background-secondary-solid, #1e293b);\n}\n:::\n\n:::div {.box-demo}\n**A**\n\n---\n**B**\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- El CSS se aplica al **documento renderizado completo**, no solo al bloque.\n- Define clases una vez al principio y \xFAsalas despu\xE9s con `:::div` o props `class`.\n- Dispones de las variables de tema del editor: `--color-background-primary`, `--color-text-primary`, `--color-accent-primary`, `--color-border`, etc."
-    },
-    {
-      "id": "raw",
-      "category": "Layout",
-      "title": "Raw (HTML)",
+      "title": "Bloques HTML",
       "icon": "code_off",
-      "order": 3,
-      "md": '# Raw (HTML)\n\nLa directiva `:::raw` (o su alias `:::custom`) inserta **HTML puro** sin procesar en el documento.\n\n## Sintaxis\n\n```md\n:::raw\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\n  HTML escrito a mano funciona tal cual.\n</div>\n:::\n```\n\n:::raw\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\n  HTML escrito a mano funciona tal cual.\n</div>\n:::\n\n## Elementos interactivos\n\n```md\n:::raw\n<details class="nr-details">\n  <summary>Detalle nativo con <b>HTML</b></summary>\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\n</details>\n:::\n```\n\n:::raw\n<details class="nr-details">\n  <summary>Detalle nativo con <b>HTML</b></summary>\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\n</details>\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Cu\xE1ndo usar `raw`\n\n- Insertar embeds (`iframe`, `video`, widgets).\n- Marcar up estructuras que el markdown no cubre.\n- Prototipar HTML antes de convertirlo a directiva.\n\n> \u26A0\uFE0F Al ser HTML sin filtrar, \xFAsalo solo con contenido de confianza.'
+      "order": 1,
+      "md": '# Bloques HTML\r\n\r\nNoirMD permite escribir **HTML crudo** directamente en el markdown. Seg\xFAn la etiqueta, el comportamiento var\xEDa.\r\n\r\n## CSS global con `<style>`\r\n\r\nEscribe un bloque `<style>` para inyectar CSS en el documento. El contenido se extrae autom\xE1ticamente y se inserta en el `<head>` del DOM.\r\n\r\n```md\r\n<style>\r\n.mi-clase {\r\n  background: #f1f5f9;\r\n  border-radius: 10px;\r\n  padding: 1rem;\r\n}\r\n</style>\r\n```\r\n\r\n<style>\r\n.nr-demo-box {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 1rem;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\r\n}\r\n.nr-demo-box > div {\r\n  padding: 1rem;\r\n  border-radius: 8px;\r\n  background: var(--color-background-secondary-solid, #1e293b);\r\n}\r\n</style>\r\n\r\n<div class="nr-demo-box">\r\n<div>**A**</div>\r\n<div>**B**</div>\r\n</div>\r\n\r\n> El CSS se aplica al **documento renderizado completo**, no solo al bloque. Define clases una vez y \xFAsalas despu\xE9s en cualquier etiqueta HTML.\r\n\r\n## HTML inline\r\n\r\nCualquier etiqueta HTML escrita directamente en el markdown se renderiza sin procesar como markdown. El contenido dentro se preserva tal cual.\r\n\r\n```md\r\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\r\n  HTML escrito a mano funciona tal cual.\r\n</div>\r\n```\r\n\r\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\r\n  HTML escrito a mano funciona tal cual.\r\n</div>\r\n\r\n## Elementos interactivos nativos\r\n\r\n```md\r\n<details class="nr-details">\r\n  <summary>Detalle nativo con <b>HTML</b></summary>\r\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\r\n</details>\r\n```\r\n\r\n<details class="nr-details">\r\n  <summary>Detalle nativo con <b>HTML</b></summary>\r\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\r\n</details>\r\n\r\n## Scripts\r\n\r\nLos bloques `<script>` se ejecutan autom\xE1ticamente al renderizar:\r\n\r\n```md\r\n<script>\r\n  console.log(\'Este script se ejecuta al renderizar\');\r\n<\/script>\r\n```\r\n\r\n> \u26A0\uFE0F Al ser HTML y scripts sin filtrar, \xFAsalos solo con contenido de confianza.\r\n\r\n## Cu\xE1ndo usar bloques HTML\r\n\r\n- Insertar embeds (`iframe`, `video`, widgets externos).\r\n- Estructuras que el markdown no cubre (layouts complejos, formularios nativos).\r\n- Inyectar CSS reutilizable con `<style>`.\r\n- Prototipar HTML antes de convertirlo a directiva.'
     }
   ];
 
@@ -58537,68 +58619,71 @@ window.tailwind.config = {
     }, [open, onClose]);
     if (!open) return null;
     const toggleCategory = (cat) => setCollapsed((prev) => ({ ...prev, [cat]: !prev[cat] }));
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide", role: "dialog", "aria-modal": "true", "aria-label": "Gu\xEDa de sintaxis", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__overlay", onClick: onClose }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__panel", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "nr-guide__head", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Gu\xEDa de sintaxis" }),
-          search && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "input",
-            {
-              className: "nr-guide__search",
-              type: "search",
-              placeholder: "Buscar directiva\u2026",
-              value: query,
-              onChange: (e) => setQuery(e.target.value)
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "button",
-            {
-              className: "nr-guide__close",
-              onClick: onClose,
-              "aria-label": "Cerrar gu\xEDa",
-              children: "\xD7"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__body", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "nr-guide__nav", children: [
-            filtered.map(([cat, entries]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__cat", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-                "button",
-                {
-                  className: "nr-guide__cat-head",
-                  onClick: () => toggleCategory(cat),
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__cat-chevron", children: collapsed[cat] ? "chevron_right" : "expand_more" }),
-                    cat
-                  ]
-                }
-              ),
-              !collapsed[cat] && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { className: "nr-guide__items", children: entries.map((e) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-                "button",
-                {
-                  className: `nr-guide__item${selectedId === e.id ? " nr-guide__item--active" : ""}`,
-                  onClick: () => setSelectedId(e.id),
-                  children: [
-                    e.icon && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__item-icon", children: e.icon }),
-                    e.title
-                  ]
-                }
-              ) }, e.id)) })
-            ] }, cat)),
-            filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__empty", children: [
-              "Sin resultados para \xAB",
-              query,
-              "\xBB."
-            ] })
+    return (0, import_react_dom.createPortal)(
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide", role: "dialog", "aria-modal": "true", "aria-label": "Gu\xEDa de sintaxis", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__overlay", onClick: onClose }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__panel", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "nr-guide__head", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Gu\xEDa de sintaxis" }),
+            search && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              "input",
+              {
+                className: "nr-guide__search",
+                type: "search",
+                placeholder: "Buscar directiva\u2026",
+                value: query,
+                onChange: (e) => setQuery(e.target.value)
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              "button",
+              {
+                className: "nr-guide__close",
+                onClick: onClose,
+                "aria-label": "Cerrar gu\xEDa",
+                children: "\xD7"
+              }
+            )
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__content", ref: contentRef, children: selected ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CustomMarkdownRenderer_default, { content: selected.md }, selected.id) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__empty", children: "Selecciona una directiva de la lista." }) })
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__body", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "nr-guide__nav", children: [
+              filtered.map(([cat, entries]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__cat", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                  "button",
+                  {
+                    className: "nr-guide__cat-head",
+                    onClick: () => toggleCategory(cat),
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__cat-chevron", children: collapsed[cat] ? "chevron_right" : "expand_more" }),
+                      cat
+                    ]
+                  }
+                ),
+                !collapsed[cat] && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { className: "nr-guide__items", children: entries.map((e) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                  "button",
+                  {
+                    className: `nr-guide__item${selectedId === e.id ? " nr-guide__item--active" : ""}`,
+                    onClick: () => setSelectedId(e.id),
+                    children: [
+                      e.icon && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__item-icon", children: e.icon }),
+                      e.title
+                    ]
+                  }
+                ) }, e.id)) })
+              ] }, cat)),
+              filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__empty", children: [
+                "Sin resultados para \xAB",
+                query,
+                "\xBB."
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__content", ref: contentRef, children: selected ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CustomMarkdownRenderer_default, { content: selected.md }, selected.id) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__empty", children: "Selecciona una directiva de la lista." }) })
+          ] })
         ] })
-      ] })
-    ] });
+      ] }),
+      document.body
+    );
   };
   var Guide_default = Guide;
 
@@ -59259,6 +59344,47 @@ Todo correcto.
 
 ## Cards
 
+### Grid con igualdad de altura
+
+Las cards del grid ahora tienen la misma altura autom\xE1ticamente, sin importar la cantidad de contenido.
+
+:::card {title="Card corta" icon="star"}
+Poco contenido.
+:::
+:::card {title="Card mediana" icon="favorite"}
+Esta card tiene un poco m\xE1s de contenido para demostrar que se estira a la altura de la m\xE1s alta del grid.
+:::
+:::card {title="Card larga" icon="code"}
+Esta card tiene **mucho m\xE1s contenido** que las otras.
+
+- Punto uno
+- Punto dos
+- Punto tres
+- Punto cuatro
+
+Y un p\xE1rrafo extra para hacerla m\xE1s alta.
+:::
+
+### Alineaci\xF3n del grid
+
+\`\`\`md
+:::card {title="Centrada A" icon="star" align="center"}
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
+Contenido.
+:::
+\`\`\`
+
+:::card {title="Centrada A" icon="star" align="center"}
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
+Contenido.
+:::
+
+### Cards individuales
+
 :::card {title="Card 1" icon="star"}
 Contenido de la primera card.
 :::
@@ -59433,6 +59559,20 @@ You were supposed to destroy the Sith, not join them!
 :::
 :::
 
+### Chat con colores arbitrarios
+
+:::chat
+:::chat-item {side="start" name="Bot" time="13:00" color="#6c3fa0"}
+Este mensaje usa un color hex personalizado.
+:::
+:::chat-item {side="end" name="T\xFA" time="13:01" color="teal"}
+Y este usa un nombre CSS: teal.
+:::
+:::chat-item {side="start" name="Bot" time="13:02" color="oklch(65% 0.25 140)"}
+Este usa oklch para un verde vibrante.
+:::
+:::
+
 ### Lista enriquecida (anidado)
 
 Haz clic en los altavoces: todos ejecutan la misma funci\xF3n global y suenan.
@@ -59451,11 +59591,22 @@ Haz clic en los altavoces: todos ejecutan la misma funci\xF3n global y suenan.
 
 ### Estad\xEDsticas (auto-batch)
 
+Tokens del tema:
+
 :::stat {title="Total Likes" value="25.6K" desc="21% more than last month" icon="favorite" color="primary"}
 :::
 :::stat {title="Page Views" value="2.6M" desc="21% more than last month" icon="bolt" color="secondary"}
 :::
 :::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
+:::
+
+Colores arbitrarios (CSS):
+
+:::stat {title="Usuarios" value="1,204" desc="nuevos esta semana" icon="group" color="blue"}
+:::
+:::stat {title="Ingresos" value="$9,430" desc="+8% vs anterior" icon="payments" color="#ff6600"}
+:::
+:::stat {title="Uptime" value="99.9%" desc="\xFAltimos 30 d\xEDas" icon="monitor_heart" color="oklch(65% 0.25 140)"}
 :::
 `;
   function toast(msg) {

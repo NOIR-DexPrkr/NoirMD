@@ -136,7 +136,11 @@ function processElements(
         }
       } else {
         const grid = document.createElement('div');
-        grid.className = BATCHED_DIRECTIVES[(cards[0] as DirectiveToken).directiveType];
+        const gridClass = BATCHED_DIRECTIVES[(cards[0] as DirectiveToken).directiveType];
+        const align = (cards[0] as DirectiveToken).props?.align;
+        grid.className = align === 'center' || align === 'right'
+          ? `${gridClass} ${gridClass}--${align}`
+          : gridClass;
         for (const card of cards) {
           const rendered = renderElement(card, ctx, allElements);
           if (rendered) grid.appendChild(rendered);

@@ -3,10 +3,18 @@
    ============================================================ */
 
 .nr-card-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
   gap: 1.5rem;
   margin: 1.5rem 0;
+}
+
+/* ── Alignment variants ── */
+.nr-card-grid--center {
+  justify-items: center;
+}
+.nr-card-grid--right {
+  justify-items: end;
 }
 
 .nr-card {
@@ -18,9 +26,9 @@
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
-  min-width: 18rem;
-  width: 18rem;
+  min-width: 0;
   max-width: 20rem;
+  width: 100%;
 }
 
 .nr-card--interactive {

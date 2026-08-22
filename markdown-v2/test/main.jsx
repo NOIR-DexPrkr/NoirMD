@@ -34,6 +34,47 @@ Todo correcto.
 
 ## Cards
 
+### Grid con igualdad de altura
+
+Las cards del grid ahora tienen la misma altura automáticamente, sin importar la cantidad de contenido.
+
+:::card {title="Card corta" icon="star"}
+Poco contenido.
+:::
+:::card {title="Card mediana" icon="favorite"}
+Esta card tiene un poco más de contenido para demostrar que se estira a la altura de la más alta del grid.
+:::
+:::card {title="Card larga" icon="code"}
+Esta card tiene **mucho más contenido** que las otras.
+
+- Punto uno
+- Punto dos
+- Punto tres
+- Punto cuatro
+
+Y un párrafo extra para hacerla más alta.
+:::
+
+### Alineación del grid
+
+\`\`\`md
+:::card {title="Centrada A" icon="star" align="center"}
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
+Contenido.
+:::
+\`\`\`
+
+:::card {title="Centrada A" icon="star" align="center"}
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
+Contenido.
+:::
+
+### Cards individuales
+
 :::card {title="Card 1" icon="star"}
 Contenido de la primera card.
 :::
@@ -208,6 +249,20 @@ You were supposed to destroy the Sith, not join them!
 :::
 :::
 
+### Chat con colores arbitrarios
+
+:::chat
+:::chat-item {side="start" name="Bot" time="13:00" color="#6c3fa0"}
+Este mensaje usa un color hex personalizado.
+:::
+:::chat-item {side="end" name="Tú" time="13:01" color="teal"}
+Y este usa un nombre CSS: teal.
+:::
+:::chat-item {side="start" name="Bot" time="13:02" color="oklch(65% 0.25 140)"}
+Este usa oklch para un verde vibrante.
+:::
+:::
+
 ### Lista enriquecida (anidado)
 
 Haz clic en los altavoces: todos ejecutan la misma función global y suenan.
@@ -226,11 +281,22 @@ Haz clic en los altavoces: todos ejecutan la misma función global y suenan.
 
 ### Estadísticas (auto-batch)
 
+Tokens del tema:
+
 :::stat {title="Total Likes" value="25.6K" desc="21% more than last month" icon="favorite" color="primary"}
 :::
 :::stat {title="Page Views" value="2.6M" desc="21% more than last month" icon="bolt" color="secondary"}
 :::
 :::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
+:::
+
+Colores arbitrarios (CSS):
+
+:::stat {title="Usuarios" value="1,204" desc="nuevos esta semana" icon="group" color="blue"}
+:::
+:::stat {title="Ingresos" value="$9,430" desc="+8% vs anterior" icon="payments" color="#ff6600"}
+:::
+:::stat {title="Uptime" value="99.9%" desc="últimos 30 días" icon="monitor_heart" color="oklch(65% 0.25 140)"}
 :::
 `;
 

@@ -15,6 +15,21 @@
 
 import type { DirectiveRendererFn } from './index';
 
+// Predefined theme tokens that map to CSS classes
+const CHAT_THEME_TOKENS = new Set([
+  'primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error',
+]);
+
+/**
+ * Check if a value is an arbitrary CSS color (not a theme token).
+ */
+function isArbitraryColor(value: string): boolean {
+  if (CHAT_THEME_TOKENS.has(value)) return false;
+  if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
+  if (/^[a-zA-Z]+$/.test(value)) return true;
+  return false;
+}
+
 export const chatItemDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const side = props.side === 'end' ? 'end' : 'start';
   const wrap = document.createElement('div');
@@ -49,8 +64,17 @@ export const chatItemDirective: DirectiveRendererFn = ({ props, renderSlot }) =>
     wrap.appendChild(avatar);
   }
 
+  const isThemeToken = CHAT_THEME_TOKENS.has(props.color || '');
+  const colorClass = isThemeToken ? ` nr-chat__bubble--${props.color}` : '';
   const bubble = document.createElement('div');
-  bubble.className = `nr-chat__bubble${props.color ? ` nr-chat__bubble--${props.color}` : ''}`;
+  bubble.className = `nr-chat__bubble${colorClass}`;
+
+  // Apply arbitrary color via inline style (background + contrasting text)
+  if (props.color && isArbitraryColor(props.color) && !isThemeToken) {
+    bubble.style.background = props.color;
+    bubble.style.color = 'white';
+  }
+
   bubble.appendChild(renderSlot('default'));
   wrap.appendChild(bubble);
 

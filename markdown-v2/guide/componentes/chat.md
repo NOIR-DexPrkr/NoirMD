@@ -68,7 +68,7 @@ Increíble. El motor escribe solo.
 | `name` | texto | Nombre del autor |
 | `time` | texto | Hora mostrada bajo el nombre |
 | `avatar` | URL | Imagen del avatar |
-| `color` | `neutral` \| `primary` \| `secondary` \| `accent` \| `info` \| `success` \| `warning` \| `error` | Color de la burbuja |
+| `color` | `neutral` \| `primary` \| `secondary` \| `accent` \| `info` \| `success` \| `warning` \| `error` \| CSS color | Color de la burbuja. Acepta tokens del tema o cualquier color CSS válido (ej: `blue`, `#ff6600`, `rgb(255,0,0)`) |
 | `footer` | texto | Pie del mensaje |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
