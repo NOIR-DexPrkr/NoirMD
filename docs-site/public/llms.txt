@@ -1,6 +1,6 @@
 # NoirMD — Documentation
 
-> NoirMD is a **framework-agnostic markdown renderer**: one vanilla DOM rendering engine with thin React/Vue wrappers. It ships a custom parser, a 16-type directive system (admonitions, cards, modals, details, buttons, slides), rich inline syntax, built-in syntax highlighting (highlight.js) and modular pure CSS theming. This file indexes the official documentation. All links are relative to the site root.
+> NoirMD is a **framework-agnostic markdown renderer**: one vanilla DOM rendering engine with thin React/Vue wrappers. It ships a custom parser, a 26+ directive system (admonitions, cards, modals, details, buttons, slides, interactive components), rich inline syntax, built-in syntax highlighting (highlight.js) and modular pure CSS theming. This file indexes the official documentation. All links are relative to the site root.
 
 ## What is NoirMD?
 
@@ -10,8 +10,8 @@ Pipeline: `parseMarkdown(markdown)` → typed `Token[]` AST → vanilla DOM rend
 
 - **Framework-agnostic**: one engine for React, Vue, vanilla JS or any framework
 - **Custom parser**: line-by-line state machine producing a typed `Token[]` AST
-- **Directive system**: 16 directive strings mapped to 7 rich components (admonitions, cards, modals, details, buttons, wrappers, slides)
-- **Modular CSS**: pure CSS split into `variables.css`, `base.css` and one file per component; `--color-*` host-variable theming
+- **Directive system**: 26+ directive types — admonitions, cards (static/modal/link), modals, details, buttons, slides, accordion, carousel, countdown, diff, chat, richlist, stat, hover effects, keyboard keys
+- **Modular CSS**: pure CSS split into `variables.css`, `base.css` and one file per component; `--nr-*` design tokens with `--color-*` host-variable theming
 - **Rich inline syntax**: bold, italic, highlight, color, spoiler, underline, icons, centered/right-aligned text and more
 - **Syntax highlighting**: code blocks with highlight.js built-in
 - **Optional editor**: CodeMirror 6 powered markdown editor with live preview
@@ -56,7 +56,7 @@ npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror
 - **Tailwind**: works alongside NoirMD — its class names don't conflict. The `tailwindCDN` prop is only needed for Tailwind classes authored inside markdown content; `scanTailwindCDN()` must be called after DOM mutations that add new Tailwind classes.
 - **SSR caveat**: React/Vue wrappers render on the client only (`useEffect`/`onMounted`) — server render is an empty placeholder.
 - **Editor styles**: `@noirmd/previewer/editor.css` is self-contained and uses `var(--color-*, fallback)` so the host theme wins when defined.
-- **Gotchas**: unclosed directives (`:::type` without closing `:::`) render as plain text; `<style>` blocks inject globally into `<head>`; directives have their own padding/borders — avoid nesting them inside flex/grid containers; consecutive `card`/`card-m`/`card-b` auto-batch into a flex-wrap row (use `batch="off"` to disable).
+- **Gotchas**: unclosed directives (`:::type` without closing `:::`) render as plain text; `<style>` blocks inject globally into `<head>`; directives have their own padding/borders — avoid nesting them inside flex/grid containers; consecutive `card`/`card-m`/`card-b` auto-batch into a flex-wrap row, consecutive `stat` auto-batch into a grid (use `batch="off"` to disable).
 
 ## Quick Usage
 
@@ -95,6 +95,93 @@ import '@noirmd/previewer/vanilla/vanilla.css';
 const el = renderMarkdownString('# Hello **world**');
 document.getElementById('app')!.appendChild(el);
 ```
+
+## Directive System
+
+All directives use the `:::type {props} ... :::` syntax. Props support `key="value"` pairs, `.className` shorthand, and `#id` shorthand. Short-form title: `:::note My Title` is equivalent to `:::note {title="My Title"}`. Content is split into slots via `#slotname` lines at depth 0.
+
+### Admonitions
+
+| Directive | Description |
+|-----------|-------------|
+| `:::note` | Neutral info box |
+| `:::info` | Informational (lightbulb icon) |
+| `:::warning` | Amber caution box |
+| `:::danger` | Red error/critical box |
+| `:::greentext` | Green forum-style quote |
+
+Props: `title`, `icon`, `class`, `style`. Content supports full markdown.
+
+### Cards
+
+| Directive | Description |
+|-----------|-------------|
+| `:::card` | Static card with icon, title and markdown content |
+| `:::card-m` | Interactive card — click opens a modal with `#content` slot |
+| `:::card-b` | Interactive card — click navigates to `url` prop |
+
+Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `batch`, `class`, `style`. Slots: `default`, `#description`, `#content` (card-m only). Consecutive cards auto-batch into a flex-wrap grid (`batch="off"` to disable).
+
+### Interactive
+
+| Directive | Description |
+|-----------|-------------|
+| `:::details` | Collapsible `<details>` section |
+| `:::modal` | Native `<dialog>` modal with trigger button |
+| `:::button` | Styled link/button with icon |
+| `:::slide` | Auto-advancing text carousel (sections split by `---`) |
+
+### Components
+
+| Directive | Description |
+|-----------|-------------|
+| `:::keys` | Keyboard key display — auto-splits by `+`. Prop: `size` (xs/sm/md/lg/xl) |
+| `:::accordion` | Collapsible accordion container. Prop: `mode` (radio/checkbox). Contains `:::accordion-item` children with `title` and optional `checked` |
+| `:::carousel` | Image carousel with arrows, dots and infinite loop. Props: `height`, `aspect`, `width`, `float`. Content: markdown images |
+| `:::countdown` | Countdown timer — static (`days`/`hours`/`min`/`sec`) or live (`target` ISO date). Props: `labels`, `digits` |
+| `:::diff` | Before/after image comparison slider. Props: `before`/`after` URLs or two markdown images. Also: `height`, `aspect`, `width`, `float` |
+| `:::hover-3d` | 3D tilt card that follows mouse cursor. Content: HTML or markdown |
+| `:::hover-gallery` | Grid gallery — images expand on hover. Prop: `aspect` |
+| `:::chat` | Chat bubble container. Contains `:::chat-item` children with `side` (start/end), `name`, `time`, `avatar`, `color`, `footer` |
+| `:::richlist` | Rich list with avatars/actions. Contains `:::richlist-item` children with `title`, `subtitle`, `image`, `icon`, `icon2` |
+| `:::stat` | Statistic card (icon, value, description). Props: `title`, `value`, `desc`, `icon`, `color`, `batch`. Consecutive stats auto-batch into a grid |
+
+### Layout
+
+`:::div`, `:::style`, `:::raw`, `:::custom` are all generic wrapper directives (identical behavior — render a `<div>` with optional `class`, `id`, `style`, `data-*` attributes). For actual CSS injection, use `<style>` HTML blocks. For raw HTML, write HTML directly in markdown.
+
+## Inline Syntax
+
+NoirMD extends standard markdown with inline formatting:
+
+| Syntax | Result | Notes |
+|--------|--------|-------|
+| `**text**` | **Bold** | |
+| `_text_` | *Italic* | `*text*` does NOT work — use underscores |
+| `***text***` | ***Bold+Italic*** | |
+| `~~text~~` | ~~Strikethrough~~ | |
+| `` `code` `` | `Inline code` | |
+| `==text==` | ==Highlight== | |
+| `%red%text%%` | Colored text | Closing is `%%`, not `%` |
+| `!~underline~!` | !~Underline~! | Extended: `!~color;style;type;text~!` |
+| `!>text<!` | Spoiler (hidden) | Hover/tap to reveal |
+| `->text<-` | Centered text | Block-level |
+| `->text->` | Right-aligned text | Block-level |
+| `\|[[icon-name]]\|` | Material icon | Any Material Symbols name |
+| `[text](url)` | Link | |
+| `![alt](src#float#3d){w:h}` | Image | Float: `#left`/`#right`/`#center`. Size: `{width:height}` |
+
+## Block Syntax
+
+- **Headers**: `#` through `######` with auto-generated anchor IDs
+- **Code blocks**: ` ```lang title="name" ``` ` with highlight.js
+- **Tables**: pipe-delimited with alignment (`:---`, `:---:`, `---:`)
+- **Lists**: `-`, `*`, `+`, `1.` — continuation lines via indentation
+- **Blockquotes**: `> text` with `##{.class #id}` attributes
+- **Horizontal rules**: `---`, `___`, `***`
+- **TOC**: `[TOC]` or `[TOC2]` generates clickable table of contents
+- **HTML blocks**: raw HTML rendered directly; `<style>` injects CSS globally; `<script>` executes automatically
+- **Attributes**: any block can carry `##{.class #id}` suffix for custom classes/IDs
 
 ## Documentation
 
