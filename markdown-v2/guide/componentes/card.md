@@ -8,22 +8,48 @@ order: 1
 
 La directiva `:::card` crea una tarjeta con icono, título y contenido markdown.
 
-## Sintaxis
+## Sintaxis básica
+
+Solo título e icono, sin descripción:
 
 ```md
 :::card {title="Tarjeta simple" icon="star"}
-Contenido de la tarjeta en **markdown**.
 :::
 ```
 
 :::card {title="Tarjeta simple" icon="star"}
-Contenido de la tarjeta en **markdown**.
 :::
 
-## Con título largo y contenido enriquecido
+## Con slot `#description`
+
+Agrega un texto descriptivo debajo del título usando el slot `#description`:
+
+```md
+:::card {title="Mi proyecto" icon="rocket"}
+
+#description
+Resumen corto del proyecto.
+
+:::
+```
+
+:::card {title="Mi proyecto" icon="rocket"}
+
+#description
+Resumen corto del proyecto.
+
+:::
+
+## Con contenido markdown
+
+El contenido principal va en el slot `#default` (después de `#description`):
 
 ```md
 :::card {title="Documentación técnica" icon="code"}
+
+#description
+Guía completa del motor de renderizado.
+
 - Renderizado por el mismo motor
 - Soporta `inline`, tablas y directivas
 - Sin título: usa `:::card` a secas
@@ -31,6 +57,10 @@ Contenido de la tarjeta en **markdown**.
 ```
 
 :::card {title="Documentación técnica" icon="code"}
+
+#description
+Guía completa del motor de renderizado.
+
 - Renderizado por el mismo motor
 - Soporta `inline`, tablas y directivas
 - Sin título: usa `:::card` a secas
@@ -42,44 +72,64 @@ Las tarjetas **consecutivas** se agrupan en una cuadrícula responsive. Añade `
 
 ```md
 :::card {title="HTML" icon="html"}
+
+#description
 Estructura del documento.
 :::
 :::card {title="CSS" icon="palette"}
+
+#description
 Estilos y variables.
 :::
 :::card {title="JS" icon="javascript"}
+
+#description
 Interacción y eventos.
 :::
 ```
 
 :::card {title="HTML" icon="html"}
+
+#description
 Estructura del documento.
 :::
 :::card {title="CSS" icon="palette"}
+
+#description
 Estilos y variables.
 :::
 :::card {title="JS" icon="javascript"}
+
+#description
 Interacción y eventos.
 :::
 
-## Con slot `#description`
+## Alineación del grid
+
+Usa `align` para controlar la alineación de las tarjetas en el grid:
 
 ```md
-:::card {title="Mi proyecto" icon="rocket"}
+:::card {title="Centrada A" icon="star" align="center"}
 
 #description
-Resumen corto del proyecto.
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
 
-Contenido principal de la tarjeta con **markdown**.
+#description
+Contenido.
 :::
 ```
 
-:::card {title="Mi proyecto" icon="rocket"}
+:::card {title="Centrada A" icon="star" align="center"}
 
 #description
-Resumen corto del proyecto.
+Contenido.
+:::
+:::card {title="Centrada B" icon="favorite" align="center"}
 
-Contenido principal de la tarjeta con **markdown**.
+#description
+Contenido.
 :::
 
 ## Props
@@ -98,14 +148,16 @@ Contenido principal de la tarjeta con **markdown**.
 
 | Slot | Descripción |
 | --- | --- |
-| `default` | Contenido principal de la tarjeta |
 | `#description` | Texto descriptivo secundario (aparece debajo del título) |
+| `default` | Contenido principal de la tarjeta |
 
 ## Anidando directivas
 
 ```md
 :::card {title="Ejemplo anidado" icon="layers"}
-Una admonición dentro de la tarjeta:
+
+#description
+Una admonición dentro de la tarjeta.
 
 :::note
 Las tarjetas aceptan cualquier directiva dentro.
@@ -114,7 +166,9 @@ Las tarjetas aceptan cualquier directiva dentro.
 ```
 
 :::card {title="Ejemplo anidado" icon="layers"}
-Una admonición dentro de la tarjeta:
+
+#description
+Una admonición dentro de la tarjeta.
 
 :::note
 Las tarjetas aceptan cualquier directiva dentro.

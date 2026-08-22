@@ -120,7 +120,7 @@ Props: `title`, `icon`, `class`, `style`. Content supports full markdown.
 | `:::card-m` | Interactive card — click opens a modal with `#content` slot |
 | `:::card-b` | Interactive card — click navigates to `url` prop |
 
-Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `batch`, `class`, `style`. Slots: `default`, `#description`, `#content` (card-m only). Consecutive cards auto-batch into a flex-wrap grid (`batch="off"` to disable).
+Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`left`/`center`/`right`), `batch`, `class`, `style`. Slots: `#description`, `default`, `#content` (card-m only). Consecutive cards auto-batch into a CSS Grid with equal-height cards (`batch="off"` to disable).
 
 ### Interactive
 
@@ -142,9 +142,9 @@ Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `batch`, `cl
 | `:::diff` | Before/after image comparison slider. Props: `before`/`after` URLs or two markdown images. Also: `height`, `aspect`, `width`, `float` |
 | `:::hover-3d` | 3D tilt card that follows mouse cursor. Content: HTML or markdown |
 | `:::hover-gallery` | Grid gallery — images expand on hover. Prop: `aspect` |
-| `:::chat` | Chat bubble container. Contains `:::chat-item` children with `side` (start/end), `name`, `time`, `avatar`, `color`, `footer` |
+| `:::chat` | Chat bubble container. Contains `:::chat-item` children with `side` (start/end), `name`, `time`, `avatar`, `color` (theme tokens or any CSS color), `footer` |
 | `:::richlist` | Rich list with avatars/actions. Contains `:::richlist-item` children with `title`, `subtitle`, `image`, `icon`, `icon2` |
-| `:::stat` | Statistic card (icon, value, description). Props: `title`, `value`, `desc`, `icon`, `color`, `batch`. Consecutive stats auto-batch into a grid |
+| `:::stat` | Statistic card (icon, value, description). Props: `title`, `value`, `desc`, `icon`, `color` (theme tokens or any CSS color), `batch`. Consecutive stats auto-batch into a grid |
 
 ### Layout
 
