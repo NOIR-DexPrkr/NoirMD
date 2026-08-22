@@ -62,15 +62,43 @@ Estilos y variables.
 Interacción y eventos.
 :::
 
+## Con slot `#description`
+
+```md
+:::card {title="Mi proyecto" icon="rocket"}
+
+#description
+Resumen corto del proyecto.
+
+Contenido principal de la tarjeta con **markdown**.
+:::
+```
+
+:::card {title="Mi proyecto" icon="rocket"}
+
+#description
+Resumen corto del proyecto.
+
+Contenido principal de la tarjeta con **markdown**.
+:::
+
 ## Props
 
 | Prop | Tipo | Descripción |
 | --- | --- | --- |
 | `title` | texto | Título de la tarjeta |
 | `icon` | nombre Material | Icono del título |
+| `image` | URL | Imagen de banner superior |
 | `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
+
+## Slots
+
+| Slot | Descripción |
+| --- | --- |
+| `default` | Contenido principal de la tarjeta |
+| `#description` | Texto descriptivo secundario (aparece debajo del título) |
 
 ## Anidando directivas
 

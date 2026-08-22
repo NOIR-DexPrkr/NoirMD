@@ -13,6 +13,7 @@ La directiva `:::card-m` crea una tarjeta interactiva que al hacer click abre un
 ```md
 :::card-m {title="Mi proyecto" icon="rocket"}
 
+#default
 Descripción breve visible en la tarjeta.
 
 #content
@@ -24,6 +25,7 @@ Puede incluir markdown completo: tablas, código, directivas...
 
 :::card-m {title="Mi proyecto" icon="rocket"}
 
+#default
 Descripción breve visible en la tarjeta.
 
 #content
@@ -37,6 +39,7 @@ Puede incluir markdown completo: tablas, código, directivas...
 ```md
 :::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}
 
+#default
 Una vista impresionante de las montañas.
 
 #content
@@ -51,6 +54,7 @@ Una vista impresionante de las montañas.
 
 :::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}
 
+#default
 Una vista impresionante de las montañas.
 
 #content
@@ -67,8 +71,11 @@ Una vista impresionante de las montañas.
 ```md
 :::card-m {title="Estadísticas" icon="analytics"}
 
-#description
+#default
 Resumen rápido del rendimiento.
+
+#description
+Datos del último trimestre.
 
 #content
 | Métrica | Valor |
@@ -82,8 +89,11 @@ Resumen rápido del rendimiento.
 
 :::card-m {title="Estadísticas" icon="analytics"}
 
-#description
+#default
 Resumen rápido del rendimiento.
+
+#description
+Datos del último trimestre.
 
 #content
 | Métrica | Valor |
@@ -109,6 +119,16 @@ Click para ver más.
 Abre en nueva pestaña.
 :::
 ```
+
+:::card {title="Estática" icon="info"}
+Contenido siempre visible.
+:::
+:::card-m {title="Modal" icon="open_in_new"}
+Click para ver más.
+:::
+:::card-b {title="Link" icon="link" url="https://example.com"}
+Abre en nueva pestaña.
+:::
 
 ## Props
 

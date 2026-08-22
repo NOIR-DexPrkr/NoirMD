@@ -12,13 +12,17 @@ La directiva `:::stat` muestra una **estadística** con icono, valor y descripci
 
 ```md
 :::stat {title="Descargas" value="31K" icon="download" color="success"}
+:::
 :::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}
+:::
 :::stat {title="Retención" value="82%" icon="trending_up" color="info"}
 :::
 ```
 
 :::stat {title="Descargas" value="31K" icon="download" color="success"}
+:::
 :::stat {title="Nuevos usuarios" value="4,200" icon="group_add" color="primary"}
+:::
 :::stat {title="Retención" value="82%" icon="trending_up" color="info"}
 :::
 
@@ -26,11 +30,13 @@ La directiva `:::stat` muestra una **estadística** con icono, valor y descripci
 
 ```md
 :::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}
+:::
 :::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}
 :::
 ```
 
 :::stat {title="Ingresos" value="$14,320" desc="+12% este mes" icon="payments" color="secondary"}
+:::
 :::stat {title="Errores" value="3" desc="resueltos hoy" icon="bug_report" color="warning"}
 :::
 
@@ -38,6 +44,7 @@ La directiva `:::stat` muestra una **estadística** con icono, valor y descripci
 
 ```md
 :::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}
+:::
 ```
 
 :::stat {title="Tiempo de actividad" value="99.9%" icon="monitor_heart" color="success"}

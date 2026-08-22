@@ -13,6 +13,7 @@ La directiva `:::card-b` crea una tarjeta interactiva que al hacer click **naveg
 ```md
 :::card-b {title="Documentación" icon="menu_book" url="https://example.com"}
 
+#default
 Accede a la documentación completa del proyecto.
 
 :::
@@ -20,6 +21,7 @@ Accede a la documentación completa del proyecto.
 
 :::card-b {title="Documentación" icon="menu_book" url="https://example.com"}
 
+#default
 Accede a la documentación completa del proyecto.
 
 :::
@@ -29,6 +31,7 @@ Accede a la documentación completa del proyecto.
 ```md
 :::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}
 
+#default
 Explora el repositorio en GitHub.
 
 :::
@@ -36,6 +39,7 @@ Explora el repositorio en GitHub.
 
 :::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}
 
+#default
 Explora el repositorio en GitHub.
 
 :::
@@ -45,20 +49,22 @@ Explora el repositorio en GitHub.
 ```md
 :::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}
 
+#default
+Publicado recientemente con las últimas mejoras.
+
 #description
 Paquete disponible en npm.
-
-Publicado recientemente con las últimas mejoras.
 
 :::
 ```
 
 :::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}
 
+#default
+Publicado recientemente con las últimas mejoras.
+
 #description
 Paquete disponible en npm.
-
-Publicado recientemente con las últimas mejoras.
 
 :::
 

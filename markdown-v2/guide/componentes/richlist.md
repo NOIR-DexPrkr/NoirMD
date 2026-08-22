@@ -13,15 +13,21 @@ La directiva `:::richlist` muestra una **lista enriquecida** (`:::richlist-item`
 ```md
 :::richlist
 :::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}
+:::
 :::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}
+:::
 :::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}
+:::
 :::
 ```
 
 :::richlist
 :::richlist-item {title="Vim" subtitle="Editor de texto" image="https://img.daisyui.com/images/stock/photo-1493863641943-9b68992a8d07.webp"}
+:::
 :::richlist-item {title="Git" subtitle="Control de versiones" icon="code" icon2="terminal"}
+:::
 :::richlist-item {title="Docker" subtitle="Contenedores" icon="deployed_code"}
+:::
 :::
 
 ## Con iconos en ambos lados
@@ -29,15 +35,21 @@ La directiva `:::richlist` muestra una **lista enriquecida** (`:::richlist-item`
 ```md
 :::richlist
 :::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}
+:::
 :::richlist-item {title="Atajos" subtitle="Más velocidad" icon="keyboard" icon2="chevron_right"}
+:::
 :::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}
+:::
 :::
 ```
 
 :::richlist
 :::richlist-item {title="Modo oscuro" subtitle="Menos fatiga visual" icon="dark_mode" icon2="chevron_right"}
+:::
 :::richlist-item {title="Atajos" subtitle="Más velocidad" icon="keyboard" icon2="chevron_right"}
+:::
 :::richlist-item {title="Tema" subtitle="Personaliza colores" icon="palette" icon2="chevron_right"}
+:::
 :::
 
 ## Props
