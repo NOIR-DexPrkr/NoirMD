@@ -32,7 +32,7 @@ Los títulos se escriben con almohadillas `#`. Hay **seis niveles**, de `#` (may
 
 - Cada título genera un **ancla** automática: al pulsar sobre él se copia el enlace directo a la sección.
 - El prefijo `[TOC]` (índice de contenidos) genera un índice con todos los títulos del documento (ver la página de **Sintaxis inline**).
-- Los títulos pueden llevar atributos personalizados con la directiva `:::div` o envolverlos en `:::style` para darles clases o estilos propios.
+- Los títulos pueden llevar atributos personalizados con el sufijo `##{.clase #id}`.
 
 ## Anclas
 

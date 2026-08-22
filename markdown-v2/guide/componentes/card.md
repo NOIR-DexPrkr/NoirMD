@@ -91,3 +91,15 @@ Una admonición dentro de la tarjeta:
 Las tarjetas aceptan cualquier directiva dentro.
 :::
 :::
+
+## Variantes
+
+Existen dos variantes de la tarjeta con comportamiento interactivo:
+
+| Directiva | Comportamiento al hacer click |
+| --- | --- |
+| `:::card` | Sin acción (tarjeta estática) |
+| `:::card-m` | Abre un modal con el contenido del slot `#content` |
+| `:::card-b` | Navega a la URL indicada en la prop `url` |
+
+Las tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan automáticamente en grid. Consulta las páginas de **Card Modal** y **Card Link** para más detalles.

@@ -100,5 +100,5 @@ window.reproducirSonido = function (event) {
 ```
 
 :::note
-Si la función no existe, el botón simplemente no hace nada (sin errores). El `event` es contenido propio del autor, con el mismo modelo de confianza que `:::raw` o `:::style`.
+Si la función no existe, el botón simplemente no hace nada (sin errores). El `event` es contenido propio del autor, con el mismo modelo de confianza que los bloques HTML crudo.
 :::

@@ -1,110 +1,80 @@
 /* ============================================================
    NoirMD Vanilla — Hover Gallery
+
+   Stacked images with invisible trigger strips.
+   JS toggles a `.nr-hg-active` class on the visible image.
+   CSS handles the crossfade transition.
    ============================================================ */
 
+/* ── Container ──────────────────────────────────────────────── */
+
 .nr-hover-gallery {
-  --items: 1;
-  display: inline-grid;
-  grid-template-columns: repeat(var(--items), 1fr);
+  position: relative;
   width: 100%;
   max-width: 100%;
-  gap: 1px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--nr-radius-sm);
   background: var(--nr-bg-secondary);
   margin: 1rem 0;
 }
 
-.nr-hover-gallery:has(> :nth-child(3)) {
-  --items: 2;
-}
+/* ── Images (stacked) ───────────────────────────────────────── */
 
-.nr-hover-gallery:has(> :nth-child(4)) {
-  --items: 3;
-}
-
-.nr-hover-gallery:has(> :nth-child(5)) {
-  --items: 4;
-}
-
-.nr-hover-gallery:has(> :nth-child(6)) {
-  --items: 5;
-}
-
-.nr-hover-gallery:has(> :nth-child(7)) {
-  --items: 6;
-}
-
-.nr-hover-gallery:has(> :nth-child(8)) {
-  --items: 7;
-}
-
-.nr-hover-gallery:has(> :nth-child(9)) {
-  --items: 8;
-}
-
-.nr-hover-gallery:has(> :nth-child(10)) {
-  --items: 9;
-}
-
-.nr-hover-gallery > * {
-  opacity: 0;
-  height: 100%;
-  grid-row: 1;
-  object-fit: cover;
+.nr-hover-gallery > img {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
-.nr-hover-gallery > :nth-child(1) {
-  grid-column: 1 / -1;
+.nr-hover-gallery > img.nr-hg-active {
   opacity: 1;
 }
 
-.nr-hover-gallery > :nth-child(2) {
-  grid-column: 1;
+/* ── Trigger strips (invisible, full-height) ────────────────── */
+
+.nr-hover-gallery > .nr-hg-trigger {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 1;
 }
 
-.nr-hover-gallery > :nth-child(3) {
-  grid-column: 2;
+/* ── Indicator dots ─────────────────────────────────────────── */
+
+.nr-hover-gallery > .nr-hg-dots {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.35rem;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.nr-hover-gallery > :nth-child(4) {
-  grid-column: 3;
+.nr-hover-gallery > .nr-hg-dots > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.nr-hover-gallery > :nth-child(5) {
-  grid-column: 4;
+.nr-hover-gallery > .nr-hg-dots > span.nr-hg-dot-active {
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.3);
 }
 
-.nr-hover-gallery > :nth-child(6) {
-  grid-column: 5;
-}
+/* ── Cap at 10 images ───────────────────────────────────────── */
 
-.nr-hover-gallery > :nth-child(7) {
-  grid-column: 6;
-}
-
-.nr-hover-gallery > :nth-child(8) {
-  grid-column: 7;
-}
-
-.nr-hover-gallery > :nth-child(9) {
-  grid-column: 8;
-}
-
-.nr-hover-gallery > :nth-child(10) {
-  grid-column: 9;
-}
-
-.nr-hover-gallery > :nth-child(n + 11) {
-  display: none;
-}
-
-.nr-hover-gallery > *:hover {
-  grid-column: 1 / -1;
-  opacity: 1;
-}
-
-.nr-hover-gallery:has(*:hover) > :nth-child(1) {
+.nr-hover-gallery > img:nth-of-type(n + 11),
+.nr-hover-gallery > .nr-hg-trigger:nth-of-type(n + 11) {
   display: none;
 }

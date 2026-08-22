@@ -53,7 +53,7 @@ Todo lo que está entre la apertura y el cierre `:::` se renderiza con el mismo 
 | `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |
 | `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |
 | `:::details` `:::modal` `:::button` `:::slide` | Interactivos |
-| `:::div` `:::style` `:::raw` | Layout |
+| `<style>` HTML inline | Bloques HTML (CSS global, HTML crudo) |
 
 ## Organización de la guía
 
@@ -61,6 +61,6 @@ Todo lo que está entre la apertura y el cierre `:::` se renderiza con el mismo 
 - **Admoniciones** — cajas de aviso: nota, warning, danger, info y greentext.
 - **Componentes** — los 10 componentes de tarjeta, teclas, acordeón, carrusel, etc.
 - **Interactivos** — details, modal, botones y slides.
-- **Layout** — contenedores `div`, estilos `style` y HTML `raw`.
+- **Layout** — bloques HTML crudo: CSS global con `<style>` e HTML inline.
 
 Cada página incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el código fuente para copiar.
