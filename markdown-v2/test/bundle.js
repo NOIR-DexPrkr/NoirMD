@@ -58414,7 +58414,7 @@ window.tailwind.config = {
       "title": "Card",
       "icon": "dashboard",
       "order": 1,
-      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis b\xE1sica\n\nSolo t\xEDtulo e icono, sin descripci\xF3n:\n\n```md\n:::card {title="Tarjeta simple" icon="star"}\n:::\n```\n\n:::card {title="Tarjeta simple" icon="star"}\n:::\n\n## Con slot `#description`\n\nAgrega un texto descriptivo debajo del t\xEDtulo usando el slot `#description`:\n\n```md\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n```\n\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n\n## Con contenido markdown\n\nEl contenido principal va en el slot `#default` (despu\xE9s de `#description`):\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n- Sin t\xEDtulo: usa `:::card` a secas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n\n## Alineaci\xF3n del grid\n\nUsa `align` para controlar la alineaci\xF3n de las tarjetas en el grid:\n\n```md\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite" align="center"}\n\n#description\nContenido.\n:::\n```\n\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite" align="center"}\n\n#description\nContenido.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `image` | URL | Imagen de banner superior |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n de las tarjetas en el grid (default `left`) |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Slots\n\n| Slot | Descripci\xF3n |\n| --- | --- |\n| `#description` | Texto descriptivo secundario (aparece debajo del t\xEDtulo) |\n| `default` | Contenido principal de la tarjeta |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n\n## Variantes\n\nExisten dos variantes de la tarjeta con comportamiento interactivo:\n\n| Directiva | Comportamiento al hacer click |\n| --- | --- |\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\n| `:::card-m` | Abre un modal con el contenido del slot `#content` |\n| `:::card-b` | Navega a la URL indicada en la prop `url` |\n\nLas tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan autom\xE1ticamente en grid. Consulta las p\xE1ginas de **Card Modal** y **Card Link** para m\xE1s detalles.'
+      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis b\xE1sica\n\nEl slot `#description` es **obligatorio** para mostrar texto en la card:\n\n```md\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n```\n\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n\n## Con contenido markdown\n\nEl slot `#description` admite markdown completo:\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n\n## Alineaci\xF3n del grid\n\nUsa `align` para controlar la alineaci\xF3n de las tarjetas en el grid:\n\n```md\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n```\n\n> `align` solo se define en la primera card del grupo; las dem\xE1s lo ignoran.\n\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `image` | URL | Imagen de banner superior |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del grid. Solo se lee de la primera card del grupo (default `left`) |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Slots\n\n| Slot | Descripci\xF3n |\n| --- | --- |\n| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del t\xEDtulo |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n\n## Variantes\n\nExisten dos variantes de la tarjeta con comportamiento interactivo:\n\n| Directiva | Comportamiento al hacer click |\n| --- | --- |\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\n| `:::card-m` | Abre un modal con el contenido del slot `#content` |\n| `:::card-b` | Navega a la URL indicada en la prop `url` |\n\nLas tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan autom\xE1ticamente en grid. Consulta las p\xE1ginas de **Card Modal** y **Card Link** para m\xE1s detalles.'
     },
     {
       "id": "card-m",
@@ -58422,7 +58422,7 @@ window.tailwind.config = {
       "title": "Card Modal",
       "icon": "open_in_new",
       "order": 2,
-      "md": '# Card Modal\r\n\r\nLa directiva `:::card-m` crea una tarjeta interactiva que al hacer click abre un **modal** con contenido detallado.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#default\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#default\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#default\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#default\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n\r\n## Con slot `#description`\r\n\r\n```md\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#default\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#description\r\nDatos del \xFAltimo trimestre.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#default\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#description\r\nDatos del \xFAltimo trimestre.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-m` se agrupan en grid con `:::card` y `:::card-b`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n```\r\n\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | URL opcional (no se usa como link, solo metadata) |\r\n| `align` | `left` / `center` / `right` | Alineaci\xF3n de las tarjetas en el grid (default `left`) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `default` | Contenido breve visible en la tarjeta |\r\n| `#description` | Texto descriptivo secundario |\r\n| `#content` | Contenido detallado que se muestra en el modal |\r\n\r\n## Diferencia con `:::card` y `:::card-b`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
+      "md": '# Card Modal\r\n\r\nLa directiva `:::card-m` crea una tarjeta interactiva que al hacer click abre un **modal** con contenido detallado.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#description\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Mi proyecto" icon="rocket"}\r\n\r\n#description\r\nDescripci\xF3n breve visible en la tarjeta.\r\n\r\n#content\r\nContenido **detallado** que aparece en el modal.\r\nPuede incluir markdown completo: tablas, c\xF3digo, directivas...\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#description\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}\r\n\r\n#description\r\nUna vista impresionante de las monta\xF1as.\r\n\r\n#content\r\n## Detalles del paisaje\r\n\r\n- Ubicaci\xF3n: Alpes suizos\r\n- Altitud: 2.500m\r\n- Mejor \xE9poca: Junio\u2013Septiembre\r\n\r\n:::\r\n\r\n## Con slot `#description`\r\n\r\n```md\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#description\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n```\r\n\r\n:::card-m {title="Estad\xEDsticas" icon="analytics"}\r\n\r\n#description\r\nResumen r\xE1pido del rendimiento.\r\n\r\n#content\r\n| M\xE9trica | Valor |\r\n| --- | --- |\r\n| Usuarios | 12.345 |\r\n| Tasa de conversi\xF3n | 3,2% |\r\n| Tiempo medio | 2m 15s |\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-m` se agrupan en grid con `:::card` y `:::card-b`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n```\r\n\r\n:::card {title="Est\xE1tica" icon="info"}\r\nContenido siempre visible.\r\n:::\r\n:::card-m {title="Modal" icon="open_in_new"}\r\nClick para ver m\xE1s.\r\n:::\r\n:::card-b {title="Link" icon="link" url="https://example.com"}\r\nAbre en nueva pesta\xF1a.\r\n:::\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | URL opcional (no se usa como link, solo metadata) |\r\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del grid. Solo se lee de la primera card del grupo (default `left`) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del t\xEDtulo |\r\n| `#content` | Contenido detallado que se muestra en el modal |\r\n\r\n## Diferencia con `:::card` y `:::card-b`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
     },
     {
       "id": "keys",
@@ -58446,7 +58446,7 @@ window.tailwind.config = {
       "title": "Card Link",
       "icon": "link",
       "order": 3,
-      "md": '# Card Link\r\n\r\nLa directiva `:::card-b` crea una tarjeta interactiva que al hacer click **navega a una URL** en una nueva pesta\xF1a.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#default\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#default\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#default\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#default\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n\r\n## Con slot `#description`\r\n\r\n```md\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\n\r\n#default\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n#description\r\nPaquete disponible en npm.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\n\r\n#default\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n#description\r\nPaquete disponible en npm.\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-b` se agrupan en grid con `:::card` y `:::card-m`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card-b {title="Docs" icon="menu_book" url="https://docs.example.com"}\r\nDocumentaci\xF3n oficial.\r\n:::\r\n:::card-b {title="GitHub" icon="code" url="https://github.com"}\r\nC\xF3digo fuente.\r\n:::\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\nPaquete npm.\r\n:::\r\n```\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | **Requerido.** URL de destino al hacer click |\r\n| `target` | texto | Target del enlace (por defecto `_blank`) |\r\n| `align` | `left` / `center` / `right` | Alineaci\xF3n de las tarjetas en el grid (default `left`) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `default` | Contenido visible en la tarjeta |\r\n| `#description` | Texto descriptivo secundario |\r\n\r\n## Diferencia con `:::card` y `:::card-m`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
+      "md": '# Card Link\r\n\r\nLa directiva `:::card-b` crea una tarjeta interactiva que al hacer click **navega a una URL** en una nueva pesta\xF1a.\r\n\r\n## Sintaxis\r\n\r\n```md\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#description\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="Documentaci\xF3n" icon="menu_book" url="https://example.com"}\r\n\r\n#description\r\nAccede a la documentaci\xF3n completa del proyecto.\r\n\r\n:::\r\n\r\n## Con imagen\r\n\r\n```md\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#description\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="GitHub" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://github.com"}\r\n\r\n#description\r\nExplora el repositorio en GitHub.\r\n\r\n:::\r\n\r\n## Con imagen y descripci\xF3n\r\n\r\n```md\r\n:::card-b {title="NPM" icon="inventory_2" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://npmjs.com"}\r\n\r\n#description\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n:::\r\n```\r\n\r\n:::card-b {title="NPM" icon="inventory_2" image="https://img.daisyui.com/images/stock/photo-1470071459604-3b5ec3a7fe05.webp" url="https://npmjs.com"}\r\n\r\n#description\r\nPublicado recientemente con las \xFAltimas mejoras.\r\n\r\n:::\r\n\r\n## Grid autom\xE1tico\r\n\r\nLas cards `:::card-b` se agrupan en grid con `:::card` y `:::card-m`. Usa `batch="off"` para evitarlo:\r\n\r\n```md\r\n:::card-b {title="Docs" icon="menu_book" url="https://docs.example.com"}\r\n\r\n#description\r\nDocumentaci\xF3n oficial.\r\n:::\r\n:::card-b {title="GitHub" icon="code" url="https://github.com"}\r\n\r\n#description\r\nC\xF3digo fuente.\r\n:::\r\n:::card-b {title="NPM" icon="inventory_2" url="https://npmjs.com"}\r\n\r\n#description\r\nPaquete npm.\r\n:::\r\n```\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `title` | texto | T\xEDtulo de la tarjeta |\r\n| `icon` | nombre Material | Icono del t\xEDtulo |\r\n| `image` | URL | Imagen de banner superior |\r\n| `url` | URL | **Requerido.** URL de destino al hacer click |\r\n| `target` | texto | Target del enlace (por defecto `_blank`) |\r\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del grid. Solo se lee de la primera card del grupo (default `left`) |\r\n| `batch` | `off` | Desactiva el agrupado en grid |\r\n| `class` | texto | Clases CSS adicionales |\r\n| `style` | CSS | Estilos inline |\r\n\r\n## Slots\r\n\r\n| Slot | Descripci\xF3n |\r\n| --- | --- |\r\n| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del t\xEDtulo |\r\n\r\n## Diferencia con `:::card` y `:::card-m`\r\n\r\n| Directiva | Comportamiento al hacer click |\r\n| --- | --- |\r\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\r\n| `:::card-m` | Abre un modal con el contenido de `#content` |\r\n| `:::card-b` | Navega a la URL indicada en `url` |'
     },
     {
       "id": "carousel",
@@ -59360,301 +59360,47 @@ window.tailwind.config = {
 
   // test/main.jsx
   var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
-  var SAMPLE = `# NReditor \u2014 Test r\xE1pido
-
-**Bold**, *italic*, ==highlight==, %orange%texto naranja%%, !>spoiler<!, ~~tachado~~, \`inline code\` y un [link](https://example.com).
-
-> Cita con **markdown** dentro y \`c\xF3digo\`.
-
-[TOC]
-
-## Admoniciones
-
-:::note Nota
-Contenido de nota con *markdown* y ==highlight==.
-:::
-
-:::warning Cuidado
-Esto es una advertencia.
-:::
-
-:::danger Peligro
-Esto es peligroso.
-:::
-
-:::info Tip
-Dato \xFAtil.
-:::
-
-:::greentext OK
-Todo correcto.
-:::
-
-## Cards
-
-### Grid con igualdad de altura
-
-Las cards del grid ahora tienen la misma altura autom\xE1ticamente, sin importar la cantidad de contenido.
-
-:::card {title="Card corta" icon="star"}
-Poco contenido.
-:::
-:::card {title="Card mediana" icon="favorite"}
-Esta card tiene un poco m\xE1s de contenido para demostrar que se estira a la altura de la m\xE1s alta del grid.
-:::
-:::card {title="Card larga" icon="code"}
-Esta card tiene **mucho m\xE1s contenido** que las otras.
-
-- Punto uno
-- Punto dos
-- Punto tres
-- Punto cuatro
-
-Y un p\xE1rrafo extra para hacerla m\xE1s alta.
-:::
-
-### Alineaci\xF3n del grid
-
-\`\`\`md
-:::card {title="Centrada A" icon="star" align="center"}
-Contenido.
-:::
-:::card {title="Centrada B" icon="favorite" align="center"}
-Contenido.
-:::
-\`\`\`
-
-:::card {title="Centrada A" icon="star" align="center"}
-Contenido.
-:::
-:::card {title="Centrada B" icon="favorite" align="center"}
-Contenido.
-:::
-
-### Cards individuales
+  var SAMPLE = `# Cards
 
 :::card {title="Card 1" icon="star"}
-Contenido de la primera card.
-:::
 
+#description
+Primera card.
+:::
 :::card {title="Card 2" icon="favorite"}
-Contenido de la segunda card.
+
+#description
+Segunda card.
 :::
+:::card {title="Card 3" icon="code"}
 
-## Interactivos
-
-:::details {title="Expandir detalles" icon="expand_more"}
-Contenido oculto que se revela al hacer clic.
+#description
+Tercera card.
 :::
+:::card {title="Card 4" icon="bolt"}
 
-:::modal {title="Modal de prueba" label="Abrir modal"}
-Cuerpo del modal con **markdown**.
+#description
+Cuarta card.
 :::
+:::card {title="Card 5" icon="favorite"}
 
-:::button {label="Bot\xF3n externo" url="https://example.com" icon="near_me"}
+#description
+Quinta card.
 :::
+:::card {title="Card 6" icon="code"}
 
-:::slide {interval="2000" speed="500"}
-Primer slide
-Segundo slide
-Tercer slide
+#description
+Sexta card.
 :::
+:::card {title="Card 7" icon="bolt"}
 
-## Tabla
-
-| Columna A | Columna B | Columna C |
-|:----------|:---------:|----------:|
-| izquierda | centro    | derecha   |
-| 1         | 2         | 3         |
-
-## C\xF3digo
-
-\`\`\`ts
-const greeting: string = 'Hola NoirMD';
-console.log(greeting);
-\`\`\`
-
-\`\`\`js
-const x = [1, 2, 3].map(n => n * 2);
-console.log(x); // [2, 4, 6]
-\`\`\`
-
-## Listas
-
-- Elemento uno
-- Elemento dos
-  - Subelemento A
-  - Subelemento B
-1. Primero
-2. Segundo
-
-## Imagen flotante
-
-![Ejemplo](https://picsum.photos/seed/noirmd/400/300#left){300x220}
-
-Texto alrededor de la imagen para probar el float izquierdo. \`#left\` alinea a la izquierda, \`#right\` a la derecha y \`#center\` centra.
-
-## HTML crudo
-
-<div style="border:1px dashed var(--color-border,#334155);padding:8px;border-radius:8px">
-HTML block con **markdown** dentro.
-</div>
-
-## Raw / Custom / Style
-
-:::div .caja-test #mi-caja
-Wrapper con clase e id.
+#description
+S\xE9ptima card.
 :::
+:::card {title="Card 8" icon="star"}
 
-:::style
-<p>HTML puro dentro de <code>:::style</code>.</p>
-:::
-
-## Nuevos componentes (daisyUI)
-
-### Teclas
-
-:::keys {size="md"}
-CTRL + SHIFT + DEL
-:::
-
-:::keys {size="sm"}
-ALT + F4
-:::
-
-### Acorde\xF3n (anidado)
-
-:::accordion {mode="radio"}
-:::accordion-item {title="How do I create an account?" checked="true"}
-Click the "Sign Up" button in the top right corner and follow the registration process.
-
-:::note Tip
-Puedes anidar **otros directives** dentro de un item del acorde\xF3n.
-:::
-:::
-:::accordion-item {title="I forgot my password. What should I do?"}
-Click on "Forgot Password" on the login page and follow the instructions sent to your email.
-:::
-:::accordion-item {title="How do I update my profile information?"}
-Go to "My Account" settings and select "Edit Profile" to make changes.
-:::
-:::
-
-### Carrusel
-
-:::carousel {height="320px"}
-![Slide 1](https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp)
-![Slide 2](https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp)
-![Slide 3](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
-:::
-
-Carrusel flotante con ancho y aspect personalizado:
-
-:::carousel {aspect="4/3" width="420px" float="right"}
-![A](https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp)
-![B](https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp)
-:::
-
-### Cuenta regresiva
-
-Est\xE1tica:
-
-:::countdown {days="15" hours="10" min="24" sec="59"}
-:::
-
-Live hasta fin de a\xF1o:
-
-:::countdown {target="2026-12-31T23:59:59" labels="d\xEDas|horas|min|seg"}
-:::
-
-### Comparador de im\xE1genes
-
-Arrastra el control del centro (o usa las flechas del teclado) para comparar. Acepta URLs en las props o dos im\xE1genes markdown:
-
-:::diff {width="440px" aspect="4/3" float="left"}
-![Antes](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a.webp)
-![Despu\xE9s](https://img.daisyui.com/images/stock/photo-1560717789-0ac7c58ac90a-blur.webp)
-:::
-
-### Imagen 3D
-
-:::hover-3d
-<figure>
-  <img src="https://img.daisyui.com/images/stock/creditcard.webp" alt="Tarjeta 3D" />
-</figure>
-:::
-
-### Galer\xEDa hover
-
-:::hover-gallery {aspect="16/9"}
-![Gorra 1](https://img.daisyui.com/images/stock/daisyui-hat-1.webp)
-![Gorra 2](https://img.daisyui.com/images/stock/daisyui-hat-2.webp)
-![Gorra 3](https://img.daisyui.com/images/stock/daisyui-hat-3.webp)
-![Gorra 4](https://img.daisyui.com/images/stock/daisyui-hat-4.webp)
-:::
-
-### Chat (anidado)
-
-:::chat
-:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:45" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" footer="Delivered"}
-You were the **Chosen One**!
-:::
-:::chat-item {side="end" name="Anakin" time="12:46" avatar="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" color="primary" footer="Seen at 12:46"}
-I hate you!
-:::
-:::chat-item {side="start" name="Obi-Wan Kenobi" time="12:47" avatar="https://img.daisyui.com/images/profile/demo/kenobee@192.webp" color="error"}
-You were supposed to destroy the Sith, not join them!
-:::
-:::
-
-### Chat con colores arbitrarios
-
-:::chat
-:::chat-item {side="start" name="Bot" time="13:00" color="#6c3fa0"}
-Este mensaje usa un color hex personalizado.
-:::
-:::chat-item {side="end" name="T\xFA" time="13:01" color="teal"}
-Y este usa un nombre CSS: teal.
-:::
-:::chat-item {side="start" name="Bot" time="13:02" color="oklch(65% 0.25 140)"}
-Este usa oklch para un verde vibrante.
-:::
-:::
-
-### Lista enriquecida (anidado)
-
-Haz clic en los altavoces: todos ejecutan la misma funci\xF3n global y suenan.
-
-:::richlist
-:::richlist-item {title="Dio Lupa" subtitle="Remaining Reason" image="https://img.daisyui.com/images/profile/demo/1@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
-"Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth.
-:::
-:::richlist-item {title="Ellie Beilish" subtitle="Bears of a fever" image="https://img.daisyui.com/images/profile/demo/4@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
-"Bears of a Fever" captivated audiences with its intense energy and mysterious lyrics.
-:::
-:::richlist-item {title="Sabrino Gardener" subtitle="Cappuccino" image="https://img.daisyui.com/images/profile/demo/3@94.webp" icon="volume_up" event="click: playClickSound" icon2="volume_up" event2="click: playClickSound"}
-"Cappuccino" quickly gained attention for its smooth melody and relatable themes.
-:::
-:::
-
-### Estad\xEDsticas (auto-batch)
-
-Tokens del tema:
-
-:::stat {title="Total Likes" value="25.6K" desc="21% more than last month" icon="favorite" color="primary"}
-:::
-:::stat {title="Page Views" value="2.6M" desc="21% more than last month" icon="bolt" color="secondary"}
-:::
-:::stat {title="Tasks done" value="86%" desc="31 tasks remaining" icon="task_alt" color="success"}
-:::
-
-Colores arbitrarios (CSS):
-
-:::stat {title="Usuarios" value="1,204" desc="nuevos esta semana" icon="group" color="blue"}
-:::
-:::stat {title="Ingresos" value="$9,430" desc="+8% vs anterior" icon="payments" color="#ff6600"}
-:::
-:::stat {title="Uptime" value="99.9%" desc="\xFAltimos 30 d\xEDas" icon="monitor_heart" color="oklch(65% 0.25 140)"}
+#description
+Octava card.
 :::
 `;
   function toast(msg) {
@@ -59664,24 +59410,6 @@ Colores arbitrarios (CSS):
     clearTimeout(el._t);
     el._t = setTimeout(() => el.classList.remove("show"), 1800);
   }
-  window.playClickSound = function() {
-    try {
-      const w = window;
-      w.__noirmdAudioCtx = w.__noirmdAudioCtx || new (w.AudioContext || w.webkitAudioContext)();
-      const ctx = w.__noirmdAudioCtx;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = "sine";
-      osc.frequency.value = 880;
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(1e-3, ctx.currentTime + 0.15);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.16);
-    } catch {
-    }
-  };
   function App() {
     const [md, setMd] = (0, import_react8.useState)(SAMPLE);
     const toggleTheme = () => {
@@ -59714,7 +59442,7 @@ Colores arbitrarios (CSS):
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: () => {
             setMd("");
-            toast("Editor vac\xEDo");
+            toast("Editor vacio");
           }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "delete_sweep" }),
             " Limpiar"
@@ -59734,12 +59462,7 @@ Colores arbitrarios (CSS):
           onConfig: () => toast("Configurar: pendiente en el test")
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("footer", { className: "test-footer", children: [
-        "Bundle local: ",
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "test/bundle.js" }),
-        " \xB7 regenerar con ",
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "npm run test:editor" })
-      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("footer", { className: "test-footer", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: "@noirmd/previewer v2.0" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { id: "toast", className: "test-toast" })
     ] });
   }

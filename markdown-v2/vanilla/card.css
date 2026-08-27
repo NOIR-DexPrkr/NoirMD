@@ -3,30 +3,30 @@
    ============================================================ */
 
 .nr-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin: 1.5rem 0;
 }
 
 /* ── Alignment variants ── */
 .nr-card-grid--center {
-  justify-items: center;
+  justify-content: center;
 }
 .nr-card-grid--right {
-  justify-items: end;
+  justify-content: flex-end;
 }
 
 .nr-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
   border-radius: var(--nr-radius-lg);
   border: 1px solid var(--nr-border);
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
   min-width: 0;
+  flex: 1 1 18rem;
   max-width: 20rem;
   width: 100%;
 }

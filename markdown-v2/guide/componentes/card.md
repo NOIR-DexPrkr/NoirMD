@@ -10,19 +10,7 @@ La directiva `:::card` crea una tarjeta con icono, título y contenido markdown.
 
 ## Sintaxis básica
 
-Solo título e icono, sin descripción:
-
-```md
-:::card {title="Tarjeta simple" icon="star"}
-:::
-```
-
-:::card {title="Tarjeta simple" icon="star"}
-:::
-
-## Con slot `#description`
-
-Agrega un texto descriptivo debajo del título usando el slot `#description`:
+El slot `#description` es **obligatorio** para mostrar texto en la card:
 
 ```md
 :::card {title="Mi proyecto" icon="rocket"}
@@ -42,7 +30,7 @@ Resumen corto del proyecto.
 
 ## Con contenido markdown
 
-El contenido principal va en el slot `#default` (después de `#description`):
+El slot `#description` admite markdown completo:
 
 ```md
 :::card {title="Documentación técnica" icon="code"}
@@ -52,7 +40,6 @@ Guía completa del motor de renderizado.
 
 - Renderizado por el mismo motor
 - Soporta `inline`, tablas y directivas
-- Sin título: usa `:::card` a secas
 :::
 ```
 
@@ -63,7 +50,6 @@ Guía completa del motor de renderizado.
 
 - Renderizado por el mismo motor
 - Soporta `inline`, tablas y directivas
-- Sin título: usa `:::card` a secas
 :::
 
 ## Grid automático
@@ -114,19 +100,21 @@ Usa `align` para controlar la alineación de las tarjetas en el grid:
 #description
 Contenido.
 :::
-:::card {title="Centrada B" icon="favorite" align="center"}
+:::card {title="Centrada B" icon="favorite"}
 
 #description
 Contenido.
 :::
 ```
 
+> `align` solo se define en la primera card del grupo; las demás lo ignoran.
+
 :::card {title="Centrada A" icon="star" align="center"}
 
 #description
 Contenido.
 :::
-:::card {title="Centrada B" icon="favorite" align="center"}
+:::card {title="Centrada B" icon="favorite"}
 
 #description
 Contenido.
@@ -139,7 +127,7 @@ Contenido.
 | `title` | texto | Título de la tarjeta |
 | `icon` | nombre Material | Icono del título |
 | `image` | URL | Imagen de banner superior |
-| `align` | `left` / `center` / `right` | Alineación de las tarjetas en el grid (default `left`) |
+| `align` | `left` / `center` / `right` | Alineación del grid. Solo se lee de la primera card del grupo (default `left`) |
 | `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
@@ -148,8 +136,7 @@ Contenido.
 
 | Slot | Descripción |
 | --- | --- |
-| `#description` | Texto descriptivo secundario (aparece debajo del título) |
-| `default` | Contenido principal de la tarjeta |
+| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del título |
 
 ## Anidando directivas
 

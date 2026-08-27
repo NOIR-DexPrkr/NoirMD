@@ -13,7 +13,7 @@ La directiva `:::card-m` crea una tarjeta interactiva que al hacer click abre un
 ```md
 :::card-m {title="Mi proyecto" icon="rocket"}
 
-#default
+#description
 Descripción breve visible en la tarjeta.
 
 #content
@@ -25,7 +25,7 @@ Puede incluir markdown completo: tablas, código, directivas...
 
 :::card-m {title="Mi proyecto" icon="rocket"}
 
-#default
+#description
 Descripción breve visible en la tarjeta.
 
 #content
@@ -39,7 +39,7 @@ Puede incluir markdown completo: tablas, código, directivas...
 ```md
 :::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}
 
-#default
+#description
 Una vista impresionante de las montañas.
 
 #content
@@ -54,7 +54,7 @@ Una vista impresionante de las montañas.
 
 :::card-m {title="Paisaje" image="https://img.daisyui.com/images/stock/photo-1506905925346-21bda4d32df4.webp"}
 
-#default
+#description
 Una vista impresionante de las montañas.
 
 #content
@@ -71,11 +71,8 @@ Una vista impresionante de las montañas.
 ```md
 :::card-m {title="Estadísticas" icon="analytics"}
 
-#default
-Resumen rápido del rendimiento.
-
 #description
-Datos del último trimestre.
+Resumen rápido del rendimiento.
 
 #content
 | Métrica | Valor |
@@ -89,11 +86,8 @@ Datos del último trimestre.
 
 :::card-m {title="Estadísticas" icon="analytics"}
 
-#default
-Resumen rápido del rendimiento.
-
 #description
-Datos del último trimestre.
+Resumen rápido del rendimiento.
 
 #content
 | Métrica | Valor |
@@ -138,7 +132,7 @@ Abre en nueva pestaña.
 | `icon` | nombre Material | Icono del título |
 | `image` | URL | Imagen de banner superior |
 | `url` | URL | URL opcional (no se usa como link, solo metadata) |
-| `align` | `left` / `center` / `right` | Alineación de las tarjetas en el grid (default `left`) |
+| `align` | `left` / `center` / `right` | Alineación del grid. Solo se lee de la primera card del grupo (default `left`) |
 | `batch` | `off` | Desactiva el agrupado en grid |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
@@ -147,8 +141,7 @@ Abre en nueva pestaña.
 
 | Slot | Descripción |
 | --- | --- |
-| `default` | Contenido breve visible en la tarjeta |
-| `#description` | Texto descriptivo secundario |
+| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del título |
 | `#content` | Contenido detallado que se muestra en el modal |
 
 ## Diferencia con `:::card` y `:::card-b`
