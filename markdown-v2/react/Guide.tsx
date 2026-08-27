@@ -27,6 +27,7 @@ const Guide: React.FC<GuideProps> = ({
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [navOpen, setNavOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const groups = useMemo(() => {
@@ -64,6 +65,7 @@ const Guide: React.FC<GuideProps> = ({
   useEffect(() => {
     if (!open) return;
     setQuery('');
+    setNavOpen(false);
     if (!selectedId) {
       const initial =
         guideData.find((e) => e.id === initialDirective) ??
@@ -109,6 +111,13 @@ const Guide: React.FC<GuideProps> = ({
       <div className="nr-guide__overlay" onClick={onClose} />
       <div className="nr-guide__panel">
         <header className="nr-guide__head">
+          <button
+            className="nr-guide__nav-toggle"
+            onClick={() => setNavOpen(true)}
+            aria-label="Abrir navegación"
+          >
+            <span className="material-icons-round">menu</span>
+          </button>
           <span className="material-icons-round">menu_book</span>
           <h2>Guía de sintaxis</h2>
           {search && (
@@ -129,6 +138,57 @@ const Guide: React.FC<GuideProps> = ({
           </button>
         </header>
         <div className="nr-guide__body">
+          {/* Nav drawer (mobile) */}
+          {navOpen && (
+            <>
+              <div className="nr-guide__nav-overlay" onClick={() => setNavOpen(false)} />
+              <div className="nr-guide__nav-drawer nr-guide__nav-drawer--open">
+                <nav>
+                  {filtered.map(([cat, entries]) => (
+                    <div className="nr-guide__cat" key={cat}>
+                      <button
+                        className="nr-guide__cat-head"
+                        onClick={() => toggleCategory(cat)}
+                      >
+                        <span className="material-icons-round nr-guide__cat-chevron">
+                          {collapsed[cat] ? 'chevron_right' : 'expand_more'}
+                        </span>
+                        {cat}
+                      </button>
+                      {!collapsed[cat] && (
+                        <ul className="nr-guide__items">
+                          {entries.map((e) => (
+                            <li key={e.id}>
+                              <button
+                                className={`nr-guide__item${
+                                  selectedId === e.id ? ' nr-guide__item--active' : ''
+                                }`}
+                                onClick={() => {
+                                  setSelectedId(e.id);
+                                  setNavOpen(false);
+                                }}
+                              >
+                                {e.icon && (
+                                  <span className="material-icons-round nr-guide__item-icon">
+                                    {e.icon}
+                                  </span>
+                                )}
+                                {e.title}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                  {filtered.length === 0 && (
+                    <div className="nr-guide__empty">Sin resultados para «{query}».</div>
+                  )}
+                </nav>
+              </div>
+            </>
+          )}
+          {/* Nav inline (desktop) */}
           <nav className="nr-guide__nav">
             {filtered.map(([cat, entries]) => (
               <div className="nr-guide__cat" key={cat}>

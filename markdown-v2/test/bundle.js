@@ -58565,6 +58565,7 @@ window.tailwind.config = {
     const [query, setQuery] = (0, import_react6.useState)("");
     const [selectedId, setSelectedId] = (0, import_react6.useState)(null);
     const [collapsed, setCollapsed] = (0, import_react6.useState)({});
+    const [navOpen, setNavOpen] = (0, import_react6.useState)(false);
     const contentRef = (0, import_react6.useRef)(null);
     const groups = (0, import_react6.useMemo)(() => {
       const map = /* @__PURE__ */ new Map();
@@ -58592,6 +58593,7 @@ window.tailwind.config = {
     (0, import_react6.useEffect)(() => {
       if (!open) return;
       setQuery("");
+      setNavOpen(false);
       if (!selectedId) {
         const initial = guideData.find((e) => e.id === initialDirective) ?? guideData.find((e) => e.id === "introduccion") ?? guideData[0];
         setSelectedId(initial?.id ?? null);
@@ -58624,6 +58626,15 @@ window.tailwind.config = {
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__overlay", onClick: onClose }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__panel", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "nr-guide__head", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              "button",
+              {
+                className: "nr-guide__nav-toggle",
+                onClick: () => setNavOpen(true),
+                "aria-label": "Abrir navegaci\xF3n",
+                children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu" })
+              }
+            ),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round", children: "menu_book" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Gu\xEDa de sintaxis" }),
             search && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
@@ -58647,6 +58658,43 @@ window.tailwind.config = {
             )
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__body", children: [
+            navOpen && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__nav-overlay", onClick: () => setNavOpen(false) }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "nr-guide__nav-drawer nr-guide__nav-drawer--open", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { children: [
+                filtered.map(([cat, entries]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__cat", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                    "button",
+                    {
+                      className: "nr-guide__cat-head",
+                      onClick: () => toggleCategory(cat),
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__cat-chevron", children: collapsed[cat] ? "chevron_right" : "expand_more" }),
+                        cat
+                      ]
+                    }
+                  ),
+                  !collapsed[cat] && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { className: "nr-guide__items", children: entries.map((e) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                    "button",
+                    {
+                      className: `nr-guide__item${selectedId === e.id ? " nr-guide__item--active" : ""}`,
+                      onClick: () => {
+                        setSelectedId(e.id);
+                        setNavOpen(false);
+                      },
+                      children: [
+                        e.icon && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "material-icons-round nr-guide__item-icon", children: e.icon }),
+                        e.title
+                      ]
+                    }
+                  ) }, e.id)) })
+                ] }, cat)),
+                filtered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__empty", children: [
+                  "Sin resultados para \xAB",
+                  query,
+                  "\xBB."
+                ] })
+              ] }) })
+            ] }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "nr-guide__nav", children: [
               filtered.map(([cat, entries]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "nr-guide__cat", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(

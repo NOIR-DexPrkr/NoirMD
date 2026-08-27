@@ -258,7 +258,7 @@
   display: flex;
   flex-direction: column;
   width: min(980px, 94vw);
-  height: min(740px, 88vh);
+  height: min(740px, 88dvh);
   background: var(--color-background-primary, #0f172a);
   border: 1px solid var(--color-border, #334155);
   border-radius: 14px;
@@ -314,6 +314,49 @@
 .nr-guide__close:hover {
   color: var(--color-text-primary, #e2e8f0);
   background: rgba(255, 255, 255, 0.06);
+}
+/* Hamburger button — hidden on desktop, visible on mobile */
+.nr-guide__nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary, #94a3b8);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.nr-guide__nav-toggle:hover {
+  color: var(--color-text-primary, #e2e8f0);
+  background: rgba(255, 255, 255, 0.06);
+}
+/* Nav drawer (mobile) — overlay */
+.nr-guide__nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: rgba(0, 0, 0, 0.5);
+}
+/* Nav drawer (mobile) — sliding panel */
+.nr-guide__nav-drawer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  z-index: 211;
+  background: var(--color-background-primary, #0f172a);
+  border-right: 1px solid var(--color-border, #334155);
+  overflow-y: auto;
+  padding: 10px 8px;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+.nr-guide__nav-drawer--open {
+  transform: translateX(0);
 }
 .nr-guide__body {
   display: flex;
@@ -400,10 +443,11 @@
   padding: 20px 26px;
 }
 .nr-guide__content > div {
-  height: 100%;
+  min-height: 100%;
 }
 .nr-guide__content .nr-prose {
   font-size: 14px;
+  min-height: inherit;
 }
 .nr-guide__content h1 {
   font-size: 1.5rem;
@@ -430,11 +474,22 @@
 @media (max-width: 560px) {
   .nr-guide__panel {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     border-radius: 0;
     border: none;
   }
   .nr-guide__nav {
     display: none;
+  }
+  .nr-guide__nav-toggle {
+    display: flex;
+  }
+  .nr-guide__head h2 {
+    display: none;
+  }
+  .nr-guide__search {
+    flex: 1;
+    width: auto;
+    min-width: 0;
   }
 }

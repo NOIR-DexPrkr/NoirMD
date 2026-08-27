@@ -34,6 +34,9 @@ Cuando modifiques cualquier componente o directiva, sigue estos pasos **en orden
 
 ### 1. Implementar el cambio
 
+markdown-v2/vanilla es el corazón del motor de renderizado. Dependiendo del cambio, edita los archivos correspondientes:
+Index del proyecto en `markdown-v2\INDEX.md`
+
 - **Directiva**: edita `markdown-v2/vanilla/directives/<nombre>.ts`
 - **Estilos**: edita `markdown-v2/vanilla/<nombre>.css`
 - **Renderer**: edita `markdown-v2/vanilla/renderer.ts` (solo si afecta el batching o el pipeline)
