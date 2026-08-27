@@ -57,7 +57,7 @@ Texto que fluye junto al diff flotante: la comparación queda integrada en el p�
 | `height` | CSS (px) | Altura del comparador (default `16/9` de aspecto) |
 | `aspect` | ratio | Proporción (`4/3`, `1/1`, ...) |
 | `width` | CSS (px, %) | Ancho del comparador |
-| `float` | `left` \| `right` \| `center` | Flotación (sin `width`, `max-width: 50%`) |
+| `float` | `left` / `right` / `center` | Flotación (sin `width`, `max-width: 50%`) |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
 

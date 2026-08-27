@@ -138,6 +138,7 @@ Abre en nueva pestaña.
 | `icon` | nombre Material | Icono del título |
 | `image` | URL | Imagen de banner superior |
 | `url` | URL | URL opcional (no se usa como link, solo metadata) |
+| `align` | `left` / `center` / `right` | Alineación de las tarjetas en el grid (default `left`) |
 | `batch` | `off` | Desactiva el agrupado en grid |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |

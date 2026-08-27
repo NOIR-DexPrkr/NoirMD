@@ -64,8 +64,8 @@ console.log('¡Resuelto!');
 
 | Prop | Tipo | Descripción |
 | --- | --- | --- |
-| `title` | texto | Título del desplegable |
-| `icon` | nombre Material | Icono junto al título |
+| `title` | texto | T\u00edtulo del desplegable (default `Details`) |
+| `icon` | nombre Material | Icono junto al t\u00edtulo (default `play_arrow`) |
 | `defaultOpen` | `true` | Abierto al cargar |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |

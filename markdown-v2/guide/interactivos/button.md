@@ -49,6 +49,5 @@ Descarga el **manual** en PDF
 | `label` | texto | Texto del botón |
 | `url` (o `href`) | URL | Destino del enlace (default `#`) |
 | `icon` | nombre Material | Icono (default `near_me`) |
-| `target` | `_blank` \| `_self` \| ... | Destino del enlace (default `_blank`) |
+| `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |
 | `class` | texto | Clases CSS adicionales |
-| `style` | CSS | Estilos inline |

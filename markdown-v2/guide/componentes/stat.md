@@ -58,7 +58,7 @@ La directiva `:::stat` muestra una **estadística** con icono, valor y descripci
 | `value` | texto | Valor principal (grande) |
 | `desc` | texto | Descripción bajo el valor |
 | `icon` | nombre Material | Icono lateral |
-| `color` | `primary` \| `secondary` \| `info` \| `success` \| `warning` \| `error` \| CSS color | Color del icono y valor. Acepta tokens del tema o cualquier color CSS válido (ej: `blue`, `#ff0000`, `rgb(255,0,0)`) |
+| `color` | `primary` / `secondary` / `info` / `success` / `warning` / `error` / CSS color | Color del icono y valor. Acepta tokens del tema o cualquier color CSS v\u00e1lido (ej: `blue`, `#ff0000`, `rgb(255,0,0)`) |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
 

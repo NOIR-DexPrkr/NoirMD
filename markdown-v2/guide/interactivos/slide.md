@@ -91,6 +91,6 @@ Las directivas se anidan dentro.
 
 ## Notas
 
-- Los puntos inferiores permiten saltar a una diapositiva.
-- Al llegar a la última, vuelve a la primera automáticamente (loop).
-- La barra de progreso superior muestra el avance del ciclo.
+- Al llegar a la \u00faltima diapositiva, vuelve a la primera autom\u00e1ticamente (loop).
+- El contenido de cada diapositiva admite markdown completo y directivas anidadas.
+- La altura del contenedor se adapta autom\u00e1ticamente al contenido m\u00e1s alto.

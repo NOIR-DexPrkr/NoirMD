@@ -93,6 +93,7 @@ Paquete npm.
 | `image` | URL | Imagen de banner superior |
 | `url` | URL | **Requerido.** URL de destino al hacer click |
 | `target` | texto | Target del enlace (por defecto `_blank`) |
+| `align` | `left` / `center` / `right` | Alineación de las tarjetas en el grid (default `left`) |
 | `batch` | `off` | Desactiva el agrupado en grid |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |

@@ -74,7 +74,7 @@ CTRL + A
 
 | Prop | Tipo | Descripción |
 | --- | --- | --- |
-| `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` | Tamaño de las teclas (default `md`) |
+| `size` | `xs` / `sm` / `md` / `lg` / `xl` | Tamaño de las teclas (default `md`) |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
 

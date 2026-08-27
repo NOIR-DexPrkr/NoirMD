@@ -53,7 +53,7 @@ Las imágenes se ponen como markdown dentro del bloque:
 | `height` | CSS (px) | Altura fija del viewport |
 | `aspect` | ratio | Proporción del viewport (default `16/9`) |
 | `width` | CSS (px, %) | Ancho del carrusel |
-| `float` | `left` \| `right` \| `center` | Flotación (sin `width`, el flotante usa `max-width: 50%`) |
+| `float` | `left` / `right` / `center` | Flotación (sin `width`, el flotante usa `max-width: 50%`) |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
 

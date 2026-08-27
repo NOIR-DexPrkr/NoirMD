@@ -139,7 +139,7 @@ Contenido.
 | `title` | texto | Título de la tarjeta |
 | `icon` | nombre Material | Icono del título |
 | `image` | URL | Imagen de banner superior |
-| `align` | `left` \| `center` \| `right` | Alineación de las tarjetas en el grid (default `left`) |
+| `align` | `left` / `center` / `right` | Alineación de las tarjetas en el grid (default `left`) |
 | `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |
 | `class` | texto | Clases CSS adicionales |
 | `style` | CSS | Estilos inline |
