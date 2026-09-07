@@ -10,13 +10,12 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
+import { applyBaseProps } from '../utils';
 
 const keysDirective: DirectiveRendererFn = ({ props, slots }) => {
   const wrap = document.createElement('div');
   wrap.className = 'nr-keys';
-
-  if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) wrap.setAttribute('style', props.style);
+  applyBaseProps(wrap, props);
 
   const sizeClass = props.size ? ` nr-kbd--${props.size}` : '';
 

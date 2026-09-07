@@ -4,6 +4,7 @@
 
 import type { DirectiveRendererFn } from './index';
 import { createDetails } from '../components';
+import { applyBaseProps } from '../utils';
 
 const detailsDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const el = createDetails(
@@ -11,9 +12,7 @@ const detailsDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
     props.icon,
     props.defaultOpen === 'true',
   );
-
-  if (props.class) el.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) el.setAttribute('style', props.style);
+  applyBaseProps(el, props);
 
   // Append default slot into the body
   const body = el.querySelector('.nr-details__body');

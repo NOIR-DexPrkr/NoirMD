@@ -76,3 +76,5 @@ Los botones se alinean a la izquierda por defecto. Usa el prop `align` para camb
 | `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |
 | `align` | `left` / `center` / `right` | Alineación del botón (default `left`) |
 | `class` | texto | Clases CSS adicionales |
+
+> **Nota:** El prop `style` no está soportado en `:::button`. Los estilos inline se ignoran en este componente.

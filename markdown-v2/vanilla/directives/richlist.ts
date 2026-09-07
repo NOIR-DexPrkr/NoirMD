@@ -20,13 +20,12 @@
 import type { DirectiveRendererFn } from './index';
 import { createIcon } from '../components';
 import { bindEventProp } from './events';
+import { applyBaseProps } from '../utils';
 
 export const richlistItemDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const li = document.createElement('li');
   li.className = 'nr-richlist__item';
-
-  if (props.class) li.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) li.setAttribute('style', props.style);
+  applyBaseProps(li, props);
 
   if (props.image) {
     const thumb = document.createElement('div');
@@ -95,9 +94,7 @@ export const richlistItemDirective: DirectiveRendererFn = ({ props, renderSlot }
 const richlistDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const ul = document.createElement('ul');
   ul.className = 'nr-richlist';
-
-  if (props.class) ul.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) ul.setAttribute('style', props.style);
+  applyBaseProps(ul, props);
 
   ul.appendChild(renderSlot('default'));
   return ul;

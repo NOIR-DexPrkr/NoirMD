@@ -16,15 +16,14 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
+import { applyBaseProps } from '../utils';
 
 let accordionCounter = 0;
 
 export const accordionItemDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const item = document.createElement('div');
   item.className = 'nr-accordion__item';
-
-  if (props.class) item.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) item.setAttribute('style', props.style);
+  applyBaseProps(item, props);
 
   const input = document.createElement('input');
   input.type = 'radio';
@@ -48,9 +47,7 @@ export const accordionItemDirective: DirectiveRendererFn = ({ props, renderSlot 
 const accordionDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const wrap = document.createElement('div');
   wrap.className = 'nr-accordion';
-
-  if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) wrap.setAttribute('style', props.style);
+  applyBaseProps(wrap, props);
 
   wrap.appendChild(renderSlot('default'));
 

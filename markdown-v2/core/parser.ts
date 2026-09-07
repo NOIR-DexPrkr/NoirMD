@@ -1,6 +1,12 @@
 import type { Token, DirectiveToken, HtmlBlockToken, CSSProperties } from './types';
 import { generateId, generateScopeId, parseProps, extractAttributes } from './utils';
 
+/** HTML void elements that cannot have children (hoisted to module level for reuse). */
+const VOID_ELEMENTS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+  'link', 'meta', 'param', 'source', 'track', 'wbr'
+]);
+
 /**
  * V2 Markdown Parser — line-by-line state machine (framework-agnostic).
  */
@@ -20,8 +26,17 @@ export function parseMarkdown(markdown: string): Token[] {
     if ((match = trimmed.match(/^(#{1,6})\s+(.+)$/))) {
       const level = match[1].length;
       const rawText = match[2];
-      const { text, classes, id: customId } = extractAttributes(rawText);
-      const baseId = customId || generateId(text.replace(/->|<-/g, ''));
+      const { text: rawParsedText, classes, id: customId } = extractAttributes(rawText);
+
+      // Detect alignment from raw text before stripping markers
+      let text = rawParsedText;
+      let align: 'center' | 'right' | undefined;
+      const alignCenter = text.match(/^->\s*(.+?)\s*<-\s*$/);
+      const alignRight = text.match(/^->\s*(.+?)\s*->\s*$/);
+      if (alignCenter) { text = alignCenter[1]; align = 'center'; }
+      else if (alignRight) { text = alignRight[1]; align = 'right'; }
+
+      const baseId = customId || generateId(text);
       let id = baseId;
       let n = 1;
       while (usedIds.has(id)) {
@@ -29,7 +44,7 @@ export function parseMarkdown(markdown: string): Token[] {
         id = `${baseId}-${n}`;
       }
       usedIds.add(id);
-      result.push({ type: 'header', level, text, id, classes: classes || undefined });
+      result.push({ type: 'header', level, text, id, classes: classes || undefined, align });
       i++;
       continue;
     }
@@ -255,10 +270,7 @@ export function parseMarkdown(markdown: string): Token[] {
     if (tagStartMatch) {
       const tagName = tagStartMatch[1].toLowerCase();
 
-      const voidElements = new Set([
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
-        'link', 'meta', 'param', 'source', 'track', 'wbr'
-      ]);
+      // (voidElements set is defined at module level)
 
       const remainingText = lines.slice(i).join('\n');
 
@@ -270,7 +282,7 @@ export function parseMarkdown(markdown: string): Token[] {
         const fullOpenTag = openTagMatch[0];
         const attrs = openTagMatch[1].replace(/\s+/g, ' ').trim();
 
-        const isSelfClosing = fullOpenTag.endsWith('/>') || voidElements.has(tagName);
+        const isSelfClosing = fullOpenTag.endsWith('/>') || VOID_ELEMENTS.has(tagName);
 
         if (isSelfClosing) {
           const blockText = remainingText.substring(0, openTagMatch.index! + fullOpenTag.length);

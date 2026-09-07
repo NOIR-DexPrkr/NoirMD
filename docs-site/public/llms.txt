@@ -1,6 +1,6 @@
 # NoirMD — Documentation
 
-> NoirMD is a **framework-agnostic markdown renderer**: one vanilla DOM rendering engine with thin React/Vue wrappers. It ships a custom parser, a 26+ directive system (admonitions, cards, modals, details, buttons, slides, interactive components), rich inline syntax, built-in syntax highlighting (highlight.js) and modular pure CSS theming. This file indexes the official documentation. All links are relative to the site root.
+> NoirMD is a **framework-agnostic markdown renderer**: one vanilla DOM rendering engine with thin React/Vue wrappers. It ships a custom parser, a 29-directive system (admonitions, cards, modals, details, buttons, slides, interactive components), rich inline syntax, built-in syntax highlighting (highlight.js) and modular pure CSS theming. This file indexes the official documentation. All links are relative to the site root.
 
 ## What is NoirMD?
 
@@ -10,7 +10,7 @@ Pipeline: `parseMarkdown(markdown)` → typed `Token[]` AST → vanilla DOM rend
 
 - **Framework-agnostic**: one engine for React, Vue, vanilla JS or any framework
 - **Custom parser**: line-by-line state machine producing a typed `Token[]` AST
-- **Directive system**: 26+ directive types — admonitions, cards (static/modal/link), modals, details, buttons, slides, accordion, carousel, countdown, diff, chat, richlist, stat, hover effects, keyboard keys
+- **Directive system**: 29 directive types — admonitions, cards (static/modal/link), modals, details, buttons, slides, accordion, carousel, countdown, diff, chat, richlist, stat, hover effects, keyboard keys
 - **Modular CSS**: pure CSS split into `variables.css`, `base.css` and one file per component; `--nr-*` design tokens with `--color-*` host-variable theming
 - **Rich inline syntax**: bold, italic, highlight, color, spoiler, underline, icons, centered/right-aligned text and more
 - **Syntax highlighting**: code blocks with highlight.js built-in
@@ -148,7 +148,7 @@ Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`le
 
 ### Layout
 
-`:::div`, `:::style`, `:::raw`, `:::custom` are all generic wrapper directives (identical behavior — render a `<div>` with optional `class`, `id`, `style`, `data-*` attributes). For actual CSS injection, use `<style>` HTML blocks. For raw HTML, write HTML directly in markdown.
+`:::div`, `:::style`, `:::raw`, `:::custom` are all generic wrapper directives (identical implementation — render a `<div>` with optional `class`, `id`, `style`, `data-*` attributes). For actual CSS injection, use `<style>` HTML blocks. For raw HTML, write HTML directly in markdown.
 
 ## Inline Syntax
 
@@ -205,3 +205,22 @@ NoirMD extends standard markdown with inline formatting:
 - [HTML Raw](/docs/html-raw): Native HTML, `<style>` and `<script>` inside markdown.
 - [Limitaciones](/docs/limitaciones): Platform restrictions, security/trust model and edge cases.
 - [Best Practices](/docs/best-practices): Rules, restrictions and pitfalls.
+
+### Layout Components
+- [Wrapper Directives](/docs/wrapper-directives): `:::div`, `:::style`, `:::custom`, `:::raw` — generic layout wrappers with class, id, style and data-* props.
+
+### Shared Utilities (Vanilla)
+
+The vanilla engine exports reusable helpers via `@noirmd/previewer/vanilla`:
+
+| Export | Description |
+|--------|-------------|
+| `applyBaseProps(el, props)` | Apply `class` and `style` props to any element |
+| `applyColor(el, color, classSuffix)` | Theme token → CSS class, arbitrary → inline style |
+| `applyFloatStyle(el, float, width?)` | Float positioning (left/right/center) |
+| `openModal(dialog)` | Open native `<dialog>` with body append + cleanup |
+| `isThemeToken(color)` | Check if color is a known theme token |
+| `isArbitraryColor(value)` | Check if value is a CSS color |
+| `THEME_TOKENS` | Unified set: primary, secondary, accent, neutral, info, success, warning, error |
+| `IMG_RE` | Shared markdown image regex |
+| `parseIntProp(value, default)` | Safe integer parsing with NaN guard |

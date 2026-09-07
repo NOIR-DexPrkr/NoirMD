@@ -14,6 +14,7 @@ export interface HeaderToken {
   text: string;
   id: string;
   classes?: string;
+  align?: 'center' | 'right';
 }
 
 export interface ParagraphToken {

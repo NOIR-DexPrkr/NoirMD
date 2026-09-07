@@ -10,13 +10,12 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
+import { applyBaseProps } from '../utils';
 
 const hover3dDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const container = document.createElement('div');
   container.className = 'nr-hover-3d';
-
-  if (props.class) container.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) container.setAttribute('style', props.style);
+  applyBaseProps(container, props);
 
   const stage = document.createElement('div');
   stage.className = 'nr-hover-3d__stage';

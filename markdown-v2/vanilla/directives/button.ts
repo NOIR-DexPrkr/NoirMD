@@ -4,6 +4,7 @@
 
 import type { DirectiveRendererFn } from './index';
 import { createIcon } from '../components';
+import { applyBaseProps } from '../utils';
 
 const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const url = props.url || props.href || '#';
@@ -24,7 +25,7 @@ const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
     a.target = target;
     a.rel = 'noopener noreferrer';
     a.className = 'nr-button nr-button--default';
-    if (customClass) a.classList.add(...customClass.split(/\s+/).filter(Boolean));
+    applyBaseProps(a, props);
     a.appendChild(createIcon(icon));
     a.appendChild(document.createTextNode(label));
     wrapper.appendChild(a);
@@ -39,7 +40,7 @@ const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   if (links.length > 0) {
     links.forEach(link => {
       link.classList.add('nr-button', 'nr-button--default');
-      if (customClass) link.classList.add(...customClass.split(/\s+/).filter(Boolean));
+      applyBaseProps(link, props);
     });
     wrapper.appendChild(slotContent);
   } else {
@@ -49,7 +50,7 @@ const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
     a.target = target;
     a.rel = 'noopener noreferrer';
     a.className = 'nr-button nr-button--default';
-    if (customClass) a.classList.add(...customClass.split(/\s+/).filter(Boolean));
+    applyBaseProps(a, props);
     a.appendChild(createIcon(icon));
     a.appendChild(slotContent);
     wrapper.appendChild(a);

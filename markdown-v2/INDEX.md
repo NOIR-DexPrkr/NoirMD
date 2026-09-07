@@ -62,24 +62,34 @@ markdown-v2/
 │   ├── highlightSetup.ts    # highlight.js registration (editor)
 │   └── index.ts             # Barrel export
 ├── vanilla/                 # THE rendering engine (no React)
+│   ├── utils.ts             # Shared helpers: applyBaseProps, applyColor, openModal, etc.
 │   ├── components.ts        # Factory: icon, codeblock, admonition, details, modal, table, list, toc
 │   ├── inline.ts            # renderInline → DocumentFragment
 │   ├── renderer.ts          # renderTokens/renderMarkdownString/renderHtmlString → HTMLElement
-│   ├── directives/          # Directive renderers (admonition, card, details, modal, button, wrapper, slide)
+│   ├── directives/          # 19 directive files (see Directive System below)
 │   ├── vanilla.css          # CSS entry — only @imports the partials below
 │   ├── variables.css        # Design tokens (--nr-* with --color-* fallbacks)
 │   ├── base.css             # Global/reusable: typography, inline elements, hljs theme
-│   ├── codeblock.css        # One file per component (admonition, card, modal, ...)
-│   ├── admonition.css
-│   ├── details.css
-│   ├── modal.css
-│   ├── card.css
+│   ├── codeblock.css        # One file per component
+│   ├── accordion.css
 │   ├── button.css
-│   ├── table.css
+│   ├── card.css
+│   ├── carousel.css
+│   ├── chat.css
+│   ├── countdown.css
+│   ├── details.css
+│   ├── diff.css
+│   ├── hover3d.css
+│   ├── hovergallery.css
+│   ├── kbd.css
 │   ├── list.css
+│   ├── modal.css
+│   ├── richlist.css
+│   ├── slide.css
+│   ├── stat.css
+│   ├── table.css
 │   ├── blockquote.css
 │   ├── toc.css
-│   ├── slide.css
 │   └── index.ts             # Barrel export
 ├── vue/                     # Vue 3 bindings (thin mount-point wrappers, no SFC)
 │   ├── CustomMarkdownRenderer.ts  # Mount-point for vanilla renderer
@@ -98,13 +108,35 @@ markdown-v2/
 
 ## Directive System
 
-16 directive strings map to 7 component implementations:
+29 directive strings map to 19 directive implementations:
 
-- **Admonitions**: `note`, `info`, `warning`, `danger`, `greentext` → `AdmonitionDirective`
-- **Cards**: `card`, `card-m`, `card-b` → `CardDirective` (auto-batch consecutive cards)
-- **Interactive**: `details`, `modal`, `button` → dedicated components
-- **Layout**: `div`, `style`, `custom`, `raw` → `WrapperDirective`
-- **Animation**: `slide` → `SlideDirective`
+- **Admonitions**: `note`, `info`, `warning`, `danger`, `greentext` → `admonition.ts`
+- **Cards**: `card`, `card-m`, `card-b` → `card.ts` (auto-batch consecutive cards into grid)
+- **Interactive**: `details`, `modal`, `button` → dedicated directive files
+- **Layout**: `div`, `style`, `custom`, `raw` → `wrapper.ts`
+- **Animation**: `slide` → `slide.ts`
+- **Keyboard**: `keys` → `keys.ts`
+- **Collapsible**: `accordion`, `accordion-item` → `accordion.ts` (radio/checkbox modes)
+- **Carousel**: `carousel` → `carousel.ts` (image carousel with nav arrows + dots)
+- **Countdown**: `countdown` → `countdown.ts` (static or live ticking countdown)
+- **Diff**: `diff` → `diff.ts` (before/after image comparison slider)
+- **3D Hover**: `hover-3d` → `hover3d.ts` (3D tilt card)
+- **Image Gallery**: `hover-gallery` → `hovergallery.ts` (hover crossfade gallery)
+- **Chat**: `chat`, `chat-item` → `chat.ts` (chat bubbles)
+- **Rich List**: `richlist`, `richlist-item` → `richlist.ts` (rich list rows)
+- **Stat**: `stat` → `stat.ts` (stat card, auto-batch into grid)
+
+### Shared Utilities (`utils.ts`)
+
+Reusable helpers shared across all directives:
+- `applyBaseProps(el, props)` — applies `class` and `style` props to any element
+- `applyColor(el, color, classSuffix)` — theme token → CSS class, arbitrary → inline style
+- `applyFloatStyle(el, float, width?)` — float positioning (left/right/center)
+- `openModal(dialog)` — open native `<dialog>` with proper body append + cleanup
+- `isThemeToken(color)`, `isArbitraryColor(value)` — color classification
+- `IMG_RE` — shared markdown image regex
+- `parseIntProp(value, default)` — safe integer parsing with NaN guard
+- `THEME_TOKENS` — unified set: primary, secondary, accent, neutral, info, success, warning, error
 
 ### Slot System
 

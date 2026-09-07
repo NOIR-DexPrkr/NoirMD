@@ -28,5 +28,18 @@ export {
 export { default as directiveRegistry } from './directives';
 export type { DirectiveRendererFn, DirectiveProps, VanillaRenderContext } from './directives';
 
+// ── Shared utilities ──
+export {
+  THEME_TOKENS,
+  isThemeToken,
+  isArbitraryColor,
+  applyBaseProps,
+  applyFloatStyle,
+  applyColor,
+  openModal,
+  IMG_RE,
+  parseIntProp,
+} from './utils';
+
 // ── Tailwind CDN theme ──
 export { injectNRTailwindTheme, removeNRTailwindTheme, hasHostTheme } from './tailwindTheme';

@@ -38,7 +38,7 @@ Todo lo que está entre la apertura y el cierre `:::` se renderiza con el mismo 
 | Sintaxis | Resultado |
 | --- | --- |
 | `# Título` → `###### Título` | Encabezados |
-| `**negrita**` · `*cursiva*` · `~~tachado~~` | Énfasis |
+| `**negrita**` · `_cursiva_` · `~~tachado~~` | Énfasis |
 | `` `código` `` | Código inline |
 | `` ```js `` | Bloque de código con resaltado |
 | `[texto](url)` | Enlace |

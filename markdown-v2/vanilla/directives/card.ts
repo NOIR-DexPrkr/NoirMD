@@ -4,7 +4,7 @@
 
 import type { DirectiveRendererFn } from './index';
 import { createIcon, createModal } from '../components';
-import { parseCssString } from '../../core/utils';
+import { applyBaseProps, openModal } from '../utils';
 
 const cardDirective: DirectiveRendererFn = ({
   directiveType,
@@ -21,15 +21,9 @@ const cardDirective: DirectiveRendererFn = ({
   const isModal = directiveType === 'card-m';
   const isLink = directiveType === 'card-b';
 
-  const inlineStyles = props.style ? parseCssString(props.style) : {};
-
   const card = document.createElement('div');
   card.className = `nr-card${isModal || isLink ? ' nr-card--interactive' : ''} ${customClass}`.trim();
-
-  // Apply inline styles
-  for (const [key, value] of Object.entries(inlineStyles)) {
-    card.style.setProperty(key, String(value));
-  }
+  applyBaseProps(card, props);
 
   // Image banner
   if (image) {
@@ -128,13 +122,7 @@ const cardDirective: DirectiveRendererFn = ({
       modalBody.appendChild(prose);
     }
 
-    card.addEventListener('click', () => {
-      if (!dialog.open) {
-        document.body.appendChild(dialog);
-        dialog.showModal();
-        dialog.addEventListener('close', () => dialog.remove(), { once: true });
-      }
-    });
+    card.addEventListener('click', () => openModal(dialog));
 
     // Return fragment with card + dialog
     const frag = document.createDocumentFragment();

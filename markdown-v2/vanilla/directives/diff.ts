@@ -18,8 +18,7 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
-
-const IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
+import { IMG_RE, applyBaseProps, applyFloatStyle } from '../utils';
 
 const diffDirective: DirectiveRendererFn = ({ props, slots }) => {
   let before = (props.before || '').split('#')[0].trim();
@@ -46,21 +45,11 @@ const diffDirective: DirectiveRendererFn = ({ props, slots }) => {
   figure.tabIndex = 0;
   figure.setAttribute('aria-label', 'Image comparison slider');
 
-  if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) figure.setAttribute('style', props.style);
+  applyBaseProps(figure, props);
   if (props.aspect) figure.style.aspectRatio = props.aspect;
   if (props.height) figure.style.height = props.height;
   if (props.width) figure.style.width = props.width;
-  if (props.float) {
-    if (props.float === 'left' || props.float === 'right') {
-      figure.style.float = props.float;
-      if (!props.width) figure.style.maxWidth = '50%';
-      figure.style.marginInlineStart = props.float === 'right' ? '1rem' : '';
-      figure.style.marginInlineEnd = props.float === 'left' ? '1rem' : '';
-    } else if (props.float === 'center') {
-      figure.style.marginInline = 'auto';
-    }
-  }
+  applyFloatStyle(figure, props.float, props.width);
 
   const beforeItem = document.createElement('div');
   beforeItem.className = 'nr-diff__item nr-diff__item--before';

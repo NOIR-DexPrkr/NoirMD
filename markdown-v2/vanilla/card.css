@@ -33,10 +33,10 @@
 
 .nr-card--interactive {
   cursor: pointer;
-  border-color: rgba(14, 165, 233, 0.1);
+  border-color: color-mix(in srgb, var(--nr-accent) 10%, transparent);
 }
 .nr-card--interactive:hover {
-  border-color: rgba(14, 165, 233, 0.5);
+  border-color: color-mix(in srgb, var(--nr-accent) 50%, transparent);
 }
 
 .nr-card__image {
@@ -89,7 +89,7 @@
   height: 2.5rem;
   font-size: 1.6em;
   border-radius: 0.75rem;
-  background: rgba(14, 165, 233, 0.2);
+  background: color-mix(in srgb, var(--nr-accent) 20%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +127,7 @@
 }
 
 .nr-card__action-link {
-  background: rgba(14, 165, 233, 0.2);
+  background: color-mix(in srgb, var(--nr-accent) 20%, transparent);
   padding: 0.5rem 1rem;
   border-radius: 0.75rem;
   display: flex;
@@ -147,5 +147,5 @@
   color: var(--nr-accent);
 }
 .nr-card__action-link:hover {
-  background: rgba(14, 165, 233, 0.3);
+  background: color-mix(in srgb, var(--nr-accent) 30%, transparent);
 }

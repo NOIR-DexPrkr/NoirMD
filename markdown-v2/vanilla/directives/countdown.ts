@@ -10,19 +10,18 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
+import { applyBaseProps, parseIntProp } from '../utils';
 
 const DEFAULT_LABELS = ['days', 'hours', 'min', 'sec'];
 
 const countdownDirective: DirectiveRendererFn = ({ props }) => {
   const wrap = document.createElement('div');
   wrap.className = 'nr-countdown';
-
-  if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) wrap.setAttribute('style', props.style);
+  applyBaseProps(wrap, props);
 
   const labelParts = (props.labels || '').split('|').map(s => s.trim());
   const labels = DEFAULT_LABELS.map((label, i) => labelParts[i] || label);
-  const digits = parseInt(props.digits || '2', 10);
+  const digits = parseIntProp(props.digits, 2);
 
   const targetTime = props.target ? new Date(props.target).getTime() : NaN;
   const hasTarget = !Number.isNaN(targetTime);
@@ -78,7 +77,10 @@ const countdownDirective: DirectiveRendererFn = ({ props }) => {
   });
 
   render();
-  if (hasTarget) setInterval(render, 1000);
+  if (hasTarget) {
+    const id = setInterval(render, 1000);
+    wrap.dataset.nrIntervalId = String(id);
+  }
 
   return wrap;
 };

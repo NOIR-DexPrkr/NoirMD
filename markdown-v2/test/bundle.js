@@ -47449,6 +47449,22 @@ window.tailwind.config = {
   }
 
   // core/parser.ts
+  var VOID_ELEMENTS = /* @__PURE__ */ new Set([
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr"
+  ]);
   function parseMarkdown(markdown2) {
     if (!markdown2) return [];
     const lines = markdown2.replace(/\r\n/g, "\n").replace(/\r/g, "").split("\n");
@@ -47462,8 +47478,19 @@ window.tailwind.config = {
       if (match = trimmed.match(/^(#{1,6})\s+(.+)$/)) {
         const level = match[1].length;
         const rawText = match[2];
-        const { text: text2, classes: classes2, id: customId } = extractAttributes(rawText);
-        const baseId = customId || generateId(text2.replace(/->|<-/g, ""));
+        const { text: rawParsedText, classes: classes2, id: customId } = extractAttributes(rawText);
+        let text2 = rawParsedText;
+        let align;
+        const alignCenter = text2.match(/^->\s*(.+?)\s*<-\s*$/);
+        const alignRight = text2.match(/^->\s*(.+?)\s*->\s*$/);
+        if (alignCenter) {
+          text2 = alignCenter[1];
+          align = "center";
+        } else if (alignRight) {
+          text2 = alignRight[1];
+          align = "right";
+        }
+        const baseId = customId || generateId(text2);
         let id2 = baseId;
         let n = 1;
         while (usedIds.has(id2)) {
@@ -47471,7 +47498,7 @@ window.tailwind.config = {
           id2 = `${baseId}-${n}`;
         }
         usedIds.add(id2);
-        result.push({ type: "header", level, text: text2, id: id2, classes: classes2 || void 0 });
+        result.push({ type: "header", level, text: text2, id: id2, classes: classes2 || void 0, align });
         i++;
         continue;
       }
@@ -47647,29 +47674,13 @@ window.tailwind.config = {
       let tagStartMatch = trimmed.match(/^<([a-zA-Z][\w-]*)/);
       if (tagStartMatch) {
         const tagName = tagStartMatch[1].toLowerCase();
-        const voidElements = /* @__PURE__ */ new Set([
-          "area",
-          "base",
-          "br",
-          "col",
-          "embed",
-          "hr",
-          "img",
-          "input",
-          "link",
-          "meta",
-          "param",
-          "source",
-          "track",
-          "wbr"
-        ]);
         const remainingText = lines.slice(i).join("\n");
         const openTagRegex = new RegExp(`^\\s*<${tagName}\\b([^>]*?)>`, "i");
         const openTagMatch = remainingText.match(openTagRegex);
         if (openTagMatch) {
           const fullOpenTag = openTagMatch[0];
           const attrs = openTagMatch[1].replace(/\s+/g, " ").trim();
-          const isSelfClosing = fullOpenTag.endsWith("/>") || voidElements.has(tagName);
+          const isSelfClosing = fullOpenTag.endsWith("/>") || VOID_ELEMENTS.has(tagName);
           if (isSelfClosing) {
             const blockText = remainingText.substring(0, openTagMatch.index + fullOpenTag.length);
             const consumedLines = blockText.split("\n").length;
@@ -57063,11 +57074,77 @@ window.tailwind.config = {
     return document.createTextNode(part);
   }
 
+  // vanilla/utils.ts
+  var THEME_TOKENS = /* @__PURE__ */ new Set([
+    "primary",
+    "secondary",
+    "accent",
+    "neutral",
+    "info",
+    "success",
+    "warning",
+    "error"
+  ]);
+  function isThemeToken(color) {
+    return !!color && THEME_TOKENS.has(color);
+  }
+  function isArbitraryColor(value) {
+    if (THEME_TOKENS.has(value)) return false;
+    if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
+    if (/^[a-zA-Z]+$/.test(value)) return true;
+    return false;
+  }
+  function applyBaseProps(el, props) {
+    if (props.class) {
+      el.classList.add(...props.class.split(/\s+/).filter(Boolean));
+    }
+    if (props.style) {
+      const styles = parseCssString(props.style);
+      for (const [key, value] of Object.entries(styles)) {
+        el.style.setProperty(key, String(value));
+      }
+    }
+  }
+  function applyFloatStyle(el, float, width) {
+    if (!float) return;
+    if (float === "left" || float === "right") {
+      el.style.float = float;
+      if (!width) el.style.maxWidth = "50%";
+      el.style.marginInlineStart = float === "right" ? "1rem" : "";
+      el.style.marginInlineEnd = float === "left" ? "1rem" : "";
+    } else if (float === "center") {
+      el.style.marginInline = "auto";
+    }
+  }
+  function applyColor(el, color, classSuffix) {
+    if (!color) return "";
+    if (isThemeToken(color)) {
+      return ` ${classSuffix}--${color}`;
+    }
+    if (isArbitraryColor(color)) {
+      el.style.background = color;
+      el.style.color = "white";
+    }
+    return "";
+  }
+  function openModal(dialog) {
+    if (!dialog.open) {
+      document.body.appendChild(dialog);
+      dialog.showModal();
+      dialog.addEventListener("close", () => dialog.remove(), { once: true });
+    }
+  }
+  var IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  function parseIntProp(value, defaultValue) {
+    if (!value) return defaultValue;
+    const n = parseInt(value, 10);
+    return Number.isNaN(n) ? defaultValue : n;
+  }
+
   // vanilla/directives/admonition.ts
   var admonitionDirective = ({ directiveType, props, renderSlot }) => {
     const el = createAdmonition(directiveType, props.title, props.icon);
-    if (props.class) el.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) el.setAttribute("style", props.style);
+    applyBaseProps(el, props);
     const body = el.querySelector(".nr-admonition__body");
     if (body) {
       body.appendChild(renderSlot("default"));
@@ -57083,8 +57160,7 @@ window.tailwind.config = {
       props.icon,
       props.defaultOpen === "true"
     );
-    if (props.class) el.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) el.setAttribute("style", props.style);
+    applyBaseProps(el, props);
     const body = el.querySelector(".nr-details__body");
     if (body) {
       body.appendChild(renderSlot("default"));
@@ -57097,13 +57173,12 @@ window.tailwind.config = {
   var modalDirective = ({ props, renderSlot }) => {
     const label = props.label || props.title || "Open";
     const modalTitle = props.title || "Modal";
-    const customClass = props.class || "";
     const align = props.align || "left";
     const wrapper = document.createElement("div");
     wrapper.className = `nr-modal-trigger${align === "center" ? " nr-modal-trigger--center" : align === "right" ? " nr-modal-trigger--right" : ""}`;
     const btn = document.createElement("button");
     btn.className = `nr-button nr-button--default`;
-    if (customClass) btn.classList.add(...customClass.split(/\s+/).filter(Boolean));
+    applyBaseProps(btn, props);
     const icon = props.icon || "open_in_new";
     if (icon) btn.appendChild(createIcon(icon));
     btn.appendChild(document.createTextNode(label));
@@ -57115,15 +57190,7 @@ window.tailwind.config = {
       prose.appendChild(renderSlot("default"));
       body.appendChild(prose);
     }
-    btn.addEventListener("click", () => {
-      if (!dialog.open) {
-        document.body.appendChild(dialog);
-        dialog.showModal();
-        dialog.addEventListener("close", () => {
-          dialog.remove();
-        }, { once: true });
-      }
-    });
+    btn.addEventListener("click", () => openModal(dialog));
     wrapper.appendChild(btn);
     wrapper.appendChild(dialog);
     return wrapper;
@@ -57146,7 +57213,7 @@ window.tailwind.config = {
       a.target = target;
       a.rel = "noopener noreferrer";
       a.className = "nr-button nr-button--default";
-      if (customClass) a.classList.add(...customClass.split(/\s+/).filter(Boolean));
+      applyBaseProps(a, props);
       a.appendChild(createIcon(icon));
       a.appendChild(document.createTextNode(label));
       wrapper.appendChild(a);
@@ -57157,7 +57224,7 @@ window.tailwind.config = {
     if (links.length > 0) {
       links.forEach((link) => {
         link.classList.add("nr-button", "nr-button--default");
-        if (customClass) link.classList.add(...customClass.split(/\s+/).filter(Boolean));
+        applyBaseProps(link, props);
       });
       wrapper.appendChild(slotContent);
     } else {
@@ -57166,7 +57233,7 @@ window.tailwind.config = {
       a.target = target;
       a.rel = "noopener noreferrer";
       a.className = "nr-button nr-button--default";
-      if (customClass) a.classList.add(...customClass.split(/\s+/).filter(Boolean));
+      applyBaseProps(a, props);
       a.appendChild(createIcon(icon));
       a.appendChild(slotContent);
       wrapper.appendChild(a);
@@ -57189,12 +57256,9 @@ window.tailwind.config = {
     const { isSingleCard } = options || {};
     const isModal = directiveType === "card-m";
     const isLink = directiveType === "card-b";
-    const inlineStyles = props.style ? parseCssString(props.style) : {};
     const card = document.createElement("div");
     card.className = `nr-card${isModal || isLink ? " nr-card--interactive" : ""} ${customClass}`.trim();
-    for (const [key, value] of Object.entries(inlineStyles)) {
-      card.style.setProperty(key, String(value));
-    }
+    applyBaseProps(card, props);
     if (image) {
       const imgWrap = document.createElement("div");
       imgWrap.className = `nr-card__image${isSingleCard ? " nr-card__image--tall" : ""}`;
@@ -57273,13 +57337,7 @@ window.tailwind.config = {
         prose.appendChild(renderSlot("content") || renderSlot("default"));
         modalBody.appendChild(prose);
       }
-      card.addEventListener("click", () => {
-        if (!dialog.open) {
-          document.body.appendChild(dialog);
-          dialog.showModal();
-          dialog.addEventListener("close", () => dialog.remove(), { once: true });
-        }
-      });
+      card.addEventListener("click", () => openModal(dialog));
       const frag = document.createDocumentFragment();
       frag.appendChild(card);
       frag.appendChild(dialog);
@@ -57327,8 +57385,8 @@ window.tailwind.config = {
     if (lines.length === 0) {
       return document.createDocumentFragment();
     }
-    const interval = parseInt(props.interval || "3000", 10);
-    const speed = parseInt(props.speed || "500", 10);
+    const interval = parseIntProp(props.interval, 3e3);
+    const speed = parseIntProp(props.speed, 500);
     const rawClass = props.class || "";
     const inlineStyle = props.style ? parseCssString(props.style) : {};
     const scopeClass = `sld-${++slideCounter}`;
@@ -57379,10 +57437,11 @@ window.tailwind.config = {
       }
     });
     if (lines.length > 1) {
-      setInterval(() => {
+      const id = setInterval(() => {
         current = (current + 1) % lines.length;
         track.style.transform = `translateY(${-current * maxH}px)`;
       }, interval);
+      container.dataset.nrIntervalId = String(id);
     }
     return container;
   };
@@ -57392,8 +57451,7 @@ window.tailwind.config = {
   var keysDirective = ({ props, slots }) => {
     const wrap = document.createElement("div");
     wrap.className = "nr-keys";
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     const sizeClass = props.size ? ` nr-kbd--${props.size}` : "";
     const parts = (slots.default || "").split("+").map((p) => p.trim()).filter(Boolean);
     parts.forEach((part, i) => {
@@ -57417,8 +57475,7 @@ window.tailwind.config = {
   var accordionItemDirective = ({ props, renderSlot }) => {
     const item = document.createElement("div");
     item.className = "nr-accordion__item";
-    if (props.class) item.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) item.setAttribute("style", props.style);
+    applyBaseProps(item, props);
     const input = document.createElement("input");
     input.type = "radio";
     input.className = "nr-accordion__input";
@@ -57437,8 +57494,7 @@ window.tailwind.config = {
   var accordionDirective = ({ props, renderSlot }) => {
     const wrap = document.createElement("div");
     wrap.className = "nr-accordion";
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     wrap.appendChild(renderSlot("default"));
     const mode = props.mode === "checkbox" ? "checkbox" : "radio";
     const group = `nr-acc-${++accordionCounter}`;
@@ -57451,7 +57507,6 @@ window.tailwind.config = {
   var accordion_default = accordionDirective;
 
   // vanilla/directives/carousel.ts
-  var IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
   var carouselDirective = ({ props, slots }) => {
     const images = [];
     const raw = slots.default || "";
@@ -57467,19 +57522,9 @@ window.tailwind.config = {
     wrap.className = "nr-carousel";
     wrap.tabIndex = 0;
     wrap.setAttribute("aria-label", "Image carousel");
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     if (props.width) wrap.style.width = props.width;
-    if (props.float) {
-      if (props.float === "left" || props.float === "right") {
-        wrap.style.float = props.float;
-        if (!props.width) wrap.style.maxWidth = "50%";
-        wrap.style.marginInlineStart = props.float === "right" ? "1rem" : "";
-        wrap.style.marginInlineEnd = props.float === "left" ? "1rem" : "";
-      } else if (props.float === "center") {
-        wrap.style.marginInline = "auto";
-      }
-    }
+    applyFloatStyle(wrap, props.float, props.width);
     const viewport = document.createElement("div");
     viewport.className = "nr-carousel__viewport";
     if (props.height) viewport.style.height = props.height;
@@ -57549,11 +57594,10 @@ window.tailwind.config = {
   var countdownDirective = ({ props }) => {
     const wrap = document.createElement("div");
     wrap.className = "nr-countdown";
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     const labelParts = (props.labels || "").split("|").map((s) => s.trim());
     const labels = DEFAULT_LABELS.map((label, i) => labelParts[i] || label);
-    const digits = parseInt(props.digits || "2", 10);
+    const digits = parseIntProp(props.digits, 2);
     const targetTime = props.target ? new Date(props.target).getTime() : NaN;
     const hasTarget = !Number.isNaN(targetTime);
     const blocks = [];
@@ -57600,13 +57644,15 @@ window.tailwind.config = {
       blocks.push({ value });
     });
     render();
-    if (hasTarget) setInterval(render, 1e3);
+    if (hasTarget) {
+      const id = setInterval(render, 1e3);
+      wrap.dataset.nrIntervalId = String(id);
+    }
     return wrap;
   };
   var countdown_default = countdownDirective;
 
   // vanilla/directives/diff.ts
-  var IMG_RE2 = /!\[([^\]]*)\]\(([^)]+)\)/g;
   var diffDirective = ({ props, slots }) => {
     let before = (props.before || "").split("#")[0].trim();
     let after = (props.after || "").split("#")[0].trim();
@@ -57614,8 +57660,8 @@ window.tailwind.config = {
       const urls = [];
       const raw = slots.default || "";
       let m;
-      IMG_RE2.lastIndex = 0;
-      while ((m = IMG_RE2.exec(raw)) !== null) {
+      IMG_RE.lastIndex = 0;
+      while ((m = IMG_RE.exec(raw)) !== null) {
         urls.push(m[2].split("#")[0].trim());
       }
       if (!before && urls.length > 0) before = urls[0];
@@ -57628,21 +57674,11 @@ window.tailwind.config = {
     figure.className = "nr-diff";
     figure.tabIndex = 0;
     figure.setAttribute("aria-label", "Image comparison slider");
-    if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) figure.setAttribute("style", props.style);
+    applyBaseProps(figure, props);
     if (props.aspect) figure.style.aspectRatio = props.aspect;
     if (props.height) figure.style.height = props.height;
     if (props.width) figure.style.width = props.width;
-    if (props.float) {
-      if (props.float === "left" || props.float === "right") {
-        figure.style.float = props.float;
-        if (!props.width) figure.style.maxWidth = "50%";
-        figure.style.marginInlineStart = props.float === "right" ? "1rem" : "";
-        figure.style.marginInlineEnd = props.float === "left" ? "1rem" : "";
-      } else if (props.float === "center") {
-        figure.style.marginInline = "auto";
-      }
-    }
+    applyFloatStyle(figure, props.float, props.width);
     const beforeItem = document.createElement("div");
     beforeItem.className = "nr-diff__item nr-diff__item--before";
     beforeItem.setAttribute("role", "img");
@@ -57705,8 +57741,7 @@ window.tailwind.config = {
   var hover3dDirective = ({ props, renderSlot }) => {
     const container = document.createElement("div");
     container.className = "nr-hover-3d";
-    if (props.class) container.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) container.setAttribute("style", props.style);
+    applyBaseProps(container, props);
     const stage = document.createElement("div");
     stage.className = "nr-hover-3d__stage";
     stage.appendChild(renderSlot("default"));
@@ -57719,14 +57754,13 @@ window.tailwind.config = {
   var hover3d_default = hover3dDirective;
 
   // vanilla/directives/hovergallery.ts
-  var IMG_RE3 = /!\[([^\]]*)\]\(([^)]+)\)/g;
   var MAX_IMAGES = 10;
   var hovergalleryDirective = ({ props, slots }) => {
     const images = [];
     const raw = slots.default || "";
     let m;
-    IMG_RE3.lastIndex = 0;
-    while ((m = IMG_RE3.exec(raw)) !== null) {
+    IMG_RE.lastIndex = 0;
+    while ((m = IMG_RE.exec(raw)) !== null) {
       images.push({ src: m[2].split("#")[0].trim(), alt: m[1].trim() || "gallery image" });
     }
     if (images.length === 0) {
@@ -57735,9 +57769,8 @@ window.tailwind.config = {
     const count = Math.min(images.length, MAX_IMAGES);
     const figure = document.createElement("figure");
     figure.className = "nr-hover-gallery";
+    applyBaseProps(figure, props);
     if (props.aspect) figure.style.aspectRatio = props.aspect;
-    if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) figure.setAttribute("style", (figure.getAttribute("style") || "") + ";" + props.style);
     const imgEls = [];
     for (let i = 0; i < count; i++) {
       const el = document.createElement("img");
@@ -57787,28 +57820,11 @@ window.tailwind.config = {
   var hovergallery_default = hovergalleryDirective;
 
   // vanilla/directives/chat.ts
-  var CHAT_THEME_TOKENS = /* @__PURE__ */ new Set([
-    "primary",
-    "secondary",
-    "accent",
-    "neutral",
-    "info",
-    "success",
-    "warning",
-    "error"
-  ]);
-  function isArbitraryColor(value) {
-    if (CHAT_THEME_TOKENS.has(value)) return false;
-    if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
-    if (/^[a-zA-Z]+$/.test(value)) return true;
-    return false;
-  }
   var chatItemDirective = ({ props, renderSlot }) => {
     const side = props.side === "end" ? "end" : "start";
     const wrap = document.createElement("div");
     wrap.className = `nr-chat nr-chat--${side}`;
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     const header = document.createElement("div");
     header.className = "nr-chat__header";
     if (props.name) {
@@ -57833,14 +57849,8 @@ window.tailwind.config = {
       avatar.appendChild(img);
       wrap.appendChild(avatar);
     }
-    const isThemeToken = CHAT_THEME_TOKENS.has(props.color || "");
-    const colorClass = isThemeToken ? ` nr-chat__bubble--${props.color}` : "";
     const bubble = document.createElement("div");
-    bubble.className = `nr-chat__bubble${colorClass}`;
-    if (props.color && isArbitraryColor(props.color) && !isThemeToken) {
-      bubble.style.background = props.color;
-      bubble.style.color = "white";
-    }
+    bubble.className = `nr-chat__bubble${applyColor(bubble, props.color, "nr-chat__bubble")}`;
     bubble.appendChild(renderSlot("default"));
     wrap.appendChild(bubble);
     if (props.footer) {
@@ -57854,8 +57864,7 @@ window.tailwind.config = {
   var chatDirective = ({ props, renderSlot }) => {
     const wrap = document.createElement("div");
     wrap.className = "nr-chat";
-    if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) wrap.setAttribute("style", props.style);
+    applyBaseProps(wrap, props);
     wrap.appendChild(renderSlot("default"));
     return wrap;
   };
@@ -57891,8 +57900,7 @@ window.tailwind.config = {
   var richlistItemDirective = ({ props, renderSlot }) => {
     const li = document.createElement("li");
     li.className = "nr-richlist__item";
-    if (props.class) li.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) li.setAttribute("style", props.style);
+    applyBaseProps(li, props);
     if (props.image) {
       const thumb = document.createElement("div");
       thumb.className = "nr-richlist__thumb";
@@ -57954,36 +57962,20 @@ window.tailwind.config = {
   var richlistDirective = ({ props, renderSlot }) => {
     const ul = document.createElement("ul");
     ul.className = "nr-richlist";
-    if (props.class) ul.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) ul.setAttribute("style", props.style);
+    applyBaseProps(ul, props);
     ul.appendChild(renderSlot("default"));
     return ul;
   };
   var richlist_default = richlistDirective;
 
   // vanilla/directives/stat.ts
-  var STAT_THEME_TOKENS = /* @__PURE__ */ new Set([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error"
-  ]);
-  function isArbitraryColor2(value) {
-    if (STAT_THEME_TOKENS.has(value)) return false;
-    if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
-    if (/^[a-zA-Z]+$/.test(value)) return true;
-    return false;
-  }
   var statDirective = ({ props }) => {
-    const isThemeToken = STAT_THEME_TOKENS.has(props.color || "");
-    const colorClass = isThemeToken ? ` nr-stat--${props.color}` : "";
+    const statIsThemeToken = isThemeToken(props.color);
+    const colorClass = statIsThemeToken ? ` nr-stat--${props.color}` : "";
     const stat = document.createElement("div");
     stat.className = `nr-stat${colorClass}`;
-    if (props.class) stat.classList.add(...props.class.split(/\s+/).filter(Boolean));
-    if (props.style) stat.setAttribute("style", props.style);
-    const useInlineColor = props.color && isArbitraryColor2(props.color) && !isThemeToken;
+    applyBaseProps(stat, props);
+    const useInlineColor = props.color && isArbitraryColor(props.color) && !statIsThemeToken;
     if (props.icon) {
       const figure = document.createElement("div");
       figure.className = "nr-stat__figure";
@@ -58076,9 +58068,12 @@ window.tailwind.config = {
     processedContent = processedContent.replace(
       /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
       (_match, cssContent) => {
+        const trimmed = cssContent.trim();
+        const existing = document.head.querySelector("style[data-nr-global]");
+        if (existing && existing.textContent === trimmed) return "";
         const styleEl = document.createElement("style");
         styleEl.setAttribute("data-nr-global", "");
-        styleEl.textContent = cssContent;
+        styleEl.textContent = trimmed;
         document.head.appendChild(styleEl);
         return "";
       }
@@ -58148,19 +58143,14 @@ window.tailwind.config = {
     switch (element.type) {
       case "header": {
         const tag = `h${element.level}`;
-        let text = element.text;
-        const alignCenter = text.match(/^->\s*(.+?)\s*<-\s*$/);
-        const alignRight = text.match(/^->\s*(.+?)\s*->\s*$/);
-        if (alignCenter) text = alignCenter[1];
-        else if (alignRight) text = alignRight[1];
         const h = document.createElement(tag);
         h.id = element.id;
         let cls = `md-h${element.level}`;
-        if (alignCenter) cls += " text-center";
-        if (alignRight) cls += " text-right";
+        if (element.align === "center") cls += " text-center";
+        else if (element.align === "right") cls += " text-right";
         if (element.classes) cls += ` ${element.classes}`;
         h.className = cls;
-        h.appendChild(renderInline(text));
+        h.appendChild(renderInline(element.text));
         return h;
       }
       case "paragraph": {
@@ -58312,7 +58302,7 @@ window.tailwind.config = {
       "title": "Introducci\xF3n",
       "icon": "menu_book",
       "order": 1,
-      "md": '# Introducci\xF3n a NoirMD\n\n**NoirMD** es un editor y motor de renderizado Markdown con extensiones propias: **admoniciones**, **componentes**, **directivas interactivas** y **markdown enriquecido**.\n\nEsta gu\xEDa est\xE1 escrita con el propio motor: cada directiva que ves aqu\xED es una muestra **viva** y funcional, no una captura.\n\n## C\xF3mo usar el editor\n\n| Elemento | Descripci\xF3n |\n| --- | --- |\n| Toolbar superior | Modo (editor / split / preview), guardar, copiar, imprimir, tema, gu\xEDa y configurar |\n| Panel izquierdo | Editor de c\xF3digo con resaltado de sintaxis |\n| Panel derecho | Preview en vivo (en modo split o preview) |\n| Atajo | `Ctrl+S` guarda el contenido |\n\n## Sintaxis de una directiva\n\nLas directivas se escriben con tres dos puntos `:::` y un nombre, opcionalmente con atributos entre llaves:\n\n```\n:::card {title="Mi tarjeta" icon="star"}\n\nContenido **markdown** aqu\xED dentro.\n\n:::\n```\n\nTodo lo que est\xE1 entre la apertura y el cierre `:::` se renderiza con el mismo motor, as\xED que puedes **anidar** directivas.\n\n## Cheatsheet r\xE1pido\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `# T\xEDtulo` \u2192 `###### T\xEDtulo` | Encabezados |\n| `**negrita**` \xB7 `*cursiva*` \xB7 `~~tachado~~` | \xC9nfasis |\n| `` `c\xF3digo` `` | C\xF3digo inline |\n| `` ```js `` | Bloque de c\xF3digo con resaltado |\n| `[texto](url)` | Enlace |\n| `![alt](url)` | Imagen |\n| `![alt](url#left)` | Imagen flotante a la izquierda |\n| `==resaltado==` | Resaltado |\n| `%color%texto%%` | Texto de color |\n| `->centrado<-` | Texto centrado |\n| `!>spoiler<!` | Spoiler oculto |\n| `|[[icono]]|` | Icono Material |\n| `[TOC]` | \xCDndice de contenidos |\n| `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |\n| `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |\n| `:::details` `:::modal` `:::button` `:::slide` | Interactivos |\n| `<style>` HTML inline | Bloques HTML (CSS global, HTML crudo) |\n\n## Organizaci\xF3n de la gu\xEDa\n\n- **Markdown** \u2014 sintaxis base y enriquecida (t\xEDtulos, \xE9nfasis, tablas, c\xF3digo, im\xE1genes, inline).\n- **Admoniciones** \u2014 cajas de aviso: nota, warning, danger, info y greentext.\n- **Componentes** \u2014 los 10 componentes de tarjeta, teclas, acorde\xF3n, carrusel, etc.\n- **Interactivos** \u2014 details, modal, botones y slides.\n- **Layout** \u2014 bloques HTML crudo: CSS global con `<style>` e HTML inline.\n\nCada p\xE1gina incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el c\xF3digo fuente para copiar.'
+      "md": '# Introducci\xF3n a NoirMD\n\n**NoirMD** es un editor y motor de renderizado Markdown con extensiones propias: **admoniciones**, **componentes**, **directivas interactivas** y **markdown enriquecido**.\n\nEsta gu\xEDa est\xE1 escrita con el propio motor: cada directiva que ves aqu\xED es una muestra **viva** y funcional, no una captura.\n\n## C\xF3mo usar el editor\n\n| Elemento | Descripci\xF3n |\n| --- | --- |\n| Toolbar superior | Modo (editor / split / preview), guardar, copiar, imprimir, tema, gu\xEDa y configurar |\n| Panel izquierdo | Editor de c\xF3digo con resaltado de sintaxis |\n| Panel derecho | Preview en vivo (en modo split o preview) |\n| Atajo | `Ctrl+S` guarda el contenido |\n\n## Sintaxis de una directiva\n\nLas directivas se escriben con tres dos puntos `:::` y un nombre, opcionalmente con atributos entre llaves:\n\n```\n:::card {title="Mi tarjeta" icon="star"}\n\nContenido **markdown** aqu\xED dentro.\n\n:::\n```\n\nTodo lo que est\xE1 entre la apertura y el cierre `:::` se renderiza con el mismo motor, as\xED que puedes **anidar** directivas.\n\n## Cheatsheet r\xE1pido\n\n| Sintaxis | Resultado |\n| --- | --- |\n| `# T\xEDtulo` \u2192 `###### T\xEDtulo` | Encabezados |\n| `**negrita**` \xB7 `_cursiva_` \xB7 `~~tachado~~` | \xC9nfasis |\n| `` `c\xF3digo` `` | C\xF3digo inline |\n| `` ```js `` | Bloque de c\xF3digo con resaltado |\n| `[texto](url)` | Enlace |\n| `![alt](url)` | Imagen |\n| `![alt](url#left)` | Imagen flotante a la izquierda |\n| `==resaltado==` | Resaltado |\n| `%color%texto%%` | Texto de color |\n| `->centrado<-` | Texto centrado |\n| `!>spoiler<!` | Spoiler oculto |\n| `|[[icono]]|` | Icono Material |\n| `[TOC]` | \xCDndice de contenidos |\n| `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |\n| `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |\n| `:::details` `:::modal` `:::button` `:::slide` | Interactivos |\n| `<style>` HTML inline | Bloques HTML (CSS global, HTML crudo) |\n\n## Organizaci\xF3n de la gu\xEDa\n\n- **Markdown** \u2014 sintaxis base y enriquecida (t\xEDtulos, \xE9nfasis, tablas, c\xF3digo, im\xE1genes, inline).\n- **Admoniciones** \u2014 cajas de aviso: nota, warning, danger, info y greentext.\n- **Componentes** \u2014 los 10 componentes de tarjeta, teclas, acorde\xF3n, carrusel, etc.\n- **Interactivos** \u2014 details, modal, botones y slides.\n- **Layout** \u2014 bloques HTML crudo: CSS global con `<style>` e HTML inline.\n\nCada p\xE1gina incluye: la sintaxis exacta, la tabla de props, un ejemplo en vivo y el c\xF3digo fuente para copiar.'
     },
     {
       "id": "titulos",
@@ -58536,7 +58526,7 @@ window.tailwind.config = {
       "title": "Button",
       "icon": "touch_app",
       "order": 3,
-      "md": '# Button\n\nLa directiva `:::button` crea un **bot\xF3n con enlace** (se abre en pesta\xF1a nueva por defecto).\n\n## Sintaxis\n\n```md\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n```\n\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n\n## Variante con enlace interno\n\n```md\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n```\n\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n\n## Con contenido markdown\n\nSi el bloque contiene texto/enlaces, se renderizan dentro del bot\xF3n:\n\n```md\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n```\n\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n\n## Alineaci\xF3n\n\nLos botones se alinean a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n```\n\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n\n### Alineado a la derecha\n\n```md\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n```\n\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `label` (o `title`) | texto | Texto del bot\xF3n (`title` funciona como alias por compatibilidad) |\n| `url` (o `href`) | URL | Destino del enlace (default `#`) |\n| `icon` | nombre Material | Icono (default `near_me`) |\n| `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n (default `left`) |\n| `class` | texto | Clases CSS adicionales |'
+      "md": '# Button\n\nLa directiva `:::button` crea un **bot\xF3n con enlace** (se abre en pesta\xF1a nueva por defecto).\n\n## Sintaxis\n\n```md\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n```\n\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n\n## Variante con enlace interno\n\n```md\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n```\n\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n\n## Con contenido markdown\n\nSi el bloque contiene texto/enlaces, se renderizan dentro del bot\xF3n:\n\n```md\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n```\n\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n\n## Alineaci\xF3n\n\nLos botones se alinean a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n```\n\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n\n### Alineado a la derecha\n\n```md\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n```\n\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `label` (o `title`) | texto | Texto del bot\xF3n (`title` funciona como alias por compatibilidad) |\n| `url` (o `href`) | URL | Destino del enlace (default `#`) |\n| `icon` | nombre Material | Icono (default `near_me`) |\n| `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n (default `left`) |\n| `class` | texto | Clases CSS adicionales |\n\n> **Nota:** El prop `style` no est\xE1 soportado en `:::button`. Los estilos inline se ignoran en este componente.'
     },
     {
       "id": "slide",
@@ -58553,6 +58543,14 @@ window.tailwind.config = {
       "icon": "code_off",
       "order": 1,
       "md": '# Bloques HTML\r\n\r\nNoirMD permite escribir **HTML crudo** directamente en el markdown. Seg\xFAn la etiqueta, el comportamiento var\xEDa.\r\n\r\n## CSS global con `<style>`\r\n\r\nEscribe un bloque `<style>` para inyectar CSS en el documento. El contenido se extrae autom\xE1ticamente y se inserta en el `<head>` del DOM.\r\n\r\n```md\r\n<style>\r\n.mi-clase {\r\n  background: #f1f5f9;\r\n  border-radius: 10px;\r\n  padding: 1rem;\r\n}\r\n</style>\r\n```\r\n\r\n<style>\r\n.nr-demo-box {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 1rem;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: color-mix(in srgb, var(--color-accent-primary, #0ea5e9) 10%, transparent);\r\n}\r\n.nr-demo-box > div {\r\n  padding: 1rem;\r\n  border-radius: 8px;\r\n  background: var(--color-background-secondary-solid, #1e293b);\r\n}\r\n</style>\r\n\r\n<div class="nr-demo-box">\r\n<div>**A**</div>\r\n<div>**B**</div>\r\n</div>\r\n\r\n> El CSS se aplica al **documento renderizado completo**, no solo al bloque. Define clases una vez y \xFAsalas despu\xE9s en cualquier etiqueta HTML.\r\n\r\n## HTML inline\r\n\r\nCualquier etiqueta HTML escrita directamente en el markdown se renderiza sin procesar como markdown. El contenido dentro se preserva tal cual.\r\n\r\n```md\r\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\r\n  HTML escrito a mano funciona tal cual.\r\n</div>\r\n```\r\n\r\n<div style="text-align: center; padding: 1rem; border: 1px solid #334155; border-radius: 10px;">\r\n  HTML escrito a mano funciona tal cual.\r\n</div>\r\n\r\n## Elementos interactivos nativos\r\n\r\n```md\r\n<details class="nr-details">\r\n  <summary>Detalle nativo con <b>HTML</b></summary>\r\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\r\n</details>\r\n```\r\n\r\n<details class="nr-details">\r\n  <summary>Detalle nativo con <b>HTML</b></summary>\r\n  <p>Los atributos, estilos y eventos se conservan intactos.</p>\r\n</details>\r\n\r\n## Scripts\r\n\r\nLos bloques `<script>` se ejecutan autom\xE1ticamente al renderizar:\r\n\r\n```md\r\n<script>\r\n  console.log(\'Este script se ejecuta al renderizar\');\r\n<\/script>\r\n```\r\n\r\n> \u26A0\uFE0F Al ser HTML y scripts sin filtrar, \xFAsalos solo con contenido de confianza.\r\n\r\n## Cu\xE1ndo usar bloques HTML\r\n\r\n- Insertar embeds (`iframe`, `video`, widgets externos).\r\n- Estructuras que el markdown no cubre (layouts complejos, formularios nativos).\r\n- Inyectar CSS reutilizable con `<style>`.\r\n- Prototipar HTML antes de convertirlo a directiva.'
+    },
+    {
+      "id": "wrapper-directives",
+      "category": "Layout",
+      "title": "Wrapper Directives",
+      "icon": "crop_free",
+      "order": 1,
+      "md": '# Wrapper Directives\r\n\r\nLas directivas `:::div`, `:::style`, `:::custom` y `:::raw` son wrappers gen\xE9ricos para **envolver contenido** con clases, estilos y atributos personalizados.\r\n\r\n## `:::div` \u2014 Div gen\xE9rico\r\n\r\nEnvuelve contenido en un `<div>` con clases, id, estilos y atributos `data-*`.\r\n\r\n```md\r\n:::div {class="mi-clase" id="seccion" style="padding: 2rem; background: #f0f0f0"}\r\n\r\nContenido **markdown** aqu\xED.\r\n\r\n:::\r\n```\r\n\r\n:::div {class="mi-clase" id="seccion" style="padding: 2rem; background: #f0f0f0"}\r\n\r\nContenido **markdown** aqu\xED.\r\n\r\n:::\r\n\r\n## `:::style` \u2014 Inyectar CSS\r\n\r\nInyecta un bloque `<style>` global. \xDAtil para estilos que afectan m\xFAltiples componentes.\r\n\r\n```md\r\n:::style\r\n.nr-mi-clase { color: red; }\r\n:::\r\n```\r\n\r\n## `:::custom` \u2014 Elemento personalizado\r\n\r\nSimilar a `div`, pero permite crear cualquier elemento HTML.\r\n\r\n## `:::raw` \u2014 HTML crudo\r\n\r\nRenderiza contenido HTML sin procesar.\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Descripci\xF3n |\r\n| --- | --- | --- |\r\n| `class` | texto | Clases CSS (soporta `.shorthand` tambi\xE9n) |\r\n| `id` | texto | ID del elemento |\r\n| `style` | CSS inline | Estilos inline (se aplica con `setProperty`, no sobreescribe otros estilos) |\r\n| `data-*` | texto | Cualquier atributo `data-*` se aplica al elemento |\r\n\r\n## Shorthands\r\n\r\n```md\r\n:::div {.mi-clase #mi-id}\r\n\r\nIgual que usar `class="mi-clase" id="mi-id"`.\r\n\r\n:::\r\n```'
     }
   ];
 

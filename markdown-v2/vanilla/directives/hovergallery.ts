@@ -11,8 +11,8 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
+import { IMG_RE, applyBaseProps } from '../utils';
 
-const IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
 const MAX_IMAGES = 10;
 
 const hovergalleryDirective: DirectiveRendererFn = ({ props, slots }) => {
@@ -33,9 +33,8 @@ const hovergalleryDirective: DirectiveRendererFn = ({ props, slots }) => {
   // ── Container ───────────────────────────────────────────
   const figure = document.createElement('figure');
   figure.className = 'nr-hover-gallery';
+  applyBaseProps(figure, props);
   if (props.aspect) figure.style.aspectRatio = props.aspect;
-  if (props.class) figure.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) figure.setAttribute('style', (figure.getAttribute('style') || '') + ';' + props.style);
 
   // ── Image elements (stacked, absolutely positioned) ─────
   const imgEls: HTMLImageElement[] = [];

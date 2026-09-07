@@ -13,8 +13,7 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
-
-const IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
+import { IMG_RE, applyBaseProps, applyFloatStyle } from '../utils';
 
 const carouselDirective: DirectiveRendererFn = ({ props, slots }) => {
   const images: { src: string; alt: string }[] = [];
@@ -34,19 +33,9 @@ const carouselDirective: DirectiveRendererFn = ({ props, slots }) => {
   wrap.tabIndex = 0;
   wrap.setAttribute('aria-label', 'Image carousel');
 
-  if (props.class) wrap.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) wrap.setAttribute('style', props.style);
+  applyBaseProps(wrap, props);
   if (props.width) wrap.style.width = props.width;
-  if (props.float) {
-    if (props.float === 'left' || props.float === 'right') {
-      wrap.style.float = props.float;
-      if (!props.width) wrap.style.maxWidth = '50%';
-      wrap.style.marginInlineStart = props.float === 'right' ? '1rem' : '';
-      wrap.style.marginInlineEnd = props.float === 'left' ? '1rem' : '';
-    } else if (props.float === 'center') {
-      wrap.style.marginInline = 'auto';
-    }
-  }
+  applyFloatStyle(wrap, props.float, props.width);
 
   const viewport = document.createElement('div');
   viewport.className = 'nr-carousel__viewport';

@@ -9,36 +9,17 @@
 
 import type { DirectiveRendererFn } from './index';
 import { createIcon } from '../components';
-
-// Predefined theme tokens that map to CSS classes
-const STAT_THEME_TOKENS = new Set([
-  'primary', 'secondary', 'info', 'success', 'warning', 'error',
-]);
-
-/**
- * Check if a value looks like a valid CSS color (not a theme token).
- * Accepts: named colors (blue, red), hex (#fff, #ff0000), rgb/rgba, hsl/hsla, oklch, etc.
- */
-function isArbitraryColor(value: string): boolean {
-  if (STAT_THEME_TOKENS.has(value)) return false;
-  // Quick heuristic: hex, rgb, hsl, oklch, or a known CSS color name
-  if (/^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(value)) return true;
-  // Named CSS colors (common ones)
-  if (/^[a-zA-Z]+$/.test(value)) return true;
-  return false;
-}
+import { isThemeToken, isArbitraryColor, applyBaseProps } from '../utils';
 
 const statDirective: DirectiveRendererFn = ({ props }) => {
-  const isThemeToken = STAT_THEME_TOKENS.has(props.color || '');
-  const colorClass = isThemeToken ? ` nr-stat--${props.color}` : '';
+  const statIsThemeToken = isThemeToken(props.color);
+  const colorClass = statIsThemeToken ? ` nr-stat--${props.color}` : '';
   const stat = document.createElement('div');
   stat.className = `nr-stat${colorClass}`;
-
-  if (props.class) stat.classList.add(...props.class.split(/\s+/).filter(Boolean));
-  if (props.style) stat.setAttribute('style', props.style);
+  applyBaseProps(stat, props);
 
   // Apply arbitrary color via inline style
-  const useInlineColor = props.color && isArbitraryColor(props.color) && !isThemeToken;
+  const useInlineColor = props.color && isArbitraryColor(props.color) && !statIsThemeToken;
 
   if (props.icon) {
     const figure = document.createElement('div');

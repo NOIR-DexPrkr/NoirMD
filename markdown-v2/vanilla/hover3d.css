@@ -24,7 +24,7 @@
   position: relative;
   grid-area: 1 / 1 / 4 / 4;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: var(--nr-radius-lg, 1rem);
   transform: rotate3d(var(--transform), 0, 10deg);
   transition:
     transform var(--ease) 500ms,

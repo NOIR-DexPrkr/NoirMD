@@ -55,13 +55,17 @@ export function renderMarkdownString(markdown: string): HTMLElement {
 export function renderHtmlString(html: string): HTMLElement {
   let processedContent = html;
 
-  // Extract <style> blocks and inject globally
+  // Extract <style> blocks and inject globally (deduplicate by content)
   processedContent = processedContent.replace(
     /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
     (_match: string, cssContent: string) => {
+      const trimmed = cssContent.trim();
+      // Check if identical style already exists
+      const existing = document.head.querySelector('style[data-nr-global]');
+      if (existing && existing.textContent === trimmed) return '';
       const styleEl = document.createElement('style');
       styleEl.setAttribute('data-nr-global', '');
-      styleEl.textContent = cssContent;
+      styleEl.textContent = trimmed;
       document.head.appendChild(styleEl);
       return '';
     }
@@ -168,22 +172,14 @@ function renderElement(
   switch (element.type) {
     case 'header': {
       const tag = `h${element.level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-      let text = element.text;
-
-      // Alignment modifiers
-      const alignCenter = text.match(/^->\s*(.+?)\s*<-\s*$/);
-      const alignRight = text.match(/^->\s*(.+?)\s*->\s*$/);
-      if (alignCenter) text = alignCenter[1];
-      else if (alignRight) text = alignRight[1];
-
       const h = document.createElement(tag);
       h.id = element.id;
       let cls = `md-h${element.level}`;
-      if (alignCenter) cls += ' text-center';
-      if (alignRight) cls += ' text-right';
+      if (element.align === 'center') cls += ' text-center';
+      else if (element.align === 'right') cls += ' text-right';
       if (element.classes) cls += ` ${element.classes}`;
       h.className = cls;
-      h.appendChild(renderInline(text));
+      h.appendChild(renderInline(element.text));
       return h;
     }
 

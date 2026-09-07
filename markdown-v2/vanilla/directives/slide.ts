@@ -6,6 +6,7 @@
 
 import type { DirectiveRendererFn } from './index';
 import { parseCssString } from '../../core/utils';
+import { applyBaseProps, parseIntProp } from '../utils';
 
 let slideCounter = 0;
 
@@ -25,8 +26,8 @@ const slideDirective: DirectiveRendererFn = ({
     return document.createDocumentFragment();
   }
 
-  const interval = parseInt(props.interval || '3000', 10);
-  const speed = parseInt(props.speed || '500', 10);
+  const interval = parseIntProp(props.interval, 3000);
+  const speed = parseIntProp(props.speed, 500);
   const rawClass = props.class || '';
   const inlineStyle = props.style ? parseCssString(props.style) : {};
 
@@ -96,10 +97,11 @@ const slideDirective: DirectiveRendererFn = ({
 
   // Rotation
   if (lines.length > 1) {
-    setInterval(() => {
+    const id = setInterval(() => {
       current = (current + 1) % lines.length;
       track.style.transform = `translateY(${-current * maxH}px)`;
     }, interval);
+    container.dataset.nrIntervalId = String(id);
   }
 
   return container;
