@@ -42,12 +42,37 @@ Descarga el **manual** en PDF
 Descarga el **manual** en PDF
 :::
 
+## Alineación
+
+Los botones se alinean a la izquierda por defecto. Usa el prop `align` para cambiar la alineación:
+
+### Centrado
+
+```md
+:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}
+:::
+```
+
+:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}
+:::
+
+### Alineado a la derecha
+
+```md
+:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}
+:::
+```
+
+:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}
+:::
+
 ## Props
 
 | Prop | Tipo | Descripción |
 | --- | --- | --- |
-| `label` | texto | Texto del botón |
+| `label` (o `title`) | texto | Texto del botón (`title` funciona como alias por compatibilidad) |
 | `url` (o `href`) | URL | Destino del enlace (default `#`) |
 | `icon` | nombre Material | Icono (default `near_me`) |
 | `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |
+| `align` | `left` / `center` / `right` | Alineación del botón (default `left`) |
 | `class` | texto | Clases CSS adicionales |

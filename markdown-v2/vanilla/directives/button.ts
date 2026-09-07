@@ -7,14 +7,15 @@ import { createIcon } from '../components';
 
 const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const url = props.url || props.href || '#';
-  const label = props.label;
+  const label = props.label || props.title;
   const icon = props.icon || 'near_me';
   const target = props.target || '_blank';
   const customClass = props.class || '';
+  const align = props.align || 'left';
 
   // Wrapper
   const wrapper = document.createElement('div');
-  wrapper.className = 'nr-button-wrap';
+  wrapper.className = `nr-button-wrap${align === 'center' ? ' nr-button-wrap--center' : align === 'right' ? ' nr-button-wrap--right' : ''}`;
 
   // If label is provided, use it directly
   if (label) {

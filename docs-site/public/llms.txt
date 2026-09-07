@@ -127,8 +127,8 @@ Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`le
 | Directive | Description |
 |-----------|-------------|
 | `:::details` | Collapsible `<details>` section |
-| `:::modal` | Native `<dialog>` modal with trigger button |
-| `:::button` | Styled link/button with icon |
+| `:::modal` | Native `<dialog>` modal with trigger button. Props: `title`, `label`, `icon`, `align` (left/center/right), `class`, `style` |
+| `:::button` | Styled link/button with icon. Props: `label` (or `title`), `url`, `icon`, `target`, `align` (left/center/right), `class` |
 | `:::slide` | Auto-advancing text carousel (sections split by `---`) |
 
 ### Components

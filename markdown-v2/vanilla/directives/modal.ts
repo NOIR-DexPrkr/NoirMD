@@ -9,10 +9,11 @@ const modalDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const label = props.label || props.title || 'Open';
   const modalTitle = props.title || 'Modal';
   const customClass = props.class || '';
+  const align = props.align || 'left';
 
   // Wrapper
   const wrapper = document.createElement('div');
-  wrapper.className = 'nr-modal-trigger';
+  wrapper.className = `nr-modal-trigger${align === 'center' ? ' nr-modal-trigger--center' : align === 'right' ? ' nr-modal-trigger--right' : ''}`;
 
   // Button to open modal
   const btn = document.createElement('button');

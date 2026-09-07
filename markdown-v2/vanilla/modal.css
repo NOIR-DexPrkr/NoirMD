@@ -81,5 +81,11 @@
 }
 
 .nr-modal-trigger {
-  display: inline-flex;
+  display: block;
+}
+.nr-modal-trigger--center {
+  text-align: center;
+}
+.nr-modal-trigger--right {
+  text-align: right;
 }

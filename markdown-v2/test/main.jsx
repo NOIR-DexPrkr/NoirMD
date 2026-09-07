@@ -52,6 +52,47 @@ Séptima card.
 Octava card.
 :::
 
+---
+
+# Buttons — Align
+
+## Default (left)
+
+:::button {label="Izquierda" url="https://example.com" icon="arrow_back"}
+:::
+
+## Center
+
+:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}
+:::
+
+## Right
+
+:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}
+:::
+
+---
+
+# Modal — Align
+
+## Default (left)
+
+:::modal {title="Modal izquierda" label="Abrir" icon="open_in_full"}
+Contenido del modal alineado a la izquierda (default).
+:::
+
+## Center
+
+:::modal {title="Modal centrado" label="Abrir" icon="open_in_full" align="center"}
+Contenido del modal centrado.
+:::
+
+## Right
+
+:::modal {title="Modal derecha" label="Abrir" icon="open_in_full" align="right"}
+Contenido del modal alineado a la derecha.
+:::
+
 `;
 
 function toast(msg) {

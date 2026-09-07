@@ -5,6 +5,12 @@
 .nr-button-wrap {
   margin: 0.25rem 0;
 }
+.nr-button-wrap--center {
+  text-align: center;
+}
+.nr-button-wrap--right {
+  text-align: right;
+}
 
 .nr-button {
   display: inline-flex;
