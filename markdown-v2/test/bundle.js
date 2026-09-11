@@ -56854,6 +56854,7 @@ window.tailwind.config = {
     header.appendChild(titleEl);
     const closeBtn = document.createElement("button");
     closeBtn.className = "nr-modal__close";
+    closeBtn.setAttribute("aria-label", "Close");
     closeBtn.appendChild(createIcon("close"));
     closeBtn.addEventListener("click", () => dialog.close());
     header.appendChild(closeBtn);
@@ -57135,6 +57136,18 @@ window.tailwind.config = {
     }
   }
   var IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  function applyAlignClass(el, baseClass, align) {
+    if (align === "center") {
+      el.classList.add(`${baseClass}--center`);
+    } else if (align === "right") {
+      el.classList.add(`${baseClass}--right`);
+    }
+  }
+  function resolveIcon(value, fallback) {
+    if (!value) return fallback;
+    if (value === "none" || value === "off") return null;
+    return value;
+  }
   function parseIntProp(value, defaultValue) {
     if (!value) return defaultValue;
     const n = parseInt(value, 10);
@@ -57174,13 +57187,16 @@ window.tailwind.config = {
     const label = props.label || props.title || "Open";
     const modalTitle = props.title || "Modal";
     const align = props.align || "left";
+    const iconName = resolveIcon(props.icon, "open_in_full");
     const wrapper = document.createElement("div");
-    wrapper.className = `nr-modal-trigger${align === "center" ? " nr-modal-trigger--center" : align === "right" ? " nr-modal-trigger--right" : ""}`;
+    wrapper.className = "nr-modal-trigger";
+    applyAlignClass(wrapper, "nr-modal-trigger", align);
     const btn = document.createElement("button");
-    btn.className = `nr-button nr-button--default`;
+    btn.className = "nr-button nr-button--default";
+    btn.setAttribute("aria-haspopup", "dialog");
+    applyColor(btn, props.color, "nr-button");
     applyBaseProps(btn, props);
-    const icon = props.icon || "open_in_new";
-    if (icon) btn.appendChild(createIcon(icon));
+    if (iconName) btn.appendChild(createIcon(iconName));
     btn.appendChild(document.createTextNode(label));
     const dialog = createModal(modalTitle);
     const body = dialog.querySelector(".nr-modal__body");
@@ -57201,20 +57217,21 @@ window.tailwind.config = {
   var buttonDirective = ({ props, renderSlot }) => {
     const url = props.url || props.href || "#";
     const label = props.label || props.title;
-    const icon = props.icon || "near_me";
+    const iconName = resolveIcon(props.icon, "touch_app");
     const target = props.target || "_blank";
-    const customClass = props.class || "";
     const align = props.align || "left";
     const wrapper = document.createElement("div");
-    wrapper.className = `nr-button-wrap${align === "center" ? " nr-button-wrap--center" : align === "right" ? " nr-button-wrap--right" : ""}`;
+    wrapper.className = "nr-button-wrap";
+    applyAlignClass(wrapper, "nr-button-wrap", align);
     if (label) {
       const a = document.createElement("a");
       a.href = url;
       a.target = target;
-      a.rel = "noopener noreferrer";
+      if (target === "_blank") a.rel = "noopener noreferrer";
       a.className = "nr-button nr-button--default";
+      applyColor(a, props.color, "nr-button");
       applyBaseProps(a, props);
-      a.appendChild(createIcon(icon));
+      if (iconName) a.appendChild(createIcon(iconName));
       a.appendChild(document.createTextNode(label));
       wrapper.appendChild(a);
       return wrapper;
@@ -57224,6 +57241,8 @@ window.tailwind.config = {
     if (links.length > 0) {
       links.forEach((link) => {
         link.classList.add("nr-button", "nr-button--default");
+        applyColor(link, props.color, "nr-button");
+        if (iconName) link.prepend(createIcon(iconName));
         applyBaseProps(link, props);
       });
       wrapper.appendChild(slotContent);
@@ -57231,10 +57250,11 @@ window.tailwind.config = {
       const a = document.createElement("a");
       a.href = url;
       a.target = target;
-      a.rel = "noopener noreferrer";
+      if (target === "_blank") a.rel = "noopener noreferrer";
       a.className = "nr-button nr-button--default";
+      applyColor(a, props.color, "nr-button");
       applyBaseProps(a, props);
-      a.appendChild(createIcon(icon));
+      if (iconName) a.appendChild(createIcon(iconName));
       a.appendChild(slotContent);
       wrapper.appendChild(a);
     }
@@ -58518,7 +58538,7 @@ window.tailwind.config = {
       "title": "Modal",
       "icon": "open_in_full",
       "order": 2,
-      "md": '# Modal\n\nLa directiva `:::modal` crea un **di\xE1logo modal** con su bot\xF3n de apertura.\n\n## Sintaxis\n\n```md\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n```\n\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n\n## Contenido enriquecido\n\n```md\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n```\n\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n\n## Alineaci\xF3n del bot\xF3n\n\nEl bot\xF3n de apertura se alinea a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::modal {title="Centrado" label="Abrir" icon="open_in_full" align="center"}\nContenido del modal centrado.\n:::\n```\n\n:::modal {title="Centrado" label="Abrir" icon="open_in_full" align="center"}\nContenido del modal centrado.\n:::\n\n### Alineado a la derecha\n\n```md\n:::modal {title="Derecha" label="Abrir" icon="open_in_full" align="right"}\nContenido del modal alineado a la derecha.\n:::\n```\n\n:::modal {title="Derecha" label="Abrir" icon="open_in_full" align="right"}\nContenido del modal alineado a la derecha.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del modal |\n| `label` (o `title`) | texto | Texto del bot\xF3n de apertura (`title` funciona como alias, default: \xABOpen\xBB) |\n| `icon` | nombre Material | Icono del bot\xF3n (default `open_in_new`) |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n de apertura (default `left`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Interacci\xF3n\n\n- **Bot\xF3n**: abre el modal (focus se mueve dentro).\n- **Overlay** o bot\xF3n **\xD7**: cierra.\n- **Esc**: cierra (en desktop).\n- `dialog` nativo \u2192 accesible por defecto, focus trapped y `inert` al fondo.'
+      "md": '# Modal\n\nLa directiva `:::modal` crea un **di\xE1logo modal** con su bot\xF3n de apertura.\n\n## Sintaxis\n\n```md\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n```\n\n:::modal {title="Confirmar borrado" label="Abrir modal" icon="delete"}\n\xBFSeguro que quieres borrar este documento? Esta acci\xF3n no se puede deshacer.\n\n| Acci\xF3n | Efecto |\n| --- | --- |\n| Aceptar | Borra el documento |\n| Cancelar | No hace nada |\n:::\n\n## Contenido enriquecido\n\n```md\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n```\n\n:::modal {title="Notas de la versi\xF3n" label="Ver novedades" icon="new_releases"}\n**v2.0** \u2014 cambios principales:\n\n- Nuevo componente `:::diff`\n- Gu\xEDa integrada en el editor\n- Especificidad CSS corregida en im\xE1genes\n:::\n\n## Sin icono\n\nPara ocultar el icono del bot\xF3n de apertura, usa `icon="none"`:\n\n```md\n:::modal {title="Sin icono" label="Abrir" icon="none"}\nContenido del modal.\n:::\n```\n\n:::modal {title="Sin icono" label="Abrir" icon="none"}\nContenido del modal.\n:::\n\n## Color\n\nEl bot\xF3n de apertura acepta tokens de tema (`primary`, `secondary`, `info`, `success`, `warning`, `error`) o colores CSS arbitrarios:\n\n```md\n:::modal {title="\xC9xito" label="Abrir" icon="check_circle" color="success"}\nAcci\xF3n completada correctamente.\n:::\n```\n\n:::modal {title="\xC9xito" label="Abrir" icon="check_circle" color="success"}\nAcci\xF3n completada correctamente.\n:::\n\n## Alineaci\xF3n del bot\xF3n\n\nEl bot\xF3n de apertura se alinea a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::modal {title="Centrado" label="Abrir" icon="open_in_full" align="center"}\nContenido del modal centrado.\n:::\n```\n\n:::modal {title="Centrado" label="Abrir" icon="open_in_full" align="center"}\nContenido del modal centrado.\n:::\n\n### Alineado a la derecha\n\n```md\n:::modal {title="Derecha" label="Abrir" icon="open_in_full" align="right"}\nContenido del modal alineado a la derecha.\n:::\n```\n\n:::modal {title="Derecha" label="Abrir" icon="open_in_full" align="right"}\nContenido del modal alineado a la derecha.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo del modal |\n| `label` (o `title`) | texto | Texto del bot\xF3n de apertura (`title` funciona como alias, default: \xABOpen\xBB) |\n| `icon` | nombre Material | Icono del bot\xF3n (default `open_in_full`). Usa `icon="none"` para ocultar |\n| `color` | token de tema o CSS | Color del bot\xF3n de apertura |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n de apertura (default `left`) |\n| `class` | texto | Clases CSS adicionales (se aplican al bot\xF3n de apertura) |\n| `style` | CSS | Estilos inline (se aplican al bot\xF3n de apertura) |\n\n## Interacci\xF3n\n\n- **Bot\xF3n**: abre el modal (focus se mueve dentro).\n- **Overlay** o bot\xF3n **\xD7**: cierra.\n- **Esc**: cierra (en desktop).\n- `dialog` nativo \u2192 accesible por defecto, focus trapped y `inert` al fondo.'
     },
     {
       "id": "button",
@@ -58526,7 +58546,7 @@ window.tailwind.config = {
       "title": "Button",
       "icon": "touch_app",
       "order": 3,
-      "md": '# Button\n\nLa directiva `:::button` crea un **bot\xF3n con enlace** (se abre en pesta\xF1a nueva por defecto).\n\n## Sintaxis\n\n```md\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n```\n\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n\n## Variante con enlace interno\n\n```md\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n```\n\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n\n## Con contenido markdown\n\nSi el bloque contiene texto/enlaces, se renderizan dentro del bot\xF3n:\n\n```md\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n```\n\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n\n## Alineaci\xF3n\n\nLos botones se alinean a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n```\n\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n\n### Alineado a la derecha\n\n```md\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n```\n\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `label` (o `title`) | texto | Texto del bot\xF3n (`title` funciona como alias por compatibilidad) |\n| `url` (o `href`) | URL | Destino del enlace (default `#`) |\n| `icon` | nombre Material | Icono (default `near_me`) |\n| `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n (default `left`) |\n| `class` | texto | Clases CSS adicionales |\n\n> **Nota:** El prop `style` no est\xE1 soportado en `:::button`. Los estilos inline se ignoran en este componente.'
+      "md": '# Button\n\nLa directiva `:::button` crea un **bot\xF3n con enlace** (se abre en pesta\xF1a nueva por defecto).\n\n## Sintaxis\n\n```md\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n```\n\n:::button {label="Documentaci\xF3n" url="https://example.com" icon="menu_book"}\n:::\n\n## Variante con enlace interno\n\n```md\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n```\n\n:::button {label="Ir a la p\xE1gina de notas" url="#admonici\xF3n-nota" icon="sticky_note_2" target="_self"}\n:::\n\n## Con contenido markdown\n\nSi el bloque contiene texto/enlaces, se renderizan dentro del bot\xF3n. El icono se a\xF1ade autom\xE1ticamente a cada enlace del contenido:\n\n```md\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n```\n\n:::button {label="Descargar" url="https://example.com/download" icon="download"}\nDescarga el **manual** en PDF\n:::\n\n## Con enlace en el contenido\n\nSi el contenido es un enlace markdown, el bot\xF3n usa el enlace del contenido y el icono se a\xF1ade al principio:\n\n```md\n:::button {icon="star"}\n[Descarga con FDM](https://example.com/download)\n:::\n```\n\n:::button {icon="star"}\n[Descarga con FDM](https://example.com/download)\n:::\n\n## Sin icono\n\nPara ocultar el icono, usa `icon="none"`:\n\n```md\n:::button {label="Sin icono" url="https://example.com" icon="none"}\n:::\n```\n\n:::button {label="Sin icono" url="https://example.com" icon="none"}\n:::\n\n## Color\n\nLos botones aceptan tokens de tema (`primary`, `secondary`, `info`, `success`, `warning`, `error`) o colores CSS arbitrarios (`red`, `#ff0000`, `rgb(255,0,0)`):\n\n```md\n:::button {label="\xC9xito" url="https://example.com" icon="check_circle" color="success"}\n:::\n```\n\n:::button {label="\xC9xito" url="https://example.com" icon="check_circle" color="success"}\n:::\n\n```md\n:::button {label="Rojo" url="https://example.com" icon="error" color="#e11d48"}\n:::\n```\n\n:::button {label="Rojo" url="https://example.com" icon="error" color="#e11d48"}\n:::\n\n## Alineaci\xF3n\n\nLos botones se alinean a la izquierda por defecto. Usa el prop `align` para cambiar la alineaci\xF3n:\n\n### Centrado\n\n```md\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n```\n\n:::button {label="Centrado" url="https://example.com" icon="center_focus_strong" align="center"}\n:::\n\n### Alineado a la derecha\n\n```md\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n```\n\n:::button {label="Derecha" url="https://example.com" icon="arrow_forward" align="right"}\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `label` (o `title`) | texto | Texto del bot\xF3n (`title` funciona como alias por compatibilidad) |\n| `url` (o `href`) | URL | Destino del enlace (default `#`) |\n| `icon` | nombre Material | Icono (default `touch_app`). Usa `icon="none"` para ocultar |\n| `target` | `_blank` / `_self` / ... | Destino del enlace (default `_blank`) |\n| `color` | token de tema o CSS | Color del bot\xF3n (ver colores soportados arriba) |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del bot\xF3n (default `left`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline (ej: `style="font-size:1rem"`) |'
     },
     {
       "id": "slide",

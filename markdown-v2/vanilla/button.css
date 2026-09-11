@@ -36,3 +36,27 @@
 .nr-button:active {
   transform: scale(0.95);
 }
+
+/* ── Theme color variants ───────────────────────────────── */
+
+.nr-button--primary,
+.nr-button--accent { background: var(--nr-accent); color: #fff; border-color: var(--nr-accent); }
+.nr-button--primary:hover,
+.nr-button--accent:hover { background: color-mix(in srgb, var(--nr-accent) 85%, #000); color: #fff; }
+
+.nr-button--secondary { background: var(--nr-secondary); color: #fff; border-color: var(--nr-secondary); }
+.nr-button--secondary:hover { background: color-mix(in srgb, var(--nr-secondary) 85%, #000); color: #fff; }
+
+.nr-button--info { background: var(--nr-info); color: #fff; border-color: var(--nr-info); }
+.nr-button--info:hover { background: color-mix(in srgb, var(--nr-info) 85%, #000); color: #fff; }
+
+.nr-button--success { background: var(--nr-success); color: #fff; border-color: var(--nr-success); }
+.nr-button--success:hover { background: color-mix(in srgb, var(--nr-success) 85%, #000); color: #fff; }
+
+.nr-button--warning { background: var(--nr-warning); color: #1f2937; border-color: var(--nr-warning); }
+.nr-button--warning:hover { background: color-mix(in srgb, var(--nr-warning) 85%, #000); color: #1f2937; }
+
+.nr-button--danger,
+.nr-button--error { background: var(--nr-danger); color: #fff; border-color: var(--nr-danger); }
+.nr-button--danger:hover,
+.nr-button--error:hover { background: color-mix(in srgb, var(--nr-danger) 85%, #000); color: #fff; }

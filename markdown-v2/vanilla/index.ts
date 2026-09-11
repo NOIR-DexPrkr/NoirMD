@@ -36,6 +36,8 @@ export {
   applyBaseProps,
   applyFloatStyle,
   applyColor,
+  applyAlignClass,
+  resolveIcon,
   openModal,
   IMG_RE,
   parseIntProp,

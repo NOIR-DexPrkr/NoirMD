@@ -50,6 +50,34 @@ La directiva `:::modal` crea un **diálogo modal** con su botón de apertura.
 - Especificidad CSS corregida en imágenes
 :::
 
+## Sin icono
+
+Para ocultar el icono del botón de apertura, usa `icon="none"`:
+
+```md
+:::modal {title="Sin icono" label="Abrir" icon="none"}
+Contenido del modal.
+:::
+```
+
+:::modal {title="Sin icono" label="Abrir" icon="none"}
+Contenido del modal.
+:::
+
+## Color
+
+El botón de apertura acepta tokens de tema (`primary`, `secondary`, `info`, `success`, `warning`, `error`) o colores CSS arbitrarios:
+
+```md
+:::modal {title="Éxito" label="Abrir" icon="check_circle" color="success"}
+Acción completada correctamente.
+:::
+```
+
+:::modal {title="Éxito" label="Abrir" icon="check_circle" color="success"}
+Acción completada correctamente.
+:::
+
 ## Alineación del botón
 
 El botón de apertura se alinea a la izquierda por defecto. Usa el prop `align` para cambiar la alineación:
@@ -84,10 +112,11 @@ Contenido del modal alineado a la derecha.
 | --- | --- | --- |
 | `title` | texto | Título del modal |
 | `label` (o `title`) | texto | Texto del botón de apertura (`title` funciona como alias, default: «Open») |
-| `icon` | nombre Material | Icono del botón (default `open_in_new`) |
+| `icon` | nombre Material | Icono del botón (default `open_in_full`). Usa `icon="none"` para ocultar |
+| `color` | token de tema o CSS | Color del botón de apertura |
 | `align` | `left` / `center` / `right` | Alineación del botón de apertura (default `left`) |
-| `class` | texto | Clases CSS adicionales |
-| `style` | CSS | Estilos inline |
+| `class` | texto | Clases CSS adicionales (se aplican al botón de apertura) |
+| `style` | CSS | Estilos inline (se aplican al botón de apertura) |
 
 ## Interacción
 

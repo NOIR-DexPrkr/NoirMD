@@ -181,7 +181,7 @@ Directives use `#slotname` markers to split content into named regions:
 - `<style>` blocks inject globally into `<head>` — no scoped styles
 - Directives have their own padding/borders/rounded — avoid nesting inside flex/grid containers
 - Consecutive `card`/`card-m`/`card-b` auto-batch into flex-wrap; use `batch="off"` to disable
-- Button/Modal have smart class detection that omits defaults when user classes conflict
+- Button/Modal support `icon="none"` to hide the icon; `class`/`style` props apply to the trigger element (button or link)
 - `scanTailwindCDN()` must be called after DOM mutations with new Tailwind classes
 - React/Vue wrappers render on the client only (useEffect/onMounted) — server render is an empty placeholder
 - Custom directives are framework-agnostic: register DOM functions in the shared vanilla `directiveRegistry`

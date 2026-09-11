@@ -117,6 +117,37 @@ export const IMG_RE = /!\[([^\]]*)\]\(([^)]+)\)/g;
 // ── Typed Props Helper ────────────────────────────────────
 
 /**
+ * Apply alignment modifier class to an element.
+ * Appends `${suffix}--center` or `${suffix}--right` when applicable.
+ * Uses `applyAlignClass(el, 'nr-button-wrap', align)` for button/modal wrappers.
+ */
+export function applyAlignClass(
+  el: HTMLElement,
+  baseClass: string,
+  align?: string,
+): void {
+  if (align === 'center') {
+    el.classList.add(`${baseClass}--center`);
+  } else if (align === 'right') {
+    el.classList.add(`${baseClass}--right`);
+  }
+}
+
+/**
+ * Resolve an icon prop to a valid icon name, or null for "none"/"off".
+ * Returns `fallback` when `value` is missing; returns `null` when the user
+ * explicitly wants no icon (`value` is "none" or "off").
+ */
+export function resolveIcon(
+  value: string | undefined,
+  fallback: string,
+): string | null {
+  if (!value) return fallback;
+  if (value === 'none' || value === 'off') return null;
+  return value;
+}
+
+/**
  * Parse a prop value as an integer with a fallback default.
  * Returns the default if the value is missing or NaN.
  */

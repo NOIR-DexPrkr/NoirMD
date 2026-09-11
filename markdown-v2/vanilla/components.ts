@@ -199,6 +199,7 @@ export function createModal(title: string): HTMLDialogElement {
 
   const closeBtn = document.createElement('button');
   closeBtn.className = 'nr-modal__close';
+  closeBtn.setAttribute('aria-label', 'Close');
   closeBtn.appendChild(createIcon('close'));
   closeBtn.addEventListener('click', () => dialog.close());
   header.appendChild(closeBtn);

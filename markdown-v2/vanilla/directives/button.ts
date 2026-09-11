@@ -4,29 +4,30 @@
 
 import type { DirectiveRendererFn } from './index';
 import { createIcon } from '../components';
-import { applyBaseProps } from '../utils';
+import { applyBaseProps, applyColor, applyAlignClass, resolveIcon } from '../utils';
 
 const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   const url = props.url || props.href || '#';
   const label = props.label || props.title;
-  const icon = props.icon || 'near_me';
+  const iconName = resolveIcon(props.icon, 'touch_app');
   const target = props.target || '_blank';
-  const customClass = props.class || '';
   const align = props.align || 'left';
 
   // Wrapper
   const wrapper = document.createElement('div');
-  wrapper.className = `nr-button-wrap${align === 'center' ? ' nr-button-wrap--center' : align === 'right' ? ' nr-button-wrap--right' : ''}`;
+  wrapper.className = 'nr-button-wrap';
+  applyAlignClass(wrapper, 'nr-button-wrap', align);
 
   // If label is provided, use it directly
   if (label) {
     const a = document.createElement('a');
     a.href = url;
     a.target = target;
-    a.rel = 'noopener noreferrer';
+    if (target === '_blank') a.rel = 'noopener noreferrer';
     a.className = 'nr-button nr-button--default';
+    applyColor(a, props.color, 'nr-button');
     applyBaseProps(a, props);
-    a.appendChild(createIcon(icon));
+    if (iconName) a.appendChild(createIcon(iconName));
     a.appendChild(document.createTextNode(label));
     wrapper.appendChild(a);
     return wrapper;
@@ -40,6 +41,8 @@ const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
   if (links.length > 0) {
     links.forEach(link => {
       link.classList.add('nr-button', 'nr-button--default');
+      applyColor(link, props.color, 'nr-button');
+      if (iconName) link.prepend(createIcon(iconName));
       applyBaseProps(link, props);
     });
     wrapper.appendChild(slotContent);
@@ -48,10 +51,11 @@ const buttonDirective: DirectiveRendererFn = ({ props, renderSlot }) => {
     const a = document.createElement('a');
     a.href = url;
     a.target = target;
-    a.rel = 'noopener noreferrer';
+    if (target === '_blank') a.rel = 'noopener noreferrer';
     a.className = 'nr-button nr-button--default';
+    applyColor(a, props.color, 'nr-button');
     applyBaseProps(a, props);
-    a.appendChild(createIcon(icon));
+    if (iconName) a.appendChild(createIcon(iconName));
     a.appendChild(slotContent);
     wrapper.appendChild(a);
   }

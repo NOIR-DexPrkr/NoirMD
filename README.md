@@ -248,7 +248,7 @@ Hidden content revealed on click.
 ### Modal (Dialog)
 
 ```markdown
-:::modal {title="Modal Title" label="Open Modal" icon="open_in_new"}
+:::modal {title="Modal Title" label="Open Modal" icon="open_in_full"}
 Modal body with **markdown** support.
 :::
 ```
@@ -258,7 +258,7 @@ Powered by the native `<dialog>` element — portal to `<body>` on open, backdro
 ### Button (Link)
 
 ```markdown
-:::button {label="Click Me" url="https://example.com" icon="near_me"}
+:::button {label="Click Me" url="https://example.com" icon="touch_app" color="primary"}
 ```
 
 ### Slide (Text Carousel)
