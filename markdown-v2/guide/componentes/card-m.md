@@ -124,6 +124,10 @@ Click para ver más.
 Abre en nueva pestaña.
 :::
 
+### Altura y posición del botón
+
+Las cards de una misma fila se estiran a la **misma altura** y el botón `Abrir` queda siempre **anclado abajo a la derecha** de la tarjeta (`margin-top: auto`). Así, aunque una descripción sea mucho más larga que otra, el botón nunca queda “flotando” a media altura.
+
 ## Props
 
 | Prop | Tipo | Descripción |

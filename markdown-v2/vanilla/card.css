@@ -121,7 +121,11 @@
 }
 
 .nr-card__action {
-  margin-top: 1.5rem;
+  /* Pin the action to the bottom of the card so every card in a grid
+     shows its button at the same spot (bottom-right), no matter how
+     long the description is. `padding-top` keeps a minimum gap. */
+  margin-top: auto;
+  padding-top: 1.5rem;
   display: flex;
   justify-content: flex-end;
 }

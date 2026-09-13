@@ -11,7 +11,7 @@
 // the global scope at event time and invoked with the element
 // as `this` and the DOM event as argument.
 //
-// Trust model: same as :::raw / :::style — author-owned content.
+// Trust model: same as raw HTML / <style> blocks — author-owned content.
 // ============================================================
 
 export interface EventBinding {

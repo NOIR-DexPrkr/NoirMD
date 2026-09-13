@@ -84,6 +84,24 @@ Paquete npm.
 :::
 ```
 
+### Altura y posición del botón
+
+Las cards de una misma fila se estiran a la **misma altura** y el botón `LINK` queda siempre **anclado abajo a la derecha** de la tarjeta (`margin-top: auto`). Así, aunque una descripción sea mucho más larga que otra, el botón nunca queda “flotando” a media altura.
+
+```md
+:::card-b {title="Corta" icon="dns" url="https://example.com"}
+
+#description
+Descripción corta.
+:::
+
+:::card-b {title="Larga" icon="menu_book" url="https://example.com"}
+
+#description
+Descripción mucho más larga que hace que esta tarjeta tenga más líneas de texto.
+:::
+```
+
 ## Props
 
 | Prop | Tipo | Descripción |

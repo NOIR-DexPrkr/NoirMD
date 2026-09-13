@@ -122,15 +122,22 @@ Implementación: detectar si el valor es un token conocido; si no, aplicar inlin
 
 ### Grid de cards
 
-Las cards usan CSS Grid (no flex) para igualar alturas:
+Las cards usan flex-wrap (no grid) para ser responsivas:
 ```css
 .nr-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.nr-card {
+  flex: 1 1 18rem;
+  max-width: 20rem;
 }
 ```
 
-El prop `align` controla `justify-items`: `left` (default), `center`, `right`.
+- Las cards de una **misma fila** se estiran a la misma altura (stretch por defecto del flex).
+- El botón de acción (`LINK` de `card-b`, `Abrir` de `card-m`) usa `margin-top: auto; padding-top: 1.5rem` en `.nr-card__action`: queda **anclado abajo a la derecha** sin importar la longitud de la descripción. Nunca usar `margin-top` fijo en la acción.
+- El prop `align` controla `justify-content`: `left` (default), `center`, `right`.
 
 ### Batching automático
 
@@ -139,6 +146,15 @@ Las directivas consecutivas del mismo tipo se agrupan automáticamente:
 - `stat` → `.nr-stat-grid`
 
 Usa `batch="off"` para desactivar.
+
+### Directivas deprecadas (no documentar)
+
+`:::div`, `:::style`, `:::custom` y `:::raw` (wrapper directives en `vanilla/directives/wrapper.ts`) están **deprecadas** y existen **solo para soportar código legacy**. Reglas:
+
+- **Nunca** documentarlas: sin página en `guide/`, sin ejemplos, sin entradas en `docs-site/public/llms.txt` ni en `README.md`.
+- No añadirles features ni props nuevos. Si hay que tocar `wrapper.ts`, mantener el comportamiento actual.
+- Para CSS usar bloques HTML `<style>`; para HTML crudo, escribir HTML directamente en el markdown.
+- En código van marcadas con comentarios `⚠️ DEPRECATED / LEGACY ONLY` (ver `wrapper.ts` y el registry en `directives/index.ts`).
 
 ## Archivos de memoria
 

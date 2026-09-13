@@ -120,7 +120,7 @@ Props: `title`, `icon`, `class`, `style`. Content supports full markdown.
 | `:::card-m` | Interactive card — click opens a modal with `#content` slot |
 | `:::card-b` | Interactive card — click navigates to `url` prop |
 
-Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`left`/`center`/`right`), `batch`, `class`, `style`. Slots: `#description`, `default`, `#content` (card-m only). Consecutive cards auto-batch into a CSS Grid with equal-height cards (`batch="off"` to disable).
+Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`left`/`center`/`right`), `batch`, `class`, `style`. Slots: `#description`, `default`, `#content` (card-m only). Consecutive cards auto-batch into a flex-wrap row: cards on the same row stretch to equal height, and the interactive action (`LINK` / `Abrir`) is always pinned to the **bottom-right** of the card (`margin-top: auto`), so it never floats mid-card when descriptions differ in length (`batch="off"` to disable batching).
 
 ### Interactive
 
@@ -146,9 +146,9 @@ Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`le
 | `:::richlist` | Rich list with avatars/actions. Contains `:::richlist-item` children with `title`, `subtitle`, `image`, `icon`, `icon2` |
 | `:::stat` | Statistic card (icon, value, description). Props: `title`, `value`, `desc`, `icon`, `color` (theme tokens or any CSS color), `batch`. Consecutive stats auto-batch into a grid |
 
-### Layout
+### Deprecated (legacy only — no documentation)
 
-`:::div`, `:::style`, `:::raw`, `:::custom` are all generic wrapper directives (identical implementation — render a `<div>` with optional `class`, `id`, `style`, `data-*` attributes). For actual CSS injection, use `<style>` HTML blocks. For raw HTML, write HTML directly in markdown.
+`:::div`, `:::style`, `:::custom` and `:::raw` are generic wrapper directives from the old API (identical implementation: a `<div>` with `class`, `id`, `style`, `data-*`). They remain registered **only** so legacy markdown keeps rendering — never use them in new content. For CSS injection use `<style>` HTML blocks; for raw markup, write HTML directly in markdown.
 
 ## Inline Syntax
 
@@ -205,9 +205,6 @@ NoirMD extends standard markdown with inline formatting:
 - [HTML Raw](/docs/html-raw): Native HTML, `<style>` and `<script>` inside markdown.
 - [Limitaciones](/docs/limitaciones): Platform restrictions, security/trust model and edge cases.
 - [Best Practices](/docs/best-practices): Rules, restrictions and pitfalls.
-
-### Layout Components
-- [Wrapper Directives](/docs/wrapper-directives): `:::div`, `:::style`, `:::custom`, `:::raw` — generic layout wrappers with class, id, style and data-* props.
 
 ### Shared Utilities (Vanilla)
 

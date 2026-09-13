@@ -173,3 +173,5 @@ Existen dos variantes de la tarjeta con comportamiento interactivo:
 | `:::card-b` | Navega a la URL indicada en la prop `url` |
 
 Las tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan automáticamente en grid. Consulta las páginas de **Card Modal** y **Card Link** para más detalles.
+
+Dentro de un grid, las cards de una misma fila se estiran a la **misma altura** y, en las variantes interactivas (`:::card-m` y `:::card-b`), el botón de acción (`Abrir` / `LINK`) queda siempre **anclado abajo a la derecha**, sin importar la longitud de la descripción.

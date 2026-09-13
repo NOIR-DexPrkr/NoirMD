@@ -2,8 +2,8 @@
 // NoirMD Vanilla — Tailwind v4 theme injection
 //
 // When the host enables the Tailwind Browser CDN (tailwindCDN
-// prop), Tailwind classes authored inside markdown (:::div,
-// :::raw, attrs, ...) are JIT-compiled at runtime. For color
+// prop), Tailwind classes authored inside markdown (HTML blocks,
+// directive children, attrs, ...) are JIT-compiled at runtime. For color
 // utilities like `bg-primary` / `text-secondary` to resolve,
 // Tailwind v4 needs an `@theme` block registering --color-*
 // keys.

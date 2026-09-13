@@ -4,7 +4,7 @@ import { injectNRTailwindTheme, removeNRTailwindTheme } from '../vanilla/tailwin
 /**
  * useLazyTailwindCDN — Lazily injects the Tailwind CSS v4 Browser CDN
  * so that arbitrary Tailwind classes written in runtime markdown content
- * (:::raw, directives, ##{ } attrs, etc.) are resolved.
+ * (directives, HTML blocks, `##{ }` attrs, etc.) are resolved.
  *
  * - Only injects the <script> when `enabled` is true (e.g. preview mode).
  * - Removes the script when `enabled` becomes false (editor-only mode).

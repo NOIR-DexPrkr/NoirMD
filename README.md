@@ -271,16 +271,16 @@ Third slide line
 :::
 ```
 
-### Wrapper & Style
+### Deprecated: Wrapper Directives
+
+`:::div`, `:::style`, `:::custom` and `:::raw` are **deprecated / legacy only** and intentionally undocumented. They remain registered so old markdown keeps rendering, but new content must use native HTML blocks instead:
 
 ```markdown
-:::div .my-class #my-id
-Custom wrapper with class and id.
-:::
+<style>
+.my-class { color: red; }
+</style>
 
-:::style
-Custom styled container.
-:::
+<div class="my-class">Plain HTML with **markdown** inside.</div>
 ```
 
 ### Slot System

@@ -82,6 +82,10 @@ const directiveRegistry: Record<string, DirectiveRendererFn> = {
   modal: modalDirective,
   button: buttonDirective,
   // Layout / generic wrappers
+  // ⚠️ DEPRECATED — legacy only, kept for backward compatibility.
+  // Do NOT document these (`:::div`, `:::style`, `:::custom`, `:::raw`)
+  // in guides or llms.txt; use native HTML blocks instead.
+  // See ./wrapper.ts for details.
   div: wrapperDirective,
   style: wrapperDirective,
   custom: wrapperDirective,

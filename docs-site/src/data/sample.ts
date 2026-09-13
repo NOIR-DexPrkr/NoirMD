@@ -91,16 +91,6 @@ Texto alrededor de la imagen para probar el float izquierdo. \`#left\` alinea a 
 <div style="border:1px dashed var(--color-border,#334155);padding:8px;border-radius:8px">
 HTML block con **markdown** dentro.
 </div>
-
-## Wrappers
-
-:::div .caja-test #mi-caja
-Wrapper con clase e id.
-:::
-
-:::style
-<p>HTML puro dentro de <code>:::style</code>.</p>
-:::
 `;
 
 export const HERO_SAMPLE = `# NoirMD
@@ -138,6 +128,4 @@ export const CHEATSHEET: [string, string][] = [
   [':::modal {title="..." label="..."}', 'Modal'],
   [':::button {label="..." url="..."}', 'Botón'],
   [':::slide {interval="2000"}', 'Carrusel'],
-  [':::div .cls #id', 'Wrapper'],
-  [':::style / :::raw / :::custom', 'HTML crudo'],
 ];

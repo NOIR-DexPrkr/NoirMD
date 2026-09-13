@@ -1,7 +1,19 @@
 // ============================================================
-// Wrapper Directive (vanilla)
+// Wrapper Directive (vanilla) — ⚠️ DEPRECATED / LEGACY ONLY
 //
-// Generic layout wrapper for: div, style, custom, raw
+// Legacy wrapper for: div, style, custom, raw
+//
+// These directives are NOT part of the public API anymore and must
+// NOT be documented in the guides (`markdown-v2/guide/**`), in
+// `docs-site/public/llms.txt` or in the README. They stay in the
+// registry only so old markdown keeps rendering — all four share
+// this exact implementation.
+//
+// Use native HTML blocks inside markdown instead:
+//   - CSS        → `<style>…</style>` (injected globally in <head>)
+//   - raw markup → plain HTML written directly in the markdown
+//
+// TODO: remove once legacy content is migrated.
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';

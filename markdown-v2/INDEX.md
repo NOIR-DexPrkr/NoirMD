@@ -113,7 +113,7 @@ markdown-v2/
 - **Admonitions**: `note`, `info`, `warning`, `danger`, `greentext` → `admonition.ts`
 - **Cards**: `card`, `card-m`, `card-b` → `card.ts` (auto-batch consecutive cards into grid)
 - **Interactive**: `details`, `modal`, `button` → dedicated directive files
-- **Layout**: `div`, `style`, `custom`, `raw` → `wrapper.ts`
+- **Layout**: `div`, `style`, `custom`, `raw` → `wrapper.ts` — ⚠️ **DEPRECATED / legacy only**: kept for backward compatibility, intentionally undocumented (no guide, no llms.txt). Use native HTML blocks instead. Never add examples for these.
 - **Animation**: `slide` → `slide.ts`
 - **Keyboard**: `keys` → `keys.ts`
 - **Collapsible**: `accordion`, `accordion-item` → `accordion.ts` (radio/checkbox modes)
