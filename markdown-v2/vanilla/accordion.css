@@ -16,7 +16,7 @@
   transition: grid-template-rows 0.25s ease;
   border: 1px solid var(--nr-border);
   border-radius: var(--nr-radius-sm);
-  background: color-mix(in oklab, var(--nr-bg-secondary) 30%, transparent);
+  background: transparent;
 }
 
 .nr-accordion__item:has(> .nr-accordion__input:checked) {

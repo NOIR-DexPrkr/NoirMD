@@ -12,18 +12,19 @@
 .nr-details__summary {
   cursor: pointer;
   padding: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   list-style: none;
+  transition: background-color 0.15s;
 }
 .nr-details__summary::-webkit-details-marker {
   display: none;
 }
 .nr-details__summary:hover {
   color: var(--nr-accent);
-  transition: color 0.15s;
+  background: var(--nr-muted);
 }
 
 .nr-details__icon {

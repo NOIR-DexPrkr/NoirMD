@@ -20,9 +20,9 @@
 .nr-table__th {
   padding: 0.5rem 0.75rem;
   text-align: left;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.75rem;
-  background: rgba(30, 41, 59, 0.1);
+  background: var(--nr-muted);
   border-bottom: 1px solid var(--nr-border);
 }
 

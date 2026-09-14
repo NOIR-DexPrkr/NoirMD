@@ -8,7 +8,7 @@
   padding: 0.25rem 0;
   border: 1px solid var(--nr-border);
   border-radius: var(--nr-radius);
-  background: color-mix(in oklab, var(--nr-bg-secondary) 30%, transparent);
+  background: var(--nr-bg);
 }
 
 .nr-richlist__item {
@@ -18,7 +18,7 @@
   align-items: center;
   gap: 0.25rem 1rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid color-mix(in oklab, var(--nr-text) 8%, transparent);
+  border-bottom: 1px solid var(--nr-border);
   transition: background-color 0.15s ease;
 }
 

@@ -5,7 +5,7 @@
 .nr-blockquote {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border-left: 4px solid rgba(14, 165, 233, 0.3);
+  border-left: 2px solid color-mix(in oklab, var(--nr-accent) 30%, transparent);
   color: var(--nr-text-secondary);
   font-style: italic;
   font-size: 0.875rem;

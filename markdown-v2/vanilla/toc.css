@@ -7,12 +7,12 @@
   padding: 1rem;
   border-radius: var(--nr-radius);
   border: 1px solid var(--nr-border);
-  background: color-mix(in srgb, var(--nr-bg) 5%, transparent);
+  background: var(--nr-muted);
 }
 
 .nr-toc__title {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.75rem;
 }
 

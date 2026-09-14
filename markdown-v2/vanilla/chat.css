@@ -55,7 +55,7 @@
   min-width: 2.5rem;
   padding: 0.5rem 1rem;
   border-radius: var(--nr-radius);
-  background: var(--nr-bg-secondary);
+  background: var(--nr-muted);
   color: var(--nr-text);
   font-size: 0.9rem;
 }
