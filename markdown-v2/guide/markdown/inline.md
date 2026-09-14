@@ -68,13 +68,13 @@ Se usa `%color%texto%%`:
 
 ## Iconos Material
 
-Los iconos se insertan con el nombre entre `|[[ ]]|`:
+Los iconos se insertan con el nombre entre `|[ ]|`:
 
 ```md
-|[[favorite]]| Me gusta  |[[send]]| Enviar  |[[star]]| Destacar
+|[favorite]| Me gusta  |[send]| Enviar  |[star]| Destacar
 ```
 
-|[[favorite]]| Me gusta  |[[send]]| Enviar  |[[star]]| Destacar
+|[favorite]| Me gusta  |[send]| Enviar  |[star]| Destacar
 
 > Usa cualquier nombre de la colección [Material Symbols](https://fonts.google.com/icons). También funcionan en props como `icon` de las directivas.
 

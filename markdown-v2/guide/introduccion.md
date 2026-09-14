@@ -48,7 +48,7 @@ Todo lo que está entre la apertura y el cierre `:::` se renderiza con el mismo 
 | `%color%texto%%` | Texto de color |
 | `->centrado<-` | Texto centrado |
 | `!>spoiler<!` | Spoiler oculto |
-| `|[[icono]]|` | Icono Material |
+| `|[icono]|` | Icono Material |
 | `[TOC]` | Índice de contenidos |
 | `:::note` `:::warning` `:::danger` `:::info` `:::greentext` | Admoniciones |
 | `:::card` `:::accordion` `:::carousel` `:::diff` `:::chat` `:::stat` `:::countdown` `:::keys` `:::hover-3d` `:::hover-gallery` `:::richlist` | Componentes |

@@ -167,7 +167,7 @@ NoirMD extends standard markdown with inline formatting:
 | `!>text<!` | Spoiler (hidden) | Hover/tap to reveal |
 | `->text<-` | Centered text | Block-level |
 | `->text->` | Right-aligned text | Block-level |
-| `\|[[icon-name]]\|` | Material icon | Any Material Symbols name |
+| `\|[icon-name]\|` | Material icon | Any Material Symbols name |
 | `[text](url)` | Link | |
 | `![alt](src#float#3d){w:h}` | Image | Float: `#left`/`#right`/`#center`. Size: `{width:height}` |
 

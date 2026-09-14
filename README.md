@@ -144,7 +144,7 @@ Import it **once** in your root component or global CSS file.
 
 | # | Syntax | Result |
 |---|--------|--------|
-| 1 | `\|[[icon-name]]\|` | Material Icon inline |
+| 1 | `\|[icon-name]\|` | Material Icon inline |
 | 2 | `!~color;style;type;text~!` | Text decoration (underline, overline, etc.) |
 | 3 | `%color%text%%` | Colored text |
 | 4 | `!>text<!` | Spoiler (hidden until hover) |

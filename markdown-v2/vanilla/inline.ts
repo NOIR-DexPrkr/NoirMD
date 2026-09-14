@@ -47,7 +47,7 @@ export function renderInline(text: string): DocumentFragment {
 function parseInlinePart(part: string): Node {
   let match: RegExpMatchArray | null;
 
-  // Icon: |[[icon-name]]|
+  // Icon: |[icon-name]|
   if ((match = part.match(/^\|\[([^\]]+)\]\|$/))) {
     return createIcon(match[1]);
   }
