@@ -157,9 +157,20 @@
 }
 
 .nr-icon {
-  font-size: 1em;
+  font-size: 1.1em;
   line-height: 1;
-  vertical-align: top;
+  vertical-align: middle;
+  margin-bottom: 0.125em;
+}
+
+/* Icons inside headings keep top alignment */
+.md-h1 .nr-icon,
+.md-h2 .nr-icon,
+.md-h3 .nr-icon,
+.md-h4 .nr-icon,
+.md-h5 .nr-icon,
+.md-h6 .nr-icon {
+  margin-bottom: 0.25em;
 }
 
 /* ── Generic element resets (raw HTML content) ───────────── */
