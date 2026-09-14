@@ -15,6 +15,7 @@ export {
   renderTokens,
   renderMarkdownString,
   renderHtmlString,
+  cleanupGlobalStyles,
   renderInline,
   createIcon,
   createCodeBlock,

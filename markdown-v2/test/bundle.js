@@ -58092,6 +58092,7 @@ window.tailwind.config = {
     return article;
   }
   function renderMarkdownString(markdown2) {
+    document.head.querySelectorAll("style[data-nr-global]").forEach((el) => el.remove());
     const tokens = parseMarkdown(markdown2);
     return renderTokens(tokens);
   }
@@ -58101,8 +58102,12 @@ window.tailwind.config = {
       /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
       (_match, cssContent) => {
         const trimmed = cssContent.trim();
-        const existing = document.head.querySelector("style[data-nr-global]");
-        if (existing && existing.textContent === trimmed) return "";
+        if (!trimmed) return "";
+        const allGlobal = document.head.querySelectorAll("style[data-nr-global]");
+        const duplicate = Array.from(allGlobal).find(
+          (s) => s.textContent === trimmed
+        );
+        if (duplicate) return "";
         const styleEl = document.createElement("style");
         styleEl.setAttribute("data-nr-global", "");
         styleEl.textContent = trimmed;

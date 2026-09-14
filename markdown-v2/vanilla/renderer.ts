@@ -40,9 +40,25 @@ export function renderTokens(tokens: Token[]): HTMLElement {
 }
 
 /**
+ * Remove all globally-injected `<style data-nr-global>` elements from `<head>`.
+ * Call this before re-rendering if you use `renderTokens()` directly.
+ */
+export function cleanupGlobalStyles(): void {
+  document.head
+    .querySelectorAll('style[data-nr-global]')
+    .forEach((el) => el.remove());
+}
+
+/**
  * Convenience: parse markdown string and render directly.
  */
 export function renderMarkdownString(markdown: string): HTMLElement {
+  // Clean up any global <style> tags from a previous render so that
+  // removed <style> blocks don't leave stale CSS behind.
+  document.head
+    .querySelectorAll('style[data-nr-global]')
+    .forEach((el) => el.remove());
+
   const tokens = parseMarkdown(markdown);
   return renderTokens(tokens);
 }
@@ -60,9 +76,13 @@ export function renderHtmlString(html: string): HTMLElement {
     /<style(?:\s+[^>]*)?>([\s\S]*?)<\/style>/gi,
     (_match: string, cssContent: string) => {
       const trimmed = cssContent.trim();
-      // Check if identical style already exists
-      const existing = document.head.querySelector('style[data-nr-global]');
-      if (existing && existing.textContent === trimmed) return '';
+      if (!trimmed) return '';
+      // Check if an identical style already exists (from earlier in this render)
+      const allGlobal = document.head.querySelectorAll('style[data-nr-global]');
+      const duplicate = Array.from(allGlobal).find(
+        (s) => s.textContent === trimmed,
+      );
+      if (duplicate) return '';
       const styleEl = document.createElement('style');
       styleEl.setAttribute('data-nr-global', '');
       styleEl.textContent = trimmed;

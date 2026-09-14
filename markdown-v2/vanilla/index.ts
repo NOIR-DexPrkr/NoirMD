@@ -6,7 +6,7 @@
 // ============================================================
 
 // ── Renderer ──
-export { renderTokens, renderMarkdownString, renderHtmlString } from './renderer';
+export { renderTokens, renderMarkdownString, renderHtmlString, cleanupGlobalStyles } from './renderer';
 
 // ── Inline renderer ──
 export { renderInline } from './inline';
