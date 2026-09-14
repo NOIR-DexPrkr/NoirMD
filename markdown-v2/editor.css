@@ -193,6 +193,35 @@
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
+  overflow-y: auto;
+}
+/* ── Scrollbar — compact NoirMD theme ────────────────────── */
+.nr-editor-pane::-webkit-scrollbar,
+.nr-editor-preview::-webkit-scrollbar,
+.nr-editor-preview--half::-webkit-scrollbar {
+  width: 4px;
+}
+.nr-editor-pane::-webkit-scrollbar-track,
+.nr-editor-preview::-webkit-scrollbar-track,
+.nr-editor-preview--half::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nr-editor-pane::-webkit-scrollbar-thumb,
+.nr-editor-preview::-webkit-scrollbar-thumb,
+.nr-editor-preview--half::-webkit-scrollbar-thumb {
+  background: var(--color-border, #334155);
+  border-radius: 2px;
+}
+.nr-editor-pane::-webkit-scrollbar-thumb:hover,
+.nr-editor-preview::-webkit-scrollbar-thumb:hover,
+.nr-editor-preview--half::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-primary, #38bdf8);
+}
+.nr-editor-pane,
+.nr-editor-preview,
+.nr-editor-preview--half {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border, #334155) transparent;
 }
 .nr-editor-pane--half {
   width: 50%;
