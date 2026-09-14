@@ -294,6 +294,7 @@ function App() {
         <NReditor
           value={md}
           onChange={setMd}
+          tailwindCDN
           guide
           onConfig={() => toast('Configurar: pendiente en el test')}
         />

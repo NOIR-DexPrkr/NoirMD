@@ -129,7 +129,7 @@ Props: `title`, `icon`, `image`, `url` (card-b required), `target`, `align` (`le
 | `:::details` | Collapsible `<details>` section |
 | `:::modal` | Native `<dialog>` modal with trigger button. Props: `title`, `label`, `icon` (default `open_in_full`; `icon="none"` to hide), `color`, `align` (left/center/right), `class`, `style` (applied to trigger) |
 | `:::button` | Styled link/button with icon. Props: `label` (or `title`), `url`, `icon` (default `touch_app`; `icon="none"` to hide), `target`, `color`, `align` (left/center/right), `class`, `style` |
-| `:::slide` | Auto-advancing text carousel (sections split by `---`) |
+| `:::slide` | Auto-advancing text carousel — each non-empty line becomes a slide. Props: `interval`, `speed`, `class`, `style`. Per-line styling: `##{class="..."}` |
 
 ### Components
 

@@ -57423,14 +57423,22 @@ window.tailwind.config = {
     const slideEls = [];
     for (const line of lines) {
       const slideEl = document.createElement("div");
-      slideEl.className = `nr-slide__item ${scopeClass} ${rawClass}`.trim();
+      slideEl.className = `nr-slide__item ${scopeClass}`.trim();
       slideEl.style.display = "flex";
       slideEl.style.alignItems = "center";
-      if (renderMarkdown) {
-        const tokens = renderMarkdown(line);
+      const { text: cleanText, classes: lineClasses, id: lineId } = extractAttributes(line);
+      if (lineId) slideEl.id = lineId;
+      const allClasses = [rawClass, lineClasses].filter(Boolean).join(" ").trim();
+      if (allClasses && renderInline2) {
+        const contentEl = document.createElement("span");
+        contentEl.className = allClasses;
+        contentEl.appendChild(renderInline2(cleanText));
+        slideEl.appendChild(contentEl);
+      } else if (renderMarkdown) {
+        const tokens = renderMarkdown(cleanText);
         slideEl.appendChild(tokens);
       } else if (renderInline2) {
-        slideEl.appendChild(renderInline2(line));
+        slideEl.appendChild(renderInline2(cleanText));
       }
       track.appendChild(slideEl);
       slideEls.push(slideEl);
@@ -58558,7 +58566,7 @@ window.tailwind.config = {
       "title": "Slide",
       "icon": "slideshow",
       "order": 4,
-      "md": '# Slide\n\nLa directiva `:::slide` convierte su contenido en un **slider autom\xE1tico** (diapositivas con fade).\n\n## Sintaxis\n\nLas secciones se separan con `---`:\n\n```md\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n```\n\n:::slide {interval="2500"}\n## Diapositiva 1\n\nBienvenido a la **gu\xEDa interactiva**.\n\n---\n\n## Diapositiva 2\n\nCada `---` separa una diapositiva nueva.\n\n---\n\n## Diapositiva 3\n\nY el motor se encarga del resto.\n:::\n\n## Con contenido variado\n\n```md\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n```\n\n:::slide {interval="3500" speed="800"}\n:::card {title="Card" icon="dashboard"}\nLas directivas se anidan dentro.\n:::\n---\n> **Admonici\xF3n** como diapositiva\n---\n| P\xE1gina | Tema |\n| --- | --- |\n| 1 | Slide |\n| 2 | Loop |\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `interval` | ms | Tiempo por diapositiva (default `3000`) |\n| `speed` | ms | Duraci\xF3n de la transici\xF3n (default `500`) |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Notas\n\n- Al llegar a la \\u00faltima diapositiva, vuelve a la primera autom\\u00e1ticamente (loop).\n- El contenido de cada diapositiva admite markdown completo y directivas anidadas.\n- La altura del contenedor se adapta autom\\u00e1ticamente al contenido m\\u00e1s alto.'
+      "md": '# Slide\n\nLa directiva `:::slide` convierte su contenido en un **slider autom\xE1tico** que rota l\xEDnea por l\xEDnea.\n\n## Sintaxis\n\nCada l\xEDnea no vac\xEDa del bloque se convierte en una diapositiva:\n\n```md\n:::slide {interval="2500"}\nSin un gran poder\nNo hay gran responsabilidad\nEl poder absoluto corrompe absolutamente\n:::\n```\n\n:::slide {interval="2500"}\nSin un gran poder\nNo hay gran responsabilidad\nEl poder absoluto corrompe absolutamente\n:::\n\n## Clases y estilos\n\nAplica clases Tailwind o CSS al contenedor con `class`:\n\n```md\n:::slide {class="text-2xl font-bold text-center text-[#ca1414]" interval="3000"}\nPrimera diapositiva\nSegunda diapositiva\n:::\n```\n\n:::slide {class="text-2xl font-bold text-center text-[#ca1414]" interval="3000"}\nPrimera diapositiva\nSegunda diapositiva\n:::\n\n## Estilo por l\xEDnea\n\nUsa `##{class="..."}` al final de una l\xEDnea para aplicar clases individuales:\n\n```md\n:::slide {class="text-2xl font-bold text-center" interval="3000"}\nSin un gran poder ##{class="text-red-400"}\nNo hay gran responsabilidad ##{class="text-blue-400"}\n:::\n```\n\n:::slide {class="text-2xl font-bold text-center" interval="3000"}\nSin un gran poder ##{class="text-red-400"}\nNo hay gran responsabilidad ##{class="text-blue-400"}\n:::\n\n## Contenido con formato\n\nCada l\xEDnea admite markdown inline (negrita, cursiva, c\xF3digo, enlaces):\n\n```md\n:::slide {interval="3000"}\nBienvenido a la **gu\xEDa interactiva**\nUsa `c\xF3digo` y *cursiva* en slides\n[Enlaces](https://example.com) tambi\xE9n funcionan\n:::\n```\n\n:::slide {interval="3000"}\nBienvenido a la **gu\xEDa interactiva**\nUsa `c\xF3digo` y *cursiva* en slides\n[Enlaces](https://example.com) tambi\xE9n funcionan\n:::\n\n## Velocidad personalizada\n\n```md\n:::slide {interval="3500" speed="800"}\nDiapositiva lenta\nTransici\xF3n suave\nEfecto elegante\n:::\n```\n\n:::slide {interval="3500" speed="800"}\nDiapositiva lenta\nTransici\xF3n suave\nEfecto elegante\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `interval` | ms | Tiempo por diapositiva (default `3000`) |\n| `speed` | ms | Duraci\xF3n de la transici\xF3n (default `500`) |\n| `class` | texto | Clases CSS adicionales aplicadas a cada diapositiva |\n| `style` | CSS | Estilos inline en el contenedor |\n\n## Notas\n\n- Al llegar a la \xFAltima diapositiva, vuelve a la primera autom\xE1ticamente (loop).\n- Cada l\xEDnea no vac\xEDa del bloque es una diapositiva separada.\n- La altura del contenedor se adapta autom\xE1ticamente al contenido m\xE1s alto.\n- Usa `##{class="..."}` al final de una l\xEDnea para estilos individuales por diapositiva.'
     },
     {
       "id": "html-blocks",
@@ -59676,6 +59684,7 @@ window.tailwind.config = {
         {
           value: md,
           onChange: setMd,
+          tailwindCDN: true,
           guide: true,
           onConfig: () => toast("Configurar: pendiente en el test")
         }

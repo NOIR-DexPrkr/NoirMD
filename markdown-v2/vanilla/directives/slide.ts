@@ -5,7 +5,7 @@
 // ============================================================
 
 import type { DirectiveRendererFn } from './index';
-import { parseCssString } from '../../core/utils';
+import { parseCssString, extractAttributes } from '../../core/utils';
 import { applyBaseProps, parseIntProp } from '../utils';
 
 let slideCounter = 0;
@@ -51,16 +51,32 @@ const slideDirective: DirectiveRendererFn = ({
   const slideEls: HTMLElement[] = [];
   for (const line of lines) {
     const slideEl = document.createElement('div');
-    slideEl.className = `nr-slide__item ${scopeClass} ${rawClass}`.trim();
+    slideEl.className = `nr-slide__item ${scopeClass}`.trim();
     slideEl.style.display = 'flex';
     slideEl.style.alignItems = 'center';
 
+    // Parse per-line ##{class="..." id="..."} attributes
+    const { text: cleanText, classes: lineClasses, id: lineId } = extractAttributes(line);
+    if (lineId) slideEl.id = lineId;
+
+    // Merge global + per-line classes (these go on the content element, not the wrapper)
+    const allClasses = [rawClass, lineClasses].filter(Boolean).join(' ').trim();
+
     // Parse each line as markdown
-    if (renderMarkdown) {
-      const tokens = renderMarkdown(line);
+    if (allClasses && renderInline) {
+      // Use inline renderer when Tailwind classes are present.
+      // renderMarkdown wraps in <p class="md-p"> whose font-size/weight/color
+      // have higher specificity (media-query rule) than Tailwind utilities.
+      // Inline renderer gives a clean <span> where Tailwind classes take effect.
+      const contentEl = document.createElement('span');
+      contentEl.className = allClasses;
+      contentEl.appendChild(renderInline(cleanText));
+      slideEl.appendChild(contentEl);
+    } else if (renderMarkdown) {
+      const tokens = renderMarkdown(cleanText);
       slideEl.appendChild(tokens);
     } else if (renderInline) {
-      slideEl.appendChild(renderInline(line));
+      slideEl.appendChild(renderInline(cleanText));
     }
 
     track.appendChild(slideEl);
