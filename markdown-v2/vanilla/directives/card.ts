@@ -33,6 +33,22 @@ const cardDirective: DirectiveRendererFn = ({
     img.src = image;
     img.alt = title || '';
     img.className = 'nr-card__img';
+
+    // Detect tall images and enable scroll-on-hover
+    img.addEventListener('load', () => {
+      const containerWidth = imgWrap.offsetWidth;
+      const containerHeight = imgWrap.offsetHeight;
+      if (!containerWidth || !containerHeight) return;
+      const scale = containerWidth / img.naturalWidth;
+      const scaledHeight = img.naturalHeight * scale;
+
+      if (scaledHeight > containerHeight * 1.2) {
+        const scrollDist = -(scaledHeight - containerHeight);
+        imgWrap.style.setProperty('--nr-scroll-y', `${scrollDist}px`);
+        imgWrap.classList.add('nr-card__image--scrollable');
+      }
+    }, { once: true });
+
     imgWrap.appendChild(img);
     const gradient = document.createElement('div');
     gradient.className = 'nr-card__gradient';

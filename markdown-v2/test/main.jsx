@@ -2,17 +2,31 @@
 import { createRoot } from 'react-dom/client';
 import NReditor from '../react/NReditor';
 
-const SAMPLE = `# |[star]| Heading 1 con icono
-## |[star]| Heading 2 con icono
-### |[star]| Heading 3 con icono
-#### |[star]| Heading 4 con icono
-##### |[star]| Heading 5 con icono
-###### |[star]| Heading 6 con icono
+const SAMPLE = `## Card — Imagen alta con scroll on hover
 
----
+:::card {title="Imagen normal" icon="image" image="https://picsum.photos/400/200"}
 
-Párrafo con icono |[star]| inline para comparar.
+#description
+Imagen landscape — no tiene scroll.
+:::
 
+:::card {title="Imagen alta" icon="panorama" image="https://picsum.photos/400/900"}
+
+#description
+Imagen portrait — haz hover para ver la parte inferior.
+:::
+
+:::card {title="Imagen muy alta" icon="photo_size_select_large" image="https://picsum.photos/400/1200"}
+
+#description
+Scroll más largo al hacer hover.
+:::
+
+:::card-m {title="Card-M con imagen alta" icon="open_in_new" image="https://picsum.photos/400/800"}
+
+#description
+También funciona en card-m. Click abre modal.
+:::
 `;
 
 function toast(msg) {

@@ -57,6 +57,19 @@
   margin: 0;
 }
 
+/* ── Scrollable tall images on hover ── */
+.nr-card__image--scrollable .nr-card__img {
+  object-fit: unset;
+  height: auto;
+  min-height: 100%;
+  transform: translateY(0);
+  transition: transform 1.5s ease-in-out;
+}
+.nr-card:hover .nr-card__image--scrollable .nr-card__img {
+  transform: translateY(var(--nr-scroll-y));
+  transition: transform 3s ease-in-out;
+}
+
 .nr-card__gradient {
   position: absolute;
   inset: 0;

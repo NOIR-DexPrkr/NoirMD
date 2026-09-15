@@ -162,6 +162,24 @@ Las tarjetas aceptan cualquier directiva dentro.
 :::
 :::
 
+## Imágenes altas con scroll
+
+Cuando la imagen del banner es más alta que el contenedor (ratio > 1.2×), se activa automáticamente un **scroll suave al hacer hover** sobre la card. Esto permite ver la imagen completa sin necesidad de expandir la card.
+
+- **Fuera del hover**: la imagen muestra la parte superior (comportamiento normal)
+- **Al hacer hover**: la imagen se desplaza suavemente hacia abajo para mostrar la parte inferior
+- **Al salir del hover**: la imagen vuelve suavemente a la posición inicial
+
+Este comportamiento es automático — no requiere props adicionales. Solo se activa con imágenes que superen la altura del contenedor.
+
+```md
+:::card {title="Captura larga" icon="image" image="https://placehold.co/400x900"}
+
+#description
+Al hacer hover, la imagen se desplaza para mostrar su contenido completo.
+:::
+```
+
 ## Variantes
 
 Existen dos variantes de la tarjeta con comportamiento interactivo:

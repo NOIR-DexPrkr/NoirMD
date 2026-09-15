@@ -57286,6 +57286,18 @@ window.tailwind.config = {
       img.src = image;
       img.alt = title || "";
       img.className = "nr-card__img";
+      img.addEventListener("load", () => {
+        const containerWidth = imgWrap.offsetWidth;
+        const containerHeight = imgWrap.offsetHeight;
+        if (!containerWidth || !containerHeight) return;
+        const scale = containerWidth / img.naturalWidth;
+        const scaledHeight = img.naturalHeight * scale;
+        if (scaledHeight > containerHeight * 1.2) {
+          const scrollDist = -(scaledHeight - containerHeight);
+          imgWrap.style.setProperty("--nr-scroll-y", `${scrollDist}px`);
+          imgWrap.classList.add("nr-card__image--scrollable");
+        }
+      }, { once: true });
       imgWrap.appendChild(img);
       const gradient = document.createElement("div");
       gradient.className = "nr-card__gradient";
@@ -58443,7 +58455,7 @@ window.tailwind.config = {
       "title": "Card",
       "icon": "dashboard",
       "order": 1,
-      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis b\xE1sica\n\nEl slot `#description` es **obligatorio** para mostrar texto en la card:\n\n```md\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n```\n\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n\n## Con contenido markdown\n\nEl slot `#description` admite markdown completo:\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n\n## Alineaci\xF3n del grid\n\nUsa `align` para controlar la alineaci\xF3n de las tarjetas en el grid:\n\n```md\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n```\n\n> `align` solo se define en la primera card del grupo; las dem\xE1s lo ignoran.\n\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `image` | URL | Imagen de banner superior |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del grid. Solo se lee de la primera card del grupo (default `left`) |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Slots\n\n| Slot | Descripci\xF3n |\n| --- | --- |\n| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del t\xEDtulo |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n\n## Variantes\n\nExisten dos variantes de la tarjeta con comportamiento interactivo:\n\n| Directiva | Comportamiento al hacer click |\n| --- | --- |\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\n| `:::card-m` | Abre un modal con el contenido del slot `#content` |\n| `:::card-b` | Navega a la URL indicada en la prop `url` |\n\nLas tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan autom\xE1ticamente en grid. Consulta las p\xE1ginas de **Card Modal** y **Card Link** para m\xE1s detalles.\n\nDentro de un grid, las cards de una misma fila se estiran a la **misma altura** y, en las variantes interactivas (`:::card-m` y `:::card-b`), el bot\xF3n de acci\xF3n (`Abrir` / `LINK`) queda siempre **anclado abajo a la derecha**, sin importar la longitud de la descripci\xF3n.'
+      "md": '# Card\n\nLa directiva `:::card` crea una tarjeta con icono, t\xEDtulo y contenido markdown.\n\n## Sintaxis b\xE1sica\n\nEl slot `#description` es **obligatorio** para mostrar texto en la card:\n\n```md\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n```\n\n:::card {title="Mi proyecto" icon="rocket"}\n\n#description\nResumen corto del proyecto.\n\n:::\n\n## Con contenido markdown\n\nEl slot `#description` admite markdown completo:\n\n```md\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n```\n\n:::card {title="Documentaci\xF3n t\xE9cnica" icon="code"}\n\n#description\nGu\xEDa completa del motor de renderizado.\n\n- Renderizado por el mismo motor\n- Soporta `inline`, tablas y directivas\n:::\n\n## Grid autom\xE1tico\n\nLas tarjetas **consecutivas** se agrupan en una cuadr\xEDcula responsive. A\xF1ade `batch="off"` para evitarlo:\n\n```md\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n```\n\n:::card {title="HTML" icon="html"}\n\n#description\nEstructura del documento.\n:::\n:::card {title="CSS" icon="palette"}\n\n#description\nEstilos y variables.\n:::\n:::card {title="JS" icon="javascript"}\n\n#description\nInteracci\xF3n y eventos.\n:::\n\n## Alineaci\xF3n del grid\n\nUsa `align` para controlar la alineaci\xF3n de las tarjetas en el grid:\n\n```md\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n```\n\n> `align` solo se define en la primera card del grupo; las dem\xE1s lo ignoran.\n\n:::card {title="Centrada A" icon="star" align="center"}\n\n#description\nContenido.\n:::\n:::card {title="Centrada B" icon="favorite"}\n\n#description\nContenido.\n:::\n\n## Props\n\n| Prop | Tipo | Descripci\xF3n |\n| --- | --- | --- |\n| `title` | texto | T\xEDtulo de la tarjeta |\n| `icon` | nombre Material | Icono del t\xEDtulo |\n| `image` | URL | Imagen de banner superior |\n| `align` | `left` / `center` / `right` | Alineaci\xF3n del grid. Solo se lee de la primera card del grupo (default `left`) |\n| `batch` | `off` | Desactiva el agrupado en grid con las tarjetas vecinas |\n| `class` | texto | Clases CSS adicionales |\n| `style` | CSS | Estilos inline |\n\n## Slots\n\n| Slot | Descripci\xF3n |\n| --- | --- |\n| `#description` | Texto de la card. **Obligatorio** para mostrar contenido debajo del t\xEDtulo |\n\n## Anidando directivas\n\n```md\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n```\n\n:::card {title="Ejemplo anidado" icon="layers"}\n\n#description\nUna admonici\xF3n dentro de la tarjeta.\n\n:::note\nLas tarjetas aceptan cualquier directiva dentro.\n:::\n:::\n\n## Im\xE1genes altas con scroll\n\nCuando la imagen del banner es m\xE1s alta que el contenedor (ratio > 1.2\xD7), se activa autom\xE1ticamente un **scroll suave al hacer hover** sobre la card. Esto permite ver la imagen completa sin necesidad de expandir la card.\n\n- **Fuera del hover**: la imagen muestra la parte superior (comportamiento normal)\n- **Al hacer hover**: la imagen se desplaza suavemente hacia abajo para mostrar la parte inferior\n- **Al salir del hover**: la imagen vuelve suavemente a la posici\xF3n inicial\n\nEste comportamiento es autom\xE1tico \u2014 no requiere props adicionales. Solo se activa con im\xE1genes que superen la altura del contenedor.\n\n```md\n:::card {title="Captura larga" icon="image" image="https://placehold.co/400x900"}\n\n#description\nAl hacer hover, la imagen se desplaza para mostrar su contenido completo.\n:::\n```\n\n## Variantes\n\nExisten dos variantes de la tarjeta con comportamiento interactivo:\n\n| Directiva | Comportamiento al hacer click |\n| --- | --- |\n| `:::card` | Sin acci\xF3n (tarjeta est\xE1tica) |\n| `:::card-m` | Abre un modal con el contenido del slot `#content` |\n| `:::card-b` | Navega a la URL indicada en la prop `url` |\n\nLas tres variantes comparten las mismas props base (`title`, `icon`, `image`) y se agrupan autom\xE1ticamente en grid. Consulta las p\xE1ginas de **Card Modal** y **Card Link** para m\xE1s detalles.\n\nDentro de un grid, las cards de una misma fila se estiran a la **misma altura** y, en las variantes interactivas (`:::card-m` y `:::card-b`), el bot\xF3n de acci\xF3n (`Abrir` / `LINK`) queda siempre **anclado abajo a la derecha**, sin importar la longitud de la descripci\xF3n.'
     },
     {
       "id": "card-m",
@@ -59389,17 +59401,31 @@ window.tailwind.config = {
 
   // test/main.jsx
   var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
-  var SAMPLE = `# |[star]| Heading 1 con icono
-## |[star]| Heading 2 con icono
-### |[star]| Heading 3 con icono
-#### |[star]| Heading 4 con icono
-##### |[star]| Heading 5 con icono
-###### |[star]| Heading 6 con icono
+  var SAMPLE = `## Card \u2014 Imagen alta con scroll on hover
 
----
+:::card {title="Imagen normal" icon="image" image="https://picsum.photos/400/200"}
 
-P\xE1rrafo con icono |[star]| inline para comparar.
+#description
+Imagen landscape \u2014 no tiene scroll.
+:::
 
+:::card {title="Imagen alta" icon="panorama" image="https://picsum.photos/400/900"}
+
+#description
+Imagen portrait \u2014 haz hover para ver la parte inferior.
+:::
+
+:::card {title="Imagen muy alta" icon="photo_size_select_large" image="https://picsum.photos/400/1200"}
+
+#description
+Scroll m\xE1s largo al hacer hover.
+:::
+
+:::card-m {title="Card-M con imagen alta" icon="open_in_new" image="https://picsum.photos/400/800"}
+
+#description
+Tambi\xE9n funciona en card-m. Click abre modal.
+:::
 `;
   function toast(msg) {
     const el = document.getElementById("toast");
