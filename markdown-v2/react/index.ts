@@ -10,8 +10,8 @@
 export { default as NRpreviewer } from './NRpreviewer';
 export type { NRpreviewerProps } from './NRpreviewer';
 
-// ── Editor (advanced usage or direct import) ──
-export { default as NReditor, type EditorToolbarButton } from './NReditor';
+// ── Editor type (for convenience — component lives in @noirmd/previewer/editor) ──
+export type { EditorToolbarButton } from './NReditor';
 
 // ── Syntax guide (markdown-driven, generated at build time) ──
 export { default as Guide } from './Guide';
