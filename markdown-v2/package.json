@@ -84,7 +84,9 @@
     "url": "https://github.com/NOIR-DexPrkr/NoirMD/issues"
   },
   "peerDependencies": {
+    "@codemirror/autocomplete": ">=6.0.0",
     "@codemirror/language": ">=6.0.0",
+    "@codemirror/lint": ">=6.0.0",
     "@codemirror/state": ">=6.0.0",
     "@codemirror/view": ">=6.0.0",
     "@lezer/highlight": ">=1.0.0",
@@ -109,6 +111,12 @@
     "@codemirror/language": {
       "optional": true
     },
+    "@codemirror/autocomplete": {
+      "optional": true
+    },
+    "@codemirror/lint": {
+      "optional": true
+    },
     "@lezer/highlight": {
       "optional": true
     }
@@ -117,7 +125,9 @@
     "highlight.js": "^11.0.0"
   },
   "devDependencies": {
+    "@codemirror/autocomplete": "^6.20.3",
     "@codemirror/language": "^6.12.4",
+    "@codemirror/lint": "^6.9.7",
     "@codemirror/state": "^6.7.1",
     "@codemirror/view": "^6.43.6",
     "@lezer/highlight": "^1.2.3",
@@ -125,6 +135,7 @@
     "@types/react": "^18.0.0 || ^19.0.0",
     "@types/react-dom": "^19.2.4",
     "@uiw/react-codemirror": "^4.25.11",
+    "esbuild": "^0.28.2",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vue": "^3.5.40"

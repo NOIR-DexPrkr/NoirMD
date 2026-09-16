@@ -89,6 +89,8 @@ export default defineConfig([
       '@codemirror/view',
       '@codemirror/state',
       '@codemirror/language',
+      '@codemirror/autocomplete',
+      '@codemirror/lint',
       '@lezer/highlight',
     ],
     noExternal: [],

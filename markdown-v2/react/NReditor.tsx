@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CodeMirror, { ReactCodeMirrorProps } from '@uiw/react-codemirror';
-import { EditorView, Decoration, ViewPlugin, ViewUpdate, lineNumbers, keymap } from '@codemirror/view';
+import { EditorView, Decoration, ViewPlugin, ViewUpdate, lineNumbers, keymap, highlightActiveLine } from '@codemirror/view';
 import { customStreamParserV2 } from './custom-syntax';
 import { RangeSetBuilder } from '@codemirror/state';
-import { syntaxHighlighting, HighlightStyle, foldService, foldGutter, foldAll, unfoldAll } from '@codemirror/language';
+import { syntaxHighlighting, HighlightStyle, foldService, foldGutter, foldAll, unfoldAll, bracketMatching } from '@codemirror/language';
+import { autocompletion, closeBrackets } from '@codemirror/autocomplete';
 import { tags as t } from '@lezer/highlight';
 import { useDebounce } from './useDebounce';
 import { useLazyTailwindCDN } from './useTailwindCDN';
 import CustomMarkdownRenderer from './CustomMarkdownRenderer';
 import Guide from './Guide';
+import { noirmdCompletionSource } from './noirmd-completion';
+import { noirmdLinter } from './noirmd-lint';
 
 export type EditorMode = 'editor' | 'split' | 'preview';
 
@@ -601,6 +604,18 @@ const NReditor: React.FC<NReditorProps> = ({
       customEditorTheme,
       syntaxHighlighting(customSyntaxHighlighting),
       EditorView.lineWrapping,
+      // ── Editor utilities ──
+      bracketMatching(),
+      closeBrackets(),
+      highlightActiveLine(),
+      // ── Autocomplete ──
+      autocompletion({
+        override: [noirmdCompletionSource],
+        activateOnTyping: true,
+        defaultKeymap: true,
+      }),
+      // ── NoirMD-specific ──
+      noirmdLinter,
       keymap.of([
         { key: 'Ctrl-Shift-[', run: foldAll },
         { key: 'Ctrl-Shift-]', run: unfoldAll },
