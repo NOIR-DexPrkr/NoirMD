@@ -56,6 +56,7 @@ npm install @uiw/react-codemirror @codemirror/view @codemirror/state @codemirror
 - **Tailwind**: works alongside NoirMD — its class names don't conflict. The `tailwindCDN` prop is only needed for Tailwind classes authored inside markdown content; `scanTailwindCDN()` must be called after DOM mutations that add new Tailwind classes.
 - **SSR caveat**: React/Vue wrappers render on the client only (`useEffect`/`onMounted`) — server render is an empty placeholder.
 - **Editor styles**: `@noirmd/previewer/editor.css` is self-contained and uses `var(--color-*, fallback)` so the host theme wins when defined.
+- **Editor header buttons**: The `NReditor` component supports a `headerButtons` prop for adding custom buttons (with icon, label and onClick/url) to the toolbar next to the built-in "Guía" and "Configurar" buttons.
 - **Gotchas**: unclosed directives (`:::type` without closing `:::`) render as plain text; `<style>` blocks inject globally into `<head>`; directives have their own padding/borders — avoid nesting them inside flex/grid containers; consecutive `card`/`card-m`/`card-b` auto-batch into a flex-wrap row, consecutive `stat` auto-batch into a grid (use `batch="off"` to disable).
 
 ## Quick Usage

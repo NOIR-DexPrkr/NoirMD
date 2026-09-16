@@ -59229,7 +59229,8 @@ window.tailwind.config = {
     tailwindCDN = false,
     onGuide,
     onConfig,
-    guide = false
+    guide = false,
+    headerButtons
   }) => {
     const editorRef = (0, import_react7.useRef)(null);
     const [isAllFolded, setIsAllFolded] = (0, import_react7.useState)(false);
@@ -59358,7 +59359,38 @@ window.tailwind.config = {
                     /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: "Configurar" })
                   ]
                 }
-              )
+              ),
+              headerButtons && headerButtons.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+                (guide || onGuide || onConfig) && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-toolbar-divider" }),
+                headerButtons.map((btn, i) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_react7.default.Fragment, { children: [
+                  i > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "nr-toolbar-divider" }),
+                  btn.url ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                    "a",
+                    {
+                      href: btn.url,
+                      target: btn.target || "_blank",
+                      rel: "noopener noreferrer",
+                      className: "nr-toolbar-btn nr-toolbar-btn-sm",
+                      title: btn.label,
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: btn.icon }),
+                        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: btn.label })
+                      ]
+                    }
+                  ) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                    "button",
+                    {
+                      onClick: btn.onClick,
+                      className: "nr-toolbar-btn nr-toolbar-btn-sm",
+                      title: btn.label,
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "material-icons-round", children: btn.icon }),
+                        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "nr-toolbar-label", children: btn.label })
+                      ]
+                    }
+                  )
+                ] }, i))
+              ] })
             ] })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "nr-editor-body", children: [
@@ -59443,40 +59475,18 @@ Tambi\xE9n funciona en card-m. Click abre modal.
       localStorage.setItem("noirmd-test-theme", next);
       toast("Tema: " + next);
     };
+    const headerButtons = [
+      { icon: "description", label: "Ejemplo", onClick: () => {
+        setMd(SAMPLE);
+        toast("Ejemplo cargado");
+      } },
+      { icon: "delete_sweep", label: "Limpiar", onClick: () => {
+        setMd("");
+        toast("Editor vacio");
+      } },
+      { icon: "contrast", label: "Tema", onClick: toggleTheme }
+    ];
     return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("header", { className: "test-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "test-brand", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round test-logo", children: "code" }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h1", { children: "@noirmd/previewer" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("p", { children: [
-              "Test del editor ",
-              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: "NReditor" }),
-              " (CodeMirror 6 + preview vanilla)"
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "test-actions", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: () => {
-            setMd(SAMPLE);
-            toast("Ejemplo cargado");
-          }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "description" }),
-            " Ejemplo"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: () => {
-            setMd("");
-            toast("Editor vacio");
-          }, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "delete_sweep" }),
-            " Limpiar"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("button", { className: "test-btn", onClick: toggleTheme, title: "Cambiar tema", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "material-icons-round", children: "contrast" }),
-            " Tema"
-          ] })
-        ] })
-      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("main", { className: "test-main", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
         NReditor_default,
         {
@@ -59484,6 +59494,7 @@ Tambi\xE9n funciona en card-m. Click abre modal.
           onChange: setMd,
           tailwindCDN: true,
           guide: true,
+          headerButtons,
           onConfig: () => toast("Configurar: pendiente en el test")
         }
       ) }),

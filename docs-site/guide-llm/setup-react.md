@@ -103,6 +103,17 @@ so it looks the same in any host — even without Tailwind.
 | `guide` | `boolean` | — | Built-in syntax guide (opened from the toolbar) |
 | `onGuide` | `() => void` | — | Called when user clicks "Guía" (only when `guide` is disabled) |
 | `onConfig` | `() => void` | — | Called when user clicks "Configurar" (theme/metadata) |
+| `headerButtons` | `EditorToolbarButton[]` | — | Additional buttons to render in the toolbar header |
+
+#### EditorToolbarButton
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `icon` | `string` | Material icon name (e.g. 'download', 'share') |
+| `label` | `string` | Button label |
+| `onClick` | `() => void` | Click handler (mutually exclusive with `url`) |
+| `url` | `string` | URL to open (mutually exclusive with `onClick`) |
+| `target` | `string` | Link target (default: '_blank' if `url` is used) |
 
 > See [Configuración](/docs/configuracion) for the full props reference,
 > edit modes (Editor / Split / Preview) and the built-in syntax guide.

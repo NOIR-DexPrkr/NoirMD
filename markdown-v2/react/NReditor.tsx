@@ -26,6 +26,21 @@ interface NReditorProps extends ReactCodeMirrorProps {
   onConfig?: () => void;
   /** Show the built-in syntax guide (opened from the toolbar) */
   guide?: boolean;
+  /** Additional buttons to render in the toolbar header */
+  headerButtons?: EditorToolbarButton[];
+}
+
+export interface EditorToolbarButton {
+  /** Material icon name (e.g. 'download', 'share') */
+  icon: string;
+  /** Button label (text shown next to the icon) */
+  label: string;
+  /** Click handler. Mutually exclusive with `url`. */
+  onClick?: () => void;
+  /** URL to open on click. Mutually exclusive with `onClick`. */
+  url?: string;
+  /** Link target (default: '_blank' when url is used). Ignored when `onClick` is used. */
+  target?: string;
 }
 
 const customSyntaxHighlighting = HighlightStyle.define([
@@ -522,6 +537,7 @@ const NReditor: React.FC<NReditorProps> = ({
   onGuide,
   onConfig,
   guide = false,
+  headerButtons,
 }) => {
   const editorRef = useRef<EditorView | null>(null);
   const [isAllFolded, setIsAllFolded] = useState(false);
@@ -643,7 +659,7 @@ const NReditor: React.FC<NReditorProps> = ({
           </div>
         </div>
 
-        {/* Right: Guía · Configurar (optional) */}
+        {/* Right: Guía · Configurar · Custom Buttons */}
         <div className="nr-editor-toolbar-right">
           {(guide || onGuide) && (
             <button
@@ -665,6 +681,37 @@ const NReditor: React.FC<NReditorProps> = ({
               <span className="material-icons-round">tune</span>
               <span className="nr-toolbar-label">Configurar</span>
             </button>
+          )}
+          {headerButtons && headerButtons.length > 0 && (
+            <>
+              {((guide || onGuide) || onConfig) && <div className="nr-toolbar-divider" />}
+              {headerButtons.map((btn, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <div className="nr-toolbar-divider" />}
+                  {btn.url ? (
+                    <a
+                      href={btn.url}
+                      target={btn.target || '_blank'}
+                      rel="noopener noreferrer"
+                      className="nr-toolbar-btn nr-toolbar-btn-sm"
+                      title={btn.label}
+                    >
+                      <span className="material-icons-round">{btn.icon}</span>
+                      <span className="nr-toolbar-label">{btn.label}</span>
+                    </a>
+                  ) : (
+                    <button
+                      onClick={btn.onClick}
+                      className="nr-toolbar-btn nr-toolbar-btn-sm"
+                      title={btn.label}
+                    >
+                      <span className="material-icons-round">{btn.icon}</span>
+                      <span className="nr-toolbar-label">{btn.label}</span>
+                    </button>
+                  )}
+                </React.Fragment>
+              ))}
+            </>
           )}
         </div>
       </div>

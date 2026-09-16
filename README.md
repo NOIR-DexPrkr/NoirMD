@@ -118,6 +118,22 @@ function Editor() {
 }
 ```
 
+#### Custom toolbar buttons
+
+Add custom buttons (with icon, label and onClick/url) to the editor toolbar:
+
+```tsx
+import NReditor from '@noirmd/previewer/editor';
+import type { EditorToolbarButton } from '@noirmd/previewer/editor';
+
+const buttons: EditorToolbarButton[] = [
+  { icon: 'download', label: 'Exportar', onClick: () => console.log('export') },
+  { icon: 'code', label: 'GitHub', url: 'https://github.com', target: '_blank' },
+];
+
+<NReditor value={value} onChange={setValue} headerButtons={buttons} />;
+```
+
 ---
 
 ## Required: Import the CSS

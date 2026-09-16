@@ -48,35 +48,21 @@ function App() {
     toast('Tema: ' + next);
   };
 
+  const headerButtons = [
+    { icon: 'description', label: 'Ejemplo', onClick: () => { setMd(SAMPLE); toast('Ejemplo cargado'); } },
+    { icon: 'delete_sweep', label: 'Limpiar', onClick: () => { setMd(''); toast('Editor vacio'); } },
+    { icon: 'contrast', label: 'Tema', onClick: toggleTheme },
+  ];
+
   return (
     <>
-      <header className="test-header">
-        <div className="test-brand">
-          <span className="material-icons-round test-logo">code</span>
-          <div>
-            <h1>@noirmd/previewer</h1>
-            <p>Test del editor <code>NReditor</code> (CodeMirror 6 + preview vanilla)</p>
-          </div>
-        </div>
-        <div className="test-actions">
-          <button className="test-btn" onClick={() => { setMd(SAMPLE); toast('Ejemplo cargado'); }}>
-            <span className="material-icons-round">description</span> Ejemplo
-          </button>
-          <button className="test-btn" onClick={() => { setMd(''); toast('Editor vacio'); }}>
-            <span className="material-icons-round">delete_sweep</span> Limpiar
-          </button>
-          <button className="test-btn" onClick={toggleTheme} title="Cambiar tema">
-            <span className="material-icons-round">contrast</span> Tema
-          </button>
-        </div>
-      </header>
-
       <main className="test-main">
         <NReditor
           value={md}
           onChange={setMd}
           tailwindCDN
           guide
+          headerButtons={headerButtons}
           onConfig={() => toast('Configurar: pendiente en el test')}
         />
       </main>

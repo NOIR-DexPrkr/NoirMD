@@ -40,3 +40,5 @@ export {
   type DirectiveRendererFn,
   type VanillaRenderContext,
 } from './react/index';
+
+export { type EditorToolbarButton } from './react/index';
