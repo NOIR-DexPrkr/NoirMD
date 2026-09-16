@@ -1,4 +1,4 @@
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@noirmd/previewer@2.2.5'
+  - '@noirmd/previewer@2.2.5 || 2.5.0'
