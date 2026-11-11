@@ -12,7 +12,68 @@
   .nr-list { font-size: 1rem; }
 }
 
+/* Explicit list-style-type ensures bullets/numbers show even when
+   host CSS resets (such as Tailwind Preflight) set list-style: none */
+.nr-prose ul.nr-list,
+ul.nr-list {
+  list-style-type: disc;
+}
+
+.nr-prose ol.nr-list,
+ol.nr-list {
+  list-style-type: decimal;
+}
+
+/* Nested unordered lists */
+.nr-prose ul.nr-list ul.nr-list,
+ul.nr-list ul.nr-list {
+  list-style-type: circle;
+}
+
+.nr-prose ul.nr-list ul.nr-list ul.nr-list,
+ul.nr-list ul.nr-list ul.nr-list {
+  list-style-type: square;
+}
+
+/* Nested ordered lists */
+.nr-prose ol.nr-list ol.nr-list,
+ol.nr-list ol.nr-list {
+  list-style-type: lower-alpha;
+}
+
+.nr-prose ol.nr-list ol.nr-list ol.nr-list,
+ol.nr-list ol.nr-list ol.nr-list {
+  list-style-type: lower-roman;
+}
+
+/* Mixed nesting */
+.nr-prose ul.nr-list ol.nr-list,
+ul.nr-list ol.nr-list {
+  list-style-type: decimal;
+}
+
+.nr-prose ol.nr-list ul.nr-list,
+ol.nr-list ul.nr-list {
+  list-style-type: disc;
+}
+
+.nr-list .nr-list {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+}
+
 .nr-list__item {
   margin: 0.25rem 0;
   line-height: 1.625;
+}
+
+/* Task list items */
+.nr-list__item--task {
+  list-style-type: none;
+}
+
+.nr-list__checkbox {
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  accent-color: var(--nr-accent, #38bdf8);
 }

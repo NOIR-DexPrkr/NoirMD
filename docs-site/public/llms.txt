@@ -177,7 +177,7 @@ NoirMD extends standard markdown with inline formatting:
 - **Headers**: `#` through `######` with auto-generated anchor IDs
 - **Code blocks**: ` ```lang title="name" ``` ` with highlight.js
 - **Tables**: pipe-delimited with alignment (`:---`, `:---:`, `---:`)
-- **Lists**: `-`, `*`, `+`, `1.` — continuation lines via indentation
+- **Lists**: `-`, `*`, `+`, `1.` — ordered, unordered, nested, mixed, task lists (`- [ ]`, `- [x]`), continuation lines via indentation
 - **Blockquotes**: `> text` with `##{.class #id}` attributes
 - **Horizontal rules**: `---`, `___`, `***`
 - **TOC**: `[TOC]` or `[TOC2]` generates clickable table of contents

@@ -25396,7 +25396,7 @@
   // react/NReditor.tsx
   var import_react7 = __toESM(require_react(), 1);
 
-  // node_modules/.pnpm/@babel+runtime@8.0.5/node_modules/@babel/runtime/helpers/esm/extends.js
+  // node_modules/.pnpm/@babel+runtime@8.1.0/node_modules/@babel/runtime/helpers/esm/extends.js
   function _extends() {
     return _extends = Object.assign ? Object.assign.bind() : function(n) {
       for (var e = 1; e < arguments.length; e++) {
@@ -25407,7 +25407,7 @@
     }, _extends.apply(null, arguments);
   }
 
-  // node_modules/.pnpm/@babel+runtime@8.0.5/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+  // node_modules/.pnpm/@babel+runtime@8.1.0/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
   function _objectWithoutPropertiesLoose(r, e) {
     if (null == r) return {};
     var t2 = {};
@@ -25418,10 +25418,10 @@
     return t2;
   }
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/index.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/index.js
   var import_react2 = __toESM(require_react(), 1);
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/useCodeMirror.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/useCodeMirror.js
   var import_react = __toESM(require_react(), 1);
 
   // node_modules/.pnpm/@marijn+find-cluster-break@1.0.4/node_modules/@marijn/find-cluster-break/src/index.js
@@ -48816,7 +48816,7 @@
   ]);
   var oneDark = [oneDarkTheme, /* @__PURE__ */ syntaxHighlighting(oneDarkHighlightStyle)];
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/theme/light.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/theme/light.js
   var defaultLightThemeOption = EditorView.theme({
     "&": {
       backgroundColor: "#fff"
@@ -48825,7 +48825,7 @@
     dark: false
   });
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/getDefaultExtensions.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/getDefaultExtensions.js
   var getDefaultExtensions = function getDefaultExtensions2(optios) {
     if (optios === void 0) {
       optios = {};
@@ -48867,7 +48867,7 @@
     return [...getExtensions];
   };
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/utils.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/utils.js
   var getStatistics = (view) => {
     return {
       line: view.state.doc.lineAt(view.state.selection.main.from),
@@ -48885,7 +48885,7 @@
     };
   };
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/timeoutLatch.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/timeoutLatch.js
   var TimeoutLatch = class {
     constructor(callback, timeoutMS) {
       this.timeLeftMS = void 0;
@@ -48972,7 +48972,7 @@
     return globalScheduler;
   };
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/theme/dimensionTheme.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/theme/dimensionTheme.js
   var scrollerTheme = EditorView.theme({
     "& .cm-scroller": {
       height: "100% !important"
@@ -49009,7 +49009,7 @@
     return lastDimensionTheme;
   }
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/useCodeMirror.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/useCodeMirror.js
   var ExternalChange = Annotation.define();
   var TYPING_TIMOUT = 200;
   var emptyExtensions = [];
@@ -49150,7 +49150,7 @@
     };
   }
 
-  // node_modules/.pnpm/@uiw+react-codemirror@4.25._b8274498b013e58a8d381a8194ede1b3/node_modules/@uiw/react-codemirror/esm/index.js
+  // node_modules/.pnpm/@uiw+react-codemirror@4.25._37fcfdaa4aaa95bb46525d2fc3709124/node_modules/@uiw/react-codemirror/esm/index.js
   var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
   var _excluded = ["className", "value", "selection", "extensions", "onChange", "onStatistics", "onCreateEditor", "onUpdate", "autoFocus", "theme", "height", "minHeight", "maxHeight", "width", "minWidth", "maxWidth", "basicSetup", "placeholder", "indentWithTab", "editable", "readOnly", "root", "initialState"];
   var ReactCodeMirror = /* @__PURE__ */ (0, import_react2.forwardRef)((props, ref) => {
@@ -49902,18 +49902,67 @@ window.tailwind.config = {
         result.push({ type: "table", content: tableLines.join("\n") });
         continue;
       }
-      if (match = trimmed.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/)) {
+      if (/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(trimmed)) {
+        result.push({ type: "hr" });
+        i2++;
+        continue;
+      }
+      const listStartMatch = line.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+      if (listStartMatch) {
+        const baseIndent = listStartMatch[1].replace(/\t/g, "  ").length;
+        const baseIsOrdered = /^\d+\.$/.test(listStartMatch[2]);
         const listItems = [line];
         i2++;
         while (i2 < lines.length) {
           const nextLine = lines[i2];
           const nextTrimmed = nextLine.trim();
-          if (nextTrimmed.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/) || nextTrimmed === "" || nextLine.startsWith("  ")) {
-            listItems.push(nextLine);
-            i2++;
-          } else {
+          if (nextTrimmed === "") {
+            let k = i2 + 1;
+            while (k < lines.length && lines[k].trim() === "") {
+              k++;
+            }
+            if (k < lines.length) {
+              const lookaheadLine = lines[k];
+              const lookaheadTrimmed = lookaheadLine.trim();
+              if (!/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(lookaheadTrimmed)) {
+                const laMatch = lookaheadLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+                if (laMatch) {
+                  const laIndent = laMatch[1].replace(/\t/g, "  ").length;
+                  const laIsOrdered = /^\d+\.$/.test(laMatch[2]);
+                  if (laIndent > baseIndent || laIndent === baseIndent && laIsOrdered === baseIsOrdered) {
+                    listItems.push(nextLine);
+                    i2++;
+                    continue;
+                  }
+                } else if (lookaheadLine.startsWith("  ") || lookaheadLine.startsWith("	")) {
+                  listItems.push(nextLine);
+                  i2++;
+                  continue;
+                }
+              }
+            }
             break;
           }
+          if (/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(nextTrimmed)) {
+            break;
+          }
+          const nextMatch = nextLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+          if (nextMatch) {
+            const nextIndent = nextMatch[1].replace(/\t/g, "  ").length;
+            const nextIsOrdered = /^\d+\.$/.test(nextMatch[2]);
+            if (nextIndent === baseIndent && nextIsOrdered !== baseIsOrdered) {
+              break;
+            }
+            listItems.push(nextLine);
+            i2++;
+            continue;
+          }
+          if (nextLine.startsWith("  ") || nextLine.startsWith("	")) {
+            listItems.push(nextLine);
+            i2++;
+            continue;
+          }
+          break;
         }
         result.push({ type: "list", content: listItems.join("\n") });
         continue;
@@ -49928,11 +49977,6 @@ window.tailwind.config = {
         const rawQuote = quoteLines.join("\n").replace(/^>\s?/gm, "");
         const { text: text2, classes: classes2, id: id2 } = extractAttributes(rawQuote);
         result.push({ type: "blockquote", content: text2, classes: classes2 || void 0, id: id2 });
-        continue;
-      }
-      if (/^(---|___|(\*\s*){3,})\s*$/.test(trimmed)) {
-        result.push({ type: "hr" });
-        i2++;
         continue;
       }
       if (/^\[TOC\d?\]\s*$/.test(trimmed)) {
@@ -59297,29 +59341,118 @@ window.tailwind.config = {
   }
   function createList(content2, renderInline2) {
     const lines = content2.split("\n");
-    const items = [];
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      const match = line.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/);
+    const rootContainer = document.createDocumentFragment();
+    const stack = [];
+    const createListElement = (isOrdered, start) => {
+      const list = document.createElement(isOrdered ? "ol" : "ul");
+      list.className = "nr-list";
+      if (isOrdered && start && start !== "1") {
+        list.setAttribute("start", start);
+      }
+      return list;
+    };
+    const createListItem = (text) => {
+      const li = document.createElement("li");
+      li.className = "nr-list__item";
+      const taskMatch = text.match(/^\[([ xX])\]\s+(.*)$/);
+      if (taskMatch) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = taskMatch[1].toLowerCase() === "x";
+        checkbox.disabled = true;
+        checkbox.className = "nr-list__checkbox";
+        li.classList.add("nr-list__item--task");
+        li.appendChild(checkbox);
+        li.appendChild(document.createTextNode(" "));
+        li.appendChild(renderInline2(taskMatch[2]));
+      } else {
+        li.appendChild(renderInline2(text));
+      }
+      return li;
+    };
+    for (const rawLine of lines) {
+      if (!rawLine.trim()) continue;
+      const normalizedLine = rawLine.replace(/\t/g, "  ");
+      const match = normalizedLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
       if (match) {
-        items.push({ indent: match[1].length, marker: match[2], text: match[3] });
+        const indent = match[1].length;
+        const marker = match[2];
+        const text = match[3];
+        const isOrdered = /^\d+\.$/.test(marker);
+        const startNum = isOrdered ? marker.slice(0, -1) : void 0;
+        if (stack.length === 0) {
+          const listEl = createListElement(isOrdered, startNum);
+          const li = createListItem(text);
+          listEl.appendChild(li);
+          rootContainer.appendChild(listEl);
+          stack.push({ indent, isOrdered, listEl, currentLi: li });
+        } else {
+          let top2 = stack[stack.length - 1];
+          if (indent > top2.indent) {
+            const subListEl = createListElement(isOrdered, startNum);
+            const li = createListItem(text);
+            subListEl.appendChild(li);
+            if (top2.currentLi) {
+              top2.currentLi.appendChild(subListEl);
+            } else {
+              top2.listEl.appendChild(subListEl);
+            }
+            stack.push({ indent, isOrdered, listEl: subListEl, currentLi: li });
+          } else {
+            while (stack.length > 1 && indent < stack[stack.length - 1].indent) {
+              stack.pop();
+            }
+            top2 = stack[stack.length - 1];
+            if (indent > top2.indent) {
+              const subListEl = createListElement(isOrdered, startNum);
+              const li = createListItem(text);
+              subListEl.appendChild(li);
+              if (top2.currentLi) {
+                top2.currentLi.appendChild(subListEl);
+              } else {
+                top2.listEl.appendChild(subListEl);
+              }
+              stack.push({ indent, isOrdered, listEl: subListEl, currentLi: li });
+            } else if (indent === top2.indent && isOrdered === top2.isOrdered) {
+              const li = createListItem(text);
+              top2.listEl.appendChild(li);
+              top2.currentLi = li;
+            } else {
+              stack.pop();
+              const newListEl = createListElement(isOrdered, startNum);
+              const li = createListItem(text);
+              newListEl.appendChild(li);
+              if (stack.length === 0) {
+                rootContainer.appendChild(newListEl);
+              } else {
+                const parent = stack[stack.length - 1];
+                if (parent.currentLi) {
+                  parent.currentLi.appendChild(newListEl);
+                } else {
+                  parent.listEl.appendChild(newListEl);
+                }
+              }
+              stack.push({ indent, isOrdered, listEl: newListEl, currentLi: li });
+            }
+          }
+        }
+      } else {
+        if (stack.length > 0 && stack[stack.length - 1].currentLi) {
+          const currentLi = stack[stack.length - 1].currentLi;
+          currentLi.appendChild(document.createTextNode(" "));
+          currentLi.appendChild(renderInline2(rawLine.trim()));
+        }
       }
     }
-    if (items.length === 0) {
+    if (rootContainer.childNodes.length === 0) {
       const p2 = document.createElement("p");
       p2.textContent = content2;
       return p2;
     }
-    const isOrdered = /^\d+\.$/.test(items[0].marker);
-    const list = document.createElement(isOrdered ? "ol" : "ul");
-    list.className = "nr-list";
-    for (const item of items) {
-      const li = document.createElement("li");
-      li.className = "nr-list__item";
-      li.appendChild(renderInline2(item.text));
-      list.appendChild(li);
+    if (rootContainer.childNodes.length === 1 && rootContainer.firstChild instanceof HTMLElement) {
+      return rootContainer.firstChild;
     }
-    return list;
+    return rootContainer;
   }
   function createTOC(headers, renderInline2) {
     const nav2 = document.createElement("nav");
@@ -60766,7 +60899,7 @@ window.tailwind.config = {
       "title": "Listas",
       "icon": "format_list_bulleted",
       "order": 3,
-      "md": "# Listas\n\n## Lista desordenada\n\n```md\n- Elemento uno\n- Elemento dos\n- Elemento tres\n```\n\n- Elemento uno\n- Elemento dos\n- Elemento tres\n\n## Lista ordenada\n\n```md\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n```\n\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n\n## Listas anidadas\n\n```md\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n```\n\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n\n## Listas mixtas\n\n```md\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n```\n\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n\n## Notas\n\n- La anidaci\xF3n se hace con **4 espacios** (o un tabulador).\n- Los elementos de lista admiten todo el markdown: `**negrita**`, `[enlaces](#listas)`, c\xF3digo `` `inline` `` e incluso admoniciones y directivas anidadas.\n- Si un elemento contiene un p\xE1rrafo completo, a\xF1ade una l\xEDnea en blanco dentro del elemento."
+      "md": "# Listas\n\n## Lista desordenada\n\n```md\n- Elemento uno\n- Elemento dos\n- Elemento tres\n```\n\n- Elemento uno\n- Elemento dos\n- Elemento tres\n\n## Lista ordenada\n\n```md\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n```\n\n1. Primer paso\n2. Segundo paso\n3. Tercer paso\n\n## Listas anidadas\n\n```md\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n```\n\n- Frutas\n  - Manzana\n  - Pera\n- Verduras\n  1. Zanahoria\n  2. Calabac\xEDn\n- Legumbres\n\n## Listas mixtas\n\n```md\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n```\n\n- Paso uno: preparar\n  1. Cortar\n  2. Pelar\n- Paso dos: cocinar\n  - Hervir\n  - Saltear\n\n## Listas consecutivas (desordenadas y ordenadas)\n\n```md\n- Elemento desordenado 1\n- Elemento desordenado 2\n1. Primer paso numerado\n2. Segundo paso numerado\n```\n\n- Elemento desordenado 1\n- Elemento desordenado 2\n1. Primer paso numerado\n2. Segundo paso numerado\n\n## Tareas (Task lists)\n\n```md\n- [ ] Tarea pendiente\n- [x] Tarea completada\n```\n\n- [ ] Tarea pendiente\n- [x] Tarea completada\n\n## Notas\n\n- La anidaci\xF3n soporta indentaci\xF3n con 2, 3 o 4 espacios (o tabuladores).\n- Las listas consecutivas con diferente tipo de marcador (como `-` seguido de `1.`) se separan autom\xE1ticamente en bloques `<ul>` y `<ol>` propios con su estilo y numeraci\xF3n independiente.\n- Los elementos de lista admiten todo el markdown: `**negrita**`, `[enlaces](#listas)`, c\xF3digo `` `inline` `` e incluso admoniciones y directivas anidadas.\n- Si un elemento contiene un p\xE1rrafo completo, a\xF1ade una l\xEDnea en blanco dentro del elemento."
     },
     {
       "id": "tablas",
@@ -62132,6 +62265,19 @@ Scroll m\xE1s largo al hacer hover.
 #description
 Tambi\xE9n funciona en card-m. Click abre modal.
 :::
+
+## Listas y anidaci\xF3n
+
+- list
+- list 2
+1. number
+2. number 2
+
+- level 1
+   - level 2
+      - level 3
+- level 1 de nuevo
+
 `;
   function toast(msg) {
     const el = document.getElementById("toast");

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import NReditor from '../react/NReditor';
 
@@ -27,6 +27,19 @@ Scroll más largo al hacer hover.
 #description
 También funciona en card-m. Click abre modal.
 :::
+
+## Listas y anidación
+
+- list
+- list 2
+1. number
+2. number 2
+
+- level 1
+   - level 2
+      - level 3
+- level 1 de nuevo
+
 `;
 
 function toast(msg) {

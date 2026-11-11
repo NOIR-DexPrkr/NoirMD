@@ -209,24 +209,81 @@ export function parseMarkdown(markdown: string): Token[] {
       continue;
     }
 
+    // ── Horizontal rule: --- or ___ or *** ──
+    if (/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(trimmed)) {
+      result.push({ type: 'hr' });
+      i++;
+      continue;
+    }
+
     // ── List: - item or 1. item ──
-    if ((match = trimmed.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/))) {
+    const listStartMatch = line.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+    if (listStartMatch) {
+      const baseIndent = listStartMatch[1].replace(/\t/g, '  ').length;
+      const baseIsOrdered = /^\d+\.$/.test(listStartMatch[2]);
       const listItems = [line];
       i++;
+
       while (i < lines.length) {
         const nextLine = lines[i];
         const nextTrimmed = nextLine.trim();
-        if (
-          nextTrimmed.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/) ||
-          nextTrimmed === '' ||
-          nextLine.startsWith('  ')
-        ) {
-          listItems.push(nextLine);
-          i++;
-        } else {
+
+        if (nextTrimmed === '') {
+          // Lookahead: does the list continue with another item or continuation?
+          let k = i + 1;
+          while (k < lines.length && lines[k].trim() === '') {
+            k++;
+          }
+          if (k < lines.length) {
+            const lookaheadLine = lines[k];
+            const lookaheadTrimmed = lookaheadLine.trim();
+            if (!/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(lookaheadTrimmed)) {
+              const laMatch = lookaheadLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+              if (laMatch) {
+                const laIndent = laMatch[1].replace(/\t/g, '  ').length;
+                const laIsOrdered = /^\d+\.$/.test(laMatch[2]);
+                if (laIndent > baseIndent || (laIndent === baseIndent && laIsOrdered === baseIsOrdered)) {
+                  listItems.push(nextLine);
+                  i++;
+                  continue;
+                }
+              } else if (lookaheadLine.startsWith('  ') || lookaheadLine.startsWith('\t')) {
+                listItems.push(nextLine);
+                i++;
+                continue;
+              }
+            }
+          }
           break;
         }
+
+        if (/^(---|___|(\*\s*){3,}|(-\s*){3,})\s*$/.test(nextTrimmed)) {
+          break;
+        }
+
+        const nextMatch = nextLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+        if (nextMatch) {
+          const nextIndent = nextMatch[1].replace(/\t/g, '  ').length;
+          const nextIsOrdered = /^\d+\.$/.test(nextMatch[2]);
+
+          if (nextIndent === baseIndent && nextIsOrdered !== baseIsOrdered) {
+            break;
+          }
+
+          listItems.push(nextLine);
+          i++;
+          continue;
+        }
+
+        if (nextLine.startsWith('  ') || nextLine.startsWith('\t')) {
+          listItems.push(nextLine);
+          i++;
+          continue;
+        }
+
+        break;
       }
+
       result.push({ type: 'list', content: listItems.join('\n') });
       continue;
     }
@@ -242,13 +299,6 @@ export function parseMarkdown(markdown: string): Token[] {
       const rawQuote = quoteLines.join('\n').replace(/^>\s?/gm, '');
       const { text, classes, id } = extractAttributes(rawQuote);
       result.push({ type: 'blockquote', content: text, classes: classes || undefined, id });
-      continue;
-    }
-
-    // ── Horizontal rule: --- or ___ or *** ──
-    if (/^(---|___|(\*\s*){3,})\s*$/.test(trimmed)) {
-      result.push({ type: 'hr' });
-      i++;
       continue;
     }
 

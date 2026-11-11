@@ -1,6 +1,6 @@
 {
   "name": "@noirmd/previewer",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "type": "module",
   "description": "Framework-agnostic markdown renderer: one vanilla DOM engine with thin React/Vue wrappers, directives, cards, modals, and pure CSS styling",
   "main": "./dist/index.cjs",
@@ -125,6 +125,7 @@
     "highlight.js": "^11.0.0"
   },
   "devDependencies": {
+    "@babel/runtime": "^8.1.0",
     "@codemirror/autocomplete": "^6.20.3",
     "@codemirror/language": "^6.12.4",
     "@codemirror/lint": "^6.9.7",

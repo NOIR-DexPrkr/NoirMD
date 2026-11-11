@@ -68,8 +68,33 @@ order: 3
   - Hervir
   - Saltear
 
+## Listas consecutivas (desordenadas y ordenadas)
+
+```md
+- Elemento desordenado 1
+- Elemento desordenado 2
+1. Primer paso numerado
+2. Segundo paso numerado
+```
+
+- Elemento desordenado 1
+- Elemento desordenado 2
+1. Primer paso numerado
+2. Segundo paso numerado
+
+## Tareas (Task lists)
+
+```md
+- [ ] Tarea pendiente
+- [x] Tarea completada
+```
+
+- [ ] Tarea pendiente
+- [x] Tarea completada
+
 ## Notas
 
-- La anidación se hace con **4 espacios** (o un tabulador).
+- La anidación soporta indentación con 2, 3 o 4 espacios (o tabuladores).
+- Las listas consecutivas con diferente tipo de marcador (como `-` seguido de `1.`) se separan automáticamente en bloques `<ul>` y `<ol>` propios con su estilo y numeración independiente.
 - Los elementos de lista admiten todo el markdown: `**negrita**`, `[enlaces](#listas)`, código `` `inline` `` e incluso admoniciones y directivas anidadas.
 - Si un elemento contiene un párrafo completo, añade una línea en blanco dentro del elemento.

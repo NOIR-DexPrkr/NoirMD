@@ -276,42 +276,146 @@ export function createTable(
 
 // ── List ──────────────────────────────────────────────────
 
+interface ListContext {
+  indent: number;
+  isOrdered: boolean;
+  listEl: HTMLOListElement | HTMLUListElement;
+  currentLi: HTMLLIElement | null;
+}
+
 /**
- * Render a markdown list (ordered or unordered) into HTML.
+ * Render a markdown list (ordered, unordered, nested, and mixed) into HTML.
  */
 export function createList(
   content: string,
   renderInline: (text: string) => DocumentFragment,
-): HTMLElement {
+): HTMLElement | DocumentFragment {
   const lines = content.split('\n');
-  const items: { indent: number; marker: string; text: string }[] = [];
+  const rootContainer = document.createDocumentFragment();
+  const stack: ListContext[] = [];
 
-  for (const line of lines) {
-    if (!line.trim()) continue;
-    const match = line.match(/^(\s*)([-*+]|\d+\.)\s+(.+)$/);
+  const createListElement = (isOrdered: boolean, start?: string): HTMLOListElement | HTMLUListElement => {
+    const list = document.createElement(isOrdered ? 'ol' : 'ul');
+    list.className = 'nr-list';
+    if (isOrdered && start && start !== '1') {
+      list.setAttribute('start', start);
+    }
+    return list;
+  };
+
+  const createListItem = (text: string): HTMLLIElement => {
+    const li = document.createElement('li');
+    li.className = 'nr-list__item';
+
+    const taskMatch = text.match(/^\[([ xX])\]\s+(.*)$/);
+    if (taskMatch) {
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = taskMatch[1].toLowerCase() === 'x';
+      checkbox.disabled = true;
+      checkbox.className = 'nr-list__checkbox';
+      li.classList.add('nr-list__item--task');
+      li.appendChild(checkbox);
+      li.appendChild(document.createTextNode(' '));
+      li.appendChild(renderInline(taskMatch[2]));
+    } else {
+      li.appendChild(renderInline(text));
+    }
+    return li;
+  };
+
+  for (const rawLine of lines) {
+    if (!rawLine.trim()) continue;
+
+    const normalizedLine = rawLine.replace(/\t/g, '  ');
+    const match = normalizedLine.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+
     if (match) {
-      items.push({ indent: match[1].length, marker: match[2], text: match[3] });
+      const indent = match[1].length;
+      const marker = match[2];
+      const text = match[3];
+      const isOrdered = /^\d+\.$/.test(marker);
+      const startNum = isOrdered ? marker.slice(0, -1) : undefined;
+
+      if (stack.length === 0) {
+        const listEl = createListElement(isOrdered, startNum);
+        const li = createListItem(text);
+        listEl.appendChild(li);
+        rootContainer.appendChild(listEl);
+        stack.push({ indent, isOrdered, listEl, currentLi: li });
+      } else {
+        let top = stack[stack.length - 1];
+
+        if (indent > top.indent) {
+          const subListEl = createListElement(isOrdered, startNum);
+          const li = createListItem(text);
+          subListEl.appendChild(li);
+          if (top.currentLi) {
+            top.currentLi.appendChild(subListEl);
+          } else {
+            top.listEl.appendChild(subListEl);
+          }
+          stack.push({ indent, isOrdered, listEl: subListEl, currentLi: li });
+        } else {
+          while (stack.length > 1 && indent < stack[stack.length - 1].indent) {
+            stack.pop();
+          }
+          top = stack[stack.length - 1];
+
+          if (indent > top.indent) {
+            const subListEl = createListElement(isOrdered, startNum);
+            const li = createListItem(text);
+            subListEl.appendChild(li);
+            if (top.currentLi) {
+              top.currentLi.appendChild(subListEl);
+            } else {
+              top.listEl.appendChild(subListEl);
+            }
+            stack.push({ indent, isOrdered, listEl: subListEl, currentLi: li });
+          } else if (indent === top.indent && isOrdered === top.isOrdered) {
+            const li = createListItem(text);
+            top.listEl.appendChild(li);
+            top.currentLi = li;
+          } else {
+            stack.pop();
+            const newListEl = createListElement(isOrdered, startNum);
+            const li = createListItem(text);
+            newListEl.appendChild(li);
+
+            if (stack.length === 0) {
+              rootContainer.appendChild(newListEl);
+            } else {
+              const parent = stack[stack.length - 1];
+              if (parent.currentLi) {
+                parent.currentLi.appendChild(newListEl);
+              } else {
+                parent.listEl.appendChild(newListEl);
+              }
+            }
+            stack.push({ indent, isOrdered, listEl: newListEl, currentLi: li });
+          }
+        }
+      }
+    } else {
+      if (stack.length > 0 && stack[stack.length - 1].currentLi) {
+        const currentLi = stack[stack.length - 1].currentLi!;
+        currentLi.appendChild(document.createTextNode(' '));
+        currentLi.appendChild(renderInline(rawLine.trim()));
+      }
     }
   }
 
-  if (items.length === 0) {
+  if (rootContainer.childNodes.length === 0) {
     const p = document.createElement('p');
     p.textContent = content;
     return p;
   }
 
-  const isOrdered = /^\d+\.$/.test(items[0].marker);
-  const list = document.createElement(isOrdered ? 'ol' : 'ul');
-  list.className = 'nr-list';
-
-  for (const item of items) {
-    const li = document.createElement('li');
-    li.className = 'nr-list__item';
-    li.appendChild(renderInline(item.text));
-    list.appendChild(li);
+  if (rootContainer.childNodes.length === 1 && rootContainer.firstChild instanceof HTMLElement) {
+    return rootContainer.firstChild;
   }
 
-  return list;
+  return rootContainer;
 }
 
 // ── TOC (Table of Contents) ───────────────────────────────

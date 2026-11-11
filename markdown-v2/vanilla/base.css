@@ -219,6 +219,22 @@
   border-radius: 0.5rem;
 }
 
+.nr-prose ul:not(.nr-list):not([class*="nr-"]) {
+  list-style-type: disc;
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.nr-prose ol:not(.nr-list):not([class*="nr-"]) {
+  list-style-type: decimal;
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.nr-prose li:not(.nr-list__item) {
+  margin: 0.25rem 0;
+}
+
 /* ── Generic wrapper / fallbacks ─────────────────────────── */
 
 .nr-raw-html {
